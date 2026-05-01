@@ -1,0 +1,33 @@
+name: Update Rakuten Stats
+
+on:
+  schedule:
+    # Daily at 09:00 JST (UTC 00:00)
+    - cron: '0 0 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch Rakuten stats
+        run: python3 update-rakuten-stats.py
+        env:
+          RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}
+          RAKUTEN_ACCESS_KEY: ${{ secrets.RAKUTEN_ACCESS_KEY }}
+
+      - name: Commit and push if changed
+        run: |
+          if [[ -n "$(git status --porcelain rakuten-stats.json)" ]]; then
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git config user.name "github-actions[bot]"
+            git add rakuten-stats.json
+            git commit -m "chore: update rakuten stats $(date -u +%Y-%m-%d)"
+            git push
+          else
+            echo "No changes to commit."
+          fi
