@@ -29,3 +29,18 @@ https://raw.githubusercontent.com/eda0825-spec/shojiki-rakuten-stats/main/rakute
 ```bash
 RAKUTEN_APP_ID=... RAKUTEN_ACCESS_KEY=... python3 update-rakuten-stats.py
 ```
+
+## レビュー本文の収集と分析
+
+`analyze-rakuten-reviews.py` は `review.rakuten.co.jp` から全ページのレビュー本文を取得し、以下を出力する。
+
+- `rakuten-reviews.json` — 取得した全レビュー(星, 日付, タイトル, 本文, 年代/性別)
+- `rakuten-reviews-analysis.json` — 件数 / 平均 / 星分布 / 月別件数 / 年代・性別分布 / 頻出語(全体・高評価・低評価) / 各星の代表レビュー
+
+GitHub Actions(`.github/workflows/analyze-rakuten-reviews.yml`)が毎週月曜 09:30 JST に自動実行し、差分があれば自動コミットする。手動実行(`workflow_dispatch`)で対象商品パスを切り替え可能。
+
+ローカル実行:
+
+```bash
+REVIEW_ITEM_PATH=437323_10000000 python3 analyze-rakuten-reviews.py
+```
