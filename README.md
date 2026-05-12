@@ -44,3 +44,49 @@ GitHub Actions(`.github/workflows/analyze-rakuten-reviews.yml`)が毎週月曜 0
 ```bash
 REVIEW_ITEM_PATH=437323_10000000 python3 analyze-rakuten-reviews.py
 ```
+
+---
+
+# Judge.me レビュー自動返信
+
+Shopify ストア (Judge.me) に新着レビューが入ったら、Claude API で生成した **プライベート返信** (= 投稿者へメールで届く返信。ウィジェット上には表示されない) を 15 分以内に自動投稿する仕組み。
+
+## 仕組み
+
+- GitHub Actions が 15 分おきに `judgeme-auto-reply.py` を実行
+- Judge.me API (`GET /api/v1/reviews`) で最新 100 件を取得
+- `judgeme-processed.json` で処理済 ID を除外
+- 未処理レビューごとに Claude API (`claude-sonnet-4-6`) で SHOJIKI トーンの返信文を生成
+- Judge.me API (`POST /api/v1/private_replies`) で投稿
+- 1 件でも処理したら `judgeme-processed.json` を自動コミット
+
+## 必要な GitHub Secrets
+
+| Name | 取得元 |
+|---|---|
+| `JUDGE_ME_API_TOKEN` | Judge.me 管理画面 → Settings → API → Private Token |
+| `JUDGE_ME_SHOP_DOMAIN` | `xxx.myshopify.com` 形式 |
+| `ANTHROPIC_API_KEY` | https://console.anthropic.com で発行 |
+
+## 重要な前提
+
+- Judge.me 公開 API には **Private Replies のみ**実装あり。「公開返信 (ウィジェット上に表示される Store reply)」を投稿する API は存在しない。
+- 本仕組みの返信は **投稿者のメール宛にのみ届く**。ウィジェット上の星の下には何も表示されない。
+- 公開返信が必要な場合は別途 Phase 2 (Playwright で管理画面操作) として実装する。
+
+## 初回検証フロー
+
+1. `workflow_dispatch` から `dry_run=true` で実行 → 生成本文をログで確認
+2. 自分のメアドで Judge.me にテストレビュー投稿 → 15 分待ち → 返信メール受信を確認
+3. Judge.me 管理画面で該当レビューに "Private Reply" フラグがつくこと確認
+4. 同じレビュー ID で再実行しても重複 POST されないこと確認 (冪等性)
+
+## ローカル動作確認
+
+```bash
+JUDGE_ME_API_TOKEN=... \
+JUDGE_ME_SHOP_DOMAIN=xxx.myshopify.com \
+ANTHROPIC_API_KEY=sk-ant-... \
+DRY_RUN=true \
+python3 judgeme-auto-reply.py
+```
