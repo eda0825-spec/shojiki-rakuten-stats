@@ -1,15 +1,29 @@
 #!/usr/bin/env python3
 """
-Fetch the latest Rakuten review average / count for SH-J001
-and write to rakuten-stats.json.
+Fetch the latest Rakuten review average / count for SHOJIKI products
+(SH-J001 and SH-J002) and write to rakuten-stats.json.
 
 Required env vars:
   RAKUTEN_APP_ID      Application ID (UUID)
   RAKUTEN_ACCESS_KEY  Access Key (pk_...)
 
 Optional:
-  RAKUTEN_ITEM_CODE   defaults to "shojiki-official:10000000"
-  RAKUTEN_ORIGIN      defaults to "https://shojiki-store.com"
+  RAKUTEN_ITEM_CODE     SH-J001 itemCode. defaults to "shojiki-official:10000000"
+  RAKUTEN_ITEM_CODE_2   SH-J002 itemCode. e.g. "shojiki-official:XXXXXXXX"
+                        (if unset, SH-J002 is skipped)
+  RAKUTEN_ORIGIN        defaults to "https://shojiki-store.com"
+
+Output JSON shape (backward compatible):
+  {
+    "rating": <SH-J001 rating>,        # top-level kept for existing LP fetch
+    "count":  <SH-J001 count>,
+    "itemCode": <SH-J001 itemCode>,
+    "products": {
+      "sh-j001": { "rating":.., "count":.., "itemCode":".." },
+      "sh-j002": { "rating":.., "count":.., "itemCode":".." }
+    },
+    "updatedAt": "..."
+  }
 """
 import os
 import sys
@@ -22,6 +36,27 @@ from pathlib import Path
 API_URL = "https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20220601"
 
 
+def fetch_one(app_id, access_key, item_code, origin):
+    params = urllib.parse.urlencode({
+        "applicationId": app_id,
+        "accessKey": access_key,
+        "itemCode": item_code,
+        "format": "json",
+    })
+    req = urllib.request.Request(f"{API_URL}?{params}", headers={"Origin": origin})
+    with urllib.request.urlopen(req, timeout=20) as resp:
+        data = json.loads(resp.read())
+    items = data.get("Items", [])
+    if not items:
+        raise RuntimeError(f"no items returned for itemCode={item_code}")
+    item = items[0].get("Item", items[0])
+    return {
+        "rating": item.get("reviewAverage"),
+        "count": item.get("reviewCount"),
+        "itemCode": item.get("itemCode"),
+    }
+
+
 def main() -> int:
     app_id = os.environ.get("RAKUTEN_APP_ID")
     access_key = os.environ.get("RAKUTEN_ACCESS_KEY")
@@ -29,38 +64,61 @@ def main() -> int:
         print("ERROR: RAKUTEN_APP_ID and RAKUTEN_ACCESS_KEY must be set", file=sys.stderr)
         return 1
 
-    item_code = os.environ.get("RAKUTEN_ITEM_CODE", "shojiki-official:10000000")
     origin = os.environ.get("RAKUTEN_ORIGIN", "https://shojiki-store.com")
 
-    params = urllib.parse.urlencode({
-        "applicationId": app_id,
-        "accessKey": access_key,
-        "itemCode": item_code,
-        "format": "json",
-    })
-    url = f"{API_URL}?{params}"
-    req = urllib.request.Request(url, headers={"Origin": origin})
+    # product key -> itemCode
+    targets = {
+        "sh-j001": os.environ.get("RAKUTEN_ITEM_CODE", "shojiki-official:10000000"),
+    }
+    code2 = os.environ.get("RAKUTEN_ITEM_CODE_2")
+    if code2:
+        targets["sh-j002"] = code2
 
-    with urllib.request.urlopen(req, timeout=20) as resp:
-        data = json.loads(resp.read())
+    products = {}
+    for key, code in targets.items():
+        try:
+            products[key] = fetch_one(app_id, access_key, code, origin)
+            print(f"OK {key}: {products[key]}")
+        except Exception as e:  # noqa: BLE001
+            print(f"ERROR fetching {key} ({code}): {e}", file=sys.stderr)
+            # keep previous value (merged below); do not abort the whole run
 
-    items = data.get("Items", [])
-    if not items:
-        print(f"ERROR: no items returned for itemCode={item_code}", file=sys.stderr)
-        print(json.dumps(data, ensure_ascii=False)[:500], file=sys.stderr)
+    out_path = Path(__file__).resolve().parent / "rakuten-stats.json"
+
+    # merge with existing file so a transient failure for one product
+    # does not erase its last-known-good value
+    existing = {}
+    if out_path.exists():
+        try:
+            existing = json.loads(out_path.read_text(encoding="utf-8"))
+        except Exception:  # noqa: BLE001
+            existing = {}
+
+    merged_products = dict(existing.get("products", {}))
+    # seed sh-j001 from legacy top-level if products map was absent
+    if "sh-j001" not in merged_products and existing.get("rating") is not None:
+        merged_products["sh-j001"] = {
+            "rating": existing.get("rating"),
+            "count": existing.get("count"),
+            "itemCode": existing.get("itemCode"),
+        }
+    merged_products.update(products)
+
+    if not merged_products:
+        print("ERROR: no products fetched and no existing data", file=sys.stderr)
         return 2
 
-    item = items[0].get("Item", items[0])
+    sh1 = merged_products.get("sh-j001", {})
     out = {
-        "rating": item.get("reviewAverage"),
-        "count": item.get("reviewCount"),
-        "itemCode": item.get("itemCode"),
+        "rating": sh1.get("rating"),
+        "count": sh1.get("count"),
+        "itemCode": sh1.get("itemCode"),
+        "products": merged_products,
         "updatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
     }
 
-    out_path = Path(__file__).resolve().parent / "rakuten-stats.json"
     out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"Updated {out_path}: {out}")
+    print(f"Updated {out_path}")
     return 0
 
 
