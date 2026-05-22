@@ -7,7 +7,12 @@
       "rating": 4.55,
       "count": 896,
       "itemCode": "shojiki-official:10000000"
+    },
+    "sh-j002": {
+      "rating": 4.56,
+      "count": 135,
+      "itemCode": "shojiki-official:10000004"
     }
   },
-  "updatedAt": "2026-05-22T00:11:15Z"
+  "updatedAt": "2026-05-22T00:15:39Z"
 }
