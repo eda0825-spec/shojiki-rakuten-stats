@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SHOJIKI SH-J002 工場×日本 共有ダッシュボード</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-inner">
+    <div class="hdr-title">
+      <span class="brand">SHOJIKI</span>
+      <span class="sub" style="font-weight:600;color:var(--ink)">SH-J002</span>
+      <span class="sub">工場×日本 共有ダッシュボード / 工厂×日本 共享面板</span>
+    </div>
+    <div class="hdr-meta">
+      <span id="last-update">読込中…</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="tabs-cta" style="margin-left:0;width:100%">
+    <a href="./defects.html" class="cta-primary">＋ 不具合報告 / 报告故障</a>
+    <a href="./defects-dashboard.html" class="cta-secondary">📋 不具合一覧 / 故障一览</a>
+  </div>
+</nav>
+
+<main id="app">
+
+  <section class="stats">
+    <div class="stat">
+      <div class="stat-label">レビュー総数 / 评论总数</div>
+      <div class="stat-value" id="stat-total">—</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">平均星 / 平均星</div>
+      <div class="stat-value" id="stat-avg">—</div>
+    </div>
+    <div class="stat stat--cat cat-defect">
+      <div class="stat-label">不具合 / 故障</div>
+      <div class="stat-value" id="stat-defect">—</div>
+    </div>
+    <div class="stat stat--cat cat-improvement">
+      <div class="stat-label">改善要望 / 改善需求</div>
+      <div class="stat-value" id="stat-improvement">—</div>
+    </div>
+    <div class="stat stat--cat cat-praise">
+      <div class="stat-label">称賛 / 好评</div>
+      <div class="stat-value" id="stat-praise">—</div>
+    </div>
+    <div class="stat stat--cat cat-question">
+      <div class="stat-label">質問 / 提问</div>
+      <div class="stat-value" id="stat-question">—</div>
+    </div>
+  </section>
+
+  <section class="filters">
+    <div class="fgrp">
+      <span class="flabel">分類</span>
+      <button class="chip active" data-cat="all">全て</button>
+      <button class="chip cat-defect" data-cat="defect">不具合</button>
+      <button class="chip cat-improvement" data-cat="improvement">改善要望</button>
+      <button class="chip cat-praise" data-cat="praise">称賛</button>
+      <button class="chip cat-question" data-cat="question">質問</button>
+      <button class="chip cat-other" data-cat="other">その他</button>
+    </div>
+    <div class="fgrp">
+      <span class="flabel">深刻度</span>
+      <button class="chip active" data-sev="all">全て</button>
+      <button class="chip sev-high" data-sev="high">高</button>
+      <button class="chip sev-medium" data-sev="medium">中</button>
+      <button class="chip sev-low" data-sev="low">低</button>
+    </div>
+    <div class="fgrp">
+      <span class="flabel">星</span>
+      <button class="chip active" data-star="all">全て</button>
+      <button class="chip" data-star="1">★1</button>
+      <button class="chip" data-star="2">★2</button>
+      <button class="chip" data-star="3">★3</button>
+      <button class="chip" data-star="4">★4</button>
+      <button class="chip" data-star="5">★5</button>
+    </div>
+    <div class="fgrp fgrp--search">
+      <input type="search" id="q" placeholder="本文・要約・キーワード検索 / 搜索关键词…">
+      <span id="result-count" class="hint"></span>
+      <button id="export-csv" class="chip" title="現在のフィルタ結果を CSV ダウンロード">⬇ CSV</button>
+    </div>
+  </section>
+
+  <section id="trend" class="topics" hidden>
+    <div class="flabel">月別件数 / 月度数量 (不具合 + 改善要望)</div>
+    <canvas id="trend-chart" width="1200" height="160" style="width:100%;height:160px;display:block;margin-top:8px"></canvas>
+    <div id="trend-legend" style="font-size:11px;color:var(--ink-3);margin-top:4px"></div>
+  </section>
+
+  <section id="topics" class="topics" hidden>
+    <div class="flabel">頻出トピック / 高频话题 (クリックで絞り込み)</div>
+    <div id="topic-cloud" class="topic-cloud"></div>
+  </section>
+
+  <section id="list" class="list"></section>
+
+  <div id="empty" class="empty" hidden>
+    <p>該当するレビューがありません / 没有匹配的评论</p>
+  </div>
+
+  <div id="status" class="status">
+    <span id="status-text">データを読み込み中…</span>
+  </div>
+</main>
+
+<footer class="ftr">
+  <p>
+    SH-J002 のみ表示中 / 仅显示 SH-J002<br>
+    データソース: 楽天市場レビュー (公開ページ) ・ Claude API による要約と中国語訳
+  </p>
+  <p>
+    <a href="../FACTORY_GUIDE_ZH.md" target="_blank">📖 评论看板使用指南 (中文)</a>
+    ・
+    <a href="../FACTORY_REPORT_GUIDE_ZH.md" target="_blank">📖 故障报告指南 (中文)</a>
+    ・
+    <a href="../ENGINEER_GUIDE_JA.md" target="_blank">📘 エンジニア向けガイド</a>
+  </p>
+</footer>
+
+<script>
+window.PRODUCT = "sh-j002";
+window.PRODUCT_LABEL = "SH-J002";
+window.DEFECT_REPO = "eda0825-spec/shojiki-defects-j002";
+window.RAKUTEN_ITEM = "10000004";
+</script>
+<script src="./app.js"></script>
+</body>
+</html>

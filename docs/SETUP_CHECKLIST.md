@@ -9,11 +9,14 @@
 
 - [x] **レビュー収集パイプライン** — 日次 09:00 JST に楽天から両商品レビュー取得
 - [x] **Claude による分類・要約・中国語訳** — `categorize-reviews.py` が JP/ZH 要約と対策案を生成
-- [x] **ダッシュボード公開** — <https://eda0825-spec.github.io/shojiki-rakuten-stats/>
+- [x] **商品別サイト公開 (J001/J002 を分離)**
+  - SH-J001: <https://eda0825-spec.github.io/shojiki-rakuten-stats/j001/>
+  - SH-J002: <https://eda0825-spec.github.io/shojiki-rakuten-stats/j002/>
+  - 管理者ランディング (商品選択): <https://eda0825-spec.github.io/shojiki-rakuten-stats/>
 - [x] **defects 用 private リポ 2 つ作成** — `shojiki-defects-j001` / `shojiki-defects-j002`
 - [x] **Issue Template (中日バイリンガル)** + **26 ラベル** 配置済み
-- [x] **不具合報告フォーム** — <https://eda0825-spec.github.io/shojiki-rakuten-stats/defects.html>
-- [x] **不具合トラッカー画面** — <https://eda0825-spec.github.io/shojiki-rakuten-stats/defects-dashboard.html>
+- [x] **不具合報告フォーム** (各サイト内) — <https://.../j001/defects.html> / <https://.../j002/defects.html>
+- [x] **不具合トラッカー画面** (各サイト内) — `j001/defects-dashboard.html` / `j002/defects-dashboard.html`
 - [x] **CSV エクスポート** — ダッシュボード右上「⬇ CSV」ボタン
 - [x] **月別トレンドチャート** — 不具合+改善要望の推移
 - [x] **レビュー → Issue 起票ボタン** — 各レビューカードの「📋 Issue化」
@@ -72,15 +75,15 @@ Secrets に `LARK_APP_ID` / `LARK_APP_SECRET` / `LARK_VOC_APP_TOKEN` / `LARK_VOC
 ## 動作確認シナリオ (10分)
 
 ### A. 既存レビューが見える?
-1. <https://eda0825-spec.github.io/shojiki-rakuten-stats/> を開く
-2. 上のタブで J001 / J002 切替
-3. 「不具合」フィルタを押す → 故障報告レビューだけ表示される
-4. 「📋 Issue化」を押す → GitHub に prefill 状態の Issue 作成画面が開く
+1. <https://eda0825-spec.github.io/shojiki-rakuten-stats/j001/> を開く (J001 専用サイト)
+2. 「不具合」フィルタを押す → 故障報告レビューだけ表示される
+3. 「📋 Issue化」を押す → GitHub に prefill 状態の Issue 作成画面が開く
+4. J002 は <https://eda0825-spec.github.io/shojiki-rakuten-stats/j002/> で同様
 
 ### B. 工場側から見える?
 1. 工場メンバーに <https://eda0825-spec.github.io/shojiki-rakuten-stats/FACTORY_REPORT_GUIDE_ZH.md> を送付
 2. メンバーが GitHub アカウント作成 + コラボレーター招待を受諾
-3. <https://eda0825-spec.github.io/shojiki-rakuten-stats/defects.html> から実際に1件報告
+3. J001 工場 → `j001/defects.html`、J002 工場 → `j002/defects.html` から実際に1件報告
 4. <https://github.com/eda0825-spec/shojiki-defects-j001/issues> に Issue が立つことを確認
 5. コメントで返信 → 工場側に通知が届くことを確認
 

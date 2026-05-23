@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SHOJIKI SH-J002 不具合トラッカー / 故障追踪</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+  .tile {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+  .tile h2 { margin: 0 0 12px; font-size: 22px; letter-spacing: -0.01em; }
+  .tile .tag {
+    display: inline-block;
+    background: #1d1d1f; color: #fff;
+    padding: 3px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    margin-bottom: 8px;
+    font-weight: 600; letter-spacing: 0.05em;
+  }
+  .tile p { margin: 6px 0 14px; color: var(--ink-2); font-size: 13px; }
+  .quick-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  @media (max-width: 600px) { .quick-links { grid-template-columns: 1fr 1fr; } }
+  .quick-links a {
+    background: #f6f6f8; border: 1px solid var(--line-2);
+    padding: 8px 12px; border-radius: 8px;
+    font-size: 13px; color: var(--ink);
+    text-align: center; text-decoration: none;
+  }
+  .quick-links a:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .quick-links a .ic { margin-right: 4px; }
+  .cta-row { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .cta-row a {
+    background: var(--ink); color: #fff;
+    padding: 12px 20px; border-radius: 10px;
+    font-size: 14px; font-weight: 600;
+    text-decoration: none;
+  }
+  .cta-row a.secondary { background: #fff; color: var(--ink); border: 1px solid var(--line-2); }
+  .cta-row a:hover { opacity: 0.9; }
+  .auth-hint {
+    background: #eef6ff; border: 1px solid #b5d6ff;
+    padding: 12px 16px; border-radius: 8px;
+    font-size: 13px; color: #114178; margin-bottom: 18px;
+  }
+  .badges { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .count-pill {
+    background: #f0f0f3; border: 1px solid var(--line-2);
+    padding: 2px 10px; border-radius: 999px; font-size: 12px; color: var(--ink-2);
+  }
+  .count-pill.open { background: #eef6ff; border-color: #b5d6ff; color: #114178; }
+  .count-pill.resolved { background: #effaf0; border-color: #b9e6c0; color: #0f5c2b; }
+  .hint-private { font-size: 11px; color: var(--ink-3); margin: 8px 0 0; }
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-inner">
+    <div class="hdr-title">
+      <span class="brand">SHOJIKI</span>
+      <span class="sub" style="font-weight:600;color:var(--ink)">SH-J002</span>
+      <span class="sub">不具合トラッカー / 故障追踪</span>
+    </div>
+    <div class="hdr-meta">
+      <a href="./">← レビューダッシュボードへ / 评论看板</a>
+    </div>
+  </div>
+</header>
+
+<main id="app">
+
+  <div class="cta-row">
+    <a href="./defects.html">＋ 新規報告 / 新报告</a>
+    <a href="../FACTORY_GUIDE_ZH.md" class="secondary">📖 工場向けガイド (中文)</a>
+    <a href="../ENGINEER_GUIDE_JA.md" class="secondary">📘 エンジニア向けガイド</a>
+  </div>
+
+  <div class="auth-hint">
+    🔐 SH-J002 不具合トラッカーは <strong>private リポジトリ</strong> です。閲覧には GitHub ログイン + コラボレーター招待が必要。<br>
+    🔐 SH-J002 故障追踪是 <strong>私有库</strong>。需登录 GitHub 且被邀请为协作者才能查看。
+  </div>
+
+  <div class="tile">
+    <span class="tag">SH-J002 (軽量モデル)</span>
+    <h2>不具合 / 故障</h2>
+    <p>報告先リポジトリ: <code>shojiki-defects-j002</code></p>
+    <div class="quick-links">
+      <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues?q=is%3Aopen+sort%3Aupdated-desc" target="_blank">
+        <span class="ic">📋</span>全 Open
+      </a>
+      <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues?q=is%3Aopen+label%3A%22severity%3Ahigh%22+sort%3Aupdated-desc" target="_blank">
+        <span class="ic">🔴</span>深刻度 高
+      </a>
+      <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues?q=is%3Aopen+label%3A%22status%3Anew%22+sort%3Aupdated-desc" target="_blank">
+        <span class="ic">🆕</span>未対応
+      </a>
+      <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues?q=is%3Aopen+label%3A%22status%3Ainvestigating%22+sort%3Aupdated-desc" target="_blank">
+        <span class="ic">🔬</span>調査中
+      </a>
+      <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues?q=is%3Aopen+label%3A%22area%3Abattery%22+sort%3Aupdated-desc" target="_blank">
+        <span class="ic">🔋</span>バッテリー
+      </a>
+      <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues?q=is%3Aclosed+sort%3Aupdated-desc" target="_blank">
+        <span class="ic">✅</span>解決済み
+      </a>
+    </div>
+    <div class="badges" id="counts" hidden>
+      <span class="count-pill open">open: —</span>
+      <span class="count-pill resolved">resolved: —</span>
+    </div>
+    <p class="hint-private">📌 件数は <code>DEFECTS_SYNC_PAT</code> 設定後に表示されます / 数量在设置 PAT 后显示</p>
+  </div>
+
+  <section id="agg-section" hidden>
+    <h3 style="margin:0 0 10px;font-size:16px">最近の活動 / 最近活动</h3>
+    <div id="agg-list" class="list"></div>
+  </section>
+
+</main>
+
+<footer class="ftr">
+  <p>Issue 報告: <a href="./defects.html">フォームから</a> または GitHub Issues UI から直接</p>
+</footer>
+
+<script>
+const REPO = "eda0825-spec/shojiki-rakuten-stats";
+const BRANCH = "main";
+const PRODUCT = "sh-j002";
+
+function esc(s) {
+  return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+(async () => {
+  try {
+    const r = await fetch(`https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" })
+      .catch(() => fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" }));
+    if (!r.ok) return;
+    const data = await r.json();
+    const mine = (data.issues || []).filter(i => i.product === PRODUCT);
+    const open = mine.filter(i => i.state === "open").length;
+    const closed = mine.filter(i => i.state !== "open").length;
+    const wrap = document.getElementById("counts");
+    wrap.hidden = false;
+    wrap.innerHTML =
+      `<span class="count-pill open">open: ${open}</span>` +
+      `<span class="count-pill resolved">resolved: ${closed}</span>`;
+    document.querySelector(".hint-private")?.remove();
+    if (mine.length) {
+      const root = document.getElementById("agg-section");
+      const ul = document.getElementById("agg-list");
+      root.hidden = false;
+      ul.innerHTML = mine.slice(0, 30).map(i => `
+        <article class="card">
+          <div class="card-head">
+            <span class="badge ${i.severity === "high" ? "cat-defect" : (i.severity === "medium" ? "cat-improvement" : "cat-other")}">${esc(i.severity || "—")}</span>
+            ${(i.labels || []).filter(l => l.startsWith("status:")).map(l => `<span class="tag">${esc(l.replace("status:", ""))}</span>`).join("")}
+            ${(i.labels || []).filter(l => l.startsWith("area:")).map(l => `<span class="tag">${esc(l.replace("area:", ""))}</span>`).join("")}
+            <span class="cdate" style="margin-left:auto">${esc(i.updated_at?.slice(0,10) || "")}</span>
+          </div>
+          <div style="font-weight:600;margin-bottom:4px">
+            <a href="${esc(i.url)}" target="_blank">${esc(i.title)}</a>
+          </div>
+          <div class="cnick">#${i.number} · ${esc(i.user)} · 💬 ${i.comments || 0}</div>
+        </article>
+      `).join("");
+    }
+  } catch (e) { /* silent */ }
+})();
+</script>
+
+</body>
+</html>

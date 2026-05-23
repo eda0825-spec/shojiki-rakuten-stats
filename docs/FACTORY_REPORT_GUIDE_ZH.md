@@ -37,9 +37,11 @@
 
 ### 方法 A: 表单页面 (推荐)
 
-<https://eda0825-spec.github.io/shojiki-rakuten-stats/defects.html>
+对应产品的专用 URL:
+- SH-J001 工厂: <https://eda0825-spec.github.io/shojiki-rakuten-stats/j001/defects.html>
+- SH-J002 工厂: <https://eda0825-spec.github.io/shojiki-rakuten-stats/j002/defects.html>
 
-1. 选择产品 (SH-J001 / SH-J002)
+1. 填写表单
 2. 填写表单
    - 来源 (工厂检查 / 客户评论 等)
    - 严重度 (高 / 中 / 低)
@@ -135,14 +137,16 @@ GitHub Issue 中视频附件最大 **10MB**。超过的话:
 
 ## 看其他人提的故障
 
-<https://eda0825-spec.github.io/shojiki-rakuten-stats/defects-dashboard.html>
+- SH-J001: <https://eda0825-spec.github.io/shojiki-rakuten-stats/j001/defects-dashboard.html>
+- SH-J002: <https://eda0825-spec.github.io/shojiki-rakuten-stats/j002/defects-dashboard.html>
 
-可以看到所有产品的故障一览，按严重度/部位/状态筛选。
+可以看到对应产品的故障一览，按严重度/部位/状态筛选。
 
 ## 关于评论
 
 日本顾客在 楽天/Amazon 上对您工厂生产的产品写的评论，也有专门的看板:
-<https://eda0825-spec.github.io/shojiki-rakuten-stats/>
+- SH-J001: <https://eda0825-spec.github.io/shojiki-rakuten-stats/j001/>
+- SH-J002: <https://eda0825-spec.github.io/shojiki-rakuten-stats/j002/>
 
 AI 已经做了分类和中文翻译，可以直接阅读。
 
