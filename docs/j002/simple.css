@@ -78,6 +78,8 @@
   transition: border-color 0.15s, transform 0.15s, background 0.15s;
   text-align: left;
   width: 100%;
+  min-width: 0;          /* grid item: allow shrinking below content size (fixes overflow) */
+  overflow: hidden;      /* ellipsis works for child li's */
   font: inherit;
 }
 .cluster-card:hover {
