@@ -90,7 +90,7 @@ function joinReviewsAndCats(d) {
 
 function applyFilters(rows) {
   const q = state.q.trim().toLowerCase();
-  return rows.filter((r) => {
+  const filtered = rows.filter((r) => {
     if (state.cat !== "all" && r.category !== state.cat) return false;
     if (state.sev !== "all" && r.severity !== state.sev) return false;
     if (state.star !== "all" && String(r.rating) !== state.star) return false;
@@ -104,6 +104,33 @@ function applyFilters(rows) {
     }
     return true;
   });
+
+  // When no category filter is active, sort by priority: defects (severity high>med>low) first,
+  // then improvements (severity high>med>low), then questions, praise, other, unclassified.
+  // Within same bucket, newest date first.
+  if (state.cat === "all") {
+    const catOrder = { defect: 0, improvement: 1, question: 2, praise: 3, other: 4, unclassified: 5 };
+    const sevOrder = { high: 0, medium: 1, low: 2, "n/a": 3 };
+    filtered.sort((a, b) => {
+      const ca = catOrder[a.category] ?? 6;
+      const cb = catOrder[b.category] ?? 6;
+      if (ca !== cb) return ca - cb;
+      const sa = sevOrder[a.severity] ?? 4;
+      const sb = sevOrder[b.severity] ?? 4;
+      if (sa !== sb) return sa - sb;
+      return (b.postDate || "").localeCompare(a.postDate || "");
+    });
+  } else {
+    // Within a single category, sort by severity then date
+    const sevOrder = { high: 0, medium: 1, low: 2, "n/a": 3 };
+    filtered.sort((a, b) => {
+      const sa = sevOrder[a.severity] ?? 4;
+      const sb = sevOrder[b.severity] ?? 4;
+      if (sa !== sb) return sa - sb;
+      return (b.postDate || "").localeCompare(a.postDate || "");
+    });
+  }
+  return filtered;
 }
 
 function renderStats(d, joined) {
