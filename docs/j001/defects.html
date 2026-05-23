@@ -240,12 +240,12 @@
           <input type="file" id="file-input" accept="video/*,image/*" multiple>
           <div class="emoji">🎬</div>
           <div class="main">
-            <span class="ja-only">ここに動画・写真をドラッグ&ドロップ</span>
-            <span class="zh-only">将视频·照片拖拽到此处</span>
+            <span class="ja-only">ここに動画・写真をドラッグ&ドロップ (複数可)</span>
+            <span class="zh-only">将视频·照片拖拽到此处 (可多个)</span>
           </div>
           <div class="sub">
-            <span class="ja-only">またはクリックして選択 (最大 100MB)</span>
-            <span class="zh-only">或点击选择 (最大 100MB)</span>
+            <span class="ja-only">またはクリックして選択 (1ファイル最大 100MB ・ 複数選択可)</span>
+            <span class="zh-only">或点击选择 (单文件最大 100MB ・ 可多选)</span>
           </div>
         </div>
         <ul class="uploaded-list" id="uploaded-list"></ul>
@@ -403,8 +403,9 @@ function setupDropZone() {
 
 async function uploadFile(file) {
   const MAX = 100 * 1024 * 1024;
+  const isJa = document.body.classList.contains("lang-ja");
   if (file.size > MAX) {
-    alert((document.body.classList.contains("lang-ja") ? "ファイルが大きすぎます (100MB制限): " : "文件过大 (100MB 限制): ") + Math.round(file.size/1024/1024) + "MB");
+    alert((isJa ? "ファイルが大きすぎます (100MB制限): " : "文件过大 (100MB 限制): ") + Math.round(file.size/1024/1024) + "MB");
     return;
   }
   let pat = getPAT();
@@ -414,14 +415,12 @@ async function uploadFile(file) {
     return;
   }
 
-  const dz = document.getElementById("drop-zone");
-  dz.classList.add("uploading");
-  dz.classList.remove("success", "error");
-  const origHTML = dz.innerHTML;
-  dz.innerHTML = '<div class="emoji">⏳</div><div class="main">アップロード中... / 上传中...</div><div class="sub">' + esc(file.name) + ' (' + Math.round(file.size/1024) + 'KB)</div>';
+  // Add item with "uploading" status — multiple uploads in parallel safely tracked
+  const item = { name: file.name, size: file.size, status: "uploading", url: null, error: null };
+  uploadedItems.push(item);
+  renderUploadedList();
 
   try {
-    // Read file as base64
     const b64 = await new Promise((res, rej) => {
       const r = new FileReader();
       r.onload = () => res(r.result.split(",")[1]);
@@ -429,12 +428,10 @@ async function uploadFile(file) {
       r.readAsDataURL(file);
     });
 
-    // Generate path
     const ts = new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19);
     const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
     const path = `docs/defects-uploads/${PRODUCT}/${ts}-${safeName}`;
 
-    // Commit via GitHub API
     const resp = await fetch(`https://api.github.com/repos/${STORAGE_REPO}/contents/${path}`, {
       method: "PUT",
       headers: {
@@ -452,21 +449,13 @@ async function uploadFile(file) {
       throw new Error(`${resp.status}: ${err.slice(0, 200)}`);
     }
     const data = await resp.json();
-    const url = data.content.download_url;
-
-    uploadedItems.push({ name: file.name, url, size: file.size });
+    item.url = data.content.download_url;
+    item.status = "done";
     renderUploadedList();
-
-    dz.classList.remove("uploading");
-    dz.classList.add("success");
-    dz.innerHTML = origHTML;
-    setTimeout(() => dz.classList.remove("success"), 2000);
   } catch (e) {
-    dz.classList.remove("uploading");
-    dz.classList.add("error");
-    dz.innerHTML = '<div class="emoji">⚠️</div><div class="main">アップロード失敗 / 上传失败</div><div class="sub">' + esc(e.message) + '</div>';
-    setTimeout(() => { dz.innerHTML = origHTML; dz.classList.remove("error"); }, 5000);
-    // If 401, prompt to re-enter PAT
+    item.status = "error";
+    item.error = e.message;
+    renderUploadedList();
     if (e.message.startsWith("401")) {
       try { localStorage.removeItem(LS_PAT_KEY); } catch(_) {}
       setTimeout(openPATModal, 600);
@@ -476,15 +465,34 @@ async function uploadFile(file) {
 
 function renderUploadedList() {
   const ul = document.getElementById("uploaded-list");
-  ul.innerHTML = uploadedItems.map((u, i) => `
-    <li>
+  const isJa = document.body.classList.contains("lang-ja");
+  if (!uploadedItems.length) { ul.innerHTML = ""; return; }
+  ul.innerHTML = uploadedItems.map((u, i) => {
+    const kb = Math.round(u.size / 1024);
+    if (u.status === "uploading") {
+      return `<li>
+        <span>⏳</span>
+        <span>${esc(u.name)}</span>
+        <span style="color:var(--ink-3);font-size:11px">(${kb}KB) ${isJa ? "アップロード中…" : "上传中…"}</span>
+        <button class="copy-btn" style="background:#999;margin-left:auto" onclick="removeUpload(${i})">${isJa ? "キャンセル" : "取消"}</button>
+      </li>`;
+    }
+    if (u.status === "error") {
+      return `<li style="border:1px solid #d93b3b;background:#fff5f5">
+        <span>❌</span>
+        <span>${esc(u.name)}</span>
+        <span style="color:#d93b3b;font-size:11px">${esc(u.error || "")}</span>
+        <button class="copy-btn" style="background:#999;margin-left:auto" onclick="removeUpload(${i})">${isJa ? "削除" : "删除"}</button>
+      </li>`;
+    }
+    return `<li>
       <span>✅</span>
       <a href="${esc(u.url)}" target="_blank">${esc(u.name)}</a>
-      <span style="color:var(--ink-3);font-size:11px">(${Math.round(u.size/1024)}KB)</span>
-      <button class="copy-btn" onclick="copyURL('${esc(u.url)}')">URL コピー</button>
-      <button class="copy-btn" style="background:#999" onclick="removeUpload(${i})">削除</button>
-    </li>
-  `).join("");
+      <span style="color:var(--ink-3);font-size:11px">(${kb}KB)</span>
+      <button class="copy-btn" onclick="copyURL('${esc(u.url)}')">${isJa ? "URL" : "URL"}</button>
+      <button class="copy-btn" style="background:#999" onclick="removeUpload(${i})">${isJa ? "削除" : "删除"}</button>
+    </li>`;
+  }).join("");
 }
 function copyURL(url) {
   navigator.clipboard.writeText(url);
@@ -522,8 +530,13 @@ function submitDefect(e) {
   params.set("serial", get("serial"));
   params.set("symptom_ja", get("symptom_ja"));
   params.set("symptom_zh", get("symptom_zh"));
-  // Video URL: prefer uploaded items, fall back to manually pasted URL
-  const uploadedUrls = uploadedItems.map(u => u.url);
+  // Video URL: prefer uploaded items (done only), fall back to manually pasted URL
+  const doneUploads = uploadedItems.filter(u => u.status === "done");
+  const stillUploading = uploadedItems.filter(u => u.status === "uploading");
+  if (stillUploading.length) {
+    if (!confirm(`${stillUploading.length} 件アップロード中です。このまま投稿しますか？`)) return;
+  }
+  const uploadedUrls = doneUploads.map(u => u.url);
   const manualUrl = get("video_url");
   const videoUrl = uploadedUrls.length ? uploadedUrls.join("\n") : manualUrl;
   params.set("video_url", videoUrl);
@@ -534,8 +547,8 @@ function submitDefect(e) {
   if (areas.length) {
     extra = (extra ? extra + "\n\n" : "") + "部位: " + areas.map(a => a.split("/")[0].trim()).join(", ");
   }
-  if (uploadedItems.length) {
-    extra += "\n\n添付ファイル / 附件:\n" + uploadedItems.map(u => {
+  if (doneUploads.length) {
+    extra += "\n\n添付ファイル / 附件:\n" + doneUploads.map(u => {
       const isVideo = /\.(mp4|mov|webm|m4v|avi)$/i.test(u.name);
       const isImage = /\.(png|jpg|jpeg|gif|webp)$/i.test(u.name);
       if (isImage) return `![${u.name}](${u.url})`;
