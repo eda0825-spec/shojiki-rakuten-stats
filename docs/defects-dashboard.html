@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SHOJIKI 不具合トラッカー / 故障追踪</title>
+<link rel="stylesheet" href="./style.css">
+<style>
+  .tile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 720px) { .tile-grid { grid-template-columns: 1fr; } }
+  .tile {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .tile h2 { margin: 0 0 12px; font-size: 20px; letter-spacing: -0.01em; }
+  .tile .tag {
+    display: inline-block;
+    background: #f0f0f3;
+    color: var(--ink-2);
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+  .tile p { margin: 6px 0 14px; color: var(--ink-2); font-size: 13px; }
+
+  .quick-links { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .quick-links a {
+    background: #f6f6f8; border: 1px solid var(--line-2);
+    padding: 8px 12px; border-radius: 8px;
+    font-size: 12px; color: var(--ink);
+    text-align: center;
+  }
+  .quick-links a:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .quick-links a .ic { margin-right: 4px; }
+
+  .cta-row { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .cta-row a {
+    background: var(--ink); color: #fff;
+    padding: 12px 20px; border-radius: 10px;
+    font-size: 14px; font-weight: 600;
+    text-decoration: none;
+  }
+  .cta-row a.secondary { background: #fff; color: var(--ink); border: 1px solid var(--line-2); }
+  .cta-row a:hover { opacity: 0.9; }
+
+  .stats-row {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+    margin-bottom: 12px;
+  }
+  .stats-row .stat { padding: 10px 12px; }
+
+  .auth-hint {
+    background: #eef6ff; border: 1px solid #b5d6ff;
+    padding: 12px 16px; border-radius: 8px;
+    font-size: 13px; color: #114178; margin-bottom: 18px;
+  }
+  .badge-img { height: 20px; vertical-align: middle; }
+  .badges { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-inner">
+    <div class="hdr-title">
+      <span class="brand">SHOJIKI</span>
+      <span class="sub">不具合トラッカー / 故障追踪</span>
+    </div>
+    <div class="hdr-meta">
+      <a href="./">← レビューダッシュボードへ / 评论看板</a>
+    </div>
+  </div>
+</header>
+
+<main id="app">
+
+  <div class="cta-row">
+    <a href="./defects.html">＋ 新規報告 / 新报告</a>
+    <a href="./FACTORY_GUIDE_ZH.md" class="secondary">📖 工場向けガイド (中文)</a>
+    <a href="./ENGINEER_GUIDE_JA.md" class="secondary">📘 エンジニア向けガイド</a>
+  </div>
+
+  <div class="auth-hint">
+    🔐 不具合トラッカー (SH-J001 / SH-J002) は <strong>private リポジトリ</strong> です。
+    閲覧には GitHub にログイン済みかつコラボレーター招待が必要です。<br>
+    🔐 故障追踪 (SH-J001 / SH-J002) 是 <strong>私有库</strong>。需登录 GitHub 且被邀请为协作者才能查看。
+  </div>
+
+  <div class="tile-grid">
+
+    <div class="tile">
+      <span class="tag">SH-J001 (吸引力モデル)</span>
+      <h2>SH-J001 不具合 / 故障</h2>
+      <p>
+        報告先リポジトリ: <code>shojiki-defects-j001</code><br>
+        Issues UI で フィルタ / ラベル管理。
+      </p>
+      <div class="quick-links">
+        <a href="https://github.com/eda0825-spec/shojiki-defects-j001/issues?q=is%3Aopen+sort%3Aupdated-desc" target="_blank">
+          <span class="ic">📋</span>全 Open
+        </a>
+        <a href="https://github.com/eda0825-spec/shojiki-defects-j001/issues?q=is%3Aopen+label%3A%22severity%3Ahigh%22+sort%3Aupdated-desc" target="_blank">
+          <span class="ic">🔴</span>深刻度 高
+        </a>
+        <a href="https://github.com/eda0825-spec/shojiki-defects-j001/issues?q=is%3Aopen+label%3A%22status%3Anew%22+sort%3Aupdated-desc" target="_blank">
+          <span class="ic">🆕</span>未対応
+        </a>
+        <a href="https://github.com/eda0825-spec/shojiki-defects-j001/issues?q=is%3Aopen+label%3A%22status%3Ainvestigating%22+sort%3Aupdated-desc" target="_blank">
+          <span class="ic">🔬</span>調査中
+        </a>
+        <a href="https://github.com/eda0825-spec/shojiki-defects-j001/issues?q=is%3Aopen+label%3A%22area%3Abattery%22+sort%3Aupdated-desc" target="_blank">
+          <span class="ic">🔋</span>バッテリー
+        </a>
+        <a href="https://github.com/eda0825-spec/shojiki-defects-j001/issues?q=is%3Aclosed+sort%3Aupdated-desc" target="_blank">
+          <span class="ic">✅</span>解決済み
+        </a>
+      </div>
+      <div class="badges">
+        <a href="https://github.com/eda0825-spec/shojiki-defects-j001/issues" target="_blank">
+          <img class="badge-img" src="https://img.shields.io/github/issues/eda0825-spec/shojiki-defects-j001?label=open&color=blue" alt="open issues">
+        </a>
+        <a href="https://github.com/eda0825-spec/shojiki-defects-j001/issues?q=is%3Aclosed" target="_blank">
+          <img class="badge-img" src="https://img.shields.io/github/issues-closed/eda0825-spec/shojiki-defects-j001?label=resolved&color=green" alt="resolved">
+        </a>
+      </div>
+    </div>
+
+    <div class="tile">
+      <span class="tag">SH-J002 (軽量モデル)</span>
+      <h2>SH-J002 不具合 / 故障</h2>
+      <p>
+        報告先リポジトリ: <code>shojiki-defects-j002</code><br>
+        Issues UI で フィルタ / ラベル管理。
+      </p>
+      <div class="quick-links">
+        <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues?q=is%3Aopen+sort%3Aupdated-desc" target="_blank">
+          <span class="ic">📋</span>全 Open
+        </a>
+        <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues?q=is%3Aopen+label%3A%22severity%3Ahigh%22+sort%3Aupdated-desc" target="_blank">
+          <span class="ic">🔴</span>深刻度 高
+        </a>
+        <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues?q=is%3Aopen+label%3A%22status%3Anew%22+sort%3Aupdated-desc" target="_blank">
+          <span class="ic">🆕</span>未対応
+        </a>
+        <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues?q=is%3Aopen+label%3A%22status%3Ainvestigating%22+sort%3Aupdated-desc" target="_blank">
+          <span class="ic">🔬</span>調査中
+        </a>
+        <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues?q=is%3Aopen+label%3A%22area%3Abattery%22+sort%3Aupdated-desc" target="_blank">
+          <span class="ic">🔋</span>バッテリー
+        </a>
+        <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues?q=is%3Aclosed+sort%3Aupdated-desc" target="_blank">
+          <span class="ic">✅</span>解決済み
+        </a>
+      </div>
+      <div class="badges">
+        <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues" target="_blank">
+          <img class="badge-img" src="https://img.shields.io/github/issues/eda0825-spec/shojiki-defects-j002?label=open&color=blue" alt="open issues">
+        </a>
+        <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues?q=is%3Aclosed" target="_blank">
+          <img class="badge-img" src="https://img.shields.io/github/issues-closed/eda0825-spec/shojiki-defects-j002?label=resolved&color=green" alt="resolved">
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Aggregated open-issue feed (loaded only if user is authenticated to private repos via JSON dump committed by sync workflow) -->
+  <section id="agg-section" hidden>
+    <h3 style="margin:0 0 10px;font-size:16px">最近の活動 / 最近活动</h3>
+    <div id="agg-list" class="list"></div>
+  </section>
+
+  <details style="margin-top:24px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 18px">
+    <summary style="cursor:pointer;font-weight:600">⚙️ アグリゲートビューを有効化する手順 / 启用聚合视图</summary>
+    <div style="margin-top:12px;font-size:13px;color:var(--ink-2);line-height:1.7">
+      <p>このページで両 private リポの Issue 一覧を直接表示するには、サーバー経由の同期が必要です。手順:</p>
+      <ol style="padding-left:18px">
+        <li>GitHub Settings → Developer settings → Personal access tokens で <code>repo</code> スコープの PAT を発行</li>
+        <li><code>shojiki-rakuten-stats</code> リポの Secrets に <code>DEFECTS_SYNC_PAT</code> として追加</li>
+        <li>追加済みのワークフロー <code>sync-defects.yml</code> が日次で両リポの Issue を JSON にダンプし、<code>docs/data/defects-*.json</code> として commit</li>
+        <li>本ページがその JSON を読んで集約表示</li>
+      </ol>
+      <p>PAT 投入が済めば、次のスケジュール実行 (毎日 09:00 JST) でこの集約セクションが自動表示される。</p>
+    </div>
+  </details>
+</main>
+
+<footer class="ftr">
+  <p>
+    Issue 報告: <a href="./defects.html">フォームから</a> または GitHub Issues UI から直接<br>
+    Submit: <a href="./defects.html">via form</a> or directly in GitHub Issues
+  </p>
+</footer>
+
+<script>
+// Aggregated feed: if docs/data/defects-merged.json exists, render the most recent open issues here.
+(async () => {
+  try {
+    const r = await fetch("./data/defects-merged.json", { cache: "no-cache" });
+    if (!r.ok) return;
+    const data = await r.json();
+    const list = (data.issues || []).slice(0, 30);
+    if (!list.length) return;
+    const root = document.getElementById("agg-section");
+    const ul = document.getElementById("agg-list");
+    root.hidden = false;
+    ul.innerHTML = list.map(i => `
+      <article class="card">
+        <div class="card-head">
+          <span class="badge cat-${sevToCss(i.severity)}">${esc(i.severity || "—")}</span>
+          ${(i.labels || []).filter(l => l.startsWith("status:")).map(l => `<span class="tag">${esc(l.replace("status:", ""))}</span>`).join("")}
+          ${(i.labels || []).filter(l => l.startsWith("area:")).map(l => `<span class="tag">${esc(l.replace("area:", ""))}</span>`).join("")}
+          <span class="cdate" style="margin-left:auto">${esc(i.updated_at?.slice(0,10) || "")}</span>
+        </div>
+        <div style="font-weight:600;margin-bottom:4px">
+          <a href="${esc(i.url)}" target="_blank">${esc(i.title)}</a>
+        </div>
+        <div class="cnick">${esc(i.product)} · #${i.number} · ${esc(i.user)} · 💬 ${i.comments || 0}</div>
+      </article>
+    `).join("");
+  } catch (e) { /* silent */ }
+})();
+function esc(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+function sevToCss(s) {
+  if (!s) return "other";
+  if (s.startsWith("high") || s.includes("高")) return "defect";
+  if (s.startsWith("medium") || s.includes("中")) return "improvement";
+  return "other";
+}
+</script>
+
+</body>
+</html>

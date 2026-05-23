@@ -1,0 +1,45 @@
+name: Sync Defects from Private Repos
+
+# 両 private defect リポ (shojiki-defects-j001 / shojiki-defects-j002) の Issue を
+# JSON にダンプして docs/data/ に commit。defects-dashboard.html がこの JSON を
+# fetch して private リポ閲覧権限が無くてもアグリゲートビューを表示できる。
+#
+# 必須 Secret:
+#   DEFECTS_SYNC_PAT  GitHub PAT (Classic) with `repo` scope, または fine-grained PAT で
+#                     対象 2 リポへの Issues: read 権限
+
+on:
+  schedule:
+    - cron: '15 0 * * *'   # 09:15 JST 毎日
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Mirror issues to JSON
+        run: python3 sync-defects.py
+        env:
+          DEFECTS_SYNC_PAT: ${{ secrets.DEFECTS_SYNC_PAT }}
+        continue-on-error: true   # PAT 未設定でもワークフロー全体は失敗扱いにしない
+
+      - name: Commit and push if changed
+        run: |
+          set -e
+          if [[ -n "$(git status --porcelain docs/data/)" ]]; then
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git config user.name "github-actions[bot]"
+            git add docs/data/
+            git commit -m "chore: sync defects JSON $(date -u +%Y-%m-%d)"
+            git push
+          else
+            echo "No changes to commit."
+          fi

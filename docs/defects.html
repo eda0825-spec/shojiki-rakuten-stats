@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SHOJIKI 不具合報告 / 故障报告</title>
+<link rel="stylesheet" href="./style.css">
+<style>
+  .form-wrap { max-width: 760px; margin: 0 auto; }
+  .pick-product { display: flex; gap: 8px; margin-bottom: 16px; }
+  .pick-product button {
+    flex: 1; padding: 14px;
+    border: 2px solid var(--line-2); border-radius: 10px;
+    background: #fff; cursor: pointer;
+    font-size: 15px; font-weight: 600;
+  }
+  .pick-product button.active {
+    border-color: var(--ink); background: var(--ink); color: #fff;
+  }
+  .field { margin-bottom: 14px; }
+  .field label {
+    display: block; font-size: 12px; color: var(--ink-2);
+    margin-bottom: 4px; font-weight: 600;
+  }
+  .field label .sub { color: var(--ink-3); font-weight: 400; margin-left: 6px; }
+  .field input[type=text], .field input[type=url], .field select, .field textarea {
+    width: 100%; padding: 8px 10px;
+    border: 1px solid var(--line-2); border-radius: 6px;
+    background: #fff; font: inherit;
+  }
+  .field textarea { min-height: 90px; resize: vertical; font-family: inherit; }
+  .checks { display: flex; flex-wrap: wrap; gap: 6px 12px; }
+  .checks label {
+    font-weight: 400; font-size: 13px; display: inline-flex; align-items: center; gap: 4px;
+    background: #fff; border: 1px solid var(--line-2); padding: 4px 10px; border-radius: 999px;
+    cursor: pointer;
+  }
+  .checks label.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .checks label input { display: none; }
+  .submit {
+    background: var(--ink); color: #fff;
+    padding: 14px 24px; border: none; border-radius: 10px;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+    margin-top: 8px;
+  }
+  .submit:hover { background: #000; }
+  .note {
+    background: #fff7e6; border: 1px solid #f3d99c;
+    padding: 10px 14px; border-radius: 8px; font-size: 12px;
+    margin-bottom: 16px;
+  }
+  .video-hint { font-size: 11px; color: var(--ink-3); margin-top: 4px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 600px) { .row2 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-inner">
+    <div class="hdr-title">
+      <span class="brand">SHOJIKI</span>
+      <span class="sub">不具合報告 / 故障报告</span>
+    </div>
+    <div class="hdr-meta">
+      <a href="./">← ダッシュボードへ / 返回看板</a>
+    </div>
+  </div>
+</header>
+
+<main id="app">
+  <div class="form-wrap">
+
+    <div class="note">
+      📝 このフォームを埋めて「GitHub に投稿」を押すと、入力内容が GitHub Issue として登録されます。<br>
+      📝 填好这个表单点击"提交到 GitHub"，内容会作为 GitHub Issue 登记。<br>
+      <br>
+      <strong>初回は GitHub アカウントが必要 / 第一次需要 GitHub 账号</strong>
+      (無料 / 免费): <a href="https://github.com/signup" target="_blank">github.com/signup</a><br>
+      投稿後、画像はドラッグ&ドロップで本文に追加できます / 提交后可拖拽图片到正文。
+    </div>
+
+    <div class="pick-product" id="pick-product">
+      <button data-product="sh-j001" class="active">SH-J001</button>
+      <button data-product="sh-j002">SH-J002</button>
+    </div>
+
+    <form id="defect-form" onsubmit="return submitDefect(event)">
+
+      <div class="row2">
+        <div class="field">
+          <label>報告元 / 来源 <span class="sub">*</span></label>
+          <select name="source" required>
+            <option value="">-- 選択 / 选择 --</option>
+            <option value="工場検査 / 工厂检查">工場検査 / 工厂检查</option>
+            <option value="顧客レビュー / 客户评论">顧客レビュー / 客户评论</option>
+            <option value="サポート問い合わせ / 客服咨询">サポート問い合わせ / 客服咨询</option>
+            <option value="社内テスト / 内部测试">社内テスト / 内部测试</option>
+            <option value="その他 / 其他">その他 / 其他</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>深刻度 / 严重度 <span class="sub">*</span></label>
+          <select name="severity" required>
+            <option value="">-- 選択 / 选择 --</option>
+            <option value="高 / 高 (安全性 - 発火/感電/怪我リスク, 安全 - 起火/触电/受伤风险)">高 / 高 (安全性リスク)</option>
+            <option value="中 / 中 (基本機能停止, 基本功能停止)">中 / 中 (基本機能停止)</option>
+            <option value="低 / 低 (軽微な不便, 轻微不便)">低 / 低 (軽微)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>発生頻度 / 发生频率</label>
+          <select name="frequency">
+            <option value="不明 / 未知">不明 / 未知</option>
+            <option value="単発 / 偶发">単発 / 偶发</option>
+            <option value="散発 / 散发">散発 / 散发</option>
+            <option value="多発 / 多发">多発 / 多发</option>
+            <option value="全数 / 全部">全数 / 全部</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>関連工程 / 相关工序</label>
+          <select name="process">
+            <option value="不明 / 未知">不明 / 未知</option>
+            <option value="部品 / 零件">部品 / 零件</option>
+            <option value="組立 / 装配">組立 / 装配</option>
+            <option value="検査 / 检查">検査 / 检查</option>
+            <option value="包装 / 包装">包装 / 包装</option>
+            <option value="出荷後 / 出货后">出荷後 / 出货后</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>部位 (複数選択可) / 部位 (可多选)</label>
+        <div class="checks" id="area-checks">
+          <label><input type="checkbox" value="バッテリー / 电池">バッテリー / 电池</label>
+          <label><input type="checkbox" value="充電端子 / 充电接口">充電端子 / 充电接口</label>
+          <label><input type="checkbox" value="モーター / 电机">モーター / 电机</label>
+          <label><input type="checkbox" value="ローラー / 滚刷">ローラー / 滚刷</label>
+          <label><input type="checkbox" value="ダストカップ / 集尘杯">ダストカップ / 集尘杯</label>
+          <label><input type="checkbox" value="フィルター / 过滤器">フィルター / 过滤器</label>
+          <label><input type="checkbox" value="スタンド / 支架">スタンド / 支架</label>
+          <label><input type="checkbox" value="操作ボタン / 操作按钮">操作ボタン / 操作按钮</label>
+          <label><input type="checkbox" value="外装 / 外壳">外装 / 外壳</label>
+          <label><input type="checkbox" value="付属品 / 配件">付属品 / 配件</label>
+          <label><input type="checkbox" value="その他 / 其他">その他 / 其他</label>
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>ロット番号 / 批次号</label>
+          <input type="text" name="lot" placeholder="例 2026-W18">
+        </div>
+        <div class="field">
+          <label>シリアル番号 (任意) / 序列号 (可选)</label>
+          <input type="text" name="serial">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>症状 (日本語) <span class="sub">/ 症状 (日语) *</span></label>
+        <textarea name="symptom_ja" required placeholder="何が、いつ、どのような状況で起きるかを具体的に。"></textarea>
+      </div>
+
+      <div class="field">
+        <label>症状 (中文) <span class="sub">/ 症状 (中文)</span></label>
+        <textarea name="symptom_zh" placeholder="何时、何种情况下、发生了什么。请具体描述。"></textarea>
+      </div>
+
+      <div class="field">
+        <label>動画 URL / 视频链接</label>
+        <input type="url" name="video_url" placeholder="https://wetransfer.com/... 等">
+        <div class="video-hint">
+          ※ 10MB 以下の動画は投稿後に GitHub の本文欄にドラッグで添付できます。<br>
+          ※ 10MB 以下视频可在提交后拖拽到 GitHub 正文中。
+        </div>
+      </div>
+
+      <div class="field">
+        <label>想定原因 (任意) / 推测原因 (可选)</label>
+        <textarea name="suspected_cause" placeholder="わかれば書いてください / 知道则填写"></textarea>
+      </div>
+
+      <div class="field">
+        <label>補足 / 补充内容</label>
+        <textarea name="extra" placeholder="その他のコメント / 其他备注"></textarea>
+      </div>
+
+      <button type="submit" class="submit">GitHub に投稿 / 提交到 GitHub →</button>
+
+    </form>
+
+    <p class="hint" style="margin-top:24px;text-align:center">
+      <a href="./defects-dashboard.html">📋 投稿済みの不具合一覧を見る / 查看已提交故障一览</a>
+    </p>
+
+  </div>
+</main>
+
+<footer class="ftr">
+  <p>
+    Submitted issues go to:<br>
+    <a href="https://github.com/eda0825-spec/shojiki-defects-j001" target="_blank">shojiki-defects-j001</a>
+    ・
+    <a href="https://github.com/eda0825-spec/shojiki-defects-j002" target="_blank">shojiki-defects-j002</a>
+  </p>
+</footer>
+
+<script>
+const REPOS = {
+  "sh-j001": "eda0825-spec/shojiki-defects-j001",
+  "sh-j002": "eda0825-spec/shojiki-defects-j002",
+};
+let currentProduct = "sh-j001";
+
+document.getElementById("pick-product").addEventListener("click", (e) => {
+  const btn = e.target.closest("button");
+  if (!btn) return;
+  document.querySelectorAll("#pick-product button").forEach(b => b.classList.toggle("active", b === btn));
+  currentProduct = btn.dataset.product;
+});
+
+// chip-style checkbox UX
+document.getElementById("area-checks").addEventListener("change", (e) => {
+  const lbl = e.target.closest("label");
+  if (lbl) lbl.classList.toggle("on", e.target.checked);
+});
+
+function submitDefect(e) {
+  e.preventDefault();
+  const repo = REPOS[currentProduct];
+  const fd = new FormData(e.target);
+  const get = (k) => (fd.get(k) || "").toString().trim();
+  const areas = [...document.querySelectorAll("#area-checks input:checked")].map(c => c.value);
+
+  // title
+  const titlePrefix = currentProduct === "sh-j001" ? "[J001]" : "[J002]";
+  const sevShort = get("severity").split("/")[0].trim() || "?";
+  const ja1 = get("symptom_ja").split("\n")[0].slice(0, 40);
+  const title = `${titlePrefix} [${sevShort}] ${ja1 || "不具合報告"}`;
+
+  // map to issue form field IDs (matches defect.yml ids)
+  const params = new URLSearchParams();
+  params.set("template", "defect.yml");
+  params.set("title", title);
+  params.set("source", get("source"));
+  params.set("severity", get("severity"));
+  params.set("frequency", get("frequency"));
+  params.set("process", get("process"));
+  params.set("lot", get("lot"));
+  params.set("serial", get("serial"));
+  params.set("symptom_ja", get("symptom_ja"));
+  params.set("symptom_zh", get("symptom_zh"));
+  params.set("video_url", get("video_url"));
+  params.set("suspected_cause", get("suspected_cause"));
+  // checkbox field id "area" — GitHub forms expect each option's label as a query string with checked items;
+  // since exact pre-fill of checkbox states from URL is unreliable, we also append the list to extra.
+  let extra = get("extra");
+  if (areas.length) {
+    extra = (extra ? extra + "\n\n" : "") + "部位 / 部位: " + areas.join(", ");
+  }
+  params.set("extra", extra);
+
+  const url = `https://github.com/${repo}/issues/new?${params.toString()}`;
+  // open in new tab so the form remains in case GitHub login is needed
+  window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>
