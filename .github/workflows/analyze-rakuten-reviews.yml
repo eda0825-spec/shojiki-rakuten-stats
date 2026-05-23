@@ -1,9 +1,8 @@
-name: Analyze Rakuten Reviews
+name: Analyze Rakuten Reviews (legacy)
 
+# 旧スクリプト。新しい update-reviews.yml に役割を移譲したので schedule は無効化。
+# 必要な時だけ手動実行できるよう workflow_dispatch のみ残す。
 on:
-  schedule:
-    # Weekly: Mondays 09:30 JST (UTC Sunday 00:30)
-    - cron: '30 0 * * 1'
   workflow_dispatch:
     inputs:
       item_path:

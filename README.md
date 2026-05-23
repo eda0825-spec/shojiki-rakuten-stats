@@ -30,20 +30,77 @@ https://raw.githubusercontent.com/eda0825-spec/shojiki-rakuten-stats/main/rakute
 RAKUTEN_APP_ID=... RAKUTEN_ACCESS_KEY=... python3 update-rakuten-stats.py
 ```
 
-## レビュー本文の収集と分析
+## 工場×日本エンジニア共有ダッシュボード (NEW)
 
-`analyze-rakuten-reviews.py` は `review.rakuten.co.jp` から全ページのレビュー本文を取得し、以下を出力する。
+中国工場と日本エンジニアがレビュー由来の不具合・改善要望を共有するための
+パイプライン。`docs/` 配下のダッシュボードで両商品を切り替えて閲覧できる。
 
-- `rakuten-reviews.json` — 取得した全レビュー(星, 日付, タイトル, 本文, 年代/性別)
-- `rakuten-reviews-analysis.json` — 件数 / 平均 / 星分布 / 月別件数 / 年代・性別分布 / 頻出語(全体・高評価・低評価) / 各星の代表レビュー
+### データフロー
 
-GitHub Actions(`.github/workflows/analyze-rakuten-reviews.yml`)が毎週月曜 09:30 JST に自動実行し、差分があれば自動コミットする。手動実行(`workflow_dispatch`)で対象商品パスを切り替え可能。
+```
+[毎日 09:00 JST]
+  1) fetch-reviews.py      楽天レビュー全件取得 (J001/J002 両方、増分のみ)
+        ↓
+        reviews-sh-j001.json / reviews-sh-j002.json
+  2) categorize-reviews.py Claude API で分類+JP要約+ZH翻訳+対策案
+        ↓
+        categorized-sh-j001.json / categorized-sh-j002.json
+  3) docs/index.html       両 JSON を fetch、商品タブ/分類/星でフィルタ可能
+```
 
-ローカル実行:
+GitHub Actions: `.github/workflows/update-reviews.yml` が日次で 1→2→commit。
+docs は GitHub Pages から `https://eda0825-spec.github.io/shojiki-rakuten-stats/` で公開。
+
+### Amazon レビュー取り込み
+
+`ingest-amazon-csv.py` で Seller Central からダウンロードした CSV を
+楽天と同じ JSON 形式にマージする (Amazon SP-API がレビュー本文 API を
+提供していないため半自動)。
 
 ```bash
-REVIEW_ITEM_PATH=437323_10000000 python3 analyze-rakuten-reviews.py
+python3 ingest-amazon-csv.py --product sh-j001 --csv ./amazon-j001-may.csv
+python3 categorize-reviews.py     # マージ後に再分類すると Amazon 分も付く
 ```
+
+### Lark Base 連携 (準備中)
+
+`docs/LARK_BASE_SCHEMA.md` に Lark Base 3 ベース (J001 工場 / J002 工場 / VOC) の
+列定義。Base 作成後に下記 Secrets を追加すると `lark-push-voc.py` で
+カテゴリ済みレビューを自動 POST できる。
+
+```
+LARK_APP_ID
+LARK_APP_SECRET
+LARK_VOC_APP_TOKEN
+LARK_VOC_TABLE_ID
+```
+
+### 追加 GitHub Secrets
+
+| Name | 用途 |
+|---|---|
+| `ANTHROPIC_API_KEY` | categorize-reviews.py の分類/翻訳 (既存) |
+
+### ローカル動作確認
+
+```bash
+# 楽天レビュー取得 (両商品)
+python3 fetch-reviews.py
+
+# 1商品だけ
+REVIEW_ONLY_PRODUCT=sh-j002 python3 fetch-reviews.py
+
+# Claude で分類 (要 ANTHROPIC_API_KEY)
+ANTHROPIC_API_KEY=sk-ant-... python3 categorize-reviews.py
+```
+
+---
+
+## (旧) レビュー本文の収集と分析
+
+`analyze-rakuten-reviews.py` は古い HTML regex ベースの J001 専用スクリプト。
+`fetch-reviews.py` (新) に置き換え済み。残してあるのは後方互換のため、ワークフロー
+(`analyze-rakuten-reviews.yml`) のスケジュールは無効化済み。
 
 ---
 

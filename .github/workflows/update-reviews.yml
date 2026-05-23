@@ -1,0 +1,71 @@
+name: Update Reviews (fetch + categorize)
+
+# 楽天レビューを取得 → Claude で分類・要約・中国語翻訳 → main にコミット。
+# docs/ ディレクトリ (GitHub Pages) からこのリポの JSON を参照しているので、
+# コミットされた時点でダッシュボードが更新される。
+
+on:
+  schedule:
+    # 毎日 09:00 JST (= UTC 00:00)
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    inputs:
+      full_rescan:
+        description: 'reviews: ignore cache and refetch every page (true/false)'
+        required: false
+        default: 'false'
+      categorize_only:
+        description: 'fetchをスキップしてcategorizeだけ実行 (true/false)'
+        required: false
+        default: 'false'
+      categorize_full:
+        description: 'categorize: ignore existing and re-classify ALL (true/false)'
+        required: false
+        default: 'false'
+      max_categorize:
+        description: 'カテゴリ分類の1回あたり最大件数 (default 200)'
+        required: false
+        default: '200'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch Rakuten reviews (J001 + J002)
+        if: ${{ github.event.inputs.categorize_only != 'true' }}
+        run: python3 fetch-reviews.py
+        env:
+          REVIEW_FULL_RESCAN: ${{ github.event.inputs.full_rescan == 'true' && '1' || '0' }}
+          REVIEW_SLEEP_SEC: '1.5'
+          REVIEW_MAX_PAGES: '200'
+
+      - name: Categorize reviews via Claude API
+        run: python3 categorize-reviews.py
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: 'claude-sonnet-4-6'
+          CATEGORIZE_BATCH_SIZE: '8'
+          CATEGORIZE_MAX_REVIEWS: ${{ github.event.inputs.max_categorize || '200' }}
+          CATEGORIZE_FULL_RESCAN: ${{ github.event.inputs.categorize_full == 'true' && '1' || '0' }}
+
+      - name: Commit and push if changed
+        run: |
+          set -e
+          changed=$(git status --porcelain reviews-*.json categorized-*.json | wc -l)
+          if [ "$changed" -gt 0 ]; then
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git config user.name "github-actions[bot]"
+            git add reviews-*.json categorized-*.json
+            git commit -m "chore: update rakuten reviews + categorization $(date -u +%Y-%m-%d)"
+            git push
+          else
+            echo "No changes to commit."
+          fi
