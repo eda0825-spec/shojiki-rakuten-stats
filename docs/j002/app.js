@@ -17,7 +17,7 @@ const LS_LANG_KEY = "shojiki-dashboard-lang";
 
 const state = {
   lang: (typeof localStorage !== "undefined" && localStorage.getItem(LS_LANG_KEY)) || "ja",
-  cat: "all", sev: "all", star: "all", topic: null, q: "",
+  cat: "defect", sev: "all", star: "all", topic: null, q: "",
   cluster: null,  // selected cluster key
   data: null,
   lastFiltered: [],
@@ -371,13 +371,15 @@ function renderList(rows) {
     const sevLab = r.severity && r.severity !== "n/a" ? labels.sevLabels[r.severity] : "";
     const showJa = state.lang === "ja";
     const showZh = state.lang === "zh";
+    const removedLab = state.lang === "zh" ? "已删除" : "削除済み";
     return `
-    <article class="card" id="rev-${esc(r.id)}">
+    <article class="card ${r.removed_at ? 'card--removed' : ''}" id="rev-${esc(r.id)}">
       <div class="card-head">
         <span class="stars">${stars(r.rating)}</span>
         <span class="cdate">${esc(fmtDate(r.postDate))}</span>
         <span class="badge cat-${esc(r.category)}">${esc(catLab)}</span>
         ${sevLab ? `<span class="badge sev-${esc(r.severity)}">${esc(sevLab)}</span>` : ""}
+        ${r.removed_at ? `<span class="badge badge-removed" title="楽天から削除されました: ${esc(r.removed_at)}">🗑 ${esc(removedLab)}</span>` : ""}
         <span class="cnick">— ${esc(r.nickname || labels.poster)}</span>
         <button class="chip" style="margin-left:6px" data-escalate="${esc(r.id)}" title="${esc(labels.issueBtnTitle)}">${esc(labels.issueBtn)}</button>
       </div>

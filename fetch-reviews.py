@@ -181,26 +181,42 @@ def parse_state_summary(state: dict) -> dict:
     }
 
 
-def load_existing(path: Path) -> tuple[list[dict], set[str]]:
+def load_existing_records(path: Path) -> dict[str, dict]:
+    """Load existing reviews as a mutable dict (id -> record) so we can update
+    last_seen_at / first_seen_at / removed_at fields in-place."""
     if not path.exists():
-        return [], set()
+        return {}
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
     except Exception:
-        return [], set()
-    reviews = data.get("reviews") or []
-    return reviews, {r.get("id") for r in reviews if r.get("id")}
+        return {}
+    return {r["id"]: r for r in data.get("reviews") or [] if r.get("id")}
 
 
 def fetch_product(product: str, item_number: str, max_pages: int, sleep_sec: float, full_rescan: bool) -> dict:
+    """
+    Fetch logic preserves deleted reviews:
+    - On every run, existing JSON is loaded (never wiped, even on full_rescan).
+    - For each review encountered: set first_seen_at (if new) and last_seen_at = today.
+      Clear removed_at if it was previously marked deleted (review reappeared).
+    - In full_rescan mode: any existing review NOT seen in this fetch gets
+      removed_at = today (only if not already set). In incremental mode we
+      can NOT detect removals (we stop scanning early), so we don't mark anything.
+    """
     here = Path(__file__).resolve().parent
     out_path = here / f"reviews-{product}.json"
-    existing, existing_ids = ([], set()) if full_rescan else load_existing(out_path)
 
-    new_reviews: list[dict] = []
+    # ALWAYS load existing — preservation of deleted reviews requires it
+    existing_records: dict[str, dict] = load_existing_records(out_path)
+    existing_ids = set(existing_records.keys())
+
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    seen_this_run: set[str] = set()
+
     summary: dict = {"rating": None, "count": None}
-    stop_after_this_page = False
     consecutive_known_pages = 0  # incremental cutoff
+    new_count = 0
+    reappeared_count = 0
 
     for page in range(1, max_pages + 1):
         url = f"https://review.rakuten.co.jp/item/1/{SHOP_ID}_{item_number}/{page}.1/"
@@ -219,23 +235,38 @@ def fetch_product(product: str, item_number: str, max_pages: int, sleep_sec: flo
             print(f"INFO [{product}] page {page} empty, stopping", file=sys.stderr)
             break
 
-        page_new = [r for r in page_reviews if r["id"] not in existing_ids]
-        new_reviews.extend(page_new)
-        existing_ids.update(r["id"] for r in page_new)
+        page_new = 0
+        page_reappeared = 0
+        for r in page_reviews:
+            seen_this_run.add(r["id"])
+            if r["id"] in existing_records:
+                # update last_seen + clear removed_at (review came back / still here)
+                rec = existing_records[r["id"]]
+                rec["last_seen_at"] = today
+                if rec.pop("removed_at", None):
+                    page_reappeared += 1
+                    reappeared_count += 1
+            else:
+                # brand new review
+                r["first_seen_at"] = today
+                r["last_seen_at"] = today
+                existing_records[r["id"]] = r
+                page_new += 1
+                new_count += 1
 
         print(
-            f"[{product}] page {page}: {len(page_reviews)} found, {len(page_new)} new "
-            f"(running total new={len(new_reviews)})",
+            f"[{product}] page {page}: {len(page_reviews)} found, {page_new} new, "
+            f"{page_reappeared} reappeared (running new={new_count})",
             file=sys.stderr,
         )
 
         # Incremental stop: if NOT a full rescan and this page had zero new reviews,
         # accept after one full page of known reviews (Rakuten orders newest first).
-        if not full_rescan and len(page_new) == 0:
+        if not full_rescan and page_new == 0 and page_reappeared == 0:
             consecutive_known_pages += 1
             if consecutive_known_pages >= 1:
                 print(
-                    f"INFO [{product}] page {page} had no new reviews, stopping incremental scan",
+                    f"INFO [{product}] page {page} all known, stopping incremental scan",
                     file=sys.stderr,
                 )
                 break
@@ -243,32 +274,42 @@ def fetch_product(product: str, item_number: str, max_pages: int, sleep_sec: flo
         if page < max_pages:
             time.sleep(sleep_sec)
 
-    # Merge: new reviews go first (they're newest), then existing.
-    merged = new_reviews + existing
-    # Dedupe by id, preserve order
-    seen: set[str] = set()
-    deduped: list[dict] = []
-    for r in merged:
-        if r["id"] in seen:
-            continue
-        seen.add(r["id"])
-        deduped.append(r)
-    # Sort newest-first by postDate (None last)
-    deduped.sort(key=lambda r: (r.get("postDate") or "0000-00-00"), reverse=True)
+    # Mark removals — only possible in full_rescan (we scanned every page)
+    removed_this_run = 0
+    if full_rescan:
+        for rid, rec in existing_records.items():
+            if rid not in seen_this_run and not rec.get("removed_at"):
+                rec["removed_at"] = today
+                removed_this_run += 1
+        if removed_this_run:
+            print(f"INFO [{product}] marked {removed_this_run} review(s) as removed_at={today}", file=sys.stderr)
 
-    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    # All records (existing + new), sorted newest-first by postDate
+    all_records = list(existing_records.values())
+    all_records.sort(key=lambda r: (r.get("postDate") or "0000-00-00"), reverse=True)
+
+    now_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    active_count = sum(1 for r in all_records if not r.get("removed_at"))
+    removed_count = sum(1 for r in all_records if r.get("removed_at"))
+
     payload = {
-        "updatedAt": now,
+        "updatedAt": now_iso,
         "product": product,
         "itemNumber": item_number,
         "summary": summary,
-        "reviewsCount": len(deduped),
-        "newReviewsThisRun": len(new_reviews),
-        "reviews": deduped,
+        "reviewsCount": len(all_records),
+        "activeCount": active_count,
+        "removedCount": removed_count,
+        "newReviewsThisRun": new_count,
+        "removedThisRun": removed_this_run,
+        "reappearedThisRun": reappeared_count,
+        "fullRescan": full_rescan,
+        "reviews": all_records,
     }
     out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(
-        f"[{product}] wrote {out_path.name}: total={len(deduped)} (+{len(new_reviews)} new) "
+        f"[{product}] wrote {out_path.name}: total={len(all_records)} "
+        f"(active={active_count}, removed={removed_count}, +{new_count} new) "
         f"avg={summary.get('rating')} count={summary.get('count')}"
     )
     return payload

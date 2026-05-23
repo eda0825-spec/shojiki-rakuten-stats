@@ -298,6 +298,18 @@ body.lang-zh .sum-cell.ja { display: none; }
   border-radius: 999px;
 }
 
+/* Removed-review styling */
+.card--removed {
+  background: #fafafa;
+  opacity: 0.7;
+  border-style: dashed;
+}
+.card--removed .body { background: #f2f2f4; }
+.badge-removed {
+  background: #6b6b73;
+  color: #fff;
+}
+
 .body {
   background: #fafafa;
   border-radius: 4px;
