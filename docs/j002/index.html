@@ -4,133 +4,141 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SHOJIKI SH-J002 工場×日本 共有ダッシュボード</title>
+<title>SHOJIKI SH-J002 お客様の声</title>
 <link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="./simple.css">
 </head>
 <body class="lang-ja">
+
 <header class="hdr">
   <div class="hdr-inner">
     <div class="hdr-title">
       <span class="brand">SHOJIKI</span>
       <span class="sub" style="font-weight:600;color:var(--ink)">SH-J002</span>
-      <span class="sub ja-only">工場×日本 共有ダッシュボード</span>
-      <span class="sub zh-only">工厂×日本 共享面板</span>
+      <span class="sub ja-only">お客様の声</span>
+      <span class="sub zh-only">客户反馈</span>
     </div>
     <div class="hdr-meta">
       <div class="lang-toggle">
         <button data-lang="ja" class="active">日本語</button>
         <button data-lang="zh">中文</button>
       </div>
-      <span id="last-update">読込中…</span>
     </div>
   </div>
 </header>
 
-<nav class="tabs">
-  <div class="tabs-cta" style="margin-left:0;width:100%">
-    <a href="./defects.html" class="cta-primary"><span class="ja-only">＋ 不具合報告</span><span class="zh-only">＋ 报告故障</span></a>
-    <a href="./defects-dashboard.html" class="cta-secondary"><span class="ja-only">📋 不具合一覧</span><span class="zh-only">📋 故障一览</span></a>
-  </div>
+<nav class="page-nav">
+  <a href="./defects.html" class="nav-btn nav-btn--primary">
+    <span class="ja-only">＋ 不具合を報告</span><span class="zh-only">＋ 报告故障</span>
+  </a>
+  <a href="./defects-dashboard.html" class="nav-btn">
+    <span class="ja-only">📋 不具合一覧</span><span class="zh-only">📋 故障列表</span>
+  </a>
 </nav>
 
 <main id="app">
 
-  <section class="stats">
-    <div class="stat">
-      <div class="stat-label"><span class="ja-only">レビュー総数</span><span class="zh-only">评论总数</span></div>
-      <div class="stat-value" id="stat-total">—</div>
+  <!-- HERO STATS — 3 big numbers only -->
+  <section class="hero-stats">
+    <div class="hero-stat">
+      <div class="num" id="stat-total">—</div>
+      <div class="lbl"><span class="ja-only">レビュー</span><span class="zh-only">评论</span></div>
     </div>
-    <div class="stat">
-      <div class="stat-label"><span class="ja-only">平均星</span><span class="zh-only">平均星</span></div>
-      <div class="stat-value" id="stat-avg">—</div>
+    <div class="hero-stat hero-stat--danger">
+      <div class="num" id="stat-defect">—</div>
+      <div class="lbl"><span class="ja-only">不具合</span><span class="zh-only">故障</span></div>
     </div>
-    <div class="stat stat--cat cat-defect">
-      <div class="stat-label"><span class="ja-only">不具合</span><span class="zh-only">故障</span></div>
-      <div class="stat-value" id="stat-defect">—</div>
+    <div class="hero-stat hero-stat--warn">
+      <div class="num" id="stat-improvement">—</div>
+      <div class="lbl"><span class="ja-only">改善要望</span><span class="zh-only">改善需求</span></div>
     </div>
-    <div class="stat stat--cat cat-improvement">
-      <div class="stat-label"><span class="ja-only">改善要望</span><span class="zh-only">改善需求</span></div>
-      <div class="stat-value" id="stat-improvement">—</div>
-    </div>
-    <div class="stat stat--cat cat-praise">
-      <div class="stat-label"><span class="ja-only">称賛</span><span class="zh-only">好评</span></div>
-      <div class="stat-value" id="stat-praise">—</div>
-    </div>
-    <div class="stat stat--cat cat-question">
-      <div class="stat-label"><span class="ja-only">質問</span><span class="zh-only">提问</span></div>
-      <div class="stat-value" id="stat-question">—</div>
+    <div class="hero-stat hero-stat--ok">
+      <div class="num" id="stat-praise">—</div>
+      <div class="lbl"><span class="ja-only">称賛</span><span class="zh-only">好评</span></div>
     </div>
   </section>
 
-  <section class="filters">
-    <div class="fgrp">
-      <span class="flabel"><span class="ja-only">分類</span><span class="zh-only">分类</span></span>
-      <button class="chip active" data-cat="all"><span class="ja-only">全て</span><span class="zh-only">全部</span></button>
-      <button class="chip cat-defect" data-cat="defect"><span class="ja-only">不具合</span><span class="zh-only">故障</span></button>
-      <button class="chip cat-improvement" data-cat="improvement"><span class="ja-only">改善要望</span><span class="zh-only">改善需求</span></button>
-      <button class="chip cat-praise" data-cat="praise"><span class="ja-only">称賛</span><span class="zh-only">好评</span></button>
-      <button class="chip cat-question" data-cat="question"><span class="ja-only">質問</span><span class="zh-only">提问</span></button>
-      <button class="chip cat-other" data-cat="other"><span class="ja-only">その他</span><span class="zh-only">其他</span></button>
-    </div>
-    <div class="fgrp">
-      <span class="flabel"><span class="ja-only">深刻度</span><span class="zh-only">严重度</span></span>
-      <button class="chip active" data-sev="all"><span class="ja-only">全て</span><span class="zh-only">全部</span></button>
-      <button class="chip sev-high" data-sev="high"><span class="ja-only">高</span><span class="zh-only">高</span></button>
-      <button class="chip sev-medium" data-sev="medium"><span class="ja-only">中</span><span class="zh-only">中</span></button>
-      <button class="chip sev-low" data-sev="low"><span class="ja-only">低</span><span class="zh-only">低</span></button>
-    </div>
-    <div class="fgrp">
-      <span class="flabel"><span class="ja-only">星</span><span class="zh-only">星</span></span>
-      <button class="chip active" data-star="all"><span class="ja-only">全て</span><span class="zh-only">全部</span></button>
-      <button class="chip" data-star="1">★1</button>
-      <button class="chip" data-star="2">★2</button>
-      <button class="chip" data-star="3">★3</button>
-      <button class="chip" data-star="4">★4</button>
-      <button class="chip" data-star="5">★5</button>
-    </div>
-    <div class="fgrp fgrp--search">
-      <input type="search" id="q" data-placeholder-ja="本文・要約・キーワード検索" data-placeholder-zh="搜索本文 / 摘要 / 关键词" placeholder="本文・要約・キーワード検索">
-      <span id="result-count" class="hint"></span>
-      <button id="export-csv" class="chip" title="現在のフィルタ結果を CSV ダウンロード">⬇ CSV</button>
-    </div>
+  <!-- ISSUE CLUSTERS — main visualization -->
+  <section class="clusters" id="clusters-section">
+    <h2 class="clusters-title">
+      <span class="ja-only">🔍 主な声 (トピック別)</span>
+      <span class="zh-only">🔍 主要反馈 (按话题)</span>
+    </h2>
+    <p class="clusters-sub">
+      <span class="ja-only">不具合と改善要望が多い順 ・ クリックで該当レビューに絞り込み</span>
+      <span class="zh-only">按故障与改善需求数排序 ・ 点击筛选对应评论</span>
+    </p>
+    <div id="clusters-grid" class="clusters-grid"></div>
   </section>
 
-  <section id="trend" class="topics" hidden>
-    <div class="flabel"><span class="ja-only">月別件数 (不具合 + 改善要望)</span><span class="zh-only">月度数量 (故障 + 改善需求)</span></div>
-    <canvas id="trend-chart" width="1200" height="160" style="width:100%;height:160px;display:block;margin-top:8px"></canvas>
-    <div id="trend-legend" style="font-size:11px;color:var(--ink-3);margin-top:4px"></div>
+  <!-- SIMPLE FILTER — just 3 buttons -->
+  <section class="simple-filter">
+    <button class="big-chip active" data-cat="all"><span class="ja-only">全て</span><span class="zh-only">全部</span></button>
+    <button class="big-chip cat-defect" data-cat="defect"><span class="ja-only">不具合だけ</span><span class="zh-only">只看故障</span></button>
+    <button class="big-chip cat-improvement" data-cat="improvement"><span class="ja-only">改善要望だけ</span><span class="zh-only">只看改善需求</span></button>
+    <button class="big-chip cat-praise" data-cat="praise"><span class="ja-only">称賛だけ</span><span class="zh-only">只看好评</span></button>
+    <span id="result-count" class="hint"></span>
   </section>
 
-  <section id="topics" class="topics" hidden>
-    <div class="flabel"><span class="ja-only">頻出トピック (クリックで絞り込み)</span><span class="zh-only">高频话题 (点击筛选)</span></div>
-    <div id="topic-cloud" class="topic-cloud"></div>
-  </section>
-
+  <!-- CARDS LIST -->
   <section id="list" class="list"></section>
-
   <div id="empty" class="empty" hidden>
     <p><span class="ja-only">該当するレビューがありません</span><span class="zh-only">没有匹配的评论</span></p>
   </div>
 
+  <!-- ADVANCED (collapsed) -->
+  <details class="advanced">
+    <summary>
+      <span class="ja-only">⚙️ 詳細フィルタ / 検索 / CSV / グラフ</span>
+      <span class="zh-only">⚙️ 高级筛选 / 搜索 / CSV / 图表</span>
+    </summary>
+    <div class="advanced-body">
+
+      <div class="fgrp">
+        <span class="flabel"><span class="ja-only">深刻度</span><span class="zh-only">严重度</span></span>
+        <button class="chip active" data-sev="all"><span class="ja-only">全て</span><span class="zh-only">全部</span></button>
+        <button class="chip sev-high" data-sev="high">高</button>
+        <button class="chip sev-medium" data-sev="medium">中</button>
+        <button class="chip sev-low" data-sev="low">低</button>
+      </div>
+      <div class="fgrp">
+        <span class="flabel">★</span>
+        <button class="chip active" data-star="all"><span class="ja-only">全て</span><span class="zh-only">全部</span></button>
+        <button class="chip" data-star="1">★1</button>
+        <button class="chip" data-star="2">★2</button>
+        <button class="chip" data-star="3">★3</button>
+        <button class="chip" data-star="4">★4</button>
+        <button class="chip" data-star="5">★5</button>
+      </div>
+      <div class="fgrp fgrp--search">
+        <input type="search" id="q" data-placeholder-ja="本文・要約・キーワード検索" data-placeholder-zh="搜索本文 / 摘要 / 关键词" placeholder="本文・要約・キーワード検索">
+        <button id="export-csv" class="chip" title="CSV ダウンロード">⬇ CSV</button>
+      </div>
+
+      <section id="trend" class="topics" hidden>
+        <div class="flabel"><span class="ja-only">月別件数 (不具合 + 改善要望)</span><span class="zh-only">月度数量 (故障 + 改善需求)</span></div>
+        <canvas id="trend-chart" width="1200" height="160" style="width:100%;height:160px;display:block;margin-top:8px"></canvas>
+        <div id="trend-legend" style="font-size:11px;color:var(--ink-3);margin-top:4px"></div>
+      </section>
+
+      <section id="topics" class="topics" hidden>
+        <div class="flabel"><span class="ja-only">全トピック (クリックで絞り込み)</span><span class="zh-only">全部话题 (点击筛选)</span></div>
+        <div id="topic-cloud" class="topic-cloud"></div>
+      </section>
+
+    </div>
+  </details>
+
   <div id="status" class="status">
     <span id="status-text">読込中…</span>
   </div>
+  <p class="last-update-line" id="last-update">レビュー取得: —</p>
 </main>
 
 <footer class="ftr">
   <p>
-    <span class="ja-only">SH-J002 のみ表示中 ・ データソース: 楽天市場レビュー ・ Claude API による要約と中国語訳</span>
-    <span class="zh-only">仅显示 SH-J002 ・ 数据源: 楽天市场评论 ・ 由 Claude API 生成摘要与中文翻译</span>
-  </p>
-  <p>
-    <span class="ja-only">
-      <a href="../ENGINEER_GUIDE_JA.md" target="_blank">📘 エンジニア向けガイド</a>
-    </span>
-    <span class="zh-only">
-      <a href="../FACTORY_GUIDE_ZH.md" target="_blank">📖 评论看板指南 (中文)</a>
-      ・
-      <a href="../FACTORY_REPORT_GUIDE_ZH.md" target="_blank">📖 故障报告指南 (中文)</a>
-    </span>
+    <span class="ja-only">データソース: 楽天市場 公開レビュー / Claude AI 要約</span>
+    <span class="zh-only">数据源: 楽天市场公开评论 / Claude AI 摘要</span>
   </p>
 </footer>
 

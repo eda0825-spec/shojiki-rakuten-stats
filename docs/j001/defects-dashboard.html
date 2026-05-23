@@ -4,59 +4,59 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SHOJIKI SH-J001 不具合トラッカー / 故障追踪</title>
+<title>SHOJIKI SH-J001 不具合一覧</title>
 <link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="./simple.css">
 <style>
-  .tile {
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 18px 20px;
-    margin-bottom: 16px;
-  }
-  .tile h2 { margin: 0 0 12px; font-size: 22px; letter-spacing: -0.01em; }
-  .tile .tag {
+  .big-add {
     display: inline-block;
-    background: #1d1d1f; color: #fff;
-    padding: 3px 12px;
-    border-radius: 999px;
-    font-size: 11px;
-    margin-bottom: 8px;
-    font-weight: 600; letter-spacing: 0.05em;
-  }
-  .tile p { margin: 6px 0 14px; color: var(--ink-2); font-size: 13px; }
-  .quick-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-  @media (max-width: 600px) { .quick-links { grid-template-columns: 1fr 1fr; } }
-  .quick-links a {
-    background: #f6f6f8; border: 1px solid var(--line-2);
-    padding: 8px 12px; border-radius: 8px;
-    font-size: 13px; color: var(--ink);
-    text-align: center; text-decoration: none;
-  }
-  .quick-links a:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
-  .quick-links a .ic { margin-right: 4px; }
-  .cta-row { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
-  .cta-row a {
-    background: var(--ink); color: #fff;
-    padding: 12px 20px; border-radius: 10px;
-    font-size: 14px; font-weight: 600;
+    background: #d93b3b; color: #fff;
+    padding: 16px 28px; border-radius: 12px;
+    font-size: 16px; font-weight: 700;
     text-decoration: none;
+    margin-bottom: 24px;
   }
-  .cta-row a.secondary { background: #fff; color: var(--ink); border: 1px solid var(--line-2); }
-  .cta-row a:hover { opacity: 0.9; }
-  .auth-hint {
-    background: #eef6ff; border: 1px solid #b5d6ff;
-    padding: 12px 16px; border-radius: 8px;
-    font-size: 13px; color: #114178; margin-bottom: 18px;
+  .big-add:hover { background: #b32626; color: #fff; text-decoration: none; }
+
+  .empty-hero {
+    text-align: center; padding: 60px 20px;
+    background: #fff; border: 1px solid var(--line);
+    border-radius: 14px;
   }
-  .badges { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
-  .count-pill {
-    background: #f0f0f3; border: 1px solid var(--line-2);
-    padding: 2px 10px; border-radius: 999px; font-size: 12px; color: var(--ink-2);
+  .empty-hero .emoji { font-size: 64px; margin-bottom: 12px; }
+  .empty-hero h2 { margin: 0 0 6px; font-size: 18px; }
+  .empty-hero p { margin: 0; color: var(--ink-3); font-size: 13px; }
+
+  .issue-card {
+    background: #fff; border: 1px solid var(--line);
+    border-radius: 10px; padding: 16px 18px;
+    margin-bottom: 10px;
+    display: block; text-decoration: none; color: inherit;
   }
-  .count-pill.open { background: #eef6ff; border-color: #b5d6ff; color: #114178; }
-  .count-pill.resolved { background: #effaf0; border-color: #b9e6c0; color: #0f5c2b; }
-  .hint-private { font-size: 11px; color: var(--ink-3); margin: 8px 0 0; }
+  .issue-card:hover { border-color: var(--ink); text-decoration: none; }
+  .issue-card h3 { margin: 0 0 6px; font-size: 15px; font-weight: 600; }
+  .issue-card .meta {
+    display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+    font-size: 12px; color: var(--ink-3);
+  }
+  .issue-tag {
+    background: #f0f0f3; color: var(--ink-2);
+    padding: 2px 8px; border-radius: 999px; font-size: 11px;
+  }
+  .issue-tag.sev-high { background: #d93b3b; color: #fff; }
+  .issue-tag.sev-medium { background: #d98330; color: #fff; }
+  .issue-tag.status-open { background: #eef6ff; color: #114178; }
+  .issue-tag.status-closed { background: #effaf0; color: #0f5c2b; }
+
+  .summary-line {
+    background: #f6f6f8; padding: 12px 18px;
+    border-radius: 10px; margin-bottom: 16px;
+    display: flex; gap: 24px; flex-wrap: wrap;
+    font-size: 14px;
+  }
+  .summary-line strong { font-size: 20px; font-weight: 700; }
+  .summary-line .open strong { color: #114178; }
+  .summary-line .closed strong { color: #0f5c2b; }
 </style>
 </head>
 <body class="lang-ja">
@@ -66,82 +66,61 @@
     <div class="hdr-title">
       <span class="brand">SHOJIKI</span>
       <span class="sub" style="font-weight:600;color:var(--ink)">SH-J001</span>
-      <span class="sub ja-only">不具合トラッカー</span>
-      <span class="sub zh-only">故障追踪</span>
+      <span class="sub ja-only">不具合一覧</span>
+      <span class="sub zh-only">故障列表</span>
     </div>
     <div class="hdr-meta">
       <div class="lang-toggle">
         <button data-lang="ja" class="active">日本語</button>
         <button data-lang="zh">中文</button>
       </div>
-      <a href="./" class="ja-only">← レビューダッシュボードへ</a>
-      <a href="./" class="zh-only">← 评论看板</a>
+      <a href="./" class="ja-only">← レビューに戻る</a>
+      <a href="./" class="zh-only">← 返回评论</a>
     </div>
   </div>
 </header>
 
-<main id="app">
+<main id="app" style="max-width:920px">
 
-  <div class="cta-row">
-    <a href="./defects.html"><span class="ja-only">＋ 新規報告</span><span class="zh-only">＋ 新报告</span></a>
-    <a href="../FACTORY_REPORT_GUIDE_ZH.md" class="secondary"><span class="ja-only">📖 工場向けガイド (中文)</span><span class="zh-only">📖 工厂指南 (中文)</span></a>
-    <a href="../ENGINEER_GUIDE_JA.md" class="secondary"><span class="ja-only">📘 エンジニア向けガイド</span><span class="zh-only">📘 工程师指南 (日语)</span></a>
-  </div>
+  <a href="./defects.html" class="big-add">
+    <span class="ja-only">＋ 新しい不具合を報告</span><span class="zh-only">＋ 报告新的故障</span>
+  </a>
 
-  <div class="auth-hint ja-only">
-    🔐 SH-J001 不具合トラッカーは <strong>private リポジトリ</strong> です。閲覧には GitHub ログイン + コラボレーター招待が必要。
-  </div>
-  <div class="auth-hint zh-only">
-    🔐 SH-J001 故障追踪是 <strong>私有库</strong>。需登录 GitHub 且被邀请为协作者才能查看。
-  </div>
-
-  <div class="tile">
-    <span class="tag">SH-J001</span>
-    <h2><span class="ja-only">不具合</span><span class="zh-only">故障</span></h2>
-    <p><span class="ja-only">報告先リポジトリ:</span><span class="zh-only">报告仓库:</span> <code>shojiki-defects-j001</code></p>
-    <div class="quick-links">
-      <a href="https://github.com/eda0825-spec/shojiki-defects-j001/issues?q=is%3Aopen+sort%3Aupdated-desc" target="_blank">
-        <span class="ic">📋</span><span class="ja-only">全 Open</span><span class="zh-only">全部 Open</span>
-      </a>
-      <a href="https://github.com/eda0825-spec/shojiki-defects-j001/issues?q=is%3Aopen+label%3A%22severity%3Ahigh%22+sort%3Aupdated-desc" target="_blank">
-        <span class="ic">🔴</span><span class="ja-only">深刻度 高</span><span class="zh-only">严重度 高</span>
-      </a>
-      <a href="https://github.com/eda0825-spec/shojiki-defects-j001/issues?q=is%3Aopen+label%3A%22status%3Anew%22+sort%3Aupdated-desc" target="_blank">
-        <span class="ic">🆕</span><span class="ja-only">未対応</span><span class="zh-only">未处理</span>
-      </a>
-      <a href="https://github.com/eda0825-spec/shojiki-defects-j001/issues?q=is%3Aopen+label%3A%22status%3Ainvestigating%22+sort%3Aupdated-desc" target="_blank">
-        <span class="ic">🔬</span><span class="ja-only">調査中</span><span class="zh-only">调查中</span>
-      </a>
-      <a href="https://github.com/eda0825-spec/shojiki-defects-j001/issues?q=is%3Aopen+label%3A%22area%3Abattery%22+sort%3Aupdated-desc" target="_blank">
-        <span class="ic">🔋</span><span class="ja-only">バッテリー</span><span class="zh-only">电池</span>
-      </a>
-      <a href="https://github.com/eda0825-spec/shojiki-defects-j001/issues?q=is%3Aclosed+sort%3Aupdated-desc" target="_blank">
-        <span class="ic">✅</span><span class="ja-only">解決済み</span><span class="zh-only">已解决</span>
-      </a>
+  <div id="summary-line" class="summary-line" hidden>
+    <div class="open">
+      <strong id="count-open">—</strong>
+      <span class="ja-only">対応中</span><span class="zh-only">处理中</span>
     </div>
-    <div class="badges" id="counts" hidden>
-      <span class="count-pill open">open: —</span>
-      <span class="count-pill resolved">resolved: —</span>
+    <div class="closed">
+      <strong id="count-closed">—</strong>
+      <span class="ja-only">解決済み</span><span class="zh-only">已解决</span>
     </div>
-    <p class="hint-private ja-only">📌 件数は <code>DEFECTS_SYNC_PAT</code> 設定後に表示されます</p>
-    <p class="hint-private zh-only">📌 数量在设置 <code>DEFECTS_SYNC_PAT</code> 后显示</p>
   </div>
 
-  <section id="agg-section" hidden>
-    <h3 style="margin:0 0 10px;font-size:16px"><span class="ja-only">最近の活動</span><span class="zh-only">最近活动</span></h3>
-    <div id="agg-list" class="list"></div>
-  </section>
+  <div id="issue-list"></div>
+
+  <div id="empty" class="empty-hero" hidden>
+    <div class="emoji">📭</div>
+    <h2><span class="ja-only">まだ不具合報告はありません</span><span class="zh-only">还没有故障报告</span></h2>
+    <p>
+      <span class="ja-only">問題が見つかったら上のボタンから報告してください</span>
+      <span class="zh-only">发现问题时请点击上方按钮报告</span>
+    </p>
+  </div>
 
 </main>
 
 <footer class="ftr">
-  <p><span class="ja-only">Issue 報告: <a href="./defects.html">フォームから</a> または GitHub Issues UI から</span><span class="zh-only">Issue 报告: <a href="./defects.html">通过表单</a> 或在 GitHub Issues 直接</span></p>
+  <p>
+    <span class="ja-only">不具合データは <a href="https://github.com/eda0825-spec/shojiki-defects-j001/issues" target="_blank">GitHub</a> で管理</span>
+    <span class="zh-only">故障数据由 <a href="https://github.com/eda0825-spec/shojiki-defects-j001/issues" target="_blank">GitHub</a> 管理</span>
+  </p>
 </footer>
 
 <script>
+const PRODUCT = "sh-j001";
 const REPO = "eda0825-spec/shojiki-rakuten-stats";
 const BRANCH = "main";
-const PRODUCT = "sh-j001";
 const LS_LANG_KEY = "shojiki-dashboard-lang";
 
 function applyLang(lang) {
@@ -157,6 +136,7 @@ function applyLang(lang) {
       const l = b.dataset.lang;
       try { localStorage.setItem(LS_LANG_KEY, l); } catch(e) {}
       applyLang(l);
+      reflow();
     });
   });
 })();
@@ -165,42 +145,65 @@ function esc(s) {
   return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
-(async () => {
+let cachedIssues = null;
+
+async function load() {
   try {
     const r = await fetch(`https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" })
       .catch(() => fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" }));
-    if (!r.ok) return;
+    if (!r.ok) { reflow(); return; }
     const data = await r.json();
-    const mine = (data.issues || []).filter(i => i.product === PRODUCT);
-    const open = mine.filter(i => i.state === "open").length;
-    const closed = mine.filter(i => i.state !== "open").length;
-    const wrap = document.getElementById("counts");
-    wrap.hidden = false;
-    wrap.innerHTML =
-      `<span class="count-pill open">open: ${open}</span>` +
-      `<span class="count-pill resolved">resolved: ${closed}</span>`;
-    document.querySelector(".hint-private")?.remove();
-    if (mine.length) {
-      const root = document.getElementById("agg-section");
-      const ul = document.getElementById("agg-list");
-      root.hidden = false;
-      ul.innerHTML = mine.slice(0, 30).map(i => `
-        <article class="card">
-          <div class="card-head">
-            <span class="badge ${i.severity === "high" ? "cat-defect" : (i.severity === "medium" ? "cat-improvement" : "cat-other")}">${esc(i.severity || "—")}</span>
-            ${(i.labels || []).filter(l => l.startsWith("status:")).map(l => `<span class="tag">${esc(l.replace("status:", ""))}</span>`).join("")}
-            ${(i.labels || []).filter(l => l.startsWith("area:")).map(l => `<span class="tag">${esc(l.replace("area:", ""))}</span>`).join("")}
-            <span class="cdate" style="margin-left:auto">${esc(i.updated_at?.slice(0,10) || "")}</span>
-          </div>
-          <div style="font-weight:600;margin-bottom:4px">
-            <a href="${esc(i.url)}" target="_blank">${esc(i.title)}</a>
-          </div>
-          <div class="cnick">#${i.number} · ${esc(i.user)} · 💬 ${i.comments || 0}</div>
-        </article>
-      `).join("");
-    }
-  } catch (e) { /* silent */ }
-})();
+    cachedIssues = (data.issues || []).filter(i => i.product === PRODUCT);
+  } catch (e) {
+    cachedIssues = [];
+  }
+  reflow();
+}
+
+function reflow() {
+  const issues = cachedIssues || [];
+  const open = issues.filter(i => i.state === "open");
+  const closed = issues.filter(i => i.state !== "open");
+
+  const sumLine = document.getElementById("summary-line");
+  const empty = document.getElementById("empty");
+  const list = document.getElementById("issue-list");
+
+  if (issues.length === 0) {
+    sumLine.hidden = true;
+    empty.hidden = false;
+    list.innerHTML = "";
+    return;
+  }
+  sumLine.hidden = false;
+  empty.hidden = true;
+  document.getElementById("count-open").textContent = open.length;
+  document.getElementById("count-closed").textContent = closed.length;
+
+  const isJa = document.body.classList.contains("lang-ja");
+  const statusLab = (s) => isJa
+    ? (s === "open" ? "対応中" : "解決済み")
+    : (s === "open" ? "处理中" : "已解决");
+  const sevLab = (s) => {
+    const map = isJa
+      ? { high: "深刻度 高", medium: "深刻度 中", low: "深刻度 低" }
+      : { high: "严重度 高", medium: "严重度 中", low: "严重度 低" };
+    return map[s] || "";
+  };
+  list.innerHTML = issues.slice(0, 50).map(i => `
+    <a href="${esc(i.url)}" target="_blank" class="issue-card">
+      <h3>${esc(i.title)}</h3>
+      <div class="meta">
+        <span class="issue-tag status-${i.state === "open" ? "open" : "closed"}">${esc(statusLab(i.state))}</span>
+        ${i.severity ? `<span class="issue-tag sev-${esc(i.severity)}">${esc(sevLab(i.severity))}</span>` : ""}
+        ${(i.areas || []).slice(0, 3).map(a => `<span class="issue-tag">${esc(a)}</span>`).join("")}
+        <span style="margin-left:auto">#${i.number} ・ ${esc((i.updated_at || "").slice(0,10))} ・ 💬 ${i.comments || 0}</span>
+      </div>
+    </a>
+  `).join("");
+}
+
+load();
 </script>
 
 </body>

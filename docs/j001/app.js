@@ -18,9 +18,36 @@ const LS_LANG_KEY = "shojiki-dashboard-lang";
 const state = {
   lang: (typeof localStorage !== "undefined" && localStorage.getItem(LS_LANG_KEY)) || "ja",
   cat: "all", sev: "all", star: "all", topic: null, q: "",
+  cluster: null,  // selected cluster key
   data: null,
   lastFiltered: [],
 };
+
+// Cluster groups — multiple raw topics map to one user-facing cluster
+const CLUSTERS = [
+  { key: "charging", emoji: "🔋", name_ja: "充電・バッテリー", name_zh: "充电·电池", topics: ["バッテリー", "充電", "充電端子", "充電スタンド", "充電台", "電気系統", "電池"] },
+  { key: "weight",   emoji: "⚖️", name_ja: "重量・サイズ",     name_zh: "重量·尺寸",   topics: ["重量", "軽量", "コンパクト", "本体形状"] },
+  { key: "suction",  emoji: "💨", name_ja: "吸引力",          name_zh: "吸力",        topics: ["吸引力", "吸力", "基本機能"] },
+  { key: "noise",    emoji: "🔊", name_ja: "音・静音性",      name_zh: "噪音·静音",   topics: ["騒音", "静音性", "動作音", "音"] },
+  { key: "dustcup",  emoji: "🗑️", name_ja: "ダストカップ",   name_zh: "集尘杯",      topics: ["ダストカップ", "集尘杯", "ゴミ捨て"] },
+  { key: "roller",   emoji: "🪥", name_ja: "ローラー・ヘッド", name_zh: "滚刷·吸头",  topics: ["ローラー", "ヘッド", "滚刷", "吸头", "ノズル", "髪の毛", "頭髪", "毛絡まり"] },
+  { key: "filter",   emoji: "🧽", name_ja: "フィルター・お手入れ", name_zh: "过滤器·保养", topics: ["フィルター", "过滤器", "メンテナンス", "お手入れ"] },
+  { key: "operation",emoji: "🎛️", name_ja: "操作・ボタン",   name_zh: "操作·按钮",   topics: ["操作性", "操作ボタン", "スイッチ", "ハンディモード", "ボタン"] },
+  { key: "stand",    emoji: "📐", name_ja: "スタンド・自立",  name_zh: "支架·自立",   topics: ["自立機能", "自走機能", "スタンド", "転倒耐性", "壁掛け"] },
+  { key: "design",   emoji: "🎨", name_ja: "デザイン・外装",  name_zh: "外观·外壳",   topics: ["デザイン", "外装", "外壳", "カラー", "色"] },
+  { key: "safety",   emoji: "⚠️", name_ja: "安全性",         name_zh: "安全性",      topics: ["安全性", "怪我", "発火", "感電"] },
+  { key: "carpet",   emoji: "🏠", name_ja: "床・カーペット",  name_zh: "地板·地毯",   topics: ["カーペット対応", "カーペット", "絨毯対応", "床"] },
+  { key: "support",  emoji: "💬", name_ja: "サポート対応",    name_zh: "客服对应",    topics: ["サポート対応", "サポート"] },
+  { key: "package",  emoji: "📦", name_ja: "梱包・配送",      name_zh: "包装·配送",   topics: ["梱包", "配送"] },
+  { key: "assembly", emoji: "🔧", name_ja: "組み立て・接続",  name_zh: "组装·连接",   topics: ["組み立て", "パイプ接続", "ロック機構"] },
+  { key: "light",    emoji: "💡", name_ja: "LED・ライト",     name_zh: "LED·灯光",   topics: ["LEDライト", "ライト", "LED灯", "LED"] },
+];
+// quick lookup: topic JP → cluster key
+const TOPIC_TO_CLUSTER = (() => {
+  const m = new Map();
+  for (const c of CLUSTERS) for (const t of c.topics) m.set(t, c.key);
+  return m;
+})();
 
 // --- i18n strings ---
 const I18N = {
@@ -139,6 +166,11 @@ function applyFilters(rows) {
     if (state.sev !== "all" && r.severity !== state.sev) return false;
     if (state.star !== "all" && String(r.rating) !== state.star) return false;
     if (state.topic && !(r.topics || []).includes(state.topic)) return false;
+    if (state.cluster) {
+      const topics = r.topics || [];
+      const inCluster = topics.some(t => TOPIC_TO_CLUSTER.get(t) === state.cluster);
+      if (!inCluster) return false;
+    }
     if (q) {
       const hay = [r.body, r.title, r.summary_ja, r.summary_zh, r.action_hint, ...(r.topics || [])]
         .filter(Boolean).join("\n").toLowerCase();
@@ -167,15 +199,91 @@ function applyFilters(rows) {
   return filtered;
 }
 
+function renderClusters(joined) {
+  // Group reviews by cluster, count defect+improvement only
+  const buckets = new Map();
+  for (const c of CLUSTERS) buckets.set(c.key, { defect: 0, improvement: 0, samples: [] });
+  for (const r of joined) {
+    if (r.category !== "defect" && r.category !== "improvement") continue;
+    const topics = r.topics || [];
+    const seenClusters = new Set();
+    for (const tp of topics) {
+      const ck = TOPIC_TO_CLUSTER.get(tp);
+      if (!ck || seenClusters.has(ck)) continue;
+      seenClusters.add(ck);
+      const b = buckets.get(ck);
+      b[r.category]++;
+      if (b.samples.length < 5) {
+        // pick best sample (severity high > medium > low, then short summary)
+        const sumKey = state.lang === "zh" ? "summary_zh" : "summary_ja";
+        const s = r[sumKey] || r[state.lang === "zh" ? "summary_ja" : "summary_zh"] || "";
+        if (s) b.samples.push({ text: s, severity: r.severity, category: r.category });
+      }
+    }
+  }
+  // sort samples within each bucket: defect > improvement, high > medium > low
+  const sevRank = { high: 0, medium: 1, low: 2, "n/a": 3 };
+  const catRank = { defect: 0, improvement: 1 };
+  for (const b of buckets.values()) {
+    b.samples.sort((a, b2) => {
+      const ca = catRank[a.category] ?? 9, cb = catRank[b2.category] ?? 9;
+      if (ca !== cb) return ca - cb;
+      return (sevRank[a.severity] ?? 9) - (sevRank[b2.severity] ?? 9);
+    });
+    b.samples = b.samples.slice(0, 2);
+  }
+  // Rank clusters by total (defect+improvement), descending
+  const ranked = CLUSTERS
+    .map(c => ({ ...c, ...buckets.get(c.key) }))
+    .filter(c => (c.defect + c.improvement) > 0)
+    .sort((a, b) => (b.defect + b.improvement) - (a.defect + a.improvement))
+    .slice(0, 9);
+
+  const grid = document.getElementById("clusters-grid");
+  const section = document.getElementById("clusters-section");
+  if (!ranked.length) { section.hidden = true; return; }
+  section.hidden = false;
+  const labels = t();
+  grid.innerHTML = ranked.map(c => {
+    const name = state.lang === "zh" ? c.name_zh : c.name_ja;
+    const total = c.defect + c.improvement;
+    const dLab = state.lang === "zh" ? "故障" : "不具合";
+    const iLab = state.lang === "zh" ? "改善" : "改善";
+    return `
+      <button class="cluster-card ${state.cluster === c.key ? 'active' : ''}" data-cluster="${c.key}">
+        <div class="cluster-head">
+          <span class="cluster-emoji">${c.emoji}</span>
+          <span class="cluster-name">${esc(name)}</span>
+          <span class="cluster-count">${total}</span>
+        </div>
+        <div class="cluster-breakdown">
+          ${c.defect > 0 ? `<span class="b-d">● ${dLab} ${c.defect}</span>` : ""}
+          ${c.improvement > 0 ? `<span class="b-i">● ${iLab} ${c.improvement}</span>` : ""}
+        </div>
+        ${c.samples.length ? `<div class="cluster-samples"><ul>${c.samples.map(s => `<li>${esc(s.text)}</li>`).join("")}</ul></div>` : ""}
+      </button>`;
+  }).join("");
+  grid.onclick = (e) => {
+    const btn = e.target.closest("[data-cluster]");
+    if (!btn) return;
+    const k = btn.dataset.cluster;
+    state.cluster = state.cluster === k ? null : k;
+    // when selecting a cluster, also reset cat filter to "all" so we see everything in that cluster
+    if (state.cluster) {
+      state.cat = "all";
+      document.querySelectorAll(".simple-filter .big-chip").forEach(b => b.classList.toggle("active", b.dataset.cat === "all"));
+    }
+    render();
+  };
+}
+
 function renderStats(d, joined) {
   document.getElementById("stat-total").textContent = joined.length || "—";
-  document.getElementById("stat-avg").textContent = d.summary?.rating ?? "—";
   const c = { defect: 0, improvement: 0, praise: 0, question: 0, other: 0, unclassified: 0 };
   for (const r of joined) c[r.category] = (c[r.category] || 0) + 1;
   document.getElementById("stat-defect").textContent = c.defect;
   document.getElementById("stat-improvement").textContent = c.improvement;
   document.getElementById("stat-praise").textContent = c.praise;
-  document.getElementById("stat-question").textContent = c.question;
 }
 
 function renderTopics(joined) {
@@ -364,6 +472,7 @@ function render() {
   const joined = joinReviewsAndCats(state.data);
   const filtered = applyFilters(joined);
   renderStats(state.data, joined);
+  renderClusters(joined);
   renderTopics(joined);
   renderTrend(joined);
   renderList(filtered);
@@ -386,18 +495,27 @@ async function init() {
     });
   });
 
-  function bindChips(groupSelector, key) {
-    document.querySelectorAll(`${groupSelector} .chip`).forEach(btn => {
+  // Primary filter: simple-filter (big chips, category only)
+  document.querySelectorAll(".simple-filter .big-chip").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".simple-filter .big-chip").forEach(b => b.classList.toggle("active", b === btn));
+      state.cat = btn.dataset.cat;
+      state.cluster = null;   // category filter clears cluster
+      render();
+    });
+  });
+  // Advanced filters inside the <details>: severity, star
+  function bindAdvChips(label, key) {
+    document.querySelectorAll(`.advanced-body .fgrp .chip[data-${key}]`).forEach(btn => {
       btn.addEventListener("click", () => {
-        document.querySelectorAll(`${groupSelector} .chip`).forEach(b => b.classList.toggle("active", b === btn));
+        document.querySelectorAll(`.advanced-body .fgrp .chip[data-${key}]`).forEach(b => b.classList.toggle("active", b === btn));
         state[key] = btn.dataset[key];
         render();
       });
     });
   }
-  bindChips(".fgrp:nth-of-type(1)", "cat");
-  bindChips(".fgrp:nth-of-type(2)", "sev");
-  bindChips(".fgrp:nth-of-type(3)", "star");
+  bindAdvChips("severity", "sev");
+  bindAdvChips("star", "star");
   const q = document.getElementById("q");
   q.addEventListener("input", () => { state.q = q.value; render(); });
   document.getElementById("export-csv").addEventListener("click", exportCSV);
