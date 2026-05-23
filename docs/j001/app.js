@@ -417,10 +417,10 @@ function escalateReview(id) {
   const params = new URLSearchParams();
   params.set("template", "defect.yml");
   params.set("title", title);
-  params.set("source", "顧客レビュー / 客户评论");
-  if (sev === "high") params.set("severity", "高 / 高 (安全性 - 発火/感電/怪我リスク, 安全 - 起火/触电/受伤风险)");
-  else if (sev === "medium") params.set("severity", "中 / 中 (基本機能停止, 基本功能停止)");
-  else if (sev === "low") params.set("severity", "低 / 低 (軽微な不便, 轻微不便)");
+  params.set("source", "顧客レビュー");
+  if (sev === "high") params.set("severity", "高");
+  else if (sev === "medium") params.set("severity", "中");
+  else if (sev === "low") params.set("severity", "低");
   params.set("symptom_ja", c.summary_ja || "");
   params.set("symptom_zh", c.summary_zh || "");
   params.set("suspected_cause", c.action_hint || "");
