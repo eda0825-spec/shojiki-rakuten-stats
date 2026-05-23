@@ -199,6 +199,64 @@ function applyFilters(rows) {
   return filtered;
 }
 
+function renderClusterChart(joined) {
+  const buckets = new Map();
+  for (const c of CLUSTERS) buckets.set(c.key, { defect: 0, improvement: 0 });
+  for (const r of joined) {
+    if (r.category !== "defect" && r.category !== "improvement") continue;
+    const seenClusters = new Set();
+    for (const tp of r.topics || []) {
+      const ck = TOPIC_TO_CLUSTER.get(tp);
+      if (!ck || seenClusters.has(ck)) continue;
+      seenClusters.add(ck);
+      buckets.get(ck)[r.category]++;
+    }
+  }
+  const ranked = CLUSTERS
+    .map(c => ({ ...c, ...buckets.get(c.key) }))
+    .filter(c => (c.defect + c.improvement) > 0)
+    .sort((a, b) => (b.defect + b.improvement) - (a.defect + a.improvement))
+    .slice(0, 12);
+
+  const section = document.getElementById("cluster-chart-section");
+  const rowsWrap = document.getElementById("cluster-chart-rows");
+  if (!section || !rowsWrap) return;
+  if (!ranked.length) { section.hidden = true; return; }
+  section.hidden = false;
+  const max = Math.max(1, ...ranked.map(c => c.defect + c.improvement));
+
+  rowsWrap.innerHTML = ranked.map(c => {
+    const name = state.lang === "zh" ? c.name_zh : c.name_ja;
+    const total = c.defect + c.improvement;
+    const totalPct = (total / max) * 100;
+    const defectPct = total > 0 ? (c.defect / total) * totalPct : 0;
+    const impPct = total > 0 ? (c.improvement / total) * totalPct : 0;
+    return `
+      <button class="cluster-row ${state.cluster === c.key ? 'active' : ''}" data-cluster="${c.key}">
+        <span class="cluster-row-label"><span class="emo">${c.emoji}</span><span class="name">${esc(name)}</span></span>
+        <span class="cluster-row-bar">
+          ${c.defect > 0 ? `<span class="seg-d" style="width:${defectPct}%"></span>` : ""}
+          ${c.improvement > 0 ? `<span class="seg-i" style="width:${impPct}%"></span>` : ""}
+          ${c.defect >= max * 0.08 ? `<span class="lbl-d">${c.defect}</span>` : ""}
+          ${c.improvement >= max * 0.08 ? `<span class="lbl-i" style="left:${defectPct}%;right:auto">${c.improvement}</span>` : ""}
+        </span>
+        <span class="cluster-row-count">${total}</span>
+      </button>`;
+  }).join("");
+
+  rowsWrap.onclick = (e) => {
+    const btn = e.target.closest("[data-cluster]");
+    if (!btn) return;
+    const k = btn.dataset.cluster;
+    state.cluster = state.cluster === k ? null : k;
+    if (state.cluster) {
+      state.cat = "all";
+      document.querySelectorAll(".simple-filter .big-chip").forEach(b => b.classList.toggle("active", b.dataset.cat === "all"));
+    }
+    render();
+  };
+}
+
 function renderClusters(joined) {
   // Group reviews by cluster, count defect+improvement only
   const buckets = new Map();
@@ -474,6 +532,7 @@ function render() {
   const joined = joinReviewsAndCats(state.data);
   const filtered = applyFilters(joined);
   renderStats(state.data, joined);
+  renderClusterChart(joined);
   renderClusters(joined);
   renderTopics(joined);
   renderTrend(joined);

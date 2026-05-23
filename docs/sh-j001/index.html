@@ -58,18 +58,29 @@
     </div>
   </section>
 
-  <!-- ISSUE CLUSTERS — main visualization -->
-  <section class="clusters" id="clusters-section">
+  <!-- TOPIC BAR CHART — at-a-glance ranking -->
+  <section class="cluster-chart" id="cluster-chart-section">
     <h2 class="clusters-title">
-      <span class="ja-only">🔍 主な声 (トピック別)</span>
-      <span class="zh-only">🔍 主要反馈 (按话题)</span>
+      <span class="ja-only">📊 トピック別 不満ランキング</span>
+      <span class="zh-only">📊 话题不满排行</span>
     </h2>
     <p class="clusters-sub">
-      <span class="ja-only">不具合と改善要望が多い順 ・ クリックで該当レビューに絞り込み</span>
-      <span class="zh-only">按故障与改善需求数排序 ・ 点击筛选对应评论</span>
+      <span class="ja-only">クリックで該当レビューに絞り込み ・ <span style="color:#d93b3b">■</span> 不具合 / <span style="color:#d98330">■</span> 改善要望</span>
+      <span class="zh-only">点击筛选对应评论 ・ <span style="color:#d93b3b">■</span> 故障 / <span style="color:#d98330">■</span> 改善需求</span>
     </p>
-    <div id="clusters-grid" class="clusters-grid"></div>
+    <div id="cluster-chart-rows" class="cluster-chart-rows"></div>
   </section>
+
+  <!-- ISSUE CLUSTERS — detail cards with sample text (collapsed by default) -->
+  <details class="clusters-details">
+    <summary>
+      <span class="ja-only">📋 トピック別 詳細 (サンプル抜粋)</span>
+      <span class="zh-only">📋 各话题详细 (摘录样本)</span>
+    </summary>
+    <section class="clusters" id="clusters-section">
+      <div id="clusters-grid" class="clusters-grid"></div>
+    </section>
+  </details>
 
   <!-- SIMPLE FILTER — just 3 buttons -->
   <section class="simple-filter">
