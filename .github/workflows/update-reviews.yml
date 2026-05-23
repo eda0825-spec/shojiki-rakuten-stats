@@ -60,12 +60,34 @@ jobs:
         run: |
           set -e
           changed=$(git status --porcelain reviews-*.json categorized-*.json | wc -l)
-          if [ "$changed" -gt 0 ]; then
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git config user.name "github-actions[bot]"
-            git add reviews-*.json categorized-*.json
-            git commit -m "chore: update rakuten reviews + categorization $(date -u +%Y-%m-%d)"
-            git push
-          else
+          if [ "$changed" -eq 0 ]; then
             echo "No changes to commit."
+            exit 0
           fi
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add reviews-*.json categorized-*.json
+          git commit -m "chore: update rakuten reviews + categorization $(date -u +%Y-%m-%d)"
+          # Retry on push race: if remote moved during the long categorize step,
+          # rebase our single commit on top and retry up to 5 times.
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              echo "push succeeded on attempt $attempt"
+              exit 0
+            fi
+            echo "push attempt $attempt failed, pulling --rebase and retrying..."
+            git pull --rebase origin main
+            sleep $((attempt * 3))
+          done
+          echo "ERROR: push failed after 5 retries"
+          exit 1
+
+      - name: Upload categorized JSON as artifact (safety net)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: review-data-${{ github.run_id }}
+          path: |
+            reviews-*.json
+            categorized-*.json
+          retention-days: 14
