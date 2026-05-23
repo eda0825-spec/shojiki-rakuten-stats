@@ -86,7 +86,14 @@
     <div class="fgrp fgrp--search">
       <input type="search" id="q" placeholder="本文・要約・キーワード検索 / 搜索关键词…">
       <span id="result-count" class="hint"></span>
+      <button id="export-csv" class="chip" title="現在のフィルタ結果を CSV ダウンロード">⬇ CSV</button>
     </div>
+  </section>
+
+  <section id="trend" class="topics" hidden>
+    <div class="flabel">月別件数 / 月度数量 (不具合 + 改善要望)</div>
+    <canvas id="trend-chart" width="1200" height="160" style="width:100%;height:160px;display:block;margin-top:8px"></canvas>
+    <div id="trend-legend" style="font-size:11px;color:var(--ink-3);margin-top:4px"></div>
   </section>
 
   <section id="topics" class="topics" hidden>
@@ -111,6 +118,8 @@
     Source: Rakuten product reviews · Summaries &amp; Chinese translation by Claude API
   </p>
   <p>
+    <a href="./SETUP_CHECKLIST.md" target="_blank">✅ セットアップチェックリスト</a>
+    ・
     <a href="./FACTORY_GUIDE_ZH.md" target="_blank">📖 评论看板使用指南 (中文)</a>
     ・
     <a href="./FACTORY_REPORT_GUIDE_ZH.md" target="_blank">📖 故障报告指南 (中文)</a>

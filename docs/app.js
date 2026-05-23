@@ -182,6 +182,7 @@ function renderList(rows) {
         ${r.category && r.category !== "unclassified" ? `<span class="badge cat-${esc(r.category)}">${labelCat(r.category)}</span>` : `<span class="badge cat-other">未分類</span>`}
         ${r.severity && r.severity !== "n/a" ? `<span class="badge sev-${esc(r.severity)}">${labelSev(r.severity)}</span>` : ""}
         <span class="cnick">— ${esc(r.nickname || "購入者")}</span>
+        <button class="chip" style="margin-left:6px" data-escalate="${esc(r.id)}" title="この声を defect Issue として起票 / 起 Issue">📋 Issue化</button>
       </div>
 
       ${(r.topics && r.topics.length) ? `<div class="topics-line">${r.topics.map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div>` : ""}
@@ -206,6 +207,48 @@ function renderList(rows) {
   list.querySelectorAll(".body").forEach((el) => {
     el.addEventListener("click", () => el.classList.toggle("expanded"));
   });
+  // escalate-to-issue button
+  list.querySelectorAll("[data-escalate]").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      escalateReview(btn.dataset.escalate);
+    });
+  });
+}
+
+function escalateReview(id) {
+  const d = state.data[state.product];
+  if (!d) return;
+  const r = d.reviews.find(x => x.id === id);
+  const c = d.categorized[id] || {};
+  if (!r) return;
+  const repo = state.product === "sh-j001" ? "eda0825-spec/shojiki-defects-j001" : "eda0825-spec/shojiki-defects-j002";
+  const sev = c.severity || "n/a";
+  const sevTag = ({ high: "[高]", medium: "[中]", low: "[低]" })[sev] || "";
+  const titlePrefix = state.product === "sh-j001" ? "[J001]" : "[J002]";
+  const titleJa = (c.summary_ja || r.body || "顧客レビュー").split("\n")[0].slice(0, 60);
+  const title = `${titlePrefix} [顧客] ${sevTag} ${titleJa}`.trim();
+
+  const params = new URLSearchParams();
+  params.set("template", "defect.yml");
+  params.set("title", title);
+  params.set("source", "顧客レビュー / 客户评论");
+  if (sev === "high") params.set("severity", "高 / 高 (安全性 - 発火/感電/怪我リスク, 安全 - 起火/触电/受伤风险)");
+  else if (sev === "medium") params.set("severity", "中 / 中 (基本機能停止, 基本功能停止)");
+  else if (sev === "low") params.set("severity", "低 / 低 (軽微な不便, 轻微不便)");
+  params.set("symptom_ja", c.summary_ja || "");
+  params.set("symptom_zh", c.summary_zh || "");
+  params.set("suspected_cause", c.action_hint || "");
+  const reviewUrl = `https://review.rakuten.co.jp/item/1/437323_${state.product === "sh-j001" ? "10000000" : "10000004"}/`;
+  params.set("extra",
+    `**楽天レビューより自動転載**\n\n` +
+    `> ${(r.body || "").trim().replace(/\n/g, "\n> ")}\n\n` +
+    `★ ${r.rating} ・ ${r.postDate} ・ ${r.nickname || "—"}\n` +
+    (c.topics?.length ? `部位/部位: ${c.topics.join(", ")}\n` : "") +
+    `\n元レビュー: ${reviewUrl}\nReview ID: \`${r.id}\``
+  );
+  const url = `https://github.com/${repo}/issues/new?${params.toString()}`;
+  window.open(url, "_blank");
 }
 
 function labelCat(c) {
@@ -222,7 +265,9 @@ function render() {
   const filtered = applyFilters(joined);
   renderStats(d, joined);
   renderTopics(joined, filtered.length);
+  renderTrend(joined);
   renderList(filtered);
+  state.lastFiltered = filtered; // for CSV export
 
   const lastJp = d.updatedAt ? new Date(d.updatedAt).toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" }) : "—";
   const catUpd = d.categorizedUpdatedAt ? new Date(d.categorizedUpdatedAt).toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" }) : "未生成";
@@ -230,6 +275,103 @@ function render() {
     `レビュー取得: ${lastJp} ・ 分類: ${catUpd}`;
   document.getElementById("status-text").textContent =
     `${state.product.toUpperCase()} のデータを表示中`;
+}
+
+// ----- Monthly trend chart -----
+function renderTrend(joined) {
+  const buckets = new Map(); // YYYY-MM -> { defect, improvement }
+  for (const r of joined) {
+    if (!r.postDate) continue;
+    if (r.category !== "defect" && r.category !== "improvement") continue;
+    const ym = r.postDate.slice(0, 7);
+    if (!buckets.has(ym)) buckets.set(ym, { defect: 0, improvement: 0 });
+    buckets.get(ym)[r.category]++;
+  }
+  const keys = [...buckets.keys()].sort();
+  const wrap = document.getElementById("trend");
+  if (keys.length < 2) { wrap.hidden = true; return; }
+  wrap.hidden = false;
+
+  // Limit to last 18 months to keep chart readable
+  const recent = keys.slice(-18);
+  const canvas = document.getElementById("trend-chart");
+  const ctx = canvas.getContext("2d");
+  const w = canvas.width, h = canvas.height;
+  const padL = 40, padB = 24, padR = 12, padT = 8;
+  ctx.clearRect(0, 0, w, h);
+  ctx.fillStyle = "#fff";
+  ctx.fillRect(0, 0, w, h);
+
+  const maxV = Math.max(1, ...recent.flatMap(k => [buckets.get(k).defect + buckets.get(k).improvement]));
+  const yMax = Math.ceil(maxV * 1.15);
+
+  // y grid
+  ctx.strokeStyle = "#eee";
+  ctx.fillStyle = "#999";
+  ctx.font = "10px -apple-system, sans-serif";
+  for (let i = 0; i <= 4; i++) {
+    const y = padT + (h - padT - padB) * (1 - i / 4);
+    ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(w - padR, y); ctx.stroke();
+    ctx.fillText(String(Math.round(yMax * i / 4)), 8, y + 3);
+  }
+
+  const colDefect = "#d93b3b";
+  const colImprovement = "#d98330";
+  const barW = (w - padL - padR) / recent.length;
+
+  recent.forEach((ym, i) => {
+    const v = buckets.get(ym);
+    const x = padL + i * barW;
+    const totalH = (v.defect + v.improvement) / yMax * (h - padT - padB);
+    const defectH = v.defect / yMax * (h - padT - padB);
+    // improvement (bottom)
+    ctx.fillStyle = colImprovement;
+    ctx.fillRect(x + 3, h - padB - totalH + defectH, barW - 6, totalH - defectH);
+    // defect (top)
+    ctx.fillStyle = colDefect;
+    ctx.fillRect(x + 3, h - padB - totalH, barW - 6, defectH);
+    // label
+    ctx.fillStyle = "#999";
+    if (i % Math.ceil(recent.length / 8) === 0 || i === recent.length - 1) {
+      ctx.fillText(ym.slice(2), x + 4, h - 8);
+    }
+  });
+
+  document.getElementById("trend-legend").innerHTML =
+    `<span style="display:inline-block;width:10px;height:10px;background:${colDefect};vertical-align:middle;margin-right:4px"></span>不具合 / 故障` +
+    ` &nbsp; <span style="display:inline-block;width:10px;height:10px;background:${colImprovement};vertical-align:middle;margin-right:4px"></span>改善要望 / 改善需求` +
+    ` &nbsp; <span style="opacity:0.6">${recent.length}ヶ月表示</span>`;
+}
+
+// ----- CSV export -----
+function exportCSV() {
+  const rows = state.lastFiltered || [];
+  if (!rows.length) { alert("エクスポートする結果がありません / 没有可导出的结果"); return; }
+  const header = [
+    "id", "product", "rating", "postDate", "nickname", "category", "severity",
+    "summary_ja", "summary_zh", "topics", "action_hint", "body"
+  ];
+  const esc = (v) => {
+    if (v == null) return "";
+    const s = String(v).replace(/"/g, '""');
+    return /[",\n]/.test(s) ? `"${s}"` : s;
+  };
+  const lines = [header.join(",")];
+  for (const r of rows) {
+    lines.push([
+      r.id, state.product, r.rating, r.postDate, r.nickname,
+      r.category, r.severity, r.summary_ja, r.summary_zh,
+      (r.topics || []).join("|"), r.action_hint, r.body
+    ].map(esc).join(","));
+  }
+  const csv = "﻿" + lines.join("\n"); // BOM for Excel JP/ZH
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `shojiki-reviews-${state.product}-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
 }
 
 // ----- wire up -----
@@ -267,6 +409,9 @@ async function init() {
     state.q = q.value;
     render();
   });
+
+  // CSV export
+  document.getElementById("export-csv").addEventListener("click", exportCSV);
 
   // initial load
   document.getElementById("status-text").textContent = "データ取得中…";

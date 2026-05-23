@@ -1,0 +1,62 @@
+name: Bridge Customer Reviews → Defect Issues
+
+# categorized-*.json で defect+severity=high と判定されたレビューを、
+# shojiki-defects-{j001|j002} に Issue として自動起票する。
+# bridged-issues.json で重複防止。
+#
+# 必須 Secret:
+#   DEFECTS_SYNC_PAT  GitHub PAT (Classic, repo scope) — defects 両リポへの
+#                     Issue 作成権限が必要
+
+on:
+  schedule:
+    - cron: '30 0 * * *'   # 09:30 JST 毎日 (categorize 後)
+  workflow_dispatch:
+    inputs:
+      min_severity:
+        description: 'high | medium | low (default: high)'
+        required: false
+        default: 'high'
+      max_per_run:
+        description: '1 実行で起票する最大件数 (default: 20)'
+        required: false
+        default: '20'
+      dry_run:
+        description: 'true で起票せずログ出力のみ'
+        required: false
+        default: 'false'
+
+jobs:
+  bridge:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Bridge reviews to defect Issues
+        run: python3 bridge-review-to-defect.py
+        env:
+          DEFECTS_SYNC_PAT: ${{ secrets.DEFECTS_SYNC_PAT }}
+          BRIDGE_MIN_SEVERITY: ${{ github.event.inputs.min_severity || 'high' }}
+          BRIDGE_MAX_PER_RUN: ${{ github.event.inputs.max_per_run || '20' }}
+          BRIDGE_DRY_RUN: ${{ github.event.inputs.dry_run == 'true' && '1' || '0' }}
+
+      - name: Commit bridge state
+        if: success()
+        run: |
+          if [[ -n "$(git status --porcelain bridged-issues.json)" ]]; then
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git config user.name "github-actions[bot]"
+            git add bridged-issues.json
+            git commit -m "chore: bridge state $(date -u +%Y-%m-%d)"
+            for i in 1 2 3; do
+              if git push; then exit 0; fi
+              git pull --rebase origin main
+              sleep $((i * 3))
+            done
+          fi

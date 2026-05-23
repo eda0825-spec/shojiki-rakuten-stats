@@ -4,6 +4,10 @@ name: Update Reviews (fetch + categorize)
 # docs/ ディレクトリ (GitHub Pages) からこのリポの JSON を参照しているので、
 # コミットされた時点でダッシュボードが更新される。
 
+concurrency:
+  group: update-reviews
+  cancel-in-progress: false
+
 on:
   schedule:
     # 毎日 09:00 JST (= UTC 00:00)

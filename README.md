@@ -62,7 +62,37 @@ python3 ingest-amazon-csv.py --product sh-j001 --csv ./amazon-j001-may.csv
 python3 categorize-reviews.py     # マージ後に再分類すると Amazon 分も付く
 ```
 
-### Lark Base 連携 (準備中)
+### 不具合トラッカー (GitHub Issues ベース)
+
+工場 ↔ 日本エンジニアの不具合共有を、以下の構成で実装:
+
+- 投稿フォーム: <https://eda0825-spec.github.io/shojiki-rakuten-stats/defects.html>
+- 集約ダッシュボード: <https://eda0825-spec.github.io/shojiki-rakuten-stats/defects-dashboard.html>
+- 不具合用 private リポ (Issue Template + 26ラベル配置済):
+  - <https://github.com/eda0825-spec/shojiki-defects-j001>
+  - <https://github.com/eda0825-spec/shojiki-defects-j002>
+
+ガイド:
+- 工場向け (中文): <docs/FACTORY_REPORT_GUIDE_ZH.md>
+- エンジニア向け (日本語): <docs/ENGINEER_GUIDE_JA.md>
+
+#### Bridge: 顧客レビューの深刻な不具合を自動 Issue 化
+
+`bridge-review-to-defect.py` が `categorized-*.json` から `defect+severity=high`
+を抽出して shojiki-defects-{j001|j002} に Issue を起票。日次自動実行 (`.github/workflows/bridge-defects.yml`)。
+
+```bash
+# ローカルで動作確認 (DRY RUN)
+BRIDGE_DRY_RUN=1 DEFECTS_SYNC_PAT=ghp_... python3 bridge-review-to-defect.py
+```
+
+#### 集約ダッシュボード用の sync
+
+private リポの Issue を JSON に同期して公開ダッシュボードに表示:
+- `sync-defects.py` + `.github/workflows/sync-defects.yml`
+- 必要 Secret: `DEFECTS_SYNC_PAT` (bridge と共用)
+
+### Lark Base 連携 (将来オプション)
 
 `docs/LARK_BASE_SCHEMA.md` に Lark Base 3 ベース (J001 工場 / J002 工場 / VOC) の
 列定義。Base 作成後に下記 Secrets を追加すると `lark-push-voc.py` で
@@ -80,6 +110,7 @@ LARK_VOC_TABLE_ID
 | Name | 用途 |
 |---|---|
 | `ANTHROPIC_API_KEY` | categorize-reviews.py の分類/翻訳 (既存) |
+| `DEFECTS_SYNC_PAT` (任意) | bridge-review-to-defect.py + sync-defects.py — PAT (Classic) `repo` scope |
 
 ### ローカル動作確認
 
