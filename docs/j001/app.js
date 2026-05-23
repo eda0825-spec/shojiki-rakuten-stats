@@ -1,7 +1,8 @@
 // Product-locked dashboard (single-product variant of docs/app.js).
+// Bilingual: toggle between ja and zh via header switch.
 // Reads window.PRODUCT etc. set by the host index.html.
 
-const PRODUCT = window.PRODUCT;            // "sh-j001" or "sh-j002"
+const PRODUCT = window.PRODUCT;
 const DEFECT_REPO = window.DEFECT_REPO;
 const RAKUTEN_ITEM = window.RAKUTEN_ITEM;
 
@@ -12,11 +13,77 @@ const SOURCES = (file) => [
   `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${file}`,
 ];
 
+const LS_LANG_KEY = "shojiki-dashboard-lang";
+
 const state = {
+  lang: (typeof localStorage !== "undefined" && localStorage.getItem(LS_LANG_KEY)) || "ja",
   cat: "all", sev: "all", star: "all", topic: null, q: "",
-  data: null, // { reviews, summary, updatedAt, categorizedUpdatedAt, categorized }
+  data: null,
   lastFiltered: [],
 };
+
+// --- i18n strings ---
+const I18N = {
+  ja: {
+    catLabels: { defect: "不具合", improvement: "改善要望", praise: "称賛", question: "質問", other: "その他", unclassified: "未分類" },
+    sevLabels: { high: "深刻度: 高", medium: "深刻度: 中", low: "深刻度: 低" },
+    summaryLabel_ja: "日本語要約", summaryLabel_zh: "中文摘要",
+    poster: "購入者",
+    expandHint: "▾ 全文を見る",
+    notranslated: "(対策案は日本語のみ表示)",
+    issueBtn: "📋 Issue化",
+    issueBtnTitle: "この声を defect Issue として起票",
+    csvNoRows: "エクスポートする結果がありません",
+    statusLoading: "データ取得中…",
+    statusShowing: (p) => `${p} のデータを表示中`,
+    lastUpdated: (rev, cat) => `レビュー取得: ${rev} ・ 分類: ${cat}`,
+    notGenerated: "未生成",
+    monthSuffix: "ヶ月表示",
+    legendDefect: "不具合",
+    legendImp: "改善要望",
+    overflow: (n) => `表示は最新${n}件まで。フィルタや検索で絞り込んでください。`,
+    countSuffix: (a, b) => `${a}件 / ${b}件`,
+  },
+  zh: {
+    catLabels: { defect: "故障", improvement: "改善需求", praise: "好评", question: "提问", other: "其他", unclassified: "未分类" },
+    sevLabels: { high: "严重度: 高", medium: "严重度: 中", low: "严重度: 低" },
+    summaryLabel_ja: "日语摘要", summaryLabel_zh: "中文摘要",
+    poster: "购买者",
+    expandHint: "▾ 查看全文",
+    notranslated: "(对策建议仅日语显示)",
+    issueBtn: "📋 起 Issue",
+    issueBtnTitle: "将此评论登记为 defect Issue",
+    csvNoRows: "没有可导出的结果",
+    statusLoading: "加载中…",
+    statusShowing: (p) => `正在显示 ${p} 的数据`,
+    lastUpdated: (rev, cat) => `评论获取: ${rev} ・ 分类: ${cat}`,
+    notGenerated: "未生成",
+    monthSuffix: "个月",
+    legendDefect: "故障",
+    legendImp: "改善需求",
+    overflow: (n) => `仅显示最近 ${n} 条，请使用筛选或搜索缩小范围。`,
+    countSuffix: (a, b) => `${a} / ${b} 条`,
+  },
+};
+const t = () => I18N[state.lang];
+
+// --- common JP topic → ZH ---
+const TOPIC_ZH = {
+  "吸引力": "吸力", "重量": "重量", "操作性": "操作性", "ダストカップ": "集尘杯",
+  "ヘッド": "吸头", "バッテリー": "电池", "自立機能": "自立功能", "収納": "收纳",
+  "騒音": "噪音", "自走機能": "自驱动", "デザイン": "外观", "ローラー": "滚刷",
+  "静音性": "静音性", "耐久性": "耐久性", "LEDライト": "LED灯", "髪の毛": "头发",
+  "充電": "充电", "収納性": "收纳性", "カーペット対応": "地毯适用", "カーペット": "地毯",
+  "ノズル": "吸嘴", "軽量": "轻量", "ライト": "灯", "動作音": "运行声音",
+  "充電スタンド": "充电底座", "充電端子": "充电接口", "サポート対応": "客服对应",
+  "外装": "外壳", "梱包": "包装", "組み立て": "组装", "フィルター": "过滤器",
+  "コンパクト": "紧凑", "スタンド": "支架", "付属品": "配件", "電気系統": "电气系统",
+  "本体形状": "机身形状", "安全性": "安全性", "怪我": "受伤", "モーター": "电机",
+  "操作ボタン": "操作按钮", "スイッチ": "开关", "ハンディモード": "手持模式",
+  "絨毯対応": "地毯适用", "転倒耐性": "倒下耐性", "パイプ接続": "管口接合",
+  "ロック機構": "锁紧机构", "基本機能": "基本功能", "接触不良": "接触不良",
+};
+const tx = (jp) => state.lang === "zh" ? (TOPIC_ZH[jp] || jp) : jp;
 
 async function fetchJSON(file) {
   let lastErr;
@@ -113,20 +180,20 @@ function renderStats(d, joined) {
 
 function renderTopics(joined) {
   const counts = new Map();
-  for (const r of joined) for (const t of r.topics || []) counts.set(t, (counts.get(t) || 0) + 1);
+  for (const r of joined) for (const tp of r.topics || []) counts.set(tp, (counts.get(tp) || 0) + 1);
   const sorted = [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 24);
   const wrap = document.getElementById("topics");
   const cloud = document.getElementById("topic-cloud");
   if (!sorted.length) { wrap.hidden = true; return; }
   wrap.hidden = false;
-  cloud.innerHTML = sorted.map(([t, n]) =>
-    `<span class="topic-pill${state.topic === t ? " active" : ""}" data-topic="${esc(t)}">${esc(t)}<span class="cnt">${n}</span></span>`
+  cloud.innerHTML = sorted.map(([tp, n]) =>
+    `<span class="topic-pill${state.topic === tp ? " active" : ""}" data-topic="${esc(tp)}">${esc(tx(tp))}<span class="cnt">${n}</span></span>`
   ).join("");
   cloud.onclick = (e) => {
     const el = e.target.closest(".topic-pill");
     if (!el) return;
-    const t = el.dataset.topic;
-    state.topic = state.topic === t ? null : t;
+    const tp = el.dataset.topic;
+    state.topic = state.topic === tp ? null : tp;
     render();
   };
 }
@@ -177,50 +244,49 @@ function renderTrend(joined) {
     }
   });
   document.getElementById("trend-legend").innerHTML =
-    `<span style="display:inline-block;width:10px;height:10px;background:${colDefect};vertical-align:middle;margin-right:4px"></span>不具合 / 故障` +
-    ` &nbsp; <span style="display:inline-block;width:10px;height:10px;background:${colImprovement};vertical-align:middle;margin-right:4px"></span>改善要望 / 改善需求` +
-    ` &nbsp; <span style="opacity:0.6">${recent.length}ヶ月表示</span>`;
-}
-
-function labelCat(c) {
-  return { defect: "不具合", improvement: "改善要望", praise: "称賛", question: "質問", other: "その他" }[c] || c;
-}
-function labelSev(s) {
-  return { high: "深刻度: 高", medium: "深刻度: 中", low: "深刻度: 低" }[s] || s;
+    `<span style="display:inline-block;width:10px;height:10px;background:${colDefect};vertical-align:middle;margin-right:4px"></span>${esc(t().legendDefect)}` +
+    ` &nbsp; <span style="display:inline-block;width:10px;height:10px;background:${colImprovement};vertical-align:middle;margin-right:4px"></span>${esc(t().legendImp)}` +
+    ` &nbsp; <span style="opacity:0.6">${recent.length}${esc(t().monthSuffix)}</span>`;
 }
 
 function renderList(rows) {
   const list = document.getElementById("list");
   const empty = document.getElementById("empty");
-  document.getElementById("result-count").textContent = `${rows.length}件 / ${state.data?.reviews.length || 0}件`;
+  document.getElementById("result-count").textContent = t().countSuffix(rows.length, state.data?.reviews.length || 0);
   if (!rows.length) { list.innerHTML = ""; empty.hidden = false; return; }
   empty.hidden = true;
   const MAX_RENDER = 300;
   const slice = rows.slice(0, MAX_RENDER);
-  list.innerHTML = slice.map((r) => `
+  const labels = t();
+  list.innerHTML = slice.map((r) => {
+    const catLab = labels.catLabels[r.category] || labels.catLabels.unclassified;
+    const sevLab = r.severity && r.severity !== "n/a" ? labels.sevLabels[r.severity] : "";
+    const showJa = state.lang === "ja";
+    const showZh = state.lang === "zh";
+    return `
     <article class="card" id="rev-${esc(r.id)}">
       <div class="card-head">
         <span class="stars">${stars(r.rating)}</span>
         <span class="cdate">${esc(fmtDate(r.postDate))}</span>
-        ${r.category && r.category !== "unclassified" ? `<span class="badge cat-${esc(r.category)}">${labelCat(r.category)}</span>` : `<span class="badge cat-other">未分類</span>`}
-        ${r.severity && r.severity !== "n/a" ? `<span class="badge sev-${esc(r.severity)}">${labelSev(r.severity)}</span>` : ""}
-        <span class="cnick">— ${esc(r.nickname || "購入者")}</span>
-        <button class="chip" style="margin-left:6px" data-escalate="${esc(r.id)}" title="この声を defect Issue として起票 / 起 Issue">📋 Issue化</button>
+        <span class="badge cat-${esc(r.category)}">${esc(catLab)}</span>
+        ${sevLab ? `<span class="badge sev-${esc(r.severity)}">${esc(sevLab)}</span>` : ""}
+        <span class="cnick">— ${esc(r.nickname || labels.poster)}</span>
+        <button class="chip" style="margin-left:6px" data-escalate="${esc(r.id)}" title="${esc(labels.issueBtnTitle)}">${esc(labels.issueBtn)}</button>
       </div>
-      ${(r.topics && r.topics.length) ? `<div class="topics-line">${r.topics.map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div>` : ""}
+      ${(r.topics && r.topics.length) ? `<div class="topics-line">${r.topics.map(tp => `<span class="tag">${esc(tx(tp))}</span>`).join("")}</div>` : ""}
       ${(r.summary_ja || r.summary_zh) ? `
         <div class="summary">
-          <div class="sum-cell"><div class="lang">日本語要約 / JP</div>${esc(r.summary_ja || "—")}</div>
-          <div class="sum-cell"><div class="lang">中文摘要 / 中国语</div>${esc(r.summary_zh || "—")}</div>
+          <div class="sum-cell ja"><div class="lang">${esc(labels.summaryLabel_ja)}</div>${esc(r.summary_ja || "—")}</div>
+          <div class="sum-cell zh"><div class="lang">${esc(labels.summaryLabel_zh)}</div>${esc(r.summary_zh || "—")}</div>
         </div>` : ""}
-      ${r.action_hint ? `<div class="action-hint">${esc(r.action_hint)}</div>` : ""}
+      ${r.action_hint && showJa ? `<div class="action-hint">${esc(r.action_hint)}</div>` : ""}
+      ${r.action_hint && showZh ? `<div class="action-hint" title="${esc(r.action_hint)}">${esc(labels.notranslated)}</div>` : ""}
       ${r.title ? `<div style="font-weight:600;margin-bottom:4px">${esc(r.title)}</div>` : ""}
       <div class="body">${esc(r.body)}</div>
-    </article>
-  `).join("");
+    </article>`;
+  }).join("");
   if (rows.length > MAX_RENDER) {
-    list.insertAdjacentHTML("beforeend",
-      `<div class="empty">表示は最新${MAX_RENDER}件まで。フィルタや検索で絞り込んでください。<br>仅显示最近 ${MAX_RENDER} 条，请使用筛选或搜索。</div>`);
+    list.insertAdjacentHTML("beforeend", `<div class="empty">${esc(labels.overflow(MAX_RENDER))}</div>`);
   }
   list.querySelectorAll(".body").forEach((el) => el.addEventListener("click", () => el.classList.toggle("expanded")));
   list.querySelectorAll("[data-escalate]").forEach((btn) => {
@@ -234,7 +300,6 @@ function escalateReview(id) {
   if (!r) return;
   const sev = c.severity || "n/a";
   const sevTag = ({ high: "[高]", medium: "[中]", low: "[低]" })[sev] || "";
-  // [J001] or [J002] derived directly from PRODUCT
   const titlePrefix = "[" + PRODUCT.replace("sh-", "").toUpperCase() + "]";
   const titleJa = (c.summary_ja || r.body || "顧客レビュー").split("\n")[0].slice(0, 60);
   const title = [titlePrefix, "[顧客]", sevTag, titleJa].filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
@@ -262,7 +327,7 @@ function escalateReview(id) {
 
 function exportCSV() {
   const rows = state.lastFiltered || [];
-  if (!rows.length) { alert("エクスポートする結果がありません / 没有可导出的结果"); return; }
+  if (!rows.length) { alert(t().csvNoRows); return; }
   const header = ["id", "product", "rating", "postDate", "nickname", "category", "severity", "summary_ja", "summary_zh", "topics", "action_hint", "body"];
   const escCsv = (v) => {
     if (v == null) return "";
@@ -283,8 +348,19 @@ function exportCSV() {
   URL.revokeObjectURL(url);
 }
 
+function applyLang() {
+  document.body.classList.toggle("lang-ja", state.lang === "ja");
+  document.body.classList.toggle("lang-zh", state.lang === "zh");
+  // search placeholder
+  const q = document.getElementById("q");
+  if (q) q.placeholder = q.dataset[`placeholder${state.lang.charAt(0).toUpperCase()}${state.lang.slice(1)}`] || "";
+  // toggle visual
+  document.querySelectorAll(".lang-toggle button").forEach(b => b.classList.toggle("active", b.dataset.lang === state.lang));
+}
+
 function render() {
   if (!state.data) return;
+  applyLang();
   const joined = joinReviewsAndCats(state.data);
   const filtered = applyFilters(joined);
   renderStats(state.data, joined);
@@ -292,13 +368,24 @@ function render() {
   renderTrend(joined);
   renderList(filtered);
   state.lastFiltered = filtered;
-  const lastJp = state.data.updatedAt ? new Date(state.data.updatedAt).toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" }) : "—";
-  const catUpd = state.data.categorizedUpdatedAt ? new Date(state.data.categorizedUpdatedAt).toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" }) : "未生成";
-  document.getElementById("last-update").innerHTML = `レビュー取得: ${lastJp} ・ 分類: ${catUpd}`;
-  document.getElementById("status-text").textContent = `${(window.PRODUCT_LABEL || PRODUCT).toUpperCase()} のデータを表示中`;
+  const lastJp = state.data.updatedAt ? new Date(state.data.updatedAt).toLocaleString(state.lang === "zh" ? "zh-CN" : "ja-JP", { timeZone: "Asia/Tokyo" }) : "—";
+  const catUpd = state.data.categorizedUpdatedAt ? new Date(state.data.categorizedUpdatedAt).toLocaleString(state.lang === "zh" ? "zh-CN" : "ja-JP", { timeZone: "Asia/Tokyo" }) : t().notGenerated;
+  document.getElementById("last-update").innerHTML = t().lastUpdated(lastJp, catUpd);
+  document.getElementById("status-text").textContent = t().statusShowing(window.PRODUCT_LABEL || PRODUCT);
 }
 
 async function init() {
+  applyLang();
+
+  // language toggle
+  document.querySelectorAll(".lang-toggle button").forEach(b => {
+    b.addEventListener("click", () => {
+      state.lang = b.dataset.lang;
+      try { localStorage.setItem(LS_LANG_KEY, state.lang); } catch (e) {}
+      render();
+    });
+  });
+
   function bindChips(groupSelector, key) {
     document.querySelectorAll(`${groupSelector} .chip`).forEach(btn => {
       btn.addEventListener("click", () => {
@@ -314,12 +401,12 @@ async function init() {
   const q = document.getElementById("q");
   q.addEventListener("input", () => { state.q = q.value; render(); });
   document.getElementById("export-csv").addEventListener("click", exportCSV);
-  document.getElementById("status-text").textContent = "データ取得中…";
+  document.getElementById("status-text").textContent = t().statusLoading;
   try {
     await loadData();
     render();
   } catch (e) {
-    document.getElementById("status-text").textContent = `読み込み失敗: ${e.message}`;
+    document.getElementById("status-text").textContent = `読み込み失敗 / 加载失败: ${e.message}`;
   }
 }
 init();

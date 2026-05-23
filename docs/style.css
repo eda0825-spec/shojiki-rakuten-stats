@@ -47,7 +47,39 @@ a:hover { text-decoration: underline; }
 .hdr-title { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
 .brand { font-weight: 700; font-size: 18px; letter-spacing: 0.08em; }
 .sub { color: var(--ink-3); font-size: 12px; }
-.hdr-meta { color: var(--ink-3); font-size: 12px; }
+.hdr-meta { color: var(--ink-3); font-size: 12px; display: flex; align-items: center; gap: 12px; }
+
+/* ===== Language toggle ===== */
+.lang-toggle {
+  display: inline-flex; gap: 0;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  overflow: hidden;
+  font-size: 12px; font-weight: 600;
+}
+.lang-toggle button {
+  background: transparent; border: none;
+  padding: 4px 12px; cursor: pointer;
+  color: var(--ink-3); font: inherit;
+  white-space: nowrap;
+}
+.lang-toggle button.active {
+  background: var(--ink); color: #fff;
+}
+.lang-toggle button:hover:not(.active) {
+  background: #f0f0f3; color: var(--ink);
+}
+
+/* Show / hide by language. Body has class lang-ja or lang-zh. */
+body.lang-ja .zh-only { display: none !important; }
+body.lang-zh .ja-only { display: none !important; }
+
+/* Single-summary mode: when language is set, hide the opposite summary cell
+   and let the other one take full width. */
+body.lang-ja .summary { grid-template-columns: 1fr; }
+body.lang-zh .summary { grid-template-columns: 1fr; }
+body.lang-ja .sum-cell.zh,
+body.lang-zh .sum-cell.ja { display: none; }
 
 /* ===== Tabs ===== */
 .tabs {
