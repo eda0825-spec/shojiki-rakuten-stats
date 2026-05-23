@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SHOJIKI SH-J002 不具合報告 / 故障报告</title>
+<title>SHOJIKI SH-J002 不具合報告</title>
 <link rel="stylesheet" href="../style.css">
 <style>
   .form-wrap { max-width: 760px; margin: 0 auto; }
@@ -17,39 +17,101 @@
   }
   .field { margin-bottom: 14px; }
   .field label {
-    display: block; font-size: 12px; color: var(--ink-2);
+    display: block; font-size: 13px; color: var(--ink-2);
     margin-bottom: 4px; font-weight: 600;
   }
   .field label .sub { color: var(--ink-3); font-weight: 400; margin-left: 6px; }
   .field input[type=text], .field input[type=url], .field select, .field textarea {
-    width: 100%; padding: 8px 10px;
-    border: 1px solid var(--line-2); border-radius: 6px;
+    width: 100%; padding: 10px 12px;
+    border: 1px solid var(--line-2); border-radius: 8px;
     background: #fff; font: inherit;
   }
-  .field textarea { min-height: 90px; resize: vertical; font-family: inherit; }
-  .checks { display: flex; flex-wrap: wrap; gap: 6px 12px; }
+  .field textarea { min-height: 96px; resize: vertical; font-family: inherit; }
+  .checks { display: flex; flex-wrap: wrap; gap: 6px 8px; }
   .checks label {
     font-weight: 400; font-size: 13px; display: inline-flex; align-items: center; gap: 4px;
-    background: #fff; border: 1px solid var(--line-2); padding: 4px 10px; border-radius: 999px;
+    background: #fff; border: 1px solid var(--line-2); padding: 6px 14px; border-radius: 999px;
     cursor: pointer;
   }
   .checks label.on { background: var(--ink); color: #fff; border-color: var(--ink); }
   .checks label input { display: none; }
   .submit {
     background: var(--ink); color: #fff;
-    padding: 14px 24px; border: none; border-radius: 10px;
-    font-size: 15px; font-weight: 600; cursor: pointer;
+    padding: 16px 28px; border: none; border-radius: 10px;
+    font-size: 16px; font-weight: 700; cursor: pointer;
     margin-top: 8px;
   }
   .submit:hover { background: #000; }
+  .submit:disabled { background: #aaa; cursor: not-allowed; }
   .note {
     background: #fff7e6; border: 1px solid #f3d99c;
-    padding: 10px 14px; border-radius: 8px; font-size: 12px;
-    margin-bottom: 16px;
+    padding: 12px 16px; border-radius: 10px; font-size: 13px;
+    margin-bottom: 20px; line-height: 1.7;
   }
-  .video-hint { font-size: 11px; color: var(--ink-3); margin-top: 4px; }
   .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   @media (max-width: 600px) { .row2 { grid-template-columns: 1fr; } }
+
+  /* Video drop zone */
+  .drop-zone {
+    border: 2px dashed var(--line-2);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    background: #fafafa;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .drop-zone:hover, .drop-zone.dragover {
+    border-color: var(--ink); background: #fff;
+  }
+  .drop-zone .emoji { font-size: 32px; line-height: 1; margin-bottom: 6px; }
+  .drop-zone .main { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+  .drop-zone .sub { font-size: 11px; color: var(--ink-3); }
+  .drop-zone input[type=file] { display: none; }
+  .drop-zone.uploading { pointer-events: none; opacity: 0.6; }
+  .drop-zone.success {
+    background: #effaf0; border-color: #20a55a; border-style: solid;
+  }
+  .drop-zone.error {
+    background: #fff5f5; border-color: #d93b3b; border-style: solid;
+  }
+  .uploaded-list {
+    list-style: none; padding: 0; margin: 8px 0 0;
+    font-size: 12px;
+  }
+  .uploaded-list li {
+    background: #f0f0f3; padding: 4px 10px; border-radius: 4px;
+    margin-bottom: 4px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .uploaded-list a { color: var(--accent); text-decoration: underline; word-break: break-all; }
+  .uploaded-list .copy-btn {
+    background: var(--ink); color: #fff; border: none;
+    padding: 2px 8px; border-radius: 4px; cursor: pointer; font-size: 11px;
+  }
+
+  /* PAT setup modal */
+  .modal-bg {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+    display: none; align-items: center; justify-content: center; z-index: 100;
+    padding: 20px;
+  }
+  .modal-bg[open] { display: flex; }
+  .modal {
+    background: #fff; border-radius: 14px;
+    padding: 24px; max-width: 540px; width: 100%;
+    max-height: 90vh; overflow-y: auto;
+  }
+  .modal h3 { margin: 0 0 12px; font-size: 18px; }
+  .modal p { font-size: 13px; color: var(--ink-2); line-height: 1.7; margin: 0 0 12px; }
+  .modal ol { font-size: 13px; line-height: 1.8; padding-left: 18px; }
+  .modal input { width: 100%; padding: 10px 12px; border: 1px solid var(--line-2); border-radius: 8px; font: inherit; }
+  .modal-actions { display: flex; gap: 8px; margin-top: 16px; justify-content: flex-end; }
+  .modal-actions button {
+    padding: 8px 16px; border-radius: 8px; border: 1px solid var(--line-2);
+    background: #fff; cursor: pointer; font: inherit;
+  }
+  .modal-actions button.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
 </style>
 </head>
 <body class="lang-ja">
@@ -67,8 +129,8 @@
         <button data-lang="ja" class="active">日本語</button>
         <button data-lang="zh">中文</button>
       </div>
-      <a href="./" class="ja-only">← ダッシュボードへ</a>
-      <a href="./" class="zh-only">← 返回看板</a>
+      <a href="./" class="ja-only">← 戻る</a>
+      <a href="./" class="zh-only">← 返回</a>
     </div>
   </div>
 </header>
@@ -79,18 +141,10 @@
     <span class="product-badge">SH-J002</span>
 
     <div class="note ja-only">
-      📝 このフォームを埋めて「GitHub に投稿」を押すと、入力内容が GitHub Issue として登録されます。<br>
-      <br>
-      <strong>初回は GitHub アカウントが必要</strong>
-      (無料): <a href="https://github.com/signup" target="_blank">github.com/signup</a><br>
-      投稿後、画像はドラッグ&ドロップで本文に追加できます。
+      📝 このフォームに入力して「GitHub に投稿」を押すと、GitHub Issue として登録されます (初回は GitHub アカウントが必要 / 無料: <a href="https://github.com/signup" target="_blank">github.com/signup</a>)。
     </div>
     <div class="note zh-only">
-      📝 填好这个表单点击"提交到 GitHub"，内容会作为 GitHub Issue 登记。<br>
-      <br>
-      <strong>第一次需要 GitHub 账号</strong>
-      (免费): <a href="https://github.com/signup" target="_blank">github.com/signup</a><br>
-      提交后可拖拽图片到正文。
+      📝 填好这个表单点击"提交到 GitHub"，内容会作为 GitHub Issue 登记 (第一次需要 GitHub 账号 / 免费: <a href="https://github.com/signup" target="_blank">github.com/signup</a>)。
     </div>
 
     <form id="defect-form" onsubmit="return submitDefect(event)">
@@ -99,21 +153,21 @@
         <div class="field">
           <label><span class="ja-only">報告元</span><span class="zh-only">来源</span> <span class="sub">*</span></label>
           <select name="source" required>
-            <option value="">-- 選択 / 选择 --</option>
-            <option value="工場検査 / 工厂检查">工場検査 / 工厂检查</option>
-            <option value="顧客レビュー / 客户评论">顧客レビュー / 客户评论</option>
-            <option value="サポート問い合わせ / 客服咨询">サポート問い合わせ / 客服咨询</option>
-            <option value="社内テスト / 内部测试">社内テスト / 内部测试</option>
-            <option value="その他 / 其他">その他 / 其他</option>
+            <option value="" data-ja="-- 選択 --" data-zh="-- 选择 --">-- 選択 --</option>
+            <option value="工場検査 / 工厂检查" data-ja="工場検査" data-zh="工厂检查">工場検査</option>
+            <option value="顧客レビュー / 客户评论" data-ja="顧客レビュー" data-zh="客户评论">顧客レビュー</option>
+            <option value="サポート問い合わせ / 客服咨询" data-ja="サポート問い合わせ" data-zh="客服咨询">サポート問い合わせ</option>
+            <option value="社内テスト / 内部测试" data-ja="社内テスト" data-zh="内部测试">社内テスト</option>
+            <option value="その他 / 其他" data-ja="その他" data-zh="其他">その他</option>
           </select>
         </div>
         <div class="field">
           <label><span class="ja-only">深刻度</span><span class="zh-only">严重度</span> <span class="sub">*</span></label>
           <select name="severity" required>
-            <option value="">-- 選択 / 选择 --</option>
-            <option value="高 / 高 (安全性 - 発火/感電/怪我リスク, 安全 - 起火/触电/受伤风险)">高 (安全性リスク / 安全风险)</option>
-            <option value="中 / 中 (基本機能停止, 基本功能停止)">中 (基本機能停止 / 基本功能停止)</option>
-            <option value="低 / 低 (軽微な不便, 轻微不便)">低 (軽微 / 轻微)</option>
+            <option value="" data-ja="-- 選択 --" data-zh="-- 选择 --">-- 選択 --</option>
+            <option value="高 / 高 (安全性 - 発火/感電/怪我リスク, 安全 - 起火/触电/受伤风险)" data-ja="高 (発火/感電/怪我リスク)" data-zh="高 (起火/触电/受伤风险)">高 (発火/感電/怪我リスク)</option>
+            <option value="中 / 中 (基本機能停止, 基本功能停止)" data-ja="中 (基本機能停止)" data-zh="中 (基本功能停止)">中 (基本機能停止)</option>
+            <option value="低 / 低 (軽微な不便, 轻微不便)" data-ja="低 (軽微)" data-zh="低 (轻微)">低 (軽微)</option>
           </select>
         </div>
       </div>
@@ -122,22 +176,22 @@
         <div class="field">
           <label><span class="ja-only">発生頻度</span><span class="zh-only">发生频率</span></label>
           <select name="frequency">
-            <option value="不明 / 未知">不明 / 未知</option>
-            <option value="単発 / 偶发">単発 / 偶发</option>
-            <option value="散発 / 散发">散発 / 散发</option>
-            <option value="多発 / 多发">多発 / 多发</option>
-            <option value="全数 / 全部">全数 / 全部</option>
+            <option value="不明 / 未知"           data-ja="不明" data-zh="未知">不明</option>
+            <option value="単発 / 偶发"           data-ja="単発" data-zh="偶发">単発</option>
+            <option value="散発 / 散发"           data-ja="散発" data-zh="散发">散発</option>
+            <option value="多発 / 多发"           data-ja="多発" data-zh="多发">多発</option>
+            <option value="全数 / 全部"           data-ja="全数" data-zh="全部">全数</option>
           </select>
         </div>
         <div class="field">
           <label><span class="ja-only">関連工程</span><span class="zh-only">相关工序</span></label>
           <select name="process">
-            <option value="不明 / 未知">不明 / 未知</option>
-            <option value="部品 / 零件">部品 / 零件</option>
-            <option value="組立 / 装配">組立 / 装配</option>
-            <option value="検査 / 检查">検査 / 检查</option>
-            <option value="包装 / 包装">包装 / 包装</option>
-            <option value="出荷後 / 出货后">出荷後 / 出货后</option>
+            <option value="不明 / 未知"     data-ja="不明"   data-zh="未知">不明</option>
+            <option value="部品 / 零件"     data-ja="部品"   data-zh="零件">部品</option>
+            <option value="組立 / 装配"     data-ja="組立"   data-zh="装配">組立</option>
+            <option value="検査 / 检查"     data-ja="検査"   data-zh="检查">検査</option>
+            <option value="包装 / 包装"     data-ja="包装"   data-zh="包装">包装</option>
+            <option value="出荷後 / 出货后" data-ja="出荷後" data-zh="出货后">出荷後</option>
           </select>
         </div>
       </div>
@@ -170,21 +224,40 @@
         </div>
       </div>
 
-      <div class="field">
-        <label><span class="ja-only">症状 (日本語) <span class="sub">*</span></span><span class="zh-only">症状 (日语) <span class="sub">*</span></span></label>
-        <textarea name="symptom_ja" required data-placeholder-ja="何が、いつ、どのような状況で起きるかを具体的に。" data-placeholder-zh="请用日语描述。何时、何种情况、发生了什么。"></textarea>
+      <!-- 症状 — JP MODE ONLY -->
+      <div class="field ja-only">
+        <label>症状 <span class="sub">*</span></label>
+        <textarea name="symptom_ja" placeholder="何が、いつ、どのような状況で起きるかを具体的に。"></textarea>
+      </div>
+      <!-- 症状 — ZH MODE ONLY -->
+      <div class="field zh-only">
+        <label>症状 <span class="sub">*</span></label>
+        <textarea name="symptom_zh" placeholder="何时、什么情况下、发生什么。请具体描述。"></textarea>
       </div>
 
+      <!-- VIDEO DROP ZONE + URL fallback -->
       <div class="field">
-        <label><span class="ja-only">症状 (中文)</span><span class="zh-only">症状 (中文)</span></label>
-        <textarea name="symptom_zh" data-placeholder-ja="中国語でも記入推奨。" data-placeholder-zh="请用中文描述。何时、何种情况下、发生了什么。"></textarea>
-      </div>
-
-      <div class="field">
-        <label><span class="ja-only">動画 URL</span><span class="zh-only">视频链接</span></label>
-        <input type="url" name="video_url" placeholder="https://wetransfer.com/...">
-        <div class="video-hint ja-only">※ 10MB 以下の動画は投稿後に GitHub の本文欄にドラッグで添付できます。</div>
-        <div class="video-hint zh-only">※ 10MB 以下视频可在提交后拖拽到 GitHub 正文中。</div>
+        <label><span class="ja-only">動画・写真</span><span class="zh-only">视频·照片</span></label>
+        <div class="drop-zone" id="drop-zone">
+          <input type="file" id="file-input" accept="video/*,image/*" multiple>
+          <div class="emoji">🎬</div>
+          <div class="main">
+            <span class="ja-only">ここに動画・写真をドラッグ&ドロップ</span>
+            <span class="zh-only">将视频·照片拖拽到此处</span>
+          </div>
+          <div class="sub">
+            <span class="ja-only">またはクリックして選択 (最大 100MB)</span>
+            <span class="zh-only">或点击选择 (最大 100MB)</span>
+          </div>
+        </div>
+        <ul class="uploaded-list" id="uploaded-list"></ul>
+        <details style="margin-top:8px;font-size:12px;color:var(--ink-3)">
+          <summary style="cursor:pointer">
+            <span class="ja-only">URL を貼り付ける場合 (WeTransfer 等)</span>
+            <span class="zh-only">粘贴 URL (如 WeTransfer)</span>
+          </summary>
+          <input type="url" name="video_url" placeholder="https://..." style="margin-top:8px;width:100%;padding:8px;border:1px solid var(--line-2);border-radius:6px">
+        </details>
       </div>
 
       <div class="field">
@@ -193,7 +266,7 @@
       </div>
 
       <div class="field">
-        <label><span class="ja-only">補足</span><span class="zh-only">补充内容</span></label>
+        <label><span class="ja-only">補足 (任意)</span><span class="zh-only">补充 (可选)</span></label>
         <textarea name="extra" data-placeholder-ja="その他のコメント" data-placeholder-zh="其他备注"></textarea>
       </div>
 
@@ -201,32 +274,73 @@
 
     </form>
 
-    <p class="hint" style="margin-top:24px;text-align:center">
-      <a href="./defects-dashboard.html" class="ja-only">📋 投稿済みの不具合一覧を見る</a>
-      <a href="./defects-dashboard.html" class="zh-only">📋 查看已提交故障一览</a>
-    </p>
-
   </div>
 </main>
 
+<!-- PAT setup modal -->
+<div class="modal-bg" id="pat-modal">
+  <div class="modal">
+    <h3><span class="ja-only">🔑 動画アップロード設定 (一度だけ)</span><span class="zh-only">🔑 视频上传配置 (仅一次)</span></h3>
+    <p class="ja-only">
+      動画をドラッグ&ドロップで GitHub リポジトリにアップロードするには GitHub PAT (Personal Access Token) が必要です。
+      この設定はブラウザに保存され、サーバーには送信されません。
+    </p>
+    <p class="zh-only">
+      为了通过拖拽将视频上传到 GitHub 仓库，需要 GitHub PAT (个人访问令牌)。
+      此设置保存在浏览器本地，不会发送到任何服务器。
+    </p>
+    <ol class="ja-only">
+      <li><a href="https://github.com/settings/tokens?type=beta" target="_blank">github.com/settings/tokens</a> で fine-grained PAT を発行</li>
+      <li>Repository access: <code>shojiki-rakuten-stats</code> を選択</li>
+      <li>Repository permissions → <strong>Contents: Read and write</strong> を ON</li>
+      <li>下に貼り付け</li>
+    </ol>
+    <ol class="zh-only">
+      <li>在 <a href="https://github.com/settings/tokens?type=beta" target="_blank">github.com/settings/tokens</a> 创建 fine-grained PAT</li>
+      <li>Repository access: 选择 <code>shojiki-rakuten-stats</code></li>
+      <li>Repository permissions → <strong>Contents: Read and write</strong></li>
+      <li>粘贴到下方</li>
+    </ol>
+    <input type="password" id="pat-input" placeholder="github_pat_...">
+    <div class="modal-actions">
+      <button onclick="closePATModal()"><span class="ja-only">後で</span><span class="zh-only">稍后</span></button>
+      <button class="primary" onclick="savePAT()"><span class="ja-only">保存</span><span class="zh-only">保存</span></button>
+    </div>
+  </div>
+</div>
+
 <footer class="ftr">
   <p>
-    Submitted to: <a href="https://github.com/eda0825-spec/shojiki-defects-j002" target="_blank">shojiki-defects-j002</a>
+    Issues: <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues" target="_blank">shojiki-defects-j002</a>
   </p>
 </footer>
 
 <script>
 const DEFECT_REPO = "eda0825-spec/shojiki-defects-j002";
 const PRODUCT_TAG = "[J002]";
+const PRODUCT = "sh-j002";
+const STORAGE_REPO = "eda0825-spec/shojiki-rakuten-stats";   // where videos are committed
 const LS_LANG_KEY = "shojiki-dashboard-lang";
+const LS_PAT_KEY = "shojiki-uploader-pat";
 
+// ===== Language toggle =====
 function applyLang(lang) {
   document.body.classList.toggle("lang-ja", lang === "ja");
   document.body.classList.toggle("lang-zh", lang === "zh");
   document.querySelectorAll(".lang-toggle button").forEach(b => b.classList.toggle("active", b.dataset.lang === lang));
+  // swap dropdown option text
+  document.querySelectorAll("select option[data-ja]").forEach(o => {
+    o.textContent = o.dataset[lang] || o.dataset.ja;
+  });
+  // swap placeholders
   document.querySelectorAll("[data-placeholder-ja]").forEach(el => {
     el.placeholder = el.dataset[`placeholder${lang.charAt(0).toUpperCase()}${lang.slice(1)}`] || "";
   });
+  // toggle required on symptom fields per lang
+  const sJa = document.querySelector('textarea[name="symptom_ja"]');
+  const sZh = document.querySelector('textarea[name="symptom_zh"]');
+  if (sJa) sJa.required = (lang === "ja");
+  if (sZh) sZh.required = (lang === "zh");
 }
 (function initLang() {
   const lang = (typeof localStorage !== "undefined" && localStorage.getItem(LS_LANG_KEY)) || "ja";
@@ -240,11 +354,154 @@ function applyLang(lang) {
   });
 })();
 
+// ===== Area checkbox toggle =====
 document.getElementById("area-checks").addEventListener("change", (e) => {
   const lbl = e.target.closest("label");
   if (lbl) lbl.classList.toggle("on", e.target.checked);
 });
 
+// ===== PAT setup =====
+function getPAT() {
+  try { return localStorage.getItem(LS_PAT_KEY); } catch(e) { return null; }
+}
+function openPATModal() {
+  document.getElementById("pat-modal").setAttribute("open", "");
+  setTimeout(() => document.getElementById("pat-input").focus(), 50);
+}
+function closePATModal() {
+  document.getElementById("pat-modal").removeAttribute("open");
+}
+function savePAT() {
+  const v = document.getElementById("pat-input").value.trim();
+  if (!v) return;
+  try { localStorage.setItem(LS_PAT_KEY, v); } catch(e) {}
+  closePATModal();
+  // If there was a pending file, retry upload
+  if (window._pendingFile) {
+    const f = window._pendingFile;
+    window._pendingFile = null;
+    uploadFile(f);
+  }
+}
+
+// ===== Drag & drop video / image upload to GitHub repo =====
+const uploadedItems = [];
+
+function setupDropZone() {
+  const dz = document.getElementById("drop-zone");
+  const fi = document.getElementById("file-input");
+  dz.addEventListener("click", () => fi.click());
+  dz.addEventListener("dragover", (e) => { e.preventDefault(); dz.classList.add("dragover"); });
+  dz.addEventListener("dragleave", () => dz.classList.remove("dragover"));
+  dz.addEventListener("drop", (e) => {
+    e.preventDefault(); dz.classList.remove("dragover");
+    for (const f of e.dataTransfer.files) uploadFile(f);
+  });
+  fi.addEventListener("change", () => {
+    for (const f of fi.files) uploadFile(f);
+    fi.value = "";
+  });
+}
+
+async function uploadFile(file) {
+  const MAX = 100 * 1024 * 1024;
+  if (file.size > MAX) {
+    alert((document.body.classList.contains("lang-ja") ? "ファイルが大きすぎます (100MB制限): " : "文件过大 (100MB 限制): ") + Math.round(file.size/1024/1024) + "MB");
+    return;
+  }
+  let pat = getPAT();
+  if (!pat) {
+    window._pendingFile = file;
+    openPATModal();
+    return;
+  }
+
+  const dz = document.getElementById("drop-zone");
+  dz.classList.add("uploading");
+  dz.classList.remove("success", "error");
+  const origHTML = dz.innerHTML;
+  dz.innerHTML = '<div class="emoji">⏳</div><div class="main">アップロード中... / 上传中...</div><div class="sub">' + esc(file.name) + ' (' + Math.round(file.size/1024) + 'KB)</div>';
+
+  try {
+    // Read file as base64
+    const b64 = await new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload = () => res(r.result.split(",")[1]);
+      r.onerror = rej;
+      r.readAsDataURL(file);
+    });
+
+    // Generate path
+    const ts = new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19);
+    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+    const path = `docs/defects-uploads/${PRODUCT}/${ts}-${safeName}`;
+
+    // Commit via GitHub API
+    const resp = await fetch(`https://api.github.com/repos/${STORAGE_REPO}/contents/${path}`, {
+      method: "PUT",
+      headers: {
+        "Authorization": `Bearer ${pat}`,
+        "Accept": "application/vnd.github+json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        message: `upload: ${PRODUCT} defect attachment ${ts}`,
+        content: b64,
+      }),
+    });
+    if (!resp.ok) {
+      const err = await resp.text();
+      throw new Error(`${resp.status}: ${err.slice(0, 200)}`);
+    }
+    const data = await resp.json();
+    const url = data.content.download_url;
+
+    uploadedItems.push({ name: file.name, url, size: file.size });
+    renderUploadedList();
+
+    dz.classList.remove("uploading");
+    dz.classList.add("success");
+    dz.innerHTML = origHTML;
+    setTimeout(() => dz.classList.remove("success"), 2000);
+  } catch (e) {
+    dz.classList.remove("uploading");
+    dz.classList.add("error");
+    dz.innerHTML = '<div class="emoji">⚠️</div><div class="main">アップロード失敗 / 上传失败</div><div class="sub">' + esc(e.message) + '</div>';
+    setTimeout(() => { dz.innerHTML = origHTML; dz.classList.remove("error"); }, 5000);
+    // If 401, prompt to re-enter PAT
+    if (e.message.startsWith("401")) {
+      try { localStorage.removeItem(LS_PAT_KEY); } catch(_) {}
+      setTimeout(openPATModal, 600);
+    }
+  }
+}
+
+function renderUploadedList() {
+  const ul = document.getElementById("uploaded-list");
+  ul.innerHTML = uploadedItems.map((u, i) => `
+    <li>
+      <span>✅</span>
+      <a href="${esc(u.url)}" target="_blank">${esc(u.name)}</a>
+      <span style="color:var(--ink-3);font-size:11px">(${Math.round(u.size/1024)}KB)</span>
+      <button class="copy-btn" onclick="copyURL('${esc(u.url)}')">URL コピー</button>
+      <button class="copy-btn" style="background:#999" onclick="removeUpload(${i})">削除</button>
+    </li>
+  `).join("");
+}
+function copyURL(url) {
+  navigator.clipboard.writeText(url);
+}
+function removeUpload(i) {
+  uploadedItems.splice(i, 1);
+  renderUploadedList();
+}
+function esc(s) {
+  return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+setupDropZone();
+
+// ===== Submit =====
 function submitDefect(e) {
   e.preventDefault();
   const fd = new FormData(e.target);
@@ -253,7 +510,7 @@ function submitDefect(e) {
 
   const sevShort = get("severity").split("/")[0].trim();
   const sevTag = sevShort ? `[${sevShort}]` : "";
-  const ja1 = get("symptom_ja").split("\n")[0].slice(0, 40);
+  const ja1 = (get("symptom_ja") || get("symptom_zh")).split("\n")[0].slice(0, 40);
   const title = [PRODUCT_TAG, sevTag, ja1 || "不具合報告"].filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
 
   const params = new URLSearchParams();
@@ -267,11 +524,26 @@ function submitDefect(e) {
   params.set("serial", get("serial"));
   params.set("symptom_ja", get("symptom_ja"));
   params.set("symptom_zh", get("symptom_zh"));
-  params.set("video_url", get("video_url"));
+  // Video URL: prefer uploaded items, fall back to manually pasted URL
+  const uploadedUrls = uploadedItems.map(u => u.url);
+  const manualUrl = get("video_url");
+  const videoUrl = uploadedUrls.length ? uploadedUrls.join("\n") : manualUrl;
+  params.set("video_url", videoUrl);
   params.set("suspected_cause", get("suspected_cause"));
+
+  // Extra: include areas and uploaded file embed markdown
   let extra = get("extra");
   if (areas.length) {
-    extra = (extra ? extra + "\n\n" : "") + "部位 / 部位: " + areas.join(", ");
+    extra = (extra ? extra + "\n\n" : "") + "部位: " + areas.map(a => a.split("/")[0].trim()).join(", ");
+  }
+  if (uploadedItems.length) {
+    extra += "\n\n添付ファイル / 附件:\n" + uploadedItems.map(u => {
+      const isVideo = /\.(mp4|mov|webm|m4v|avi)$/i.test(u.name);
+      const isImage = /\.(png|jpg|jpeg|gif|webp)$/i.test(u.name);
+      if (isImage) return `![${u.name}](${u.url})`;
+      if (isVideo) return `<video src="${u.url}" controls width="480"></video>`;
+      return `- [${u.name}](${u.url})`;
+    }).join("\n");
   }
   params.set("extra", extra);
 
