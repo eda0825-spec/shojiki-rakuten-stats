@@ -227,7 +227,7 @@ function escalateReview(id) {
   const sevTag = ({ high: "[高]", medium: "[中]", low: "[低]" })[sev] || "";
   const titlePrefix = state.product === "sh-j001" ? "[J001]" : "[J002]";
   const titleJa = (c.summary_ja || r.body || "顧客レビュー").split("\n")[0].slice(0, 60);
-  const title = `${titlePrefix} [顧客] ${sevTag} ${titleJa}`.trim();
+  const title = [titlePrefix, "[顧客]", sevTag, titleJa].filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
 
   const params = new URLSearchParams();
   params.set("template", "defect.yml");

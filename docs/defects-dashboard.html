@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SHOJIKI 不具合トラッカー / 故障追踪</title>
 <link rel="stylesheet" href="./style.css">
@@ -62,8 +63,15 @@
     padding: 12px 16px; border-radius: 8px;
     font-size: 13px; color: #114178; margin-bottom: 18px;
   }
-  .badge-img { height: 20px; vertical-align: middle; }
   .badges { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .count-pill {
+    background: #f0f0f3; border: 1px solid var(--line-2);
+    padding: 2px 10px; border-radius: 999px; font-size: 12px;
+    color: var(--ink-2);
+  }
+  .count-pill.open { background: #eef6ff; border-color: #b5d6ff; color: #114178; }
+  .count-pill.resolved { background: #effaf0; border-color: #b9e6c0; color: #0f5c2b; }
+  .hint-private { font-size: 11px; color: var(--ink-3); margin: 8px 0 0; }
 </style>
 </head>
 <body>
@@ -123,17 +131,14 @@
           <span class="ic">✅</span>解決済み
         </a>
       </div>
-      <div class="badges">
-        <a href="https://github.com/eda0825-spec/shojiki-defects-j001/issues" target="_blank">
-          <img class="badge-img" src="https://img.shields.io/github/issues/eda0825-spec/shojiki-defects-j001?label=open&color=blue" alt="open issues">
-        </a>
-        <a href="https://github.com/eda0825-spec/shojiki-defects-j001/issues?q=is%3Aclosed" target="_blank">
-          <img class="badge-img" src="https://img.shields.io/github/issues-closed/eda0825-spec/shojiki-defects-j001?label=resolved&color=green" alt="resolved">
-        </a>
+      <div class="badges" id="counts-j001" hidden>
+        <span class="count-pill" data-k="j001-open">open: —</span>
+        <span class="count-pill" data-k="j001-closed">resolved: —</span>
       </div>
+      <p class="hint-private">📌 件数は <code>DEFECTS_SYNC_PAT</code> 設定後に表示されます / 数量在设置 PAT 后显示</p>
     </div>
 
-    <div class="tile">
+    <div class="tile" data-product="sh-j002">
       <span class="tag">SH-J002 (軽量モデル)</span>
       <h2>SH-J002 不具合 / 故障</h2>
       <p>
@@ -160,14 +165,11 @@
           <span class="ic">✅</span>解決済み
         </a>
       </div>
-      <div class="badges">
-        <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues" target="_blank">
-          <img class="badge-img" src="https://img.shields.io/github/issues/eda0825-spec/shojiki-defects-j002?label=open&color=blue" alt="open issues">
-        </a>
-        <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues?q=is%3Aclosed" target="_blank">
-          <img class="badge-img" src="https://img.shields.io/github/issues-closed/eda0825-spec/shojiki-defects-j002?label=resolved&color=green" alt="resolved">
-        </a>
+      <div class="badges" id="counts-j002" hidden>
+        <span class="count-pill" data-k="j002-open">open: —</span>
+        <span class="count-pill" data-k="j002-closed">resolved: —</span>
       </div>
+      <p class="hint-private">📌 件数は <code>DEFECTS_SYNC_PAT</code> 設定後に表示されます / 数量在设置 PAT 后显示</p>
     </div>
 
   </div>
@@ -207,7 +209,30 @@
     const r = await fetch("./data/defects-merged.json", { cache: "no-cache" });
     if (!r.ok) return;
     const data = await r.json();
-    const list = (data.issues || []).slice(0, 30);
+    const all = data.issues || [];
+
+    // populate per-product counts
+    const byProd = {};
+    for (const i of all) {
+      const k = i.product;
+      byProd[k] = byProd[k] || { open: 0, closed: 0 };
+      if (i.state === "open") byProd[k].open++;
+      else byProd[k].closed++;
+    }
+    for (const prod of ["sh-j001", "sh-j002"]) {
+      const wrap = document.getElementById(`counts-${prod.replace("sh-", "")}`);
+      if (!wrap) continue;
+      const c = byProd[prod] || { open: 0, closed: 0 };
+      wrap.hidden = false;
+      wrap.innerHTML =
+        `<span class="count-pill open">open: ${c.open}</span>` +
+        `<span class="count-pill resolved">resolved: ${c.closed}</span>`;
+      // hide the "PAT 設定後" hint
+      const tile = wrap.closest(".tile");
+      tile?.querySelector(".hint-private")?.remove();
+    }
+
+    const list = all.slice(0, 30);
     if (!list.length) return;
     const root = document.getElementById("agg-section");
     const ul = document.getElementById("agg-list");

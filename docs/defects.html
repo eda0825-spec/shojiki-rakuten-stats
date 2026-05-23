@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SHOJIKI 不具合報告 / 故障报告</title>
 <link rel="stylesheet" href="./style.css">
@@ -240,9 +241,10 @@ function submitDefect(e) {
 
   // title
   const titlePrefix = currentProduct === "sh-j001" ? "[J001]" : "[J002]";
-  const sevShort = get("severity").split("/")[0].trim() || "?";
+  const sevShort = get("severity").split("/")[0].trim();
+  const sevTag = sevShort ? `[${sevShort}]` : "";
   const ja1 = get("symptom_ja").split("\n")[0].slice(0, 40);
-  const title = `${titlePrefix} [${sevShort}] ${ja1 || "不具合報告"}`;
+  const title = [titlePrefix, sevTag, ja1 || "不具合報告"].filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
 
   // map to issue form field IDs (matches defect.yml ids)
   const params = new URLSearchParams();
