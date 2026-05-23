@@ -100,8 +100,12 @@ def shape(issue: dict, product: str) -> dict:
 def main() -> int:
     token = os.environ.get("DEFECTS_SYNC_PAT")
     if not token:
-        print("ERROR: DEFECTS_SYNC_PAT env var required", file=sys.stderr)
-        return 1
+        print(
+            "NOTICE: DEFECTS_SYNC_PAT not set — skipping sync.\n"
+            "  See docs/SETUP_CHECKLIST.md to enable aggregated dashboard.",
+            file=sys.stderr,
+        )
+        return 0
 
     here = Path(__file__).resolve().parent
     out_dir = here / "docs" / "data"

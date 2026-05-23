@@ -153,8 +153,14 @@ def build_issue(review: dict, cat: dict, product: str) -> dict:
 def main() -> int:
     token = os.environ.get("DEFECTS_SYNC_PAT")
     if not token:
-        print("ERROR: DEFECTS_SYNC_PAT env var required", file=sys.stderr)
-        return 1
+        print(
+            "NOTICE: DEFECTS_SYNC_PAT not set — skipping bridge.\n"
+            "  To enable: add a GitHub PAT (Classic, repo scope) as secret\n"
+            "  DEFECTS_SYNC_PAT in eda0825-spec/shojiki-rakuten-stats.\n"
+            "  See docs/SETUP_CHECKLIST.md for full steps.",
+            file=sys.stderr,
+        )
+        return 0  # exit 0 so the workflow stays green when PAT not yet configured
     min_sev = os.environ.get("BRIDGE_MIN_SEVERITY", "high").strip().lower()
     max_per_run = int(os.environ.get("BRIDGE_MAX_PER_RUN", "20"))
     dry = os.environ.get("BRIDGE_DRY_RUN") == "1"
