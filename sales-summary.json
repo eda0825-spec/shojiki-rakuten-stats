@@ -1,0 +1,93 @@
+{
+  "updatedAt": "2026-05-24T23:33:32Z",
+  "byProduct": {
+    "sh-j001": {
+      "today": {
+        "total": 0,
+        "rakuten": 0,
+        "amazon": 0,
+        "shopify": 0
+      },
+      "thisMonth": {
+        "total": 0,
+        "rakuten": 0,
+        "amazon": 0,
+        "shopify": 0
+      },
+      "lastMonth": {
+        "total": 0,
+        "rakuten": 0,
+        "amazon": 0,
+        "shopify": 0
+      },
+      "allTime": {
+        "total": 0,
+        "rakuten": 0,
+        "amazon": 0,
+        "shopify": 0
+      },
+      "byMonth": [],
+      "platformStatus": {
+        "shopify": {
+          "configured": false,
+          "error": "SHOPIFY_SHOP_DOMAIN / SHOPIFY_ADMIN_TOKEN not set",
+          "lastSyncOrders": 0
+        },
+        "rakuten": {
+          "configured": false,
+          "error": "RAKUTEN_RMS_LICENSE_KEY / SERVICE_SECRET not set",
+          "lastSyncOrders": 0
+        },
+        "amazon": {
+          "configured": false,
+          "error": "AMAZON_SP_REFRESH_TOKEN / CLIENT_ID / CLIENT_SECRET not set",
+          "lastSyncOrders": 0
+        }
+      }
+    },
+    "sh-j002": {
+      "today": {
+        "total": 0,
+        "rakuten": 0,
+        "amazon": 0,
+        "shopify": 0
+      },
+      "thisMonth": {
+        "total": 0,
+        "rakuten": 0,
+        "amazon": 0,
+        "shopify": 0
+      },
+      "lastMonth": {
+        "total": 0,
+        "rakuten": 0,
+        "amazon": 0,
+        "shopify": 0
+      },
+      "allTime": {
+        "total": 0,
+        "rakuten": 0,
+        "amazon": 0,
+        "shopify": 0
+      },
+      "byMonth": [],
+      "platformStatus": {
+        "shopify": {
+          "configured": false,
+          "error": "SHOPIFY_SHOP_DOMAIN / SHOPIFY_ADMIN_TOKEN not set",
+          "lastSyncOrders": 0
+        },
+        "rakuten": {
+          "configured": false,
+          "error": "RAKUTEN_RMS_LICENSE_KEY / SERVICE_SECRET not set",
+          "lastSyncOrders": 0
+        },
+        "amazon": {
+          "configured": false,
+          "error": "AMAZON_SP_REFRESH_TOKEN / CLIENT_ID / CLIENT_SECRET not set",
+          "lastSyncOrders": 0
+        }
+      }
+    }
+  }
+}
