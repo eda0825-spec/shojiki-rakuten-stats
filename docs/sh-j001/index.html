@@ -38,6 +38,34 @@
 
 <main id="app">
 
+  <!-- SALES WIDGET (loads sales-summary.json, hidden if no data) -->
+  <section class="sales-widget" id="sales-widget" hidden>
+    <div class="sw-title">
+      <span class="ja-only">📦 販売台数</span>
+      <span class="zh-only">📦 销售台数</span>
+      <span class="sw-updated" id="sw-updated"></span>
+    </div>
+    <div class="sw-numbers">
+      <div class="sw-cell">
+        <div class="sw-num" id="sw-today">—</div>
+        <div class="sw-lbl"><span class="ja-only">今日</span><span class="zh-only">今天</span></div>
+      </div>
+      <div class="sw-cell">
+        <div class="sw-num" id="sw-month">—</div>
+        <div class="sw-lbl"><span class="ja-only">今月</span><span class="zh-only">本月</span></div>
+      </div>
+      <div class="sw-cell sw-cell--muted">
+        <div class="sw-num" id="sw-lastmonth">—</div>
+        <div class="sw-lbl"><span class="ja-only">先月</span><span class="zh-only">上月</span></div>
+      </div>
+      <div class="sw-cell">
+        <div class="sw-num" id="sw-alltime">—</div>
+        <div class="sw-lbl"><span class="ja-only">累計</span><span class="zh-only">累计</span></div>
+      </div>
+    </div>
+    <div class="sw-platforms" id="sw-platforms"></div>
+  </section>
+
   <!-- HERO STATS — 3 big numbers only -->
   <section class="hero-stats">
     <div class="hero-stat">

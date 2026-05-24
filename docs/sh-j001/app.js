@@ -124,6 +124,50 @@ async function fetchJSON(file) {
   throw lastErr;
 }
 
+async function loadSales() {
+  let data;
+  try { data = await fetchJSON("sales-summary.json"); } catch (e) { return; }
+  const bp = (data.byProduct || {})[PRODUCT];
+  if (!bp) return;
+  const widget = document.getElementById("sales-widget");
+  if (!widget) return;
+  // Show widget only if at least one platform is configured OR allTime > 0
+  const status = bp.platformStatus || {};
+  const anyConfigured = Object.values(status).some(p => p.configured);
+  if (!anyConfigured && (bp.allTime?.total || 0) === 0) return;
+  widget.hidden = false;
+
+  document.getElementById("sw-today").textContent     = (bp.today?.total ?? 0).toLocaleString();
+  document.getElementById("sw-month").textContent     = (bp.thisMonth?.total ?? 0).toLocaleString();
+  document.getElementById("sw-lastmonth").textContent = (bp.lastMonth?.total ?? 0).toLocaleString();
+  document.getElementById("sw-alltime").textContent   = (bp.allTime?.total ?? 0).toLocaleString();
+
+  const updIso = data.updatedAt;
+  if (updIso) {
+    const d = new Date(updIso);
+    const isJa = state.lang !== "zh";
+    document.getElementById("sw-updated").textContent =
+      (isJa ? "更新: " : "更新: ") + d.toLocaleString(isJa ? "ja-JP" : "zh-CN", { timeZone: "Asia/Tokyo" });
+  }
+
+  const platLabels = state.lang === "zh"
+    ? { rakuten: "楽天", amazon: "Amazon", shopify: "Shopify" }
+    : { rakuten: "楽天", amazon: "Amazon", shopify: "Shopify" };
+  document.getElementById("sw-platforms").innerHTML =
+    ["rakuten", "amazon", "shopify"].map(plat => {
+      const s = status[plat] || {};
+      const todayQty = bp.today?.[plat] ?? 0;
+      const monthQty = bp.thisMonth?.[plat] ?? 0;
+      const cls = s.configured ? "" : "dim";
+      const note = s.configured ? "" : (state.lang === "zh" ? "未配置" : "未設定");
+      const errNote = s.error ? ` <span title="${esc(s.error)}" style="color:#ffb4b4">⚠️</span>` : "";
+      return `<span class="sw-plat ${cls}">
+        <strong>${platLabels[plat]}</strong>
+        ${s.configured ? `今日 ${todayQty} ・ 今月 ${monthQty}` : note}${errNote}
+      </span>`;
+    }).join("");
+}
+
 async function loadData() {
   let reviewsBlk = { reviews: [], summary: {}, updatedAt: null };
   let catBlk = { results: [] };
@@ -584,6 +628,7 @@ async function init() {
   try {
     await loadData();
     render();
+    loadSales().catch((e) => console.warn("sales load failed", e));
   } catch (e) {
     document.getElementById("status-text").textContent = `読み込み失敗 / 加载失败: ${e.message}`;
   }

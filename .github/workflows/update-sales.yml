@@ -1,0 +1,70 @@
+name: Update Sales (Shopify + Rakuten RMS + Amazon SP-API)
+
+# 3 プラットフォームから日次で販売台数取得 → sales-summary.json に集計
+# credentials 未設定のプラットフォームは graceful skip (workflow は green)
+
+on:
+  schedule:
+    - cron: '30 22 * * *'   # 07:30 JST 毎日 (レビュー fetch 09:00 より早めに)
+  workflow_dispatch:
+    inputs:
+      lookback_days:
+        description: 'fetch the last N days of orders (default 30)'
+        required: false
+        default: '30'
+
+concurrency:
+  group: update-sales
+  cancel-in-progress: false
+
+jobs:
+  sales:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch sales from all platforms
+        run: python3 update-sales.py
+        env:
+          SALES_LOOKBACK_DAYS: ${{ github.event.inputs.lookback_days || '30' }}
+          # ---- Shopify ----
+          SHOPIFY_SHOP_DOMAIN:  ${{ secrets.SHOPIFY_SHOP_DOMAIN }}
+          SHOPIFY_ADMIN_TOKEN:  ${{ secrets.SHOPIFY_ADMIN_TOKEN }}
+          SHOPIFY_J001_SKUS:    ${{ vars.SHOPIFY_J001_SKUS }}
+          SHOPIFY_J002_SKUS:    ${{ vars.SHOPIFY_J002_SKUS }}
+          # ---- 楽天 RMS ----
+          RAKUTEN_RMS_LICENSE_KEY:    ${{ secrets.RAKUTEN_RMS_LICENSE_KEY }}
+          RAKUTEN_RMS_SERVICE_SECRET: ${{ secrets.RAKUTEN_RMS_SERVICE_SECRET }}
+          RAKUTEN_J001_ITEM_CODE:     ${{ vars.RAKUTEN_J001_ITEM_CODE }}
+          RAKUTEN_J002_ITEM_CODE:     ${{ vars.RAKUTEN_J002_ITEM_CODE }}
+          # ---- Amazon SP-API ----
+          AMAZON_SP_REFRESH_TOKEN: ${{ secrets.AMAZON_SP_REFRESH_TOKEN }}
+          AMAZON_SP_CLIENT_ID:     ${{ secrets.AMAZON_SP_CLIENT_ID }}
+          AMAZON_SP_CLIENT_SECRET: ${{ secrets.AMAZON_SP_CLIENT_SECRET }}
+          AMAZON_J001_ASIN:        ${{ vars.AMAZON_J001_ASIN }}
+          AMAZON_J002_ASIN:        ${{ vars.AMAZON_J002_ASIN }}
+          AMAZON_MARKETPLACE_ID:   ${{ vars.AMAZON_MARKETPLACE_ID }}
+
+      - name: Commit and push if changed
+        run: |
+          set -e
+          if [[ -z "$(git status --porcelain sales-summary.json)" ]]; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add sales-summary.json
+          git commit -m "chore: sales snapshot $(date -u +%Y-%m-%d)"
+          for attempt in 1 2 3; do
+            if git push; then exit 0; fi
+            git pull --rebase origin main
+            sleep $((attempt * 2))
+          done
+          exit 1
