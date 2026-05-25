@@ -5,6 +5,14 @@
     "rating": 4.56,
     "count": 904
   },
+  "breakdown": {
+    "5": 545,
+    "4": 306,
+    "3": 45,
+    "2": 1,
+    "1": 0
+  },
+  "totalRated": 897,
   "reviews": [
     {
       "rating": 5,
