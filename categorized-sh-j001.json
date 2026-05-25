@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-05-24T02:41:44Z",
+  "updatedAt": "2026-05-25T02:49:55Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-05-24T02:40:56Z",
-  "count": 897,
+  "sourceUpdatedAt": "2026-05-25T02:49:50Z",
+  "count": 898,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -11367,6 +11367,19 @@
         "吸引力",
         "ダストカップ",
         "収納"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "0da82f7ddec5cc4d",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・コンパクトで猫毛や細かいチリを十分吸引でき、動作音も許容範囲と評価。",
+      "summary_zh": "机身轻巧紧凑，能有效吸附猫毛和细小灰尘，运行噪音在可接受范围内。",
+      "topics": [
+        "吸引力",
+        "重量",
+        "動作音"
       ],
       "action_hint": null
     }
