@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-05-25T02:49:55Z",
+  "updatedAt": "2026-05-26T02:38:55Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-05-25T02:49:51Z",
-  "count": 136,
+  "sourceUpdatedAt": "2026-05-26T02:38:21Z",
+  "count": 149,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -1719,6 +1719,164 @@
         "重量",
         "操作性",
         "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "ce147fc82736f863",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "小型・軽量ながら吸引力が強く、性能と価格の両面で満足との評価。",
+      "summary_zh": "体积小、重量轻，吸力强劲，用户对性能和价格均表示满意。",
+      "topics": [
+        "吸引力",
+        "重量"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "768c98864e730dac",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "吸引力・静音性を高評価。フィルター交換頻度が高く、消耗品の追加購入負担が気になるとの指摘あり。",
+      "summary_zh": "吸力强、噪音低，获得好评。但用户反映滤网更换频率过高，耗材补购负担较大。",
+      "topics": [
+        "フィルター",
+        "消耗品"
+      ],
+      "action_hint": "フィルターの寿命延長またはフィルター交換サイクルの見直しを検討する"
+    },
+    {
+      "id": "6b377c9afd399429",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "外観は華奢に見えるが吸引力は十分。吸引力の持続性への期待が示された。",
+      "summary_zh": "外观纤细但吸力充足，用户期望吸力能长期保持稳定。",
+      "topics": [
+        "吸引力",
+        "耐久性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "ae51ad2176c07991",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "外観がおもちゃのように見えるが、吸引力は強く軽量で使いやすいと好評。",
+      "summary_zh": "外观看似玩具，但吸力强劲、机身轻便，操作方便，用户评价良好。",
+      "topics": [
+        "吸引力",
+        "重量"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "ffd448ed9972fdd2",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "砂利や砂も問題なく吸引でき、吸引力に満足との評価。",
+      "summary_zh": "可正常吸入砂砾和细沙，用户对吸力表示满意。",
+      "topics": [
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "5ce06a2ffbd054ea",
+      "category": "improvement",
+      "severity": "medium",
+      "summary_ja": "吸引力は絨毯以外では問題なし。ダストカップがすぐ満杯になるうえ、着脱がしづらいと不満あり。",
+      "summary_zh": "在非地毯地面吸力正常，但集尘杯容量小、易满，且安装拆卸操作困难，用户表示不满。",
+      "topics": [
+        "ダストカップ",
+        "操作性"
+      ],
+      "action_hint": "ダストカップの容量拡大およびロック・着脱機構の操作力・構造を見直す"
+    },
+    {
+      "id": "da020594ca300814",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "小型・軽量で妻からも高評価。耐久性が今後の追加購入の判断基準になるとのコメントあり。",
+      "summary_zh": "机身小巧轻便，获得家庭用户好评，但用户表示耐久性将是决定是否追加购买的关键因素。",
+      "topics": [
+        "重量",
+        "耐久性"
+      ],
+      "action_hint": "長期使用における耐久性データを収集し、品質保証の根拠として開示することを検討する"
+    },
+    {
+      "id": "a24d43ce0c482734",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "非常に軽量で吸引力もあり好印象。バッテリー持続時間は長時間使用後に確認予定とのこと。",
+      "summary_zh": "机身极轻，吸力良好，用户印象积极；电池续航尚未经长时间使用验证。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "バッテリー"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "4ffbccd5e120783c",
+      "category": "other",
+      "severity": "n/a",
+      "summary_ja": "購入動機と期待感のみ記載。実使用レビューなし。",
+      "summary_zh": "仅描述购买动机和期待，无实际使用反馈。",
+      "topics": [
+        "デザイン"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "e71ac8d5ce6f7df9",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽量・小回り・ライトは好評。ダストカップの取り外しがやや硬くコツが必要。",
+      "summary_zh": "机身轻巧、转向灵活、照明效果获好评。集尘杯拆卸阻力偏大，需要一定技巧。",
+      "topics": [
+        "ダストカップ",
+        "操作性"
+      ],
+      "action_hint": "ダストカップのリリースボタンまたはロック機構の操作力を見直し、片手で容易に取り外せるよう改善する"
+    },
+    {
+      "id": "e71c4d8a8d688696",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "自立設計・ローラー動作・充電スタンドの利便性を高く評価。耐久性は未確認。",
+      "summary_zh": "对自立设计、滚刷运转及充电底座的便利性给予高度评价，耐久性尚待验证。",
+      "topics": [
+        "充電スタンド",
+        "ローラー",
+        "自立設計"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "799a4a99845cffd0",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽量・吸引力・ライトは好評。壁際へのヘッド到達性が不足との指摘あり。",
+      "summary_zh": "轻量化、吸力及照明获好评，但吸头贴边清扫能力不足，壁角区域难以覆盖。",
+      "topics": [
+        "ヘッド",
+        "壁際",
+        "操作性"
+      ],
+      "action_hint": "ヘッド形状またはノズル幅を見直し、壁際・隅部へのアクセス性を向上させる"
+    },
+    {
+      "id": "7f56138cab2c5240",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "初期充電済み出荷・簡単組み立て・軽量・ダストカップ透明窓・バッテリー持続性を評価。",
+      "summary_zh": "对出厂预充电、安装简便、机身轻巧、集尘杯可视窗及续航能力均给予好评。",
+      "topics": [
+        "バッテリー",
+        "ダストカップ",
+        "組み立て"
       ],
       "action_hint": null
     }
