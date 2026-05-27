@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-05-26T02:38:55Z",
+  "updatedAt": "2026-05-27T02:48:50Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-05-26T02:38:21Z",
-  "count": 149,
+  "sourceUpdatedAt": "2026-05-27T02:48:37Z",
+  "count": 154,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -1877,6 +1877,71 @@
         "バッテリー",
         "ダストカップ",
         "組み立て"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "668fc8f944b30210",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "フローリングの部屋の端でごみを吸い取りにくい。全体的な吸引力は問題なし。",
+      "summary_zh": "在硬地板边角处吸尘效果不佳，整体吸力无明显问题。",
+      "topics": [
+        "吸引力",
+        "ヘッド",
+        "操作性"
+      ],
+      "action_hint": "ヘッド形状またはノズル設計を見直し、壁際・部屋の端への到達性を改善する"
+    },
+    {
+      "id": "71a4516ad443cccd",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で操作しやすく、猫砂も吸引可能。翌日配送・充電済み出荷も好評。",
+      "summary_zh": "机身轻巧、操作顺畅，可有效吸取猫砂颗粒，出厂已充电、次日送达获好评。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "充電"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "574025fd65cb2432",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "動作音が静かで吸引力もあり、ペット（猫）が逃げにくいと好評。",
+      "summary_zh": "运行噪音低、吸力充足，宠物（猫）受惊程度小，用户评价良好。",
+      "topics": [
+        "騒音",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "af05a0fdee633203",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・高吸引力・明るいLEDライト・スティック折り畳み機能・デザインを高評価。",
+      "summary_zh": "机身轻量、吸力强、LED灯亮度高、杆体可折叠、外观设计均获好评。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "LEDライト",
+        "折り畳み機構"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "b11e78c1d4546180",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で吸引力があり、掃除の負担が軽減された。走行がスムーズで使いやすい。",
+      "summary_zh": "机身轻便、吸力良好，清扫负担明显减轻，走行顺滑、操作便捷。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "操作性"
       ],
       "action_hint": null
     }
