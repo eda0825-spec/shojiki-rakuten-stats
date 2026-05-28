@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-05-27T02:48:50Z",
+  "updatedAt": "2026-05-28T02:36:14Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-05-27T02:48:37Z",
-  "count": 154,
+  "sourceUpdatedAt": "2026-05-28T02:35:52Z",
+  "count": 161,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -1944,6 +1944,88 @@
         "操作性"
       ],
       "action_hint": null
+    },
+    {
+      "id": "6717c17f83ac503f",
+      "category": "improvement",
+      "severity": "medium",
+      "summary_ja": "強モードでも吸引力不足を感じる場面あり。バッテリー内蔵のため長時間使用時に交換不可で不便。取り外し式バッテリーへの要望あり。",
+      "summary_zh": "强模式下吸力仍感不足；电池内置无法更换，长时间使用不便，用户希望改为可拆卸电池设计。",
+      "topics": [
+        "吸引力",
+        "バッテリー",
+        "操作性"
+      ],
+      "action_hint": "着脱式バッテリーパックへの設計変更、または強モードの吸引力向上を検討する"
+    },
+    {
+      "id": "8c9a6d50500c304c",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "価格に対して吸引力・細部清掃性能ともに満足との評価。コストパフォーマンスを高く評価。",
+      "summary_zh": "用户对产品性价比评价较高，认为吸力和细部清洁能力均达到预期。",
+      "topics": [
+        "吸引力",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "b663f0fe98413b21",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "横方向への動作がぎこちなく感じる。軽量で狭所への取り回しは良好。",
+      "summary_zh": "横向移动时操作不够顺畅，但机身轻便、适合狭窄空间使用。",
+      "topics": [
+        "操作性",
+        "ヘッド"
+      ],
+      "action_hint": "ヘッドの横方向への旋回抵抗を低減するジョイント機構を見直す"
+    },
+    {
+      "id": "a8720497c8bdf9b5",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "吸引力・機能は価格相応に満足。ヘッドが想定より小さく感じるとの指摘あり。",
+      "summary_zh": "吸力和功能满足预期，但用户反映吸头尺寸比预期偏小。",
+      "topics": [
+        "ヘッド",
+        "吸引力"
+      ],
+      "action_hint": "商品ページにヘッドサイズの実寸を明記し、ユーザーの事前期待値を調整する"
+    },
+    {
+      "id": "f133fdc24e490955",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "従来機より静音で吸引力も十分。フローリング使用で高満足。",
+      "summary_zh": "噪音低于旧款，吸力充足，用户在硬地板上使用满意度高。",
+      "topics": [
+        "静音性",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "23b38dd01f35276d",
+      "category": "other",
+      "severity": "n/a",
+      "summary_ja": "満足との一言のみで具体的な評価内容なし。",
+      "summary_zh": "仅表示满意，无具体评价内容。",
+      "topics": [],
+      "action_hint": null
+    },
+    {
+      "id": "21387b0fc9310d32",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "弱モードでは吸引力不足で複数回掛けが必要。強モードは概ね良好。LEDライトは吸い残し確認に有効。",
+      "summary_zh": "弱模式吸力不足，需重复清扫2-3次；强模式吸力尚可；LED灯有助于发现遗漏污物。",
+      "topics": [
+        "吸引力",
+        "LEDライト"
+      ],
+      "action_hint": "弱モードの吸引力を底上げし、1パスでの清掃完了率を改善する"
     }
   ]
 }
