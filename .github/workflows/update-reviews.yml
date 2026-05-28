@@ -10,8 +10,10 @@ concurrency:
 
 on:
   schedule:
-    # 毎日 09:00 JST (= UTC 00:00)
-    - cron: '0 0 * * *'
+    # 毎時 (XX:00 UTC = XX+9 JST) — レビューを ほぼリアルタイム 取得
+    - cron: '0 * * * *'
+    # 毎週月曜 05:00 JST (= 20:00 UTC 日曜) — full_rescan で 削除レビューを検出
+    - cron: '0 20 * * 0'
   workflow_dispatch:
     inputs:
       full_rescan:
@@ -47,7 +49,8 @@ jobs:
         if: ${{ github.event.inputs.categorize_only != 'true' }}
         run: python3 fetch-reviews.py
         env:
-          REVIEW_FULL_RESCAN: ${{ github.event.inputs.full_rescan == 'true' && '1' || '0' }}
+          # full_rescan = manual override OR weekly cron (Sun 20:00 UTC = Mon 05:00 JST)
+          REVIEW_FULL_RESCAN: ${{ (github.event.inputs.full_rescan == 'true' || github.event.schedule == '0 20 * * 0') && '1' || '0' }}
           REVIEW_SLEEP_SEC: '1.5'
           REVIEW_MAX_PAGES: '200'
 

@@ -136,13 +136,15 @@ function renderClusterChart() {
   for (const c of CLUSTERS) buckets.set(c.key, { defect: 0, improvement: 0 });
   for (const r of joined) {
     if (r.category !== "defect" && r.category !== "improvement") continue;
-    const seen = new Set();
+    // PRIMARY cluster only: first matching topic in Claude's topic array.
+    // (Claude lists topics in importance order; counts the review against
+    // its main subject, avoiding double-counting across clusters.)
+    let primaryCluster = null;
     for (const tp of r.topics || []) {
       const ck = TOPIC_TO_CLUSTER.get(tp);
-      if (!ck || seen.has(ck)) continue;
-      seen.add(ck);
-      buckets.get(ck)[r.category]++;
+      if (ck) { primaryCluster = ck; break; }
     }
+    if (primaryCluster) buckets.get(primaryCluster)[r.category]++;
   }
   const ranked = CLUSTERS.map(c => ({ ...c, ...buckets.get(c.key) }))
     .filter(c => (c.defect + c.improvement) > 0)
