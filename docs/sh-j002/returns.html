@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SHOJIKI SH-J001 不具合報告</title>
+<title>SHOJIKI SH-J002 返品報告</title>
 <link rel="stylesheet" href="../style.css">
 <style>
   .form-wrap { max-width: 760px; margin: 0 auto; }
@@ -120,9 +120,9 @@
   <div class="hdr-inner">
     <div class="hdr-title">
       <span class="brand">SHOJIKI</span>
-      <span class="sub" style="font-weight:600;color:var(--ink)">SH-J001</span>
-      <span class="sub ja-only">不具合報告</span>
-      <span class="sub zh-only">故障报告</span>
+      <span class="sub" style="font-weight:600;color:var(--ink)">SH-J002</span>
+      <span class="sub ja-only">返品報告</span>
+      <span class="sub zh-only">退货报告</span>
     </div>
     <div class="hdr-meta">
       <div class="lang-toggle">
@@ -136,16 +136,16 @@
 
 <nav class="topnav">
   <a href="./"             class="tn-item"><span class="ja-only">🏠 TOP</span><span class="zh-only">🏠 总览</span></a>
-  <a href="./defects.html" class="tn-item active"><span class="ja-only">🔧 不具合</span><span class="zh-only">🔧 故障</span></a>
+  <a href="./defects.html" class="tn-item"><span class="ja-only">🔧 不具合</span><span class="zh-only">🔧 故障</span></a>
   <a href="./feedback.html" class="tn-item"><span class="ja-only">💬 お客様の声</span><span class="zh-only">💬 客户反馈</span></a>
-  <a href="./returns.html" class="tn-item"><span class="ja-only">📦 返品</span><span class="zh-only">📦 退货</span></a>
+  <a href="./returns.html" class="tn-item active"><span class="ja-only">📦 返品</span><span class="zh-only">📦 退货</span></a>
 </nav>
 
 
 <main id="app">
   <div class="form-wrap">
 
-    <span class="product-badge">SH-J001</span>
+    <span class="product-badge">SH-J002</span>
 
     <div class="note ja-only">
       📝 このフォームに入力して「GitHub に投稿」を押すと、GitHub Issue として登録されます (初回は GitHub アカウントが必要 / 無料: <a href="https://github.com/signup" target="_blank">github.com/signup</a>)。
@@ -154,128 +154,88 @@
       📝 填好这个表单点击"提交到 GitHub"，内容会作为 GitHub Issue 登记 (第一次需要 GitHub 账号 / 免费: <a href="https://github.com/signup" target="_blank">github.com/signup</a>)。
     </div>
 
-    <form id="defect-form" onsubmit="return submitDefect(event)">
+    <form id="defect-form" onsubmit="return submitReturn(event)">
 
       <div class="row2">
         <div class="field">
-          <label><span class="ja-only">報告元</span><span class="zh-only">来源</span> <span class="sub">*</span></label>
-          <select name="source" required>
-            <option value="" data-ja="-- 選択 --" data-zh="-- 选择 --">-- 選択 --</option>
-            <option value="問い合わせ"     data-ja="問い合わせ"     data-zh="咨询">問い合わせ</option>
-            <option value="顧客レビュー"   data-ja="顧客レビュー"   data-zh="客户评论">顧客レビュー</option>
-            <option value="その他"         data-ja="その他"         data-zh="其他">その他</option>
-          </select>
+          <label><span class="ja-only">返品日</span><span class="zh-only">退货日期</span> <span class="sub">*</span></label>
+          <input type="date" name="return_date" required>
         </div>
         <div class="field">
-          <label><span class="ja-only">深刻度</span><span class="zh-only">严重度</span> <span class="sub">*</span></label>
-          <select name="severity" required>
+          <label><span class="ja-only">対応</span><span class="zh-only">处理</span> <span class="sub">*</span></label>
+          <select name="action" required>
             <option value="" data-ja="-- 選択 --" data-zh="-- 选择 --">-- 選択 --</option>
-            <option value="高" data-ja="高" data-zh="高">高</option>
-            <option value="中" data-ja="中" data-zh="中">中</option>
-            <option value="低" data-ja="低" data-zh="低">低</option>
+            <option value="返金" data-ja="返金" data-zh="退款">返金</option>
+            <option value="交換" data-ja="交換" data-zh="换货">交換</option>
+            <option value="廃棄" data-ja="廃棄" data-zh="废弃">廃棄</option>
+            <option value="再販可能" data-ja="再販可能" data-zh="可再销售">再販可能</option>
+            <option value="検査中" data-ja="検査中" data-zh="检查中">検査中</option>
           </select>
         </div>
       </div>
 
       <div class="row2">
         <div class="field">
-          <label><span class="ja-only">発生頻度</span><span class="zh-only">发生频率</span></label>
-          <select name="frequency">
-            <option value="不明 / 未知"           data-ja="不明" data-zh="未知">不明</option>
-            <option value="単発 / 偶发"           data-ja="単発" data-zh="偶发">単発</option>
-            <option value="散発 / 散发"           data-ja="散発" data-zh="散发">散発</option>
-            <option value="多発 / 多发"           data-ja="多発" data-zh="多发">多発</option>
-            <option value="全数 / 全部"           data-ja="全数" data-zh="全部">全数</option>
+          <label><span class="ja-only">理由</span><span class="zh-only">原因</span> <span class="sub">*</span></label>
+          <select name="reason" required>
+            <option value="" data-ja="-- 選択 --" data-zh="-- 选择 --">-- 選択 --</option>
+            <option value="不具合 (動作不良)" data-ja="不具合 (動作不良)" data-zh="故障 (动作不良)">不具合 (動作不良)</option>
+            <option value="仕様違い (思っていたのと違う)" data-ja="仕様違い" data-zh="不符合预期">仕様違い</option>
+            <option value="配送ダメージ" data-ja="配送ダメージ" data-zh="配送损坏">配送ダメージ</option>
+            <option value="顧客都合 (使ってみて好みでなかった等)" data-ja="顧客都合" data-zh="客户原因">顧客都合</option>
+            <option value="その他" data-ja="その他" data-zh="其他">その他</option>
           </select>
         </div>
         <div class="field">
-          <label><span class="ja-only">関連工程</span><span class="zh-only">相关工序</span></label>
-          <select name="process">
-            <option value="不明 / 未知"     data-ja="不明"   data-zh="未知">不明</option>
-            <option value="部品 / 零件"     data-ja="部品"   data-zh="零件">部品</option>
-            <option value="組立 / 装配"     data-ja="組立"   data-zh="装配">組立</option>
-            <option value="検査 / 检查"     data-ja="検査"   data-zh="检查">検査</option>
-            <option value="包装 / 包装"     data-ja="包装"   data-zh="包装">包装</option>
-            <option value="出荷後 / 出货后" data-ja="出荷後" data-zh="出货后">出荷後</option>
+          <label><span class="ja-only">購入チャネル</span><span class="zh-only">购买渠道</span></label>
+          <select name="channel">
+            <option value="">-- --</option>
+            <option value="楽天">楽天</option>
+            <option value="Amazon">Amazon</option>
+            <option value="Shopify">Shopify</option>
+            <option value="その他" data-ja="その他" data-zh="其他">その他</option>
           </select>
         </div>
       </div>
 
       <div class="field">
-        <label><span class="ja-only">部位 (複数選択可)</span><span class="zh-only">部位 (可多选)</span></label>
-        <div class="checks" id="area-checks">
-          <label><input type="checkbox" value="バッテリー / 电池"><span class="ja-only">バッテリー</span><span class="zh-only">电池</span></label>
-          <label><input type="checkbox" value="充電端子 / 充电接口"><span class="ja-only">充電端子</span><span class="zh-only">充电接口</span></label>
-          <label><input type="checkbox" value="モーター / 电机"><span class="ja-only">モーター</span><span class="zh-only">电机</span></label>
-          <label><input type="checkbox" value="ローラー / 滚刷"><span class="ja-only">ローラー</span><span class="zh-only">滚刷</span></label>
-          <label><input type="checkbox" value="ダストカップ / 集尘杯"><span class="ja-only">ダストカップ</span><span class="zh-only">集尘杯</span></label>
-          <label><input type="checkbox" value="フィルター / 过滤器"><span class="ja-only">フィルター</span><span class="zh-only">过滤器</span></label>
-          <label><input type="checkbox" value="スタンド / 支架"><span class="ja-only">スタンド</span><span class="zh-only">支架</span></label>
-          <label><input type="checkbox" value="操作ボタン / 操作按钮"><span class="ja-only">操作ボタン</span><span class="zh-only">操作按钮</span></label>
-          <label><input type="checkbox" value="外装 / 外壳"><span class="ja-only">外装</span><span class="zh-only">外壳</span></label>
-          <label><input type="checkbox" value="付属品 / 配件"><span class="ja-only">付属品</span><span class="zh-only">配件</span></label>
-          <label><input type="checkbox" value="その他 / 其他"><span class="ja-only">その他</span><span class="zh-only">其他</span></label>
-        </div>
+        <label><span class="ja-only">ロット番号 (任意)</span><span class="zh-only">批次号 (可选)</span></label>
+        <input type="text" name="lot" placeholder="例 2026-W18">
       </div>
 
-      <div class="row2">
-        <div class="field">
-          <label><span class="ja-only">ロット番号</span><span class="zh-only">批次号</span></label>
-          <input type="text" name="lot" placeholder="例 2026-W18">
-        </div>
-        <div class="field">
-          <label><span class="ja-only">シリアル番号 (任意)</span><span class="zh-only">序列号 (可选)</span></label>
-          <input type="text" name="serial">
-        </div>
-      </div>
-
-      <!-- 症状 — JP MODE ONLY -->
-      <div class="field ja-only">
-        <label>症状 <span class="sub">*</span></label>
-        <textarea name="symptom_ja" placeholder="何が、いつ、どのような状況で起きるかを具体的に。"></textarea>
-      </div>
-      <!-- 症状 — ZH MODE ONLY -->
-      <div class="field zh-only">
-        <label>症状 <span class="sub">*</span></label>
-        <textarea name="symptom_zh" placeholder="何时、什么情况下、发生什么。请具体描述。"></textarea>
-      </div>
-
-      <!-- VIDEO DROP ZONE + URL fallback -->
       <div class="field">
-        <label><span class="ja-only">動画・写真</span><span class="zh-only">视频·照片</span></label>
+        <label><span class="ja-only">詳細 (顧客が何と言ったか、現物の状態)</span><span class="zh-only">详细 (客户陈述、实物状态)</span> <span class="sub">*</span></label>
+        <textarea name="detail" required placeholder="例: 充電できないと顧客から連絡。現物確認したらバッテリー膨張あり。"></textarea>
+      </div>
+
+      <div class="field">
+        <label><span class="ja-only">写真・動画</span><span class="zh-only">视频·照片</span></label>
         <div class="drop-zone" id="drop-zone">
           <input type="file" id="file-input" accept="video/*,image/*" multiple>
-          <div class="emoji">🎬</div>
+          <div class="emoji">📷</div>
           <div class="main">
-            <span class="ja-only">ここに動画・写真をドラッグ&ドロップ (複数可)</span>
-            <span class="zh-only">将视频·照片拖拽到此处 (可多个)</span>
+            <span class="ja-only">ここに写真・動画をドラッグ&ドロップ (複数可)</span>
+            <span class="zh-only">将照片·视频拖拽到此处 (可多个)</span>
           </div>
           <div class="sub">
-            <span class="ja-only">またはクリックして選択 (1ファイル最大 100MB ・ 複数選択可)</span>
-            <span class="zh-only">或点击选择 (单文件最大 100MB ・ 可多选)</span>
+            <span class="ja-only">またはクリックして選択</span>
+            <span class="zh-only">或点击选择</span>
           </div>
         </div>
         <ul class="uploaded-list" id="uploaded-list"></ul>
-        <details style="margin-top:8px;font-size:12px;color:var(--ink-3)">
-          <summary style="cursor:pointer">
-            <span class="ja-only">URL を貼り付ける場合 (WeTransfer 等)</span>
-            <span class="zh-only">粘贴 URL (如 WeTransfer)</span>
-          </summary>
-          <input type="url" name="video_url" placeholder="https://..." style="margin-top:8px;width:100%;padding:8px;border:1px solid var(--line-2);border-radius:6px">
-        </details>
       </div>
 
       <div class="field">
-        <label><span class="ja-only">想定原因 (任意)</span><span class="zh-only">推测原因 (可选)</span></label>
-        <textarea name="suspected_cause" data-placeholder-ja="わかれば書いてください" data-placeholder-zh="知道则填写"></textarea>
+        <label><span class="ja-only">関連不具合 Issue (任意)</span><span class="zh-only">关联故障 Issue (可选)</span></label>
+        <input type="text" name="related_defect" placeholder="#12 など">
       </div>
 
       <div class="field">
         <label><span class="ja-only">補足 (任意)</span><span class="zh-only">补充 (可选)</span></label>
-        <textarea name="extra" data-placeholder-ja="その他のコメント" data-placeholder-zh="其他备注"></textarea>
+        <textarea name="extra" data-placeholder-ja="その他のメモ" data-placeholder-zh="其他备注"></textarea>
       </div>
 
-      <button type="submit" class="submit"><span class="ja-only">GitHub に投稿 →</span><span class="zh-only">提交到 GitHub →</span></button>
+      <button type="submit" class="submit"><span class="ja-only">GitHub に登録 →</span><span class="zh-only">登记到 GitHub →</span></button>
 
     </form>
 
@@ -316,14 +276,14 @@
 
 <footer class="ftr">
   <p>
-    Issues: <a href="https://github.com/eda0825-spec/shojiki-defects-j001/issues" target="_blank">shojiki-defects-j001</a>
+    Issues: <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues" target="_blank">shojiki-defects-j002</a>
   </p>
 </footer>
 
 <script>
-const DEFECT_REPO = "eda0825-spec/shojiki-defects-j001";
-const PRODUCT_TAG = "[J001]";
-const PRODUCT = "sh-j001";
+const DEFECT_REPO = "eda0825-spec/shojiki-defects-j002";
+const PRODUCT_TAG = "[J002-返品]";
+const PRODUCT = "sh-j002";
 const STORAGE_REPO = "eda0825-spec/shojiki-rakuten-stats";   // where videos are committed
 const LS_LANG_KEY = "shojiki-dashboard-lang";
 const LS_PAT_KEY = "shojiki-uploader-pat";
@@ -515,55 +475,47 @@ function esc(s) {
 setupDropZone();
 
 // ===== Submit =====
-function submitDefect(e) {
+
+function submitReturn(e) {
   e.preventDefault();
   const fd = new FormData(e.target);
   const get = (k) => (fd.get(k) || "").toString().trim();
-  const areas = [...document.querySelectorAll("#area-checks input:checked")].map(c => c.value);
 
-  const sevShort = get("severity").split("/")[0].trim();
-  const sevTag = sevShort ? `[${sevShort}]` : "";
-  const ja1 = (get("symptom_ja") || get("symptom_zh")).split("\n")[0].slice(0, 40);
-  const title = [PRODUCT_TAG, sevTag, ja1 || "不具合報告"].filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
-
-  const params = new URLSearchParams();
-  params.set("template", "defect.yml");
-  params.set("title", title);
-  params.set("source", get("source"));
-  params.set("severity", get("severity"));
-  params.set("frequency", get("frequency"));
-  params.set("process", get("process"));
-  params.set("lot", get("lot"));
-  params.set("serial", get("serial"));
-  params.set("symptom_ja", get("symptom_ja"));
-  params.set("symptom_zh", get("symptom_zh"));
-  // Video URL: prefer uploaded items (done only), fall back to manually pasted URL
   const doneUploads = uploadedItems.filter(u => u.status === "done");
   const stillUploading = uploadedItems.filter(u => u.status === "uploading");
   if (stillUploading.length) {
-    if (!confirm(`${stillUploading.length} 件アップロード中です。このまま投稿しますか？`)) return;
+    if (!confirm(`${stillUploading.length} 件アップロード中です。このまま登録しますか？`)) return;
   }
-  const uploadedUrls = doneUploads.map(u => u.url);
-  const manualUrl = get("video_url");
-  const videoUrl = uploadedUrls.length ? uploadedUrls.join("\n") : manualUrl;
-  params.set("video_url", videoUrl);
-  params.set("suspected_cause", get("suspected_cause"));
 
-  // Extra: include areas and uploaded file embed markdown
+  const reasonShort = get("reason").split("(")[0].trim();
+  const title = `[J002-返品] [${get("return_date")}] ${reasonShort} ・ ${get("action")}`;
+
+  const params = new URLSearchParams();
+  params.set("template", "return.yml");
+  params.set("title", title);
+  params.set("return_date", get("return_date"));
+  params.set("reason", get("reason"));
+  params.set("lot", get("lot"));
+  params.set("channel", get("channel"));
+  params.set("detail", get("detail"));
+  params.set("action", get("action"));
+  params.set("related_defect", get("related_defect"));
+
   let extra = get("extra");
-  if (areas.length) {
-    extra = (extra ? extra + "\n\n" : "") + "部位: " + areas.map(a => a.split("/")[0].trim()).join(", ");
-  }
   if (doneUploads.length) {
-    extra += "\n\n添付ファイル / 附件:\n" + doneUploads.map(u => {
+    extra += "
+
+添付ファイル:
+" + doneUploads.map(u => {
       const isVideo = /\.(mp4|mov|webm|m4v|avi)$/i.test(u.name);
       const isImage = /\.(png|jpg|jpeg|gif|webp)$/i.test(u.name);
       if (isImage) return `![${u.name}](${u.url})`;
       if (isVideo) return `<video src="${u.url}" controls width="480"></video>`;
       return `- [${u.name}](${u.url})`;
-    }).join("\n");
+    }).join("
+");
   }
-  params.set("extra", extra);
+  params.set("media", extra);
 
   window.open(`https://github.com/${DEFECT_REPO}/issues/new?${params.toString()}`, "_blank");
 }
