@@ -63,17 +63,24 @@ jobs:
           CATEGORIZE_MAX_REVIEWS: ${{ github.event.inputs.max_categorize || '200' }}
           CATEGORIZE_FULL_RESCAN: ${{ github.event.inputs.categorize_full == 'true' && '1' || '0' }}
 
+      - name: Generate AI summary for TOP dashboard
+        run: python3 generate-summary.py
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: 'claude-sonnet-4-6'
+        continue-on-error: true  # never break the pipeline if summary fails
+
       - name: Commit and push if changed
         run: |
           set -e
-          changed=$(git status --porcelain reviews-*.json categorized-*.json | wc -l)
+          changed=$(git status --porcelain reviews-*.json categorized-*.json summary-*.json 2>/dev/null | wc -l)
           if [ "$changed" -eq 0 ]; then
             echo "No changes to commit."
             exit 0
           fi
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
-          git add reviews-*.json categorized-*.json
+          git add reviews-*.json categorized-*.json summary-*.json 2>/dev/null || true
           git commit -m "chore: update rakuten reviews + categorization $(date -u +%Y-%m-%d)"
           # Retry on push race: if remote moved during the long categorize step,
           # rebase our single commit on top and retry up to 5 times.

@@ -52,6 +52,27 @@
     <div class="sw-platforms" id="sw-platforms"></div>
   </section>
 
+  <!-- AI SUMMARY (top of page, hidden until summary-*.json exists) -->
+  <section class="ai-summary" id="ai-summary" hidden>
+    <div class="ai-headline" id="ai-headline">—</div>
+    <p class="ai-narrative" id="ai-narrative"></p>
+    <div class="ai-grid">
+      <div>
+        <div class="ai-label"><span class="ja-only">📌 主な発見</span><span class="zh-only">📌 主要发现</span></div>
+        <ul class="ai-list" id="ai-findings"></ul>
+      </div>
+      <div>
+        <div class="ai-label"><span class="ja-only">🎯 推奨アクション</span><span class="zh-only">🎯 推荐行动</span></div>
+        <ul class="ai-list ai-list--action" id="ai-actions"></ul>
+      </div>
+    </div>
+    <div class="ai-meta">
+      <span class="ja-only">🤖 Claude AI 自動要約 ・</span>
+      <span class="zh-only">🤖 Claude AI 自动摘要 ・</span>
+      <span id="ai-updated"></span>
+    </div>
+  </section>
+
   <!-- 3 KEY METRICS (count summary) -->
   <section class="hero-stats">
     <a href="./defects.html" class="hero-stat hero-stat--danger" style="text-decoration:none;color:inherit">
