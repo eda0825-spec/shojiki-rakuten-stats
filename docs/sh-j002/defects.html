@@ -177,30 +177,6 @@
         </div>
       </div>
 
-      <div class="row2">
-        <div class="field">
-          <label><span class="ja-only">発生頻度</span><span class="zh-only">发生频率</span></label>
-          <select name="frequency">
-            <option value="不明 / 未知"           data-ja="不明" data-zh="未知">不明</option>
-            <option value="単発 / 偶发"           data-ja="単発" data-zh="偶发">単発</option>
-            <option value="散発 / 散发"           data-ja="散発" data-zh="散发">散発</option>
-            <option value="多発 / 多发"           data-ja="多発" data-zh="多发">多発</option>
-            <option value="全数 / 全部"           data-ja="全数" data-zh="全部">全数</option>
-          </select>
-        </div>
-        <div class="field">
-          <label><span class="ja-only">関連工程</span><span class="zh-only">相关工序</span></label>
-          <select name="process">
-            <option value="不明 / 未知"     data-ja="不明"   data-zh="未知">不明</option>
-            <option value="部品 / 零件"     data-ja="部品"   data-zh="零件">部品</option>
-            <option value="組立 / 装配"     data-ja="組立"   data-zh="装配">組立</option>
-            <option value="検査 / 检查"     data-ja="検査"   data-zh="检查">検査</option>
-            <option value="包装 / 包装"     data-ja="包装"   data-zh="包装">包装</option>
-            <option value="出荷後 / 出货后" data-ja="出荷後" data-zh="出货后">出荷後</option>
-          </select>
-        </div>
-      </div>
-
       <div class="field">
         <label><span class="ja-only">部位 (複数選択可)</span><span class="zh-only">部位 (可多选)</span></label>
         <div class="checks" id="area-checks">
@@ -531,8 +507,6 @@ function submitDefect(e) {
   params.set("title", title);
   params.set("source", get("source"));
   params.set("severity", get("severity"));
-  params.set("frequency", get("frequency"));
-  params.set("process", get("process"));
   params.set("lot", get("lot"));
   params.set("serial", get("serial"));
   params.set("symptom_ja", get("symptom_ja"));
