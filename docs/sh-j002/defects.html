@@ -65,6 +65,16 @@
   .ai-btn:disabled { opacity: 0.5; cursor: wait; }
   .ai-btn--undo { background: #f0f0f3; border-color: #d8d8de; color: var(--ink-2); }
 
+  .submit-banner {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 18px; border-radius: 10px;
+    margin-bottom: 16px;
+    font-size: 14px; line-height: 1.6;
+    white-space: pre-wrap;
+  }
+  .submit-banner.success { background: #effaf0; border: 1px solid #20a55a; color: #0f5c2b; }
+  .submit-banner.error   { background: #fff5f5; border: 1px solid #d93b3b; color: #8a1f1f; }
+
   .defect-type-groups { display: flex; flex-direction: column; gap: 8px; }
   .dt-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .dt-group-label {
@@ -681,8 +691,8 @@ function esc(s) {
 
 setupDropZone();
 
-// ===== Submit =====
-function submitDefect(e) {
+// ===== Submit (direct GitHub API — stays on dashboard) =====
+async function submitDefect(e) {
   e.preventDefault();
   const fd = new FormData(e.target);
   const get = (k) => (fd.get(k) || "").toString().trim();
@@ -691,51 +701,114 @@ function submitDefect(e) {
     alert("不具合の種類 / 故障种类を選択してください");
     return;
   }
+  const pat = getPAT();
+  if (!pat) {
+    showError("先に GitHub PAT を設定してください (写真/動画 ドラッグゾーン参照)");
+    openPATModal();
+    return;
+  }
 
-  const sevShort = get("severity").split("/")[0].trim();
-  const sevTag = sevShort ? `[${sevShort}]` : "";
-  const dtypeTag = get("defect_type") ? `[${get("defect_type")}]` : "";
-  const ja1 = (get("symptom_ja") || get("symptom_zh")).split("\n")[0].slice(0, 40);
-  const title = [PRODUCT_TAG, sevTag, dtypeTag, ja1 || "不具合報告"].filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
-
-  const params = new URLSearchParams();
-  params.set("template", "defect.yml");
-  params.set("title", title);
-  params.set("purchase_date", get("purchase_date"));
-  params.set("inquiry_date", get("inquiry_date"));
-  params.set("defect_type", get("defect_type"));
-  params.set("source", get("source"));
-  params.set("severity", get("severity"));
-  params.set("lot", get("lot"));
-  params.set("serial", get("serial"));
-  params.set("symptom_ja", get("symptom_ja"));
-  params.set("symptom_zh", get("symptom_zh"));
-  // Video URL: prefer uploaded items (done only), fall back to manually pasted URL
   const doneUploads = uploadedItems.filter(u => u.status === "done");
   const stillUploading = uploadedItems.filter(u => u.status === "uploading");
   if (stillUploading.length) {
-    if (!confirm(`${stillUploading.length} 件アップロード中です。このまま投稿しますか？`)) return;
+    if (!confirm(`${stillUploading.length} 件アップロード中です。このまま登録しますか？`)) return;
   }
-  const uploadedUrls = doneUploads.map(u => u.url);
-  const manualUrl = get("video_url");
-  const videoUrl = uploadedUrls.length ? uploadedUrls.join("\n") : manualUrl;
-  params.set("video_url", videoUrl);
-  params.set("suspected_cause", get("suspected_cause"));
 
-  // Extra: include uploaded file embed markdown
-  let extra = get("extra");
+  // ---- Build title ----
+  const sev = get("severity");
+  const dtype = get("defect_type");
+  const ja1 = (get("symptom_ja") || get("symptom_zh")).split("\n")[0].slice(0, 40);
+  const title = [PRODUCT_TAG + "-不具合", sev ? `[${sev}]` : "", dtype ? `[${dtype}]` : "", ja1 || "不具合報告"]
+    .filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
+
+  // ---- Build body markdown ----
+  const lines = ["| 項目 | 値 |", "|---|---|"];
+  const row = (k, v) => v && lines.push(`| ${k} | ${v} |`);
+  row("購入日", get("purchase_date"));
+  row("問い合わせ日", get("inquiry_date"));
+  row("不具合の種類", dtype);
+  row("報告元", get("source"));
+  row("深刻度", sev);
+  row("ロット番号", get("lot"));
+  row("シリアル番号", get("serial"));
+
+  const body_parts = [lines.join("\n")];
+  if (get("symptom_ja"))      body_parts.push(`\n## 症状 (日本語)\n${get("symptom_ja")}`);
+  if (get("symptom_zh"))      body_parts.push(`\n## 症状 (中文)\n${get("symptom_zh")}`);
+  if (get("suspected_cause")) body_parts.push(`\n## 想定原因\n${get("suspected_cause")}`);
+  if (get("extra"))           body_parts.push(`\n## 補足\n${get("extra")}`);
+  if (get("video_url"))       body_parts.push(`\n## 動画 URL\n${get("video_url")}`);
   if (doneUploads.length) {
-    extra += "\n\n添付ファイル / 附件:\n" + doneUploads.map(u => {
+    body_parts.push("\n## 添付ファイル");
+    body_parts.push(doneUploads.map(u => {
       const isVideo = /\.(mp4|mov|webm|m4v|avi)$/i.test(u.name);
       const isImage = /\.(png|jpg|jpeg|gif|webp)$/i.test(u.name);
       if (isImage) return `![${u.name}](${u.url})`;
-      if (isVideo) return `<video src="${u.url}" controls width="480"></video>`;
+      if (isVideo) return `<video src="${u.url}" controls width="480"></video>\n\n[${u.name}](${u.url})`;
       return `- [${u.name}](${u.url})`;
-    }).join("\n");
+    }).join("\n\n"));
   }
-  params.set("extra", extra);
+  const body = body_parts.join("\n");
 
-  window.open(`https://github.com/${DEFECT_REPO}/issues/new?${params.toString()}`, "_blank");
+  // ---- Labels ----
+  const labels = ["type:defect", "status:new"];
+  if (sev === "高") labels.push("severity:high");
+  else if (sev === "中") labels.push("severity:medium");
+  else if (sev === "低") labels.push("severity:low");
+
+  // ---- POST directly ----
+  const btn = e.target.querySelector('button[type="submit"]');
+  const origText = btn.innerHTML;
+  btn.disabled = true; btn.innerHTML = "登録中…";
+
+  try {
+    const resp = await fetch(`https://api.github.com/repos/${DEFECT_REPO}/issues`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${pat}`,
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title, body, labels }),
+    });
+    if (!resp.ok) {
+      const err = await resp.text();
+      if (resp.status === 401 || resp.status === 403 || resp.status === 404) {
+        throw new Error(
+          `権限不足 (${resp.status}): PAT に shojiki-defects-j002 への ` +
+          `'Issues: Read and write' 権限が必要です。\n` +
+          `更新: https://github.com/settings/tokens?type=beta\n\n詳細: ${err.slice(0,150)}`
+        );
+      }
+      throw new Error(`${resp.status}: ${err.slice(0, 200)}`);
+    }
+    const issue = await resp.json();
+    showSubmitBanner("success", `✅ 登録完了 — Issue <a href="${issue.html_url}" target="_blank" style="color:inherit;text-decoration:underline">#${issue.number}</a> として記録しました`);
+    e.target.reset();
+    uploadedItems.length = 0;
+    renderUploadedList();
+    document.getElementById("purchase_date").value = new Date().toISOString().slice(0,10);
+    document.getElementById("inquiry_date").value = new Date().toISOString().slice(0,10);
+    document.querySelectorAll(".dt-chip").forEach(c => c.classList.remove("active"));
+    document.getElementById("defect_type").value = "";
+  } catch (e2) {
+    showSubmitBanner("error", `❌ ${esc(e2.message)}`);
+  } finally {
+    btn.disabled = false; btn.innerHTML = origText;
+  }
+}
+
+function showSubmitBanner(kind, html) {
+  let banner = document.getElementById("submit-banner");
+  if (!banner) {
+    banner = document.createElement("div");
+    banner.id = "submit-banner";
+    document.querySelector(".form-wrap").prepend(banner);
+  }
+  banner.className = "submit-banner " + kind;
+  banner.innerHTML = html + ` <button onclick="this.parentElement.remove()" style="margin-left:auto;background:none;border:none;cursor:pointer;color:inherit;font-size:20px">×</button>`;
+  banner.scrollIntoView({behavior: "smooth", block: "start"});
 }
 </script>
 
