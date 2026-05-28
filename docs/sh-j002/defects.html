@@ -258,23 +258,6 @@
         </div>
       </div>
 
-      <div class="field">
-        <label><span class="ja-only">部位 (複数選択可)</span><span class="zh-only">部位 (可多选)</span></label>
-        <div class="checks" id="area-checks">
-          <label><input type="checkbox" value="バッテリー / 电池"><span class="ja-only">バッテリー</span><span class="zh-only">电池</span></label>
-          <label><input type="checkbox" value="充電端子 / 充电接口"><span class="ja-only">充電端子</span><span class="zh-only">充电接口</span></label>
-          <label><input type="checkbox" value="モーター / 电机"><span class="ja-only">モーター</span><span class="zh-only">电机</span></label>
-          <label><input type="checkbox" value="ローラー / 滚刷"><span class="ja-only">ローラー</span><span class="zh-only">滚刷</span></label>
-          <label><input type="checkbox" value="ダストカップ / 集尘杯"><span class="ja-only">ダストカップ</span><span class="zh-only">集尘杯</span></label>
-          <label><input type="checkbox" value="フィルター / 过滤器"><span class="ja-only">フィルター</span><span class="zh-only">过滤器</span></label>
-          <label><input type="checkbox" value="スタンド / 支架"><span class="ja-only">スタンド</span><span class="zh-only">支架</span></label>
-          <label><input type="checkbox" value="操作ボタン / 操作按钮"><span class="ja-only">操作ボタン</span><span class="zh-only">操作按钮</span></label>
-          <label><input type="checkbox" value="外装 / 外壳"><span class="ja-only">外装</span><span class="zh-only">外壳</span></label>
-          <label><input type="checkbox" value="付属品 / 配件"><span class="ja-only">付属品</span><span class="zh-only">配件</span></label>
-          <label><input type="checkbox" value="その他 / 其他"><span class="ja-only">その他</span><span class="zh-only">其他</span></label>
-        </div>
-      </div>
-
       <div class="row2">
         <div class="field">
           <label><span class="ja-only">ロット番号</span><span class="zh-only">批次号</span></label>
@@ -531,11 +514,6 @@ function applyLang(lang) {
 })();
 
 // ===== Area checkbox toggle =====
-document.getElementById("area-checks").addEventListener("change", (e) => {
-  const lbl = e.target.closest("label");
-  if (lbl) lbl.classList.toggle("on", e.target.checked);
-});
-
 // ===== Date defaults (today) =====
 (function setDateDefaults() {
   const today = new Date().toISOString().slice(0, 10);
@@ -708,7 +686,6 @@ function submitDefect(e) {
   e.preventDefault();
   const fd = new FormData(e.target);
   const get = (k) => (fd.get(k) || "").toString().trim();
-  const areas = [...document.querySelectorAll("#area-checks input:checked")].map(c => c.value);
 
   if (!get("defect_type")) {
     alert("不具合の種類 / 故障种类を選択してください");
@@ -745,11 +722,8 @@ function submitDefect(e) {
   params.set("video_url", videoUrl);
   params.set("suspected_cause", get("suspected_cause"));
 
-  // Extra: include areas and uploaded file embed markdown
+  // Extra: include uploaded file embed markdown
   let extra = get("extra");
-  if (areas.length) {
-    extra = (extra ? extra + "\n\n" : "") + "部位: " + areas.map(a => a.split("/")[0].trim()).join(", ");
-  }
   if (doneUploads.length) {
     extra += "\n\n添付ファイル / 附件:\n" + doneUploads.map(u => {
       const isVideo = /\.(mp4|mov|webm|m4v|avi)$/i.test(u.name);
