@@ -65,6 +65,28 @@
   .ai-btn:disabled { opacity: 0.5; cursor: wait; }
   .ai-btn--undo { background: #f0f0f3; border-color: #d8d8de; color: var(--ink-2); }
 
+  .defect-type-groups { display: flex; flex-direction: column; gap: 8px; }
+  .dt-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .dt-group-label {
+    min-width: 130px; font-size: 12px; color: var(--ink-2); font-weight: 600;
+    white-space: nowrap;
+  }
+  @media (max-width: 600px) {
+    .dt-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .dt-group-label { min-width: auto; }
+  }
+  .dt-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .dt-chip {
+    background: #fff; border: 1px solid var(--line-2);
+    padding: 6px 14px; border-radius: 999px;
+    font-size: 13px; font-weight: 500; font-family: inherit;
+    color: var(--ink); cursor: pointer;
+  }
+  .dt-chip:hover { border-color: var(--ink-3); }
+  .dt-chip.active {
+    background: #d93b3b; color: #fff; border-color: #d93b3b; font-weight: 700;
+  }
+
   /* Video drop zone */
   .drop-zone {
     border: 2px dashed var(--line-2);
@@ -169,6 +191,51 @@
     </div>
 
     <form id="defect-form" onsubmit="return submitDefect(event)">
+
+      <div class="row2">
+        <div class="field">
+          <label><span class="ja-only">購入日</span><span class="zh-only">购买日</span></label>
+          <input type="date" name="purchase_date" id="purchase_date">
+        </div>
+        <div class="field">
+          <label><span class="ja-only">問い合わせ日</span><span class="zh-only">咨询日</span></label>
+          <input type="date" name="inquiry_date" id="inquiry_date">
+        </div>
+      </div>
+
+      <div class="field">
+        <label><span class="ja-only">不具合の種類</span><span class="zh-only">故障种类</span> <span class="sub">*</span></label>
+        <input type="hidden" name="defect_type" id="defect_type" required>
+        <div class="defect-type-groups">
+          <div class="dt-row">
+            <span class="dt-group-label">⚡ <span class="ja-only">電源・充電系</span><span class="zh-only">电源·充电</span></span>
+            <div class="dt-chips">
+              <button type="button" class="dt-chip" data-val="充電ランプ不点灯"><span class="ja-only">充電ランプ</span><span class="zh-only">充电指示灯</span></button>
+              <button type="button" class="dt-chip" data-val="バッテリー不具合"><span class="ja-only">バッテリー</span><span class="zh-only">电池</span></button>
+              <button type="button" class="dt-chip" data-val="アダプター破損"><span class="ja-only">アダプター</span><span class="zh-only">适配器</span></button>
+              <button type="button" class="dt-chip" data-val="電源入らない"><span class="ja-only">電源</span><span class="zh-only">电源</span></button>
+            </div>
+          </div>
+          <div class="dt-row">
+            <span class="dt-group-label">💨 <span class="ja-only">吸引・ヘッド系</span><span class="zh-only">吸力·吸头</span></span>
+            <div class="dt-chips">
+              <button type="button" class="dt-chip" data-val="吸引力不足"><span class="ja-only">吸引力</span><span class="zh-only">吸力</span></button>
+              <button type="button" class="dt-chip" data-val="回転ブラシ異常"><span class="ja-only">回転ブラシ</span><span class="zh-only">滚刷</span></button>
+              <button type="button" class="dt-chip" data-val="床ノズル不良"><span class="ja-only">床ノズル</span><span class="zh-only">地刷</span></button>
+              <button type="button" class="dt-chip" data-val="パイプ不良"><span class="ja-only">パイプ</span><span class="zh-only">管子</span></button>
+            </div>
+          </div>
+          <div class="dt-row">
+            <span class="dt-group-label">📦 <span class="ja-only">破損・外観系</span><span class="zh-only">破损·外观</span></span>
+            <div class="dt-chips">
+              <button type="button" class="dt-chip" data-val="本体破損"><span class="ja-only">本体破損</span><span class="zh-only">机身破损</span></button>
+              <button type="button" class="dt-chip" data-val="フィルター破損"><span class="ja-only">フィルター</span><span class="zh-only">过滤器</span></button>
+              <button type="button" class="dt-chip" data-val="傷"><span class="ja-only">傷</span><span class="zh-only">划痕</span></button>
+              <button type="button" class="dt-chip" data-val="汚れ"><span class="ja-only">汚れ</span><span class="zh-only">污渍</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="row2">
         <div class="field">
@@ -469,6 +536,24 @@ document.getElementById("area-checks").addEventListener("change", (e) => {
   if (lbl) lbl.classList.toggle("on", e.target.checked);
 });
 
+// ===== Date defaults (today) =====
+(function setDateDefaults() {
+  const today = new Date().toISOString().slice(0, 10);
+  ["purchase_date", "inquiry_date"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && !el.value) el.value = today;
+  });
+})();
+
+// ===== Defect-type single-select chips =====
+document.querySelectorAll(".dt-chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    const v = chip.dataset.val;
+    document.querySelectorAll(".dt-chip").forEach(c => c.classList.toggle("active", c === chip));
+    document.getElementById("defect_type").value = v;
+  });
+});
+
 // ===== PAT setup =====
 function getPAT() {
   try { return localStorage.getItem(LS_PAT_KEY); } catch(e) { return null; }
@@ -625,14 +710,23 @@ function submitDefect(e) {
   const get = (k) => (fd.get(k) || "").toString().trim();
   const areas = [...document.querySelectorAll("#area-checks input:checked")].map(c => c.value);
 
+  if (!get("defect_type")) {
+    alert("不具合の種類 / 故障种类を選択してください");
+    return;
+  }
+
   const sevShort = get("severity").split("/")[0].trim();
   const sevTag = sevShort ? `[${sevShort}]` : "";
+  const dtypeTag = get("defect_type") ? `[${get("defect_type")}]` : "";
   const ja1 = (get("symptom_ja") || get("symptom_zh")).split("\n")[0].slice(0, 40);
-  const title = [PRODUCT_TAG, sevTag, ja1 || "不具合報告"].filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
+  const title = [PRODUCT_TAG, sevTag, dtypeTag, ja1 || "不具合報告"].filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
 
   const params = new URLSearchParams();
   params.set("template", "defect.yml");
   params.set("title", title);
+  params.set("purchase_date", get("purchase_date"));
+  params.set("inquiry_date", get("inquiry_date"));
+  params.set("defect_type", get("defect_type"));
   params.set("source", get("source"));
   params.set("severity", get("severity"));
   params.set("lot", get("lot"));
