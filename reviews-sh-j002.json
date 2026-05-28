@@ -1,19 +1,31 @@
 {
-  "updatedAt": "2026-05-28T02:35:52Z",
+  "updatedAt": "2026-05-28T14:41:13Z",
   "product": "sh-j002",
   "itemNumber": "10000004",
   "summary": {
     "rating": 4.58,
-    "count": 159
+    "count": 163
   },
-  "reviewsCount": 161,
-  "activeCount": 161,
+  "reviewsCount": 162,
+  "activeCount": 162,
   "removedCount": 0,
-  "newReviewsThisRun": 7,
+  "newReviewsThisRun": 1,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
   "reviews": [
+    {
+      "id": "3ca12ebdafbb599f",
+      "rating": 5,
+      "postDate": "2026-05-28",
+      "title": "料金も良心的ですが吸引力・操作性に満足",
+      "body": "当初は東芝や日立等、名の知れたメーカーのものを購入する予定でしたが、こちらの商品が目に留まり、会社紹介文を読んで、気になったのでこちらを購入させて頂きました。\n\n届いた商品を受取った時、軽すぎたので大丈夫か？と不安になりましたが、\n吸引力・操作性共に満足しております。LEDライトが明るいので押入の奥などを掃除するときもよく見えてよいです。\n強いて言うなら、ライトのON･OFFができれば尚良しです！\nあと、説明書がペラペラの紙ではなく、しっかり厚みのある紙を使っているのが、個人的には好感持てました！",
+      "nickname": "TORA8",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-05-28",
+      "last_seen_at": "2026-05-28"
+    },
     {
       "id": "668fc8f944b30210",
       "rating": 4,

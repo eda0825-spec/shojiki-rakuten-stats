@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-05-28T13:07:49Z",
+  "updatedAt": "2026-05-28T14:41:21Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-05-28T02:35:52Z",
-  "count": 161,
+  "sourceUpdatedAt": "2026-05-28T14:41:13Z",
+  "count": 162,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -2026,6 +2026,18 @@
         "LEDライト"
       ],
       "action_hint": "弱モードの吸引力を底上げし、1パスでの清掃完了率を改善する"
+    },
+    {
+      "id": "3ca12ebdafbb599f",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "吸引力・操作性・LEDライトに満足。LEDライトのON/OFFスイッチ追加を希望。",
+      "summary_zh": "对吸力、操控性及LED灯整体满意，建议增加LED灯的开关功能。",
+      "topics": [
+        "LEDライト",
+        "操作性"
+      ],
+      "action_hint": "LEDライトの独立ON/OFFスイッチ追加、またはモード切替への組み込みを検討する"
     }
   ]
 }
