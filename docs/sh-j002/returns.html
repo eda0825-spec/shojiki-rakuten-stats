@@ -10,18 +10,29 @@
 <style>
   .issue-card {
     background: #fff; border: 1px solid var(--line);
-    border-radius: 10px; padding: 18px 20px;
-    margin-bottom: 12px;
+    border-radius: 10px; padding: 14px 18px;
+    margin-bottom: 8px;
   }
   .issue-card .head {
-    display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
-    margin-bottom: 10px; flex-wrap: wrap;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    flex-wrap: wrap; cursor: pointer;
+    user-select: none;
   }
-  .issue-card h3 { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.4; }
+  .issue-card[data-collapsed="false"] .head { margin-bottom: 10px; }
+  .issue-card h3 {
+    margin: 0; font-size: 14px; font-weight: 700; line-height: 1.4;
+    display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0;
+  }
+  .issue-card h3::before {
+    content: "▸"; color: var(--ink-3); font-size: 11px; font-weight: 400;
+    transition: transform 0.15s; display: inline-block;
+  }
+  .issue-card[data-collapsed="false"] h3::before { transform: rotate(90deg); }
   .issue-card .head-meta {
     font-size: 11px; color: var(--ink-3); white-space: nowrap;
     display: flex; gap: 10px; align-items: center;
   }
+  .issue-card[data-collapsed="true"] .body-md { display: none; }
   .issue-tag {
     background: #f0f0f3; color: var(--ink-2);
     padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600;
@@ -519,9 +530,9 @@ function reflow() {
     const headline = (aiH && (isJa ? aiH.ja : aiH.zh)) || makeHeadline(i, parsed);
     const no = noMap.get(i.number) || "";
     return `
-    <article class="issue-card">
+    <article class="issue-card" data-collapsed="true">
       <div class="head">
-        <h3><span style="color:var(--ink-3);font-weight:600;margin-right:8px">No.${no}</span>${esc(headline)}</h3>
+        <h3><span style="color:var(--ink-3);font-weight:600;margin-right:6px;flex-shrink:0">No.${no}</span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(headline)}</span></h3>
         <div class="head-meta">
           <span>${esc((i.updated_at || "").slice(0,10))}</span>
         </div>
@@ -529,6 +540,14 @@ function reflow() {
       <div class="body-md">${renderDetails(parsed)}</div>
     </article>`;
   }).join("");
+
+  // Wire up collapse/expand
+  list.querySelectorAll(".issue-card .head").forEach(head => {
+    head.addEventListener("click", () => {
+      const card = head.closest(".issue-card");
+      card.dataset.collapsed = card.dataset.collapsed === "true" ? "false" : "true";
+    });
+  });
 
   // Lightbox for images
   document.querySelectorAll(".body-md img").forEach(img => {
