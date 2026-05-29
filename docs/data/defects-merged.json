@@ -1,0 +1,47 @@
+{
+  "updatedAt": "2026-05-29T03:06:13Z",
+  "count": 2,
+  "issues": [
+    {
+      "id": 4545273948,
+      "number": 2,
+      "product": "sh-j002",
+      "title": "[J002-返品] [2026-04-29] 製品への不満 ・ 返金",
+      "url": "https://github.com/eda0825-spec/shojiki-defects-j002/issues/2",
+      "state": "open",
+      "user": "eda0825-spec",
+      "assignees": [],
+      "labels": [
+        "status:new",
+        "type:return"
+      ],
+      "severity": null,
+      "status": "new",
+      "areas": [],
+      "created_at": "2026-05-29T02:45:40Z",
+      "updated_at": "2026-05-29T02:45:40Z",
+      "closed_at": null,
+      "comments": 0,
+      "body_excerpt": "| 項目 | 値 |\n|---|---|\n| 返品日 | 2026-04-29 |\n| 理由 | 製品への不満 |\n| 対応 | 返金 |\n| 購入チャネル | 楽天 |\n\n## 詳細\nまだ2回しか使用していませんが、吸引力を上げてもカーペットでの吸引力が非常に弱く、ペットの細かい毛やゴミが吸い取れず正直使い物になりません。"
+    },
+    {
+      "id": 4540521444,
+      "number": 1,
+      "product": "sh-j002",
+      "title": "[J002] [高] [本体破損] 製品を確認したところ、操作パネルがなく、スイッチ類がむき出しになっております。",
+      "url": "https://github.com/eda0825-spec/shojiki-defects-j002/issues/1",
+      "state": "open",
+      "user": "eda0825-spec",
+      "assignees": [],
+      "labels": [],
+      "severity": null,
+      "status": null,
+      "areas": [],
+      "created_at": "2026-05-28T12:50:00Z",
+      "updated_at": "2026-05-28T12:50:00Z",
+      "closed_at": null,
+      "comments": 0,
+      "body_excerpt": ""
+    }
+  ]
+}
