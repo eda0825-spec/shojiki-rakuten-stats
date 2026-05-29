@@ -190,9 +190,9 @@
           <label><span class="ja-only">理由</span><span class="zh-only">原因</span> <span class="sub">*</span></label>
           <select name="reason" required>
             <option value="" data-ja="-- 選択 --" data-zh="-- 选择 --">-- 選択 --</option>
+            <option value="製品への不満" data-ja="製品への不満" data-zh="对产品不满">製品への不満</option>
             <option value="不具合 (動作不良)" data-ja="不具合 (動作不良)" data-zh="故障 (动作不良)">不具合 (動作不良)</option>
             <option value="仕様違い (思っていたのと違う)" data-ja="仕様違い" data-zh="不符合预期">仕様違い</option>
-            <option value="製品への不満" data-ja="製品への不満" data-zh="对产品不满">製品への不満</option>
             <option value="配送ダメージ" data-ja="配送ダメージ" data-zh="配送损坏">配送ダメージ</option>
             <option value="顧客都合 (使ってみて好みでなかった等)" data-ja="顧客都合" data-zh="客户原因">顧客都合</option>
             <option value="その他" data-ja="その他" data-zh="其他">その他</option>
@@ -210,9 +210,15 @@
         </div>
       </div>
 
-      <div class="field">
-        <label><span class="ja-only">ロット番号 (任意)</span><span class="zh-only">批次号 (可选)</span></label>
-        <input type="text" name="lot" placeholder="例 2026-W18">
+      <div class="row2">
+        <div class="field">
+          <label><span class="ja-only">注文番号 (任意)</span><span class="zh-only">订单号 (可选)</span></label>
+          <input type="text" name="order_number" placeholder="例 437323-20260419-0671121839">
+        </div>
+        <div class="field">
+          <label><span class="ja-only">ロット番号 (任意)</span><span class="zh-only">批次号 (可选)</span></label>
+          <input type="text" name="lot" placeholder="例 2026-W18">
+        </div>
       </div>
 
       <div class="field">
@@ -517,6 +523,7 @@ async function submitReturn(e) {
   row("理由", get("reason"));
   row("対応", get("action"));
   row("購入チャネル", get("channel"));
+  row("注文番号", get("order_number"));
   row("ロット番号", get("lot"));
   row("関連不具合 Issue", get("related_defect"));
 
