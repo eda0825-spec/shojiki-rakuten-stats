@@ -7,6 +7,14 @@
   display: flex; gap: 4px;
   border-bottom: 1px solid var(--line);
   background: #fff;
+  position: sticky; top: 57px; z-index: 49;
+}
+/* sticky nav の全幅背景 (中央寄せの両側にも白を敷く) */
+.topnav::before {
+  content: ""; position: absolute; top: 0; bottom: 0; left: 50%;
+  width: 100vw; transform: translateX(-50%);
+  background: #fff; border-bottom: 1px solid var(--line);
+  z-index: -1;
 }
 .tn-item {
   padding: 14px 18px;

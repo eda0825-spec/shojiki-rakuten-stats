@@ -498,7 +498,7 @@ function esc(s) {
 setupDropZone();
 
 // ===== Edit mode (?issue=N) =====
-const _editIssueNum = new URLSearchParams(location.search).get("issue");
+const _editIssueNum = ((new URLSearchParams(location.search).get("issue") || "").match(/^\d+$/) || [""])[0];
 
 function _parseBodyToFields(body) {
   const fields = {};
@@ -524,6 +524,19 @@ function _parseBodyToFields(body) {
   return { fields, sections };
 }
 
+function _parseReturnTitleFallback(title) {
+  const out = {};
+  const t = String(title || "");
+  const m = t.match(/\[(\d{4}-\d{2}-\d{2})\]\s*([^・]+?)\s*・\s*(.+?)$/);
+  if (m) {
+    out.return_date = m[1].trim();
+    out.reason = m[2].trim();
+    out.action = m[3].trim();
+  }
+  out.detail = t.replace(/^\s*(\[[^\]]+\]\s*)+/, "").trim();
+  return out;
+}
+
 async function _loadIssueForEdit(num) {
   const pat = getPAT();
   if (!pat) { openPATModal(); return; }
@@ -534,19 +547,25 @@ async function _loadIssueForEdit(num) {
     if (!r.ok) { showSubmitBanner("error", `❌ Issue #${num} の取得に失敗 (${r.status})`); return; }
     const issue = await r.json();
     const { fields, sections } = _parseBodyToFields(issue.body || "");
+    const fallback = _parseReturnTitleFallback(issue.title);
+    const parsedAny = Object.keys(fields).length > 0 || Object.keys(sections).some(k => sections[k]);
     const f = document.getElementById("defect-form");
     const setVal = (name, val) => { const el = f.querySelector(`[name="${name}"]`); if (el && val != null) el.value = val; };
-    setVal("return_date", fields["返品日"]);
-    setVal("reason", fields["理由"]);
-    setVal("action", fields["対応"]);
+    setVal("return_date", fields["返品日"] || fallback.return_date);
+    setVal("reason", fields["理由"] || fallback.reason);
+    setVal("action", fields["対応"] || fallback.action);
     setVal("channel", fields["購入チャネル"]);
     setVal("order_number", fields["注文番号"]);
     setVal("lot", fields["ロット番号"]);
     setVal("related_defect", fields["関連不具合 Issue"]);
-    setVal("detail", sections["詳細"] || "");
+    setVal("detail", sections["詳細"] || fallback.detail || "");
     setVal("extra",  sections["補足"] || "");
-    // banner + button label
-    showSubmitBanner("success", `✏️ 編集モード: Issue #${num} を更新します`);
+    showSubmitBanner(
+      parsedAny ? "success" : "error",
+      parsedAny
+        ? `✏️ 編集モード: Issue #${num} を更新します`
+        : `⚠️ Issue #${num} の本文が空または不正です。タイトルから復元できる範囲だけ入力しました`
+    );
     const btn = f.querySelector('button[type="submit"]');
     if (btn) btn.innerHTML = '<span class="ja-only">更新</span><span class="zh-only">更新</span>';
   } catch (e) {
@@ -672,5 +691,6 @@ function showSubmitBanner(kind, html) {
 }
 </script>
 
+<script src="./sticky-nav.js"></script>
 </body>
 </html>

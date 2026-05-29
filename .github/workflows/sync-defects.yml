@@ -10,7 +10,7 @@ name: Sync Defects from Private Repos
 
 on:
   schedule:
-    - cron: '15 0 * * *'   # 09:15 JST 毎日
+    - cron: '*/15 * * * *'   # 15分ごと (投稿が一覧に反映されるまでのラグを短縮)
   workflow_dispatch:
 
 jobs:
