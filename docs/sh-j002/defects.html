@@ -578,7 +578,7 @@ function reflow() {
 
   const isJa = document.body.classList.contains("lang-ja");
   const aiHeads = (cachedSummary && cachedSummary.issue_headlines) || {};
-  const isAdmin = !!getPAT();
+  const isAdmin = (typeof ADMIN_MODE !== "undefined" && ADMIN_MODE) && !!getPAT();
 
   list.innerHTML = issues.slice(0, 100).map(i => {
     const parsed = parseBody(i.body || i.body_excerpt);
