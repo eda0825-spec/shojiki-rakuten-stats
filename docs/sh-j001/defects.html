@@ -363,16 +363,18 @@
       此设置保存在浏览器本地，不会发送到任何服务器。
     </p>
     <ol class="ja-only">
-      <li><a href="https://github.com/settings/tokens?type=beta" target="_blank">github.com/settings/tokens</a> で fine-grained PAT を発行</li>
-      <li>Repository access: <code>shojiki-rakuten-stats</code> を選択</li>
-      <li>Repository permissions → <strong>Contents: Read and write</strong> を ON</li>
-      <li>下に貼り付け</li>
+      <li><a href="https://github.com/settings/personal-access-tokens/new" target="_blank">github.com/settings/personal-access-tokens/new</a> を開く</li>
+      <li>Repository access → <strong>Only select repositories</strong> で次の3つを選択:<br>
+        <code>shojiki-rakuten-stats</code> / <code>shojiki-defects-j001</code> / <code>shojiki-defects-j002</code></li>
+      <li>Permissions → <strong>Contents: Read and write</strong> と <strong>Issues: Read and write</strong> を ON</li>
+      <li>「Generate token」→ 表示された <code>github_pat_...</code> を全コピーして下に貼り付け</li>
     </ol>
     <ol class="zh-only">
-      <li>在 <a href="https://github.com/settings/tokens?type=beta" target="_blank">github.com/settings/tokens</a> 创建 fine-grained PAT</li>
-      <li>Repository access: 选择 <code>shojiki-rakuten-stats</code></li>
-      <li>Repository permissions → <strong>Contents: Read and write</strong></li>
-      <li>粘贴到下方</li>
+      <li>打开 <a href="https://github.com/settings/personal-access-tokens/new" target="_blank">github.com/settings/personal-access-tokens/new</a></li>
+      <li>Repository access → <strong>Only select repositories</strong> 选择以下3个:<br>
+        <code>shojiki-rakuten-stats</code> / <code>shojiki-defects-j001</code> / <code>shojiki-defects-j002</code></li>
+      <li>Permissions → <strong>Contents: Read and write</strong> 与 <strong>Issues: Read and write</strong></li>
+      <li>「Generate token」→ 复制 <code>github_pat_...</code> 并粘贴到下方</li>
     </ol>
     <input type="password" id="pat-input" placeholder="github_pat_...">
     <div class="modal-actions">
