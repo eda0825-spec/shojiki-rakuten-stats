@@ -252,9 +252,47 @@ function renderSummary() {
   document.getElementById("ai-headline").textContent = block.headline || "";
   document.getElementById("ai-narrative").textContent = block.narrative || "";
 
+  // Source breakdown chips (3-source integration visibility)
+  const srcEl = document.getElementById("ai-sources");
+  if (srcEl && s.stats) {
+    const isJa = state.lang !== "zh";
+    const st = s.stats;
+    const labels = isJa
+      ? { rev: "📝 レビュー", iss_d: "🔧 不具合Issue", iss_r: "📦 返品", praise: "👍 称賛" }
+      : { rev: "📝 评价", iss_d: "🔧 故障Issue", iss_r: "📦 退货", praise: "👍 好评" };
+    const reviewNeg = (st.defect || 0) + (st.improvement || 0);
+    srcEl.innerHTML = [
+      `<span class="src-chip src-neg">${labels.rev} ${reviewNeg}${isJa?"件":"条"} <small>(${isJa?"不満":"不满"})</small></span>`,
+      `<span class="src-chip src-iss">${labels.iss_d} ${st.issue_defect || 0}${isJa?"件":"条"}</span>`,
+      `<span class="src-chip src-ret">${labels.iss_r} ${st.issue_return || 0}${isJa?"件":"条"}</span>`,
+      `<span class="src-chip src-praise">${labels.praise} ${st.praise || 0}${isJa?"件":"条"}</span>`,
+    ].join("");
+    srcEl.hidden = false;
+  }
+
+  // Find matching cluster meta for each finding (to show defect/return breakdown)
+  const clustersByName = {};
+  (s.top_clusters || []).forEach(c => { clustersByName[c.name] = c; });
+
   const findings = block.key_findings || [];
   document.getElementById("ai-findings").innerHTML = findings.length
-    ? findings.map(f => `<li><span class="topic-tag">${esc(f.topic || "")}</span>${esc(f.finding || "")}<span class="count-tag">(${f.count || 0}件)</span></li>`).join("")
+    ? findings.map(f => {
+        const meta = clustersByName[f.topic] || null;
+        const isJa = state.lang !== "zh";
+        const breakdown = [];
+        if (meta) {
+          if (meta.issue_return) breakdown.push(`<span class="bk-tag bk-ret">${isJa?"返品":"退货"} ${meta.issue_return}</span>`);
+          if (meta.issue_defect) breakdown.push(`<span class="bk-tag bk-iss">${isJa?"工場":"工厂"} ${meta.issue_defect}</span>`);
+          if (meta.review_defect) breakdown.push(`<span class="bk-tag bk-def">${isJa?"深刻":"严重"} ${meta.review_defect}</span>`);
+          if (meta.review_improvement) breakdown.push(`<span class="bk-tag bk-imp">${isJa?"改善要望":"改善"} ${meta.review_improvement}</span>`);
+          if (meta.is_core_function) breakdown.unshift(`<span class="bk-tag bk-core">${isJa?"⚠ 核心機能":"⚠ 核心功能"}</span>`);
+        }
+        return `<li>
+          <div class="finding-head"><span class="topic-tag">${esc(f.topic || "")}</span><span class="count-tag">(${f.count || 0}${isJa?"件":"条"})</span></div>
+          <div class="finding-body">${esc(f.finding || "")}</div>
+          ${breakdown.length ? `<div class="finding-bk">${breakdown.join("")}</div>` : ""}
+        </li>`;
+      }).join("")
     : `<li style="border-left-color:#aaa;background:transparent">${state.lang === "zh" ? "暂无数据" : "データなし"}</li>`;
 
   const actions = block.actions || [];

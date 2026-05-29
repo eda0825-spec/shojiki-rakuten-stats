@@ -161,6 +161,46 @@
 .ai-list--action li { border-left-color: #d93b3b; }
 .ai-meta { font-size: 11px; color: var(--ink-3); text-align: right; }
 
+/* Source chips (3-source visibility) */
+.ai-sources {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin: 0 0 16px;
+}
+.ai-sources[hidden] { display: none; }
+.src-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 12px; font-weight: 600;
+  color: var(--ink-2);
+}
+.src-chip small { color: var(--ink-3); font-weight: 400; font-size: 10px; }
+.src-chip.src-neg    { border-color: #f3c896; color: #b8500e; }
+.src-chip.src-iss    { border-color: #f3a8a8; color: #a82424; }
+.src-chip.src-ret    { border-color: #d8b4f8; color: #6a1b9a; }
+.src-chip.src-praise { border-color: #b4e0c4; color: #1e7e3c; }
+
+/* Finding breakdown chips (per topic) */
+.ai-list li .finding-head { margin-bottom: 4px; }
+.ai-list li .finding-body { display: block; }
+.ai-list li .finding-bk {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  margin-top: 6px;
+}
+.bk-tag {
+  display: inline-block;
+  padding: 1px 7px; border-radius: 999px;
+  font-size: 10px; font-weight: 600;
+  background: #f4f4f6; color: var(--ink-3);
+}
+.bk-tag.bk-core { background: #fff1d6; color: #b8500e; border: 1px solid #f3c896; }
+.bk-tag.bk-ret  { background: #f3e8ff; color: #6a1b9a; }
+.bk-tag.bk-iss  { background: #ffe5e5; color: #a82424; }
+.bk-tag.bk-def  { background: #ffd7d7; color: #8b1f1f; }
+.bk-tag.bk-imp  { background: #fff0e0; color: #b8500e; }
+
 /* ===== Sales widget ===== */
 .sales-widget {
   background: linear-gradient(135deg, #1d1d1f 0%, #2d2d33 100%);
