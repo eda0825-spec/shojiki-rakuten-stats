@@ -24,8 +24,9 @@
     display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0;
   }
   .issue-card h3::before {
-    content: "▸"; color: var(--ink-3); font-size: 11px; font-weight: 400;
+    content: "▸"; color: var(--ink); font-size: 18px; font-weight: 700;
     transition: transform 0.15s; display: inline-block;
+    width: 18px; text-align: center; line-height: 1;
   }
   .issue-card[data-collapsed="false"] h3::before { transform: rotate(90deg); }
   .issue-card .head-meta {
@@ -33,6 +34,23 @@
     display: flex; gap: 10px; align-items: center;
   }
   .issue-card[data-collapsed="true"] .body-md { display: none; }
+
+  /* Sort toolbar */
+  .sort-bar {
+    display: flex; justify-content: flex-end; align-items: center; gap: 6px;
+    margin: 8px 0; font-size: 12px;
+  }
+  .sort-bar .sort-label { color: var(--ink-3); }
+  .sort-bar button {
+    background: #fff; border: 1px solid var(--line);
+    padding: 4px 10px; border-radius: 999px;
+    font-size: 12px; cursor: pointer; font: inherit;
+    color: var(--ink-2);
+  }
+  .sort-bar button:hover { border-color: var(--ink-3); }
+  .sort-bar button.active {
+    background: var(--ink); color: #fff; border-color: var(--ink); font-weight: 600;
+  }
   .issue-tag {
     background: #f0f0f3; color: var(--ink-2);
     padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600;
@@ -210,6 +228,14 @@
     </div>
   </section>
 
+  <div class="sort-bar" id="sort-bar" hidden>
+    <span class="sort-label">
+      <span class="ja-only">並び順:</span><span class="zh-only">排序:</span>
+    </span>
+    <button data-sort="desc" class="active"><span class="ja-only">新しい順</span><span class="zh-only">最新</span></button>
+    <button data-sort="asc"><span class="ja-only">古い順</span><span class="zh-only">最早</span></button>
+  </div>
+
   <div id="issue-list"></div>
 
   <div id="empty" class="empty-hero" hidden>
@@ -324,6 +350,7 @@ function inline(s) {
 
 let cachedIssues = null;
 let cachedSummary = null;
+let sortOrder = "desc"; // "desc" = 新しい順, "asc" = 古い順
 
 function isReturnIssue(i) {
   const labels = (i.labels || []).map(l => String(l).toLowerCase());
@@ -478,21 +505,31 @@ async function load() {
 }
 
 function reflow() {
-  const issues = cachedIssues || [];
+  const rawIssues = cachedIssues || [];
 
   const empty = document.getElementById("empty");
   const list = document.getElementById("issue-list");
   const agg = document.getElementById("agg-section");
   const ai = document.getElementById("ai-insights");
+  const sortBar = document.getElementById("sort-bar");
 
-  if (issues.length === 0) {
+  if (rawIssues.length === 0) {
     if (agg) agg.hidden = true;
     if (ai) ai.hidden = true;
+    if (sortBar) sortBar.hidden = true;
     empty.hidden = false;
     list.innerHTML = "";
     return;
   }
   empty.hidden = true;
+  if (sortBar) sortBar.hidden = false;
+
+  // Apply sort by updated_at
+  const issues = [...rawIssues].sort((a, b) => {
+    const da = a.updated_at || "";
+    const db = b.updated_at || "";
+    return sortOrder === "asc" ? da.localeCompare(db) : db.localeCompare(da);
+  });
 
   // Aggregations
   if (agg) {
@@ -561,6 +598,15 @@ function reflow() {
 
 document.getElementById("img-lightbox").addEventListener("click", e => {
   e.currentTarget.classList.remove("open");
+});
+
+// Sort toggle
+document.querySelectorAll("#sort-bar button").forEach(b => {
+  b.addEventListener("click", () => {
+    sortOrder = b.dataset.sort;
+    document.querySelectorAll("#sort-bar button").forEach(x => x.classList.toggle("active", x.dataset.sort === sortOrder));
+    reflow();
+  });
 });
 
 load();
