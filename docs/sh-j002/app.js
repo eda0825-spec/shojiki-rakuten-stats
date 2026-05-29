@@ -474,11 +474,17 @@ function renderList(rows) {
     const showJa = state.lang === "ja";
     const showZh = state.lang === "zh";
     const removedLab = state.lang === "zh" ? "已删除" : "削除済み";
+    // レビュー出所 (楽天 / Amazon / Shopify)。データに platform/source が無ければ楽天市場とみなす
+    const _plat = String(r.platform || r.source || "rakuten").toLowerCase();
+    const srcLabel = _plat.includes("amazon") ? "Amazon" : (_plat.includes("shopify") ? "Shopify" : "楽天市場");
+    const srcStyle = _plat.includes("amazon") ? "background:#ff9900;color:#1a1a1a"
+                   : (_plat.includes("shopify") ? "background:#5a31f4;color:#fff" : "background:#bf0000;color:#fff");
     return `
     <article class="card ${r.removed_at ? 'card--removed' : ''}" id="rev-${esc(r.id)}">
       <div class="card-head">
         <span class="stars">${stars(r.rating)}</span>
         <span class="cdate">${esc(fmtDate(r.postDate))}</span>
+        <span class="badge" style="${srcStyle}" title="レビュー出所 / 来源">${esc(srcLabel)}</span>
         <span class="badge cat-${esc(r.category)}">${esc(catLab)}</span>
         ${sevLab ? `<span class="badge sev-${esc(r.severity)}">${esc(sevLab)}</span>` : ""}
         ${r.removed_at ? `<span class="badge badge-removed" title="楽天から削除されました: ${esc(r.removed_at)}">🗑 ${esc(removedLab)}</span>` : ""}
