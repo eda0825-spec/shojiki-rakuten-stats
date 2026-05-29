@@ -1,7 +1,30 @@
 {
-  "updatedAt": "2026-05-29T05:39:15Z",
-  "count": 12,
+  "updatedAt": "2026-05-29T06:25:42Z",
+  "count": 13,
   "issues": [
+    {
+      "id": 4546114912,
+      "number": 8,
+      "product": "sh-j002",
+      "title": "[J002-返品] [2026-05-16] 製品への不満 ・ 返金",
+      "url": "https://github.com/eda0825-spec/shojiki-defects-j002/issues/8",
+      "state": "open",
+      "user": "eda0825-spec",
+      "assignees": [],
+      "labels": [
+        "status:new",
+        "type:return"
+      ],
+      "severity": null,
+      "status": "new",
+      "areas": [],
+      "created_at": "2026-05-29T06:07:55Z",
+      "updated_at": "2026-05-29T06:07:55Z",
+      "closed_at": null,
+      "comments": 0,
+      "body_excerpt": "| 項目 | 値 |\n|---|---|\n| 返品日 | 2026-05-16 |\n| 理由 | 製品への不満 |\n| 対応 | 返金 |\n| 注文番号 | \" 437323-20260510-0509826942\" |\n| ロット番号 | 60310 |\n\n## 詳細\n吸引力が弱い",
+      "body": "| 項目 | 値 |\n|---|---|\n| 返品日 | 2026-05-16 |\n| 理由 | 製品への不満 |\n| 対応 | 返金 |\n| 注文番号 | \" 437323-20260510-0509826942\" |\n| ロット番号 | 60310 |\n\n## 詳細\n吸引力が弱い"
+    },
     {
       "id": 4540521444,
       "number": 1,
