@@ -248,13 +248,13 @@ function renderClusterChart(joined) {
   for (const c of CLUSTERS) buckets.set(c.key, { defect: 0, improvement: 0 });
   for (const r of joined) {
     if (r.category !== "defect" && r.category !== "improvement") continue;
-    const seenClusters = new Set();
+    // PRIMARY cluster only: avoid double-counting 1 review across multiple clusters.
+    let primaryCluster = null;
     for (const tp of r.topics || []) {
       const ck = TOPIC_TO_CLUSTER.get(tp);
-      if (!ck || seenClusters.has(ck)) continue;
-      seenClusters.add(ck);
-      buckets.get(ck)[r.category]++;
+      if (ck) { primaryCluster = ck; break; }
     }
+    if (primaryCluster) buckets.get(primaryCluster)[r.category]++;
   }
   const ranked = CLUSTERS
     .map(c => ({ ...c, ...buckets.get(c.key) }))

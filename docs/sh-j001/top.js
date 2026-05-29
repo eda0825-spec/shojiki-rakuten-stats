@@ -66,16 +66,18 @@ function applyLang(lang) {
 
 // ===== Data loaders =====
 async function loadAll() {
-  const [reviews, cats, merged, sales] = await Promise.all([
+  const [reviews, cats, merged, sales, summary] = await Promise.all([
     fetchJSON(`reviews-${PRODUCT}.json`).catch(() => ({ reviews: [] })),
     fetchJSON(`categorized-${PRODUCT}.json`).catch(() => ({ results: [] })),
     fetchJSON(`docs/data/defects-merged.json`).catch(() => ({ issues: [] })),
     fetchJSON(`sales-summary.json`).catch(() => null),
+    fetchJSON(`summary-${PRODUCT}.json`).catch(() => null),
   ]);
   state.data.reviews = reviews.reviews || [];
   state.data.cats = cats.results || [];
   state.data.merged = merged;
   state.data.sales = sales;
+  state.data.summary = summary;
   state.data.reviewsUpdatedAt = reviews.updatedAt;
 }
 
@@ -136,13 +138,15 @@ function renderClusterChart() {
   for (const c of CLUSTERS) buckets.set(c.key, { defect: 0, improvement: 0 });
   for (const r of joined) {
     if (r.category !== "defect" && r.category !== "improvement") continue;
-    const seen = new Set();
+    // PRIMARY cluster only: first matching topic in Claude's topic array.
+    // (Claude lists topics in importance order; counts the review against
+    // its main subject, avoiding double-counting across clusters.)
+    let primaryCluster = null;
     for (const tp of r.topics || []) {
       const ck = TOPIC_TO_CLUSTER.get(tp);
-      if (!ck || seen.has(ck)) continue;
-      seen.add(ck);
-      buckets.get(ck)[r.category]++;
+      if (ck) { primaryCluster = ck; break; }
     }
+    if (primaryCluster) buckets.get(primaryCluster)[r.category]++;
   }
   const ranked = CLUSTERS.map(c => ({ ...c, ...buckets.get(c.key) }))
     .filter(c => (c.defect + c.improvement) > 0)
@@ -235,7 +239,38 @@ function renderUpdated() {
   }
 }
 
+// ===== Render: AI Summary =====
+function renderSummary() {
+  const widget = document.getElementById("ai-summary");
+  const s = state.data.summary;
+  if (!s) { widget.hidden = true; return; }
+  const lang = state.lang === "zh" ? "summary_zh" : "summary_ja";
+  const block = s[lang] || s.summary_ja;
+  if (!block) { widget.hidden = true; return; }
+  widget.hidden = false;
+
+  document.getElementById("ai-headline").textContent = block.headline || "";
+  document.getElementById("ai-narrative").textContent = block.narrative || "";
+
+  const findings = block.key_findings || [];
+  document.getElementById("ai-findings").innerHTML = findings.length
+    ? findings.map(f => `<li><span class="topic-tag">${esc(f.topic || "")}</span>${esc(f.finding || "")}<span class="count-tag">(${f.count || 0}件)</span></li>`).join("")
+    : `<li style="border-left-color:#aaa;background:transparent">${state.lang === "zh" ? "暂无数据" : "データなし"}</li>`;
+
+  const actions = block.actions || [];
+  document.getElementById("ai-actions").innerHTML = actions.length
+    ? actions.map(a => `<li>${esc(a)}</li>`).join("")
+    : `<li style="border-left-color:#aaa;background:transparent">${state.lang === "zh" ? "暂无" : "—"}</li>`;
+
+  if (s.updatedAt) {
+    const d = new Date(s.updatedAt);
+    document.getElementById("ai-updated").textContent =
+      d.toLocaleString(state.lang === "zh" ? "zh-CN" : "ja-JP", { timeZone: "Asia/Tokyo" });
+  }
+}
+
 function renderAll() {
+  renderSummary();
   renderSales();
   renderCounts();
   renderClusterChart();

@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SHOJIKI SH-J001 不具合報告</title>
 <link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="./simple.css">
 <style>
   .form-wrap { max-width: 760px; margin: 0 auto; }
   .product-badge {
@@ -50,6 +51,52 @@
   }
   .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   @media (max-width: 600px) { .row2 { grid-template-columns: 1fr; } }
+
+  .ai-btn {
+    background: #fff7e6;
+    border: 1px solid #f3d99c;
+    color: #6b4a00;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px; font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .ai-btn:hover { background: #ffe9a8; }
+  .ai-btn:disabled { opacity: 0.5; cursor: wait; }
+  .ai-btn--undo { background: #f0f0f3; border-color: #d8d8de; color: var(--ink-2); }
+
+  .submit-banner {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 18px; border-radius: 10px;
+    margin-bottom: 16px;
+    font-size: 14px; line-height: 1.6;
+    white-space: pre-wrap;
+  }
+  .submit-banner.success { background: #effaf0; border: 1px solid #20a55a; color: #0f5c2b; }
+  .submit-banner.error   { background: #fff5f5; border: 1px solid #d93b3b; color: #8a1f1f; }
+
+  .defect-type-groups { display: flex; flex-direction: column; gap: 8px; }
+  .dt-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .dt-group-label {
+    min-width: 130px; font-size: 12px; color: var(--ink-2); font-weight: 600;
+    white-space: nowrap;
+  }
+  @media (max-width: 600px) {
+    .dt-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .dt-group-label { min-width: auto; }
+  }
+  .dt-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .dt-chip {
+    background: #fff; border: 1px solid var(--line-2);
+    padding: 6px 14px; border-radius: 999px;
+    font-size: 13px; font-weight: 500; font-family: inherit;
+    color: var(--ink); cursor: pointer;
+  }
+  .dt-chip:hover { border-color: var(--ink-3); }
+  .dt-chip.active {
+    background: #d93b3b; color: #fff; border-color: #d93b3b; font-weight: 700;
+  }
 
   /* Video drop zone */
   .drop-zone {
@@ -145,7 +192,7 @@
 <main id="app">
   <div class="form-wrap">
 
-    <span class="product-badge">SH-J001</span>
+    
 
     <div class="note ja-only">
       📝 このフォームに入力して「GitHub に投稿」を押すと、GitHub Issue として登録されます (初回は GitHub アカウントが必要 / 無料: <a href="https://github.com/signup" target="_blank">github.com/signup</a>)。
@@ -155,6 +202,51 @@
     </div>
 
     <form id="defect-form" onsubmit="return submitDefect(event)">
+
+      <div class="row2">
+        <div class="field">
+          <label><span class="ja-only">購入日</span><span class="zh-only">购买日</span></label>
+          <input type="date" name="purchase_date" id="purchase_date">
+        </div>
+        <div class="field">
+          <label><span class="ja-only">問い合わせ日</span><span class="zh-only">咨询日</span></label>
+          <input type="date" name="inquiry_date" id="inquiry_date">
+        </div>
+      </div>
+
+      <div class="field">
+        <label><span class="ja-only">不具合の種類</span><span class="zh-only">故障种类</span> <span class="sub">*</span></label>
+        <input type="hidden" name="defect_type" id="defect_type" required>
+        <div class="defect-type-groups">
+          <div class="dt-row">
+            <span class="dt-group-label">⚡ <span class="ja-only">電源・充電系</span><span class="zh-only">电源·充电</span></span>
+            <div class="dt-chips">
+              <button type="button" class="dt-chip" data-val="充電ランプ不点灯"><span class="ja-only">充電ランプ</span><span class="zh-only">充电指示灯</span></button>
+              <button type="button" class="dt-chip" data-val="バッテリー不具合"><span class="ja-only">バッテリー</span><span class="zh-only">电池</span></button>
+              <button type="button" class="dt-chip" data-val="アダプター破損"><span class="ja-only">アダプター</span><span class="zh-only">适配器</span></button>
+              <button type="button" class="dt-chip" data-val="電源入らない"><span class="ja-only">電源</span><span class="zh-only">电源</span></button>
+            </div>
+          </div>
+          <div class="dt-row">
+            <span class="dt-group-label">💨 <span class="ja-only">吸引・ヘッド系</span><span class="zh-only">吸力·吸头</span></span>
+            <div class="dt-chips">
+              <button type="button" class="dt-chip" data-val="吸引力不足"><span class="ja-only">吸引力</span><span class="zh-only">吸力</span></button>
+              <button type="button" class="dt-chip" data-val="回転ブラシ異常"><span class="ja-only">回転ブラシ</span><span class="zh-only">滚刷</span></button>
+              <button type="button" class="dt-chip" data-val="床ノズル不良"><span class="ja-only">床ノズル</span><span class="zh-only">地刷</span></button>
+              <button type="button" class="dt-chip" data-val="パイプ不良"><span class="ja-only">パイプ</span><span class="zh-only">管子</span></button>
+            </div>
+          </div>
+          <div class="dt-row">
+            <span class="dt-group-label">📦 <span class="ja-only">破損・外観系</span><span class="zh-only">破损·外观</span></span>
+            <div class="dt-chips">
+              <button type="button" class="dt-chip" data-val="本体破損"><span class="ja-only">本体破損</span><span class="zh-only">机身破损</span></button>
+              <button type="button" class="dt-chip" data-val="フィルター破損"><span class="ja-only">フィルター</span><span class="zh-only">过滤器</span></button>
+              <button type="button" class="dt-chip" data-val="傷"><span class="ja-only">傷</span><span class="zh-only">划痕</span></button>
+              <button type="button" class="dt-chip" data-val="汚れ"><span class="ja-only">汚れ</span><span class="zh-only">污渍</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="row2">
         <div class="field">
@@ -179,47 +271,6 @@
 
       <div class="row2">
         <div class="field">
-          <label><span class="ja-only">発生頻度</span><span class="zh-only">发生频率</span></label>
-          <select name="frequency">
-            <option value="不明 / 未知"           data-ja="不明" data-zh="未知">不明</option>
-            <option value="単発 / 偶发"           data-ja="単発" data-zh="偶发">単発</option>
-            <option value="散発 / 散发"           data-ja="散発" data-zh="散发">散発</option>
-            <option value="多発 / 多发"           data-ja="多発" data-zh="多发">多発</option>
-            <option value="全数 / 全部"           data-ja="全数" data-zh="全部">全数</option>
-          </select>
-        </div>
-        <div class="field">
-          <label><span class="ja-only">関連工程</span><span class="zh-only">相关工序</span></label>
-          <select name="process">
-            <option value="不明 / 未知"     data-ja="不明"   data-zh="未知">不明</option>
-            <option value="部品 / 零件"     data-ja="部品"   data-zh="零件">部品</option>
-            <option value="組立 / 装配"     data-ja="組立"   data-zh="装配">組立</option>
-            <option value="検査 / 检查"     data-ja="検査"   data-zh="检查">検査</option>
-            <option value="包装 / 包装"     data-ja="包装"   data-zh="包装">包装</option>
-            <option value="出荷後 / 出货后" data-ja="出荷後" data-zh="出货后">出荷後</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="field">
-        <label><span class="ja-only">部位 (複数選択可)</span><span class="zh-only">部位 (可多选)</span></label>
-        <div class="checks" id="area-checks">
-          <label><input type="checkbox" value="バッテリー / 电池"><span class="ja-only">バッテリー</span><span class="zh-only">电池</span></label>
-          <label><input type="checkbox" value="充電端子 / 充电接口"><span class="ja-only">充電端子</span><span class="zh-only">充电接口</span></label>
-          <label><input type="checkbox" value="モーター / 电机"><span class="ja-only">モーター</span><span class="zh-only">电机</span></label>
-          <label><input type="checkbox" value="ローラー / 滚刷"><span class="ja-only">ローラー</span><span class="zh-only">滚刷</span></label>
-          <label><input type="checkbox" value="ダストカップ / 集尘杯"><span class="ja-only">ダストカップ</span><span class="zh-only">集尘杯</span></label>
-          <label><input type="checkbox" value="フィルター / 过滤器"><span class="ja-only">フィルター</span><span class="zh-only">过滤器</span></label>
-          <label><input type="checkbox" value="スタンド / 支架"><span class="ja-only">スタンド</span><span class="zh-only">支架</span></label>
-          <label><input type="checkbox" value="操作ボタン / 操作按钮"><span class="ja-only">操作ボタン</span><span class="zh-only">操作按钮</span></label>
-          <label><input type="checkbox" value="外装 / 外壳"><span class="ja-only">外装</span><span class="zh-only">外壳</span></label>
-          <label><input type="checkbox" value="付属品 / 配件"><span class="ja-only">付属品</span><span class="zh-only">配件</span></label>
-          <label><input type="checkbox" value="その他 / 其他"><span class="ja-only">その他</span><span class="zh-only">其他</span></label>
-        </div>
-      </div>
-
-      <div class="row2">
-        <div class="field">
           <label><span class="ja-only">ロット番号</span><span class="zh-only">批次号</span></label>
           <input type="text" name="lot" placeholder="例 2026-W18">
         </div>
@@ -231,13 +282,23 @@
 
       <!-- 症状 — JP MODE ONLY -->
       <div class="field ja-only">
-        <label>症状 <span class="sub">*</span></label>
-        <textarea name="symptom_ja" placeholder="何が、いつ、どのような状況で起きるかを具体的に。"></textarea>
+        <label style="display:flex;align-items:center;gap:8px">
+          症状 <span class="sub">*</span>
+          <button type="button" class="ai-btn" onclick="aiRewrite('symptom_ja')">💡 AI で整える</button>
+          <button type="button" class="ai-btn ai-btn--undo" onclick="aiUndo('symptom_ja')" style="display:none">↩︎ 元に戻す</button>
+          <span class="ai-status" id="status-symptom_ja" style="font-size:11px;color:var(--ink-3)"></span>
+        </label>
+        <textarea name="symptom_ja" placeholder="顧客コメントをそのまま貼り付けて「💡 AI で整える」を押すと、症状文として整理されます。"></textarea>
       </div>
       <!-- 症状 — ZH MODE ONLY -->
       <div class="field zh-only">
-        <label>症状 <span class="sub">*</span></label>
-        <textarea name="symptom_zh" placeholder="何时、什么情况下、发生什么。请具体描述。"></textarea>
+        <label style="display:flex;align-items:center;gap:8px">
+          症状 <span class="sub">*</span>
+          <button type="button" class="ai-btn" onclick="aiRewrite('symptom_zh')">💡 AI 整理</button>
+          <button type="button" class="ai-btn ai-btn--undo" onclick="aiUndo('symptom_zh')" style="display:none">↩︎ 还原</button>
+          <span class="ai-status" id="status-symptom_zh" style="font-size:11px;color:var(--ink-3)"></span>
+        </label>
+        <textarea name="symptom_zh" placeholder="粘贴客户评论后点击「💡 AI 整理」，自动整理为症状描述。"></textarea>
       </div>
 
       <!-- VIDEO DROP ZONE + URL fallback -->
@@ -327,6 +388,110 @@ const PRODUCT = "sh-j001";
 const STORAGE_REPO = "eda0825-spec/shojiki-rakuten-stats";   // where videos are committed
 const LS_LANG_KEY = "shojiki-dashboard-lang";
 const LS_PAT_KEY = "shojiki-uploader-pat";
+const LS_ANTHROPIC_KEY = "shojiki-anthropic-key";
+
+// ===== AI rewrite (customer comment → defect symptom) =====
+const aiBackup = {};   // textarea name → previous content (for undo)
+
+async function aiRewrite(fieldName) {
+  const ta = document.querySelector(`textarea[name="${fieldName}"]`);
+  const text = (ta.value || "").trim();
+  if (!text) { alert("先に顧客コメントを貼り付けてください"); return; }
+  let key = localStorage.getItem(LS_ANTHROPIC_KEY);
+  if (!key) {
+    key = prompt(
+      "Anthropic API キーを入力してください (一度だけ。ブラウザに保存)\n" +
+      "発行: https://console.anthropic.com/settings/keys"
+    );
+    if (!key || !key.startsWith("sk-ant-")) {
+      alert("有効な API キーが入力されませんでした");
+      return;
+    }
+    localStorage.setItem(LS_ANTHROPIC_KEY, key.trim());
+  }
+
+  const isJa = fieldName === "symptom_ja";
+  const btn = document.querySelector(`button[onclick*="aiRewrite('${fieldName}')"]`);
+  const undoBtn = document.querySelector(`button[onclick*="aiUndo('${fieldName}')"]`);
+  const status = document.getElementById(`status-${fieldName}`);
+  btn.disabled = true; status.textContent = "整形中…";
+
+  const prompt_text = isJa
+    ? `以下は顧客のレビュー/コメント、または現場メモです。これを「不具合の症状」として、中国工場と日本エンジニアが共有しやすい形に書き直してください。
+
+要件:
+- 事実のみ (感情・主観・愚痴を除く)
+- 何が・いつ・どんな状況で発生するか具体的に
+- 200字以内
+- 日本語
+- 出力は書き直し本文のみ (前置きや解説は禁止)
+
+元のコメント:
+"""
+${text}
+"""`
+    : `以下是顾客评论/反馈或现场记录。请改写成"故障症状"，便于中国工厂和日本工程师共享。
+
+要求:
+- 仅写事实（去除情感、主观、抱怨）
+- 具体描述: 什么、什么时候、什么情况下发生
+- 不超过200字
+- 用中文
+- 仅输出改写后的正文（不要前言或解释）
+
+原始评论:
+"""
+${text}
+"""`;
+
+  try {
+    aiBackup[fieldName] = ta.value;
+    const resp = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": key,
+        "anthropic-version": "2023-06-01",
+        "anthropic-dangerous-direct-browser-access": "true",
+      },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-6",
+        max_tokens: 600,
+        temperature: 0.3,
+        messages: [{ role: "user", content: prompt_text }],
+      }),
+    });
+    if (!resp.ok) {
+      const err = await resp.text();
+      if (resp.status === 401) {
+        localStorage.removeItem(LS_ANTHROPIC_KEY);
+        throw new Error("API キー無効。再度入力してください");
+      }
+      throw new Error(`${resp.status}: ${err.slice(0, 150)}`);
+    }
+    const data = await resp.json();
+    const out = (data.content?.[0]?.text || "").trim();
+    if (!out) throw new Error("AI 応答が空");
+    ta.value = out;
+    status.textContent = "✅ " + (isJa ? "整形済み" : "已整理");
+    undoBtn.style.display = "";
+    setTimeout(() => { status.textContent = ""; }, 4000);
+  } catch (e) {
+    status.textContent = "❌ " + e.message;
+    setTimeout(() => { status.textContent = ""; }, 6000);
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function aiUndo(fieldName) {
+  const ta = document.querySelector(`textarea[name="${fieldName}"]`);
+  if (aiBackup[fieldName] !== undefined) {
+    ta.value = aiBackup[fieldName];
+    delete aiBackup[fieldName];
+    document.querySelector(`button[onclick*="aiUndo('${fieldName}')"]`).style.display = "none";
+  }
+}
 
 // ===== Language toggle =====
 function applyLang(lang) {
@@ -360,9 +525,22 @@ function applyLang(lang) {
 })();
 
 // ===== Area checkbox toggle =====
-document.getElementById("area-checks").addEventListener("change", (e) => {
-  const lbl = e.target.closest("label");
-  if (lbl) lbl.classList.toggle("on", e.target.checked);
+// ===== Date defaults (today) =====
+(function setDateDefaults() {
+  const today = new Date().toISOString().slice(0, 10);
+  ["purchase_date", "inquiry_date"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && !el.value) el.value = today;
+  });
+})();
+
+// ===== Defect-type single-select chips =====
+document.querySelectorAll(".dt-chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    const v = chip.dataset.val;
+    document.querySelectorAll(".dt-chip").forEach(c => c.classList.toggle("active", c === chip));
+    document.getElementById("defect_type").value = v;
+  });
 });
 
 // ===== PAT setup =====
@@ -514,58 +692,124 @@ function esc(s) {
 
 setupDropZone();
 
-// ===== Submit =====
-function submitDefect(e) {
+// ===== Submit (direct GitHub API — stays on dashboard) =====
+async function submitDefect(e) {
   e.preventDefault();
   const fd = new FormData(e.target);
   const get = (k) => (fd.get(k) || "").toString().trim();
-  const areas = [...document.querySelectorAll("#area-checks input:checked")].map(c => c.value);
 
-  const sevShort = get("severity").split("/")[0].trim();
-  const sevTag = sevShort ? `[${sevShort}]` : "";
-  const ja1 = (get("symptom_ja") || get("symptom_zh")).split("\n")[0].slice(0, 40);
-  const title = [PRODUCT_TAG, sevTag, ja1 || "不具合報告"].filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
+  if (!get("defect_type")) {
+    alert("不具合の種類 / 故障种类を選択してください");
+    return;
+  }
+  const pat = getPAT();
+  if (!pat) {
+    showError("先に GitHub PAT を設定してください (写真/動画 ドラッグゾーン参照)");
+    openPATModal();
+    return;
+  }
 
-  const params = new URLSearchParams();
-  params.set("template", "defect.yml");
-  params.set("title", title);
-  params.set("source", get("source"));
-  params.set("severity", get("severity"));
-  params.set("frequency", get("frequency"));
-  params.set("process", get("process"));
-  params.set("lot", get("lot"));
-  params.set("serial", get("serial"));
-  params.set("symptom_ja", get("symptom_ja"));
-  params.set("symptom_zh", get("symptom_zh"));
-  // Video URL: prefer uploaded items (done only), fall back to manually pasted URL
   const doneUploads = uploadedItems.filter(u => u.status === "done");
   const stillUploading = uploadedItems.filter(u => u.status === "uploading");
   if (stillUploading.length) {
-    if (!confirm(`${stillUploading.length} 件アップロード中です。このまま投稿しますか？`)) return;
+    if (!confirm(`${stillUploading.length} 件アップロード中です。このまま登録しますか？`)) return;
   }
-  const uploadedUrls = doneUploads.map(u => u.url);
-  const manualUrl = get("video_url");
-  const videoUrl = uploadedUrls.length ? uploadedUrls.join("\n") : manualUrl;
-  params.set("video_url", videoUrl);
-  params.set("suspected_cause", get("suspected_cause"));
 
-  // Extra: include areas and uploaded file embed markdown
-  let extra = get("extra");
-  if (areas.length) {
-    extra = (extra ? extra + "\n\n" : "") + "部位: " + areas.map(a => a.split("/")[0].trim()).join(", ");
-  }
+  // ---- Build title ----
+  const sev = get("severity");
+  const dtype = get("defect_type");
+  const ja1 = (get("symptom_ja") || get("symptom_zh")).split("\n")[0].slice(0, 40);
+  const title = [PRODUCT_TAG + "-不具合", sev ? `[${sev}]` : "", dtype ? `[${dtype}]` : "", ja1 || "不具合報告"]
+    .filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
+
+  // ---- Build body markdown ----
+  const lines = ["| 項目 | 値 |", "|---|---|"];
+  const row = (k, v) => v && lines.push(`| ${k} | ${v} |`);
+  row("購入日", get("purchase_date"));
+  row("問い合わせ日", get("inquiry_date"));
+  row("不具合の種類", dtype);
+  row("報告元", get("source"));
+  row("深刻度", sev);
+  row("ロット番号", get("lot"));
+  row("シリアル番号", get("serial"));
+
+  const body_parts = [lines.join("\n")];
+  if (get("symptom_ja"))      body_parts.push(`\n## 症状 (日本語)\n${get("symptom_ja")}`);
+  if (get("symptom_zh"))      body_parts.push(`\n## 症状 (中文)\n${get("symptom_zh")}`);
+  if (get("suspected_cause")) body_parts.push(`\n## 想定原因\n${get("suspected_cause")}`);
+  if (get("extra"))           body_parts.push(`\n## 補足\n${get("extra")}`);
+  if (get("video_url"))       body_parts.push(`\n## 動画 URL\n${get("video_url")}`);
   if (doneUploads.length) {
-    extra += "\n\n添付ファイル / 附件:\n" + doneUploads.map(u => {
+    body_parts.push("\n## 添付ファイル");
+    body_parts.push(doneUploads.map(u => {
       const isVideo = /\.(mp4|mov|webm|m4v|avi)$/i.test(u.name);
       const isImage = /\.(png|jpg|jpeg|gif|webp)$/i.test(u.name);
       if (isImage) return `![${u.name}](${u.url})`;
-      if (isVideo) return `<video src="${u.url}" controls width="480"></video>`;
+      if (isVideo) return `<video src="${u.url}" controls width="480"></video>\n\n[${u.name}](${u.url})`;
       return `- [${u.name}](${u.url})`;
-    }).join("\n");
+    }).join("\n\n"));
   }
-  params.set("extra", extra);
+  const body = body_parts.join("\n");
 
-  window.open(`https://github.com/${DEFECT_REPO}/issues/new?${params.toString()}`, "_blank");
+  // ---- Labels ----
+  const labels = ["type:defect", "status:new"];
+  if (sev === "高") labels.push("severity:high");
+  else if (sev === "中") labels.push("severity:medium");
+  else if (sev === "低") labels.push("severity:low");
+
+  // ---- POST directly ----
+  const btn = e.target.querySelector('button[type="submit"]');
+  const origText = btn.innerHTML;
+  btn.disabled = true; btn.innerHTML = "登録中…";
+
+  try {
+    const resp = await fetch(`https://api.github.com/repos/${DEFECT_REPO}/issues`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${pat}`,
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title, body, labels }),
+    });
+    if (!resp.ok) {
+      const err = await resp.text();
+      if (resp.status === 401 || resp.status === 403 || resp.status === 404) {
+        throw new Error(
+          `権限不足 (${resp.status}): PAT に shojiki-defects-j001 への ` +
+          `'Issues: Read and write' 権限が必要です。\n` +
+          `更新: https://github.com/settings/tokens?type=beta\n\n詳細: ${err.slice(0,150)}`
+        );
+      }
+      throw new Error(`${resp.status}: ${err.slice(0, 200)}`);
+    }
+    const issue = await resp.json();
+    showSubmitBanner("success", `✅ 登録完了 — Issue <a href="${issue.html_url}" target="_blank" style="color:inherit;text-decoration:underline">#${issue.number}</a> として記録しました`);
+    e.target.reset();
+    uploadedItems.length = 0;
+    renderUploadedList();
+    document.getElementById("purchase_date").value = new Date().toISOString().slice(0,10);
+    document.getElementById("inquiry_date").value = new Date().toISOString().slice(0,10);
+    document.querySelectorAll(".dt-chip").forEach(c => c.classList.remove("active"));
+    document.getElementById("defect_type").value = "";
+  } catch (e2) {
+    showSubmitBanner("error", `❌ ${esc(e2.message)}`);
+  } finally {
+    btn.disabled = false; btn.innerHTML = origText;
+  }
+}
+
+function showSubmitBanner(kind, html) {
+  let banner = document.getElementById("submit-banner");
+  if (!banner) {
+    banner = document.createElement("div");
+    banner.id = "submit-banner";
+    document.querySelector(".form-wrap").prepend(banner);
+  }
+  banner.className = "submit-banner " + kind;
+  banner.innerHTML = html + ` <button onclick="this.parentElement.remove()" style="margin-left:auto;background:none;border:none;cursor:pointer;color:inherit;font-size:20px">×</button>`;
+  banner.scrollIntoView({behavior: "smooth", block: "start"});
 }
 </script>
 

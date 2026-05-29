@@ -111,6 +111,56 @@
 .hero-stat--warn   .num { color: #d98330; }
 .hero-stat--ok     .num { color: #20a55a; }
 
+/* ===== AI summary widget (executive insights at top) ===== */
+.ai-summary {
+  background: linear-gradient(135deg, #fff7e6 0%, #fff5f5 100%);
+  border: 1px solid #f3d99c;
+  border-radius: 14px;
+  padding: 22px 26px;
+  margin-bottom: 18px;
+}
+.ai-summary[hidden] { display: none; }
+.ai-headline {
+  font-size: 20px; font-weight: 700; letter-spacing: -0.01em;
+  color: #1d1d1f; margin-bottom: 8px;
+}
+.ai-narrative {
+  font-size: 14px; line-height: 1.7; color: var(--ink-2);
+  margin: 0 0 16px;
+}
+.ai-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+  margin-bottom: 12px;
+}
+@media (max-width: 720px) { .ai-grid { grid-template-columns: 1fr; } }
+.ai-label {
+  font-size: 12px; font-weight: 700; color: var(--ink-2);
+  margin-bottom: 6px; letter-spacing: 0.02em;
+}
+.ai-list {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.ai-list li {
+  background: rgba(255,255,255,0.7);
+  border-left: 3px solid #d98330;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 13px; line-height: 1.5;
+}
+.ai-list li .topic-tag {
+  display: inline-block;
+  background: #d98330; color: #fff;
+  padding: 1px 8px; border-radius: 999px;
+  font-size: 11px; font-weight: 700;
+  margin-right: 6px;
+}
+.ai-list li .count-tag {
+  color: var(--ink-3); font-size: 11px; font-weight: 600; margin-left: 4px;
+}
+.ai-list--action li { border-left-color: #d93b3b; }
+.ai-meta { font-size: 11px; color: var(--ink-3); text-align: right; }
+
 /* ===== Sales widget ===== */
 .sales-widget {
   background: linear-gradient(135deg, #1d1d1f 0%, #2d2d33 100%);

@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SHOJIKI SH-J001 返品報告</title>
 <link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="./simple.css">
 <style>
   .form-wrap { max-width: 760px; margin: 0 auto; }
   .product-badge {
@@ -90,6 +91,16 @@
     padding: 2px 8px; border-radius: 4px; cursor: pointer; font-size: 11px;
   }
 
+  .submit-banner {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 18px; border-radius: 10px;
+    margin-bottom: 16px;
+    font-size: 14px; line-height: 1.6;
+    white-space: pre-wrap;
+  }
+  .submit-banner.success { background: #effaf0; border: 1px solid #20a55a; color: #0f5c2b; }
+  .submit-banner.error   { background: #fff5f5; border: 1px solid #d93b3b; color: #8a1f1f; }
+
   /* PAT setup modal */
   .modal-bg {
     position: fixed; inset: 0; background: rgba(0,0,0,0.5);
@@ -145,7 +156,7 @@
 <main id="app">
   <div class="form-wrap">
 
-    <span class="product-badge">SH-J001</span>
+    
 
     <div class="note ja-only">
       📝 このフォームに入力して「GitHub に投稿」を押すと、GitHub Issue として登録されます (初回は GitHub アカウントが必要 / 無料: <a href="https://github.com/signup" target="_blank">github.com/signup</a>)。
@@ -282,7 +293,7 @@
 
 <script>
 const DEFECT_REPO = "eda0825-spec/shojiki-defects-j001";
-const PRODUCT_TAG = "[J001-返品]";
+const PRODUCT_TAG = "[J002-返品]";
 const PRODUCT = "sh-j001";
 const STORAGE_REPO = "eda0825-spec/shojiki-rakuten-stats";   // where videos are committed
 const LS_LANG_KEY = "shojiki-dashboard-lang";
@@ -476,10 +487,17 @@ setupDropZone();
 
 // ===== Submit =====
 
-function submitReturn(e) {
+async function submitReturn(e) {
   e.preventDefault();
   const fd = new FormData(e.target);
   const get = (k) => (fd.get(k) || "").toString().trim();
+
+  const pat = getPAT();
+  if (!pat) {
+    showSubmitBanner("error", "❌ 先に GitHub PAT を設定してください");
+    openPATModal();
+    return;
+  }
 
   const doneUploads = uploadedItems.filter(u => u.status === "done");
   const stillUploading = uploadedItems.filter(u => u.status === "uploading");
@@ -487,37 +505,88 @@ function submitReturn(e) {
     if (!confirm(`${stillUploading.length} 件アップロード中です。このまま登録しますか？`)) return;
   }
 
+  // ---- title ----
   const reasonShort = get("reason").split("(")[0].trim();
-  const title = `[J001-返品] [${get("return_date")}] ${reasonShort} ・ ${get("action")}`;
+  const title = `[J002-返品] [${get("return_date")}] ${reasonShort} ・ ${get("action")}`;
 
-  const params = new URLSearchParams();
-  params.set("template", "return.yml");
-  params.set("title", title);
-  params.set("return_date", get("return_date"));
-  params.set("reason", get("reason"));
-  params.set("lot", get("lot"));
-  params.set("channel", get("channel"));
-  params.set("detail", get("detail"));
-  params.set("action", get("action"));
-  params.set("related_defect", get("related_defect"));
+  // ---- body markdown ----
+  const lines = ["| 項目 | 値 |", "|---|---|"];
+  const row = (k, v) => v && lines.push(`| ${k} | ${v} |`);
+  row("返品日", get("return_date"));
+  row("理由", get("reason"));
+  row("対応", get("action"));
+  row("購入チャネル", get("channel"));
+  row("ロット番号", get("lot"));
+  row("関連不具合 Issue", get("related_defect"));
 
-  let extra = get("extra");
+  const body_parts = [lines.join("\n")];
+  if (get("detail")) body_parts.push(`\n## 詳細\n${get("detail")}`);
+  if (get("extra"))  body_parts.push(`\n## 補足\n${get("extra")}`);
   if (doneUploads.length) {
-    extra += "
-
-添付ファイル:
-" + doneUploads.map(u => {
+    body_parts.push("\n## 添付ファイル");
+    body_parts.push(doneUploads.map(u => {
       const isVideo = /\.(mp4|mov|webm|m4v|avi)$/i.test(u.name);
       const isImage = /\.(png|jpg|jpeg|gif|webp)$/i.test(u.name);
       if (isImage) return `![${u.name}](${u.url})`;
-      if (isVideo) return `<video src="${u.url}" controls width="480"></video>`;
+      if (isVideo) return `<video src="${u.url}" controls width="480"></video>\n\n[${u.name}](${u.url})`;
       return `- [${u.name}](${u.url})`;
-    }).join("
-");
+    }).join("\n\n"));
   }
-  params.set("media", extra);
+  const body = body_parts.join("\n");
 
-  window.open(`https://github.com/${DEFECT_REPO}/issues/new?${params.toString()}`, "_blank");
+  const labels = ["type:return", "status:new"];
+
+  const btn = e.target.querySelector('button[type="submit"]');
+  const origText = btn.innerHTML;
+  btn.disabled = true; btn.innerHTML = "登録中…";
+
+  try {
+    const resp = await fetch(`https://api.github.com/repos/${DEFECT_REPO}/issues`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${pat}`,
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title, body, labels }),
+    });
+    if (!resp.ok) {
+      const err = await resp.text();
+      if (resp.status === 401 || resp.status === 403 || resp.status === 404) {
+        throw new Error(
+          `権限不足 (${resp.status}): PAT に shojiki-defects-j001 への ` +
+          `'Issues: Read and write' 権限が必要です。\n` +
+          `更新: https://github.com/settings/tokens?type=beta`
+        );
+      }
+      throw new Error(`${resp.status}: ${err.slice(0, 200)}`);
+    }
+    const issue = await resp.json();
+    showSubmitBanner("success", `✅ 返品登録完了 — Issue <a href="${issue.html_url}" target="_blank" style="color:inherit;text-decoration:underline">#${issue.number}</a>`);
+    e.target.reset();
+    uploadedItems.length = 0;
+    renderUploadedList();
+    // re-set return_date default to today
+    const rd = document.querySelector('input[name="return_date"]');
+    if (rd) rd.value = new Date().toISOString().slice(0,10);
+  } catch (e2) {
+    showSubmitBanner("error", `❌ ${esc(e2.message)}`);
+  } finally {
+    btn.disabled = false; btn.innerHTML = origText;
+  }
+}
+
+function showSubmitBanner(kind, html) {
+  let banner = document.getElementById("submit-banner");
+  if (!banner) {
+    banner = document.createElement("div");
+    banner.id = "submit-banner";
+    document.querySelector(".form-wrap").prepend(banner);
+  }
+  banner.className = "submit-banner " + kind;
+  banner.innerHTML = html + ` <button onclick="this.parentElement.remove()" style="margin-left:auto;background:none;border:none;cursor:pointer;color:inherit;font-size:20px">×</button>`;
+  banner.scrollIntoView({behavior: "smooth", block: "start"});
 }
 </script>
 
