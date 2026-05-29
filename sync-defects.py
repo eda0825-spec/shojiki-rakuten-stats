@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 import urllib.error
 import urllib.request
@@ -71,6 +72,21 @@ def fetch_issues(repo: str, token: str) -> list[dict]:
     return out
 
 
+# 公開JSON用 PII マスク: 注文番号(楽天形式)と 氏名/投稿者 を伏せる。
+# admin はこの JSON ではなく GitHub API から実データを直接取得するため、マスクは
+# 公開(PAT なし)閲覧者にのみ効く。管理側は引き続き実データを閲覧できる。
+_ORDER_RE = re.compile(r"\d{6}-\d{8}-\d{10}")
+_PII_ROW_RE = re.compile(r"(\|\s*(?:注文番号|氏名|お名前|名前|投稿者)[^|]*\|\s*)([^|]+?)(\s*\|)")
+
+
+def mask_pii(text: str) -> str:
+    if not text:
+        return text
+    t = _ORDER_RE.sub("●●●(管理画面で確認)", text)
+    t = _PII_ROW_RE.sub(lambda m: m.group(1) + "●●●" + m.group(3), t)
+    return t
+
+
 def shape(issue: dict, product: str) -> dict:
     labels = [l["name"] for l in (issue.get("labels") or [])]
     severity = next((l.replace("severity:", "") for l in labels if l.startswith("severity:")), None)
@@ -93,10 +109,11 @@ def shape(issue: dict, product: str) -> dict:
         "updated_at": issue["updated_at"],
         "closed_at": issue.get("closed_at"),
         "comments": issue.get("comments", 0),
-        "body_excerpt": (issue.get("body") or "")[:280],
+        "body_excerpt": mask_pii((issue.get("body") or "")[:280]),
         # Full body (capped at 12000 chars) for inline rendering on dashboard.
         # Factory cannot access GitHub private repo, so we render markdown directly.
-        "body": (issue.get("body") or "")[:12000],
+        # 注文番号・氏名は公開JSONではマスク (admin は API から実データ取得)。
+        "body": mask_pii((issue.get("body") or "")[:12000]),
     }
 
 
