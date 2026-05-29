@@ -307,6 +307,84 @@ function renderSummary() {
   }
 }
 
+// ===== 微信(WeChat)共有用サマリー: 中文テキストを生成してコピー =====
+async function buildWechatSummary() {
+  const s = state.data.summary || {};
+  const block = s.summary_zh || s.summary_ja || {};
+  const cats = state.data.cats || [];
+  const imp = cats.filter(c => c.category === "improvement").length;
+  const praise = cats.filter(c => c.category === "praise").length;
+  const totalRev = (state.data.reviews || []).length;
+  // 返品・不具合の件数: PAT があれば GitHub API から live 取得 (CDNキャッシュに影響されず正確)
+  let openReturns = null, openDefects = null;
+  const pat = (() => { try { return localStorage.getItem("shojiki-uploader-pat"); } catch (e) { return null; } })();
+  const ISSUE_REPO = window.DEFECT_REPO;
+  if (pat && ISSUE_REPO) {
+    try {
+      const live = [];
+      for (let page = 1; page <= 3; page++) {
+        const r = await fetch(`https://api.github.com/repos/${ISSUE_REPO}/issues?state=open&per_page=100&page=${page}`, {
+          headers: { "Authorization": `Bearer ${pat}`, "Accept": "application/vnd.github+json" }, cache: "no-cache",
+        });
+        if (!r.ok) throw new Error("api " + r.status);
+        const batch = await r.json();
+        if (!Array.isArray(batch) || !batch.length) break;
+        batch.forEach(it => { if (!it.pull_request) live.push(it); });
+        if (batch.length < 100) break;
+      }
+      const isRet = it => (it.labels || []).some(l => (typeof l === "string" ? l : (l && l.name) || "").includes("return"));
+      openReturns = live.filter(isRet).length;
+      openDefects = live.filter(it => !isRet(it)).length;
+    } catch (e) { openReturns = null; }
+  }
+  if (openReturns == null) {
+    const issues = (state.data.merged.issues || []).filter(i => i.product === PRODUCT && i.state === "open");
+    const isReturn = i => (i.labels || []).includes("type:return");
+    openReturns = issues.filter(isReturn).length;
+    openDefects = issues.filter(i => !isReturn(i)).length;
+  }
+  const date = new Date().toLocaleDateString("zh-CN", { timeZone: "Asia/Tokyo" });
+
+  const L = [];
+  L.push(`【SHOJIKI SH-J002 品质摘要 ${date}】`);
+  L.push("");
+  L.push(`📦 退货 ${openReturns}件 ・ 🔧 故障(内部) ${openDefects}件 ・ 💬 客户反馈 ${totalRev}条 (改善需求${imp}/好评${praise})`);
+  L.push("");
+  if (block.headline) L.push(`【最优先】${block.headline}`);
+  if (block.narrative) L.push(block.narrative);
+  const findings = block.key_findings || [];
+  if (findings.length) {
+    L.push("");
+    L.push("主要趋势:");
+    findings.forEach((f, i) => L.push(`${i + 1}. ${f.topic || ""}${f.count ? `(${f.count}条)` : ""}${f.finding ? `: ${f.finding}` : ""}`));
+  }
+  const actions = block.actions || [];
+  if (actions.length) {
+    L.push("");
+    L.push("改善行动:");
+    actions.forEach((a, i) => L.push(`${i + 1}. ${a}`));
+  }
+  L.push("");
+  L.push("(GlowUp 品质看板 · 自动生成)");
+  return L.join("\n");
+}
+
+(function bindWechatCopy() {
+  const btn = document.getElementById("copy-wechat");
+  if (!btn) return;
+  btn.addEventListener("click", async () => {
+    const msg = document.getElementById("copy-wechat-msg");
+    if (msg) msg.textContent = state.lang === "zh" ? "生成中…" : "生成中…";
+    const text = await buildWechatSummary();
+    try {
+      await navigator.clipboard.writeText(text);
+      if (msg) { msg.textContent = state.lang === "zh" ? "已复制，可粘贴到微信" : "コピーしました(微信に貼り付け)"; setTimeout(() => { msg.textContent = ""; }, 4000); }
+    } catch (e) {
+      window.prompt(state.lang === "zh" ? "请复制以下内容:" : "コピーしてください:", text);
+    }
+  });
+})();
+
 function renderAll() {
   renderSummary();
   renderSales();
