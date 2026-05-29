@@ -1,7 +1,7 @@
 # SHOJIKI 客户反馈看板 - 工厂使用指南
 
 > 日本 SHOJIKI 品牌为中国工厂提供的，整理楽天/Amazon 客户评论的看板。
-> 网址: <https://eda0825-spec.github.io/shojiki-rakuten-stats/>
+> 网址: <https://quality.glowup-inc.com/>
 
 ## 这是什么
 
