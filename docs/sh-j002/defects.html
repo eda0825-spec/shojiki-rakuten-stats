@@ -550,13 +550,47 @@ function renderBars(containerId, data, color) {
     </div>`).join("");
 }
 
+// PAT があれば GitHub Issues API から直接取得 (リアルタイム反映)。
+// private リポでも認証で読めるので、投稿直後でも待ち時間なく一覧に出る。
+async function fetchIssuesLive(pat) {
+  const out = [];
+  for (let page = 1; page <= 3; page++) {
+    const r = await fetch(`https://api.github.com/repos/${ISSUE_REPO}/issues?state=all&per_page=100&page=${page}&sort=updated&direction=desc`, {
+      headers: { "Authorization": `Bearer ${pat}`, "Accept": "application/vnd.github+json" },
+      cache: "no-cache",
+    });
+    if (!r.ok) throw new Error("GitHub API " + r.status);
+    const batch = await r.json();
+    if (!Array.isArray(batch) || !batch.length) break;
+    for (const it of batch) {
+      if (it.pull_request) continue;
+      out.push({
+        number: it.number, title: it.title,
+        body: it.body || "", body_excerpt: it.body || "",
+        state: it.state,
+        labels: (it.labels || []).map(l => typeof l === "string" ? l : (l && l.name) || ""),
+        updated_at: it.updated_at, created_at: it.created_at,
+        product: PRODUCT,
+      });
+    }
+    if (batch.length < 100) break;
+  }
+  return out;
+}
+
 async function load() {
+  const pat = getPAT();
   try {
-    const r = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" })
-      .catch(() => fetch(`https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" }));
-    if (!r.ok) { reflow(); return; }
-    const data = await r.json();
-    cachedIssues = (data.issues || []).filter(i => i.product === PRODUCT && i.state !== "closed" && isDefectIssue(i));
+    if (pat) {
+      const issues = await fetchIssuesLive(pat);
+      cachedIssues = issues.filter(i => i.state !== "closed" && isDefectIssue(i));
+    } else {
+      const r = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" })
+        .catch(() => fetch(`https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" }));
+      if (!r.ok) { reflow(); return; }
+      const data = await r.json();
+      cachedIssues = (data.issues || []).filter(i => i.product === PRODUCT && i.state !== "closed" && isDefectIssue(i));
+    }
   } catch (e) {
     cachedIssues = [];
   }
