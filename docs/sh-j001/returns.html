@@ -357,7 +357,7 @@ function parseTitle(title) {
 function aggregate(issues, getter) {
   const counts = {};
   issues.forEach(i => {
-    const fields = parseBody(i.body);
+    const fields = parseBody(i.body || i.body_excerpt);
     const titleFields = parseTitle(i.title);
     const v = getter(fields, titleFields, i);
     if (!v) return;
