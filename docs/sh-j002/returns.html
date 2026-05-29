@@ -526,9 +526,14 @@ function reflow() {
   const noMap = new Map();
   byOldest.forEach((it, idx) => noMap.set(it.number, idx + 1));
 
+  const isJa = document.body.classList.contains("lang-ja");
+  const aiHeads = (cachedSummary && cachedSummary.issue_headlines) || {};
+
   list.innerHTML = issues.slice(0, 100).map(i => {
     const parsed = parseBody(i.body || i.body_excerpt);
-    const headline = makeHeadline(i, parsed);
+    // Prefer AI-generated headline; fallback to text-cut heuristic
+    const aiH = aiHeads[String(i.number)];
+    const headline = (aiH && (isJa ? aiH.ja : aiH.zh)) || makeHeadline(i, parsed);
     const no = noMap.get(i.number) || "";
     return `
     <article class="issue-card">

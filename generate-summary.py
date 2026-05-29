@@ -333,6 +333,93 @@ def parse_issue_body(body: str) -> dict:
     return fields
 
 
+HEADLINE_SYSTEM = """あなたはカスタマーサポート担当が一覧画面で1秒で要点を掴めるよう、
+顧客の返品/不具合報告内容を 15〜26 字以内の短い見出しに要約します。
+
+入力 (JSON):
+- issues: [{ number, body }] のリスト
+
+出力 (JSON、これだけ):
+{
+  "headlines": {
+    "<number>": { "ja": "...", "zh": "..." },
+    ...
+  }
+}
+
+要約ルール:
+- 顧客が何に困っているか/何が起きているかを **動詞付き** で具体的に
+- "まだ2回しか使用していませんが" のような前置きは捨てる
+- 商品名や挨拶などのノイズは捨て、不具合/不満の core だけ拾う
+- 例: "カーペットでペット毛が吸えない" / "充電スタンドで通電しない" / "本体破損 (操作パネル欠落)"
+- 26字以内厳守 (はみ出る場合は短くする、句読点や余計な接続詞を削る)
+- ja は日本語、zh は中国語簡体字。両方必須
+- 創作禁止: body にある内容のみから要約
+- JSON 以外出力しない
+"""
+
+
+def build_issue_headlines(api_key: str, model: str, product: str) -> dict | None:
+    """全 Issue (defect + return) について Claude に短い見出しを生成させる。
+    結果: { "<issue_number>": {"ja": "...", "zh": "..."} }"""
+    here = Path(__file__).resolve().parent
+    p = here / "docs" / "data" / f"defects-{product}.json"
+    if not p.exists():
+        return None
+    try:
+        data = json.loads(p.read_text(encoding="utf-8")).get("issues", []) or []
+    except Exception:
+        return None
+    if not data:
+        return {}
+
+    payload = {
+        "issues": [
+            {
+                "number": i.get("number"),
+                "body": (i.get("body") or i.get("body_excerpt") or "")[:1500],
+            }
+            for i in data[:50]
+            if (i.get("body") or i.get("body_excerpt"))
+        ]
+    }
+    if not payload["issues"]:
+        return {}
+
+    body = json.dumps({
+        "model": model,
+        "max_tokens": 2000,
+        "temperature": 0.3,
+        "system": [{"type": "text", "text": HEADLINE_SYSTEM, "cache_control": {"type": "ephemeral"}}],
+        "messages": [{
+            "role": "user",
+            "content": "以下の Issue を要約して短い見出しを返してください:\n\n" + json.dumps(payload, ensure_ascii=False, indent=2),
+        }],
+    }).encode("utf-8")
+    req = urllib.request.Request(
+        ANTHROPIC_API_URL, data=body, method="POST",
+        headers={
+            "x-api-key": api_key,
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=120) as r:
+            raw = json.loads(r.read())
+        text = "".join(b.get("text", "") for b in raw.get("content", []) if b.get("type") == "text").strip()
+        if text.startswith("```"):
+            text = text.split("```", 2)[1]
+            if text.startswith("json"):
+                text = text[4:]
+            text = text.strip().rstrip("`").strip()
+        parsed = json.loads(text)
+        return parsed.get("headlines", {})
+    except Exception as e:  # noqa: BLE001
+        print(f"WARN {product} headlines failed: {e}", file=sys.stderr)
+        return None
+
+
 def build_type_summary(api_key: str, model: str, product: str, issue_type: str) -> dict | None:
     """returns または defects だけを対象にした要約を生成して dict を返す。
     issue_type は "return" か "defect"。"""
@@ -432,6 +519,8 @@ def main() -> int:
         # Per-type summaries (returns-only / defects-only) for detail pages
         returns_summary = build_type_summary(api_key, model, product, "return")
         defects_summary = build_type_summary(api_key, model, product, "defect")
+        # Per-Issue short headlines (AI generated; used by detail card list)
+        issue_headlines = build_issue_headlines(api_key, model, product)
 
         out = {
             "updatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -459,6 +548,7 @@ def main() -> int:
             **ai,
             "returns_summary": returns_summary,
             "defects_summary": defects_summary,
+            "issue_headlines": issue_headlines or {},
         }
         out_path = here / f"summary-{product}.json"
         out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
