@@ -1,0 +1,59 @@
+{
+  "bridged": {
+    "d779fa17eb0f976b": {
+      "product": "sh-j001",
+      "issue_number": 1,
+      "url": "https://github.com/eda0825-spec/shojiki-defects-j001/issues/1",
+      "bridged_at": "2026-05-29T04:50:59Z"
+    },
+    "64f4787a3937e733": {
+      "product": "sh-j001",
+      "issue_number": 2,
+      "url": "https://github.com/eda0825-spec/shojiki-defects-j001/issues/2",
+      "bridged_at": "2026-05-29T04:51:00Z"
+    },
+    "c4dcfb8a6f405850": {
+      "product": "sh-j001",
+      "issue_number": 3,
+      "url": "https://github.com/eda0825-spec/shojiki-defects-j001/issues/3",
+      "bridged_at": "2026-05-29T04:51:00Z"
+    },
+    "b809ff2b87146353": {
+      "product": "sh-j001",
+      "issue_number": 4,
+      "url": "https://github.com/eda0825-spec/shojiki-defects-j001/issues/4",
+      "bridged_at": "2026-05-29T04:51:00Z"
+    },
+    "309d0343a192fcf5": {
+      "product": "sh-j001",
+      "issue_number": 5,
+      "url": "https://github.com/eda0825-spec/shojiki-defects-j001/issues/5",
+      "bridged_at": "2026-05-29T04:51:01Z"
+    },
+    "bd2a107dece7694d": {
+      "product": "sh-j002",
+      "issue_number": 4,
+      "url": "https://github.com/eda0825-spec/shojiki-defects-j002/issues/4",
+      "bridged_at": "2026-05-29T04:51:01Z"
+    },
+    "33bfaa373b45b7ed": {
+      "product": "sh-j002",
+      "issue_number": 5,
+      "url": "https://github.com/eda0825-spec/shojiki-defects-j002/issues/5",
+      "bridged_at": "2026-05-29T04:51:02Z"
+    },
+    "be4c174f404b4b49": {
+      "product": "sh-j002",
+      "issue_number": 6,
+      "url": "https://github.com/eda0825-spec/shojiki-defects-j002/issues/6",
+      "bridged_at": "2026-05-29T04:51:02Z"
+    },
+    "0ed5ef394588661b": {
+      "product": "sh-j002",
+      "issue_number": 7,
+      "url": "https://github.com/eda0825-spec/shojiki-defects-j002/issues/7",
+      "bridged_at": "2026-05-29T04:51:02Z"
+    }
+  },
+  "updatedAt": "2026-05-29T04:51:02Z"
+}
