@@ -466,10 +466,11 @@ async function load() {
   } catch (e) {
     cachedIssues = [];
   }
-  // Load AI summary in parallel (best-effort)
+  // Load AI summary. summary-*.json is small + updates often, so prefer raw
+  // (fresh) over jsdelivr (cached 12h). Fallback to jsdelivr for China.
   try {
-    const sr = await fetch(`https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/summary-${PRODUCT}.json`, { cache: "no-cache" })
-      .catch(() => fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/summary-${PRODUCT}.json`, { cache: "no-cache" }));
+    const sr = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/summary-${PRODUCT}.json`, { cache: "no-cache" })
+      .catch(() => fetch(`https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/summary-${PRODUCT}.json`, { cache: "no-cache" }));
     if (sr.ok) cachedSummary = await sr.json();
   } catch (e) {}
   reflow();
