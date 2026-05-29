@@ -346,11 +346,15 @@ function applyLang(lang) {
   });
 })();
 
-// ===== Area checkbox toggle =====
-document.getElementById("area-checks").addEventListener("change", (e) => {
-  const lbl = e.target.closest("label");
-  if (lbl) lbl.classList.toggle("on", e.target.checked);
-});
+// ===== Area checkbox toggle (defects.html only; safe no-op on returns) =====
+(() => {
+  const el = document.getElementById("area-checks");
+  if (!el) return;
+  el.addEventListener("change", (e) => {
+    const lbl = e.target.closest("label");
+    if (lbl) lbl.classList.toggle("on", e.target.checked);
+  });
+})();
 
 // ===== PAT setup =====
 function getPAT() {
