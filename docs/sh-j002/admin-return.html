@@ -621,7 +621,7 @@ async function submitReturn(e) {
       const isVideo = /\.(mp4|mov|webm|m4v|avi)$/i.test(u.name);
       const isImage = /\.(png|jpg|jpeg|gif|webp)$/i.test(u.name);
       if (isImage) return `![${u.name}](${u.url})`;
-      if (isVideo) return `<video src="${u.url}" controls width="480"></video>\n\n[${u.name}](${u.url})`;
+      if (isVideo) return `[${u.name}](${u.url})`;   // 一覧側 inline() が <video> に変換
       return `- [${u.name}](${u.url})`;
     }).join("\n\n"));
   }

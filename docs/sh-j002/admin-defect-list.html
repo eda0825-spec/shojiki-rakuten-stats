@@ -502,7 +502,11 @@ function renderDetails(parsed) {
       `</tbody></table>`;
   }
   // Media block (写真 / 動画 URL)
-  const media = parsed.sections["写真 / 照片"] || parsed.sections["写真"] || parsed.sections["動画 URL / 视频链接"] || "";
+  const _mediaSecs = ["添付ファイル", "写真 / 照片", "写真", "写真・動画", "動画 URL / 视频链接", "動画 URL"];
+  let media = "";
+  _mediaSecs.forEach(n => { if (parsed.sections[n]) media += "\n" + parsed.sections[n]; });
+  // 旧形式の生 <video> タグは除去 (隣の markdown リンクが <video> として描画される)
+  media = media.replace(/<video[\s\S]*?<\/video>/gi, "").replace(/<video[^>]*>/gi, "");
   if (media && media.trim()) {
     html += `<div style="margin-top:8px">` + inline(media).replace(/\n/g, "") + `</div>`;
   }
