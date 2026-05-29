@@ -157,17 +157,6 @@
 
 <main id="app" style="max-width:960px">
 
-  <div id="summary-line" class="summary-line" hidden>
-    <div class="open">
-      <strong id="count-open">—</strong>
-      <span class="ja-only">未対応</span><span class="zh-only">未处理</span>
-    </div>
-    <div class="closed">
-      <strong id="count-closed">—</strong>
-      <span class="ja-only">対応済み</span><span class="zh-only">已处理</span>
-    </div>
-  </div>
-
   <!-- AI insights (loaded from summary-*.json) -->
   <section id="ai-insights" class="insights-box" hidden>
     <h4>
@@ -478,27 +467,20 @@ async function load() {
 
 function reflow() {
   const issues = cachedIssues || [];
-  const open = issues.filter(i => i.state === "open");
-  const closed = issues.filter(i => i.state !== "open");
 
-  const sumLine = document.getElementById("summary-line");
   const empty = document.getElementById("empty");
   const list = document.getElementById("issue-list");
   const agg = document.getElementById("agg-section");
   const ai = document.getElementById("ai-insights");
 
   if (issues.length === 0) {
-    sumLine.hidden = true;
     if (agg) agg.hidden = true;
     if (ai) ai.hidden = true;
     empty.hidden = false;
     list.innerHTML = "";
     return;
   }
-  sumLine.hidden = false;
   empty.hidden = true;
-  document.getElementById("count-open").textContent = open.length;
-  document.getElementById("count-closed").textContent = closed.length;
 
   // Aggregations
   if (agg) {
