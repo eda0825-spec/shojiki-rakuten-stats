@@ -483,7 +483,7 @@ function renderList(rows) {
     const removedLab = state.lang === "zh" ? "已删除" : "削除済み";
     // レビュー出所 (楽天 / Amazon / Shopify)。データに platform/source が無ければ楽天市場とみなす
     const _plat = String(r.platform || r.source || "rakuten").toLowerCase();
-    const srcLabel = _plat.includes("amazon") ? "Amazon" : (_plat.includes("shopify") ? "Shopify" : "楽天市場");
+    const srcLabel = _plat.includes("amazon") ? "Amazon" : (_plat.includes("shopify") ? "Shopify" : (showZh ? "乐天市场" : "楽天市場"));
     const srcStyle = _plat.includes("amazon") ? "background:#ff9900;color:#1a1a1a"
                    : (_plat.includes("shopify") ? "background:#5a31f4;color:#fff" : "background:#bf0000;color:#fff");
     return `
@@ -505,9 +505,9 @@ function renderList(rows) {
           <div class="sum-cell zh"><div class="lang">${esc(labels.summaryLabel_zh)}</div>${esc(r.summary_zh || "—")}</div>
         </div>` : ""}
       ${r.action_hint && showJa ? `<div class="action-hint">${esc(r.action_hint)}</div>` : ""}
-      ${r.action_hint && showZh ? `<div class="action-hint" title="${esc(r.action_hint)}">${esc(labels.notranslated)}</div>` : ""}
-      ${r.title ? `<div style="font-weight:600;margin-bottom:4px">${esc(r.title)}</div>` : ""}
-      <div class="body">${esc(r.body)}</div>
+      ${showZh
+        ? ((r.title || r.body) ? `<details style="margin-top:6px"><summary style="cursor:pointer;color:#999;font-size:12px">原文（日文）</summary>${r.title ? `<div style="font-weight:600;margin:4px 0">${esc(r.title)}</div>` : ""}<div class="body">${esc(r.body)}</div></details>` : "")
+        : `${r.title ? `<div style="font-weight:600;margin-bottom:4px">${esc(r.title)}</div>` : ""}<div class="body">${esc(r.body)}</div>`}
     </article>`;
   }).join("");
   if (rows.length > MAX_RENDER) {
