@@ -385,7 +385,14 @@ function renderStats(d, joined) {
   for (const r of joined) c[r.category] = (c[r.category] || 0) + 1;
   document.getElementById("stat-defect").textContent = c.defect;
   document.getElementById("stat-improvement").textContent = c.improvement;
-  document.getElementById("stat-praise").textContent = c.praise;
+  const _praise = document.getElementById("stat-praise");
+  if (_praise) _praise.textContent = c.praise;
+  // 統計カードの絞り込み: 現在のカテゴリをハイライト
+  document.querySelectorAll(".stat-filter").forEach(el => {
+    const on = (el.dataset.cat || "all") === (state.cat || "all");
+    el.style.outline = on ? "2px solid var(--ink)" : "";
+    el.style.outlineOffset = on ? "-2px" : "";
+  });
 }
 
 function renderTopics(joined) {
@@ -613,6 +620,18 @@ async function init() {
       state.cat = btn.dataset.cat;
       state.cluster = null;   // category filter clears cluster
       render();
+    });
+  });
+
+  // 統計カード (レビュー全件 / 不具合 / 改善要望) クリックでカテゴリ絞り込み
+  document.querySelectorAll(".stat-filter").forEach(card => {
+    card.addEventListener("click", () => {
+      state.cat = card.dataset.cat || "all";
+      state.cluster = null;
+      document.querySelectorAll(".simple-filter .big-chip").forEach(b => b.classList.toggle("active", b.dataset.cat === state.cat));
+      render();
+      const list = document.getElementById("list");
+      if (list) list.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   });
   // Advanced filters inside the <details>: severity, star

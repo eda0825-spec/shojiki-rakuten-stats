@@ -74,23 +74,19 @@
     <div class="sw-platforms" id="sw-platforms"></div>
   </section>
 
-  <!-- HERO STATS — 3 big numbers only -->
+  <!-- HERO STATS — クリックでカテゴリ絞り込み -->
   <section class="hero-stats">
-    <div class="hero-stat">
+    <div class="hero-stat stat-filter" data-cat="all" style="cursor:pointer" title="全件表示 / 显示全部">
       <div class="num" id="stat-total">—</div>
-      <div class="lbl"><span class="ja-only">レビュー</span><span class="zh-only">评论</span></div>
+      <div class="lbl"><span class="ja-only">レビュー (全件)</span><span class="zh-only">评论 (全部)</span></div>
     </div>
-    <div class="hero-stat hero-stat--danger">
+    <div class="hero-stat hero-stat--danger stat-filter" data-cat="defect" style="cursor:pointer" title="不具合だけ表示 / 仅显示故障">
       <div class="num" id="stat-defect">—</div>
       <div class="lbl"><span class="ja-only">不具合</span><span class="zh-only">故障</span></div>
     </div>
-    <div class="hero-stat hero-stat--warn">
+    <div class="hero-stat hero-stat--warn stat-filter" data-cat="improvement" style="cursor:pointer" title="改善要望だけ表示 / 仅显示改善需求">
       <div class="num" id="stat-improvement">—</div>
       <div class="lbl"><span class="ja-only">改善要望</span><span class="zh-only">改善需求</span></div>
-    </div>
-    <div class="hero-stat hero-stat--ok">
-      <div class="num" id="stat-praise">—</div>
-      <div class="lbl"><span class="ja-only">称賛</span><span class="zh-only">好评</span></div>
     </div>
   </section>
 
