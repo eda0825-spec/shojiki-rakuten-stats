@@ -370,10 +370,20 @@ function parseBody(body) {
 // Compose a clean headline from 詳細 (or fallback to title minus prefix)
 function makeHeadline(issue, parsed) {
   const detail = parsed.sections["詳細"] || parsed.sections["症状 (日本語)"] || parsed.sections["症状"] || "";
+  const MAX = 42;
   if (detail) {
-    // First sentence (split on 。 or newline), max 80 chars
-    const first = detail.split(/[。\n]/)[0].trim();
-    if (first.length > 4) return first.length > 80 ? first.slice(0, 80) + "…" : first;
+    let first = detail.split(/[。\n]/)[0].trim();
+    // 長すぎる場合は読点で切る
+    if (first.length > MAX) {
+      const byComma = first.split(/[、,]/);
+      let acc = "";
+      for (const c of byComma) {
+        if ((acc + c).length > MAX) break;
+        acc = acc ? acc + "、" + c : c;
+      }
+      first = acc || first.slice(0, MAX);
+    }
+    if (first.length > 4) return first.length > MAX ? first.slice(0, MAX) + "…" : first;
   }
   // Fallback: strip leading bracket prefixes from title
   return String(issue.title || "").replace(/^\s*(\[[^\]]+\]\s*){1,3}/, "").trim() || issue.title;
