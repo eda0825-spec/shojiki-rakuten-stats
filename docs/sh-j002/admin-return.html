@@ -297,6 +297,7 @@
   </p>
 </footer>
 
+<script src="./post-helpers.js"></script>
 <script>
 const DEFECT_REPO = "eda0825-spec/shojiki-defects-j002";
 const PRODUCT_TAG = "[J002-返品]";
@@ -405,21 +406,31 @@ async function uploadFile(file) {
     return;
   }
 
-  // Add item with "uploading" status — multiple uploads in parallel safely tracked
-  const item = { name: file.name, size: file.size, status: "uploading", url: null, error: null };
+  // Add item — 圧縮 → アップロードの2段階で状態表示
+  const item = { name: file.name, size: file.size, status: "compressing", url: null, error: null, stage: null, pct: null };
   uploadedItems.push(item);
   renderUploadedList();
 
   try {
+    // 投稿前に毎回圧縮 (画像=canvas / 動画=ffmpeg.wasm)。失敗時は原本。
+    const processed = await PostHelpers.process(file, (stage, pct) => {
+      item.status = "compressing"; item.stage = stage; item.pct = pct; renderUploadedList();
+    });
+    const blob = processed.blob;
+    item.name = processed.name;
+    item.size = blob.size;
+    item.status = "uploading"; item.stage = null; item.pct = null;
+    renderUploadedList();
+
     const b64 = await new Promise((res, rej) => {
       const r = new FileReader();
       r.onload = () => res(r.result.split(",")[1]);
       r.onerror = rej;
-      r.readAsDataURL(file);
+      r.readAsDataURL(blob);
     });
 
     const ts = new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19);
-    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+    const safeName = item.name.replace(/[^a-zA-Z0-9._-]/g, "_");
     const path = `docs/defects-uploads/${PRODUCT}/${ts}-${safeName}`;
 
     const resp = await fetch(`https://api.github.com/repos/${STORAGE_REPO}/contents/${path}`, {
@@ -459,6 +470,14 @@ function renderUploadedList() {
   if (!uploadedItems.length) { ul.innerHTML = ""; return; }
   ul.innerHTML = uploadedItems.map((u, i) => {
     const kb = Math.round(u.size / 1024);
+    if (u.status === "compressing") {
+      const p = (u.pct != null) ? ` ${u.pct}%` : "";
+      return `<li>
+        <span>🗜️</span>
+        <span>${esc(u.name)}</span>
+        <span style="color:var(--ink-3);font-size:11px">${esc(u.stage || (isJa ? "圧縮中…" : "压缩中…"))}${p}</span>
+      </li>`;
+    }
     if (u.status === "uploading") {
       return `<li>
         <span>⏳</span>
@@ -592,14 +611,20 @@ async function submitReturn(e) {
   }
 
   const doneUploads = uploadedItems.filter(u => u.status === "done");
-  const stillUploading = uploadedItems.filter(u => u.status === "uploading");
-  if (stillUploading.length) {
-    if (!confirm(`${stillUploading.length} 件アップロード中です。このまま登録しますか？`)) return;
-  }
 
   // ---- title ----
   const reasonShort = get("reason").split("(")[0].trim();
   const title = `[J002-返品] [${get("return_date")}] ${reasonShort} ・ ${get("action")}`;
+
+  // ---- 投稿前の確認画面 ----
+  const _confirmed = await PostHelpers.confirmSubmit({
+    title,
+    lang: document.body.classList.contains("lang-ja") ? "ja" : "zh",
+    rows: [["返品日", get("return_date")], ["理由", get("reason")], ["対応", get("action")], ["購入チャネル", get("channel")], ["注文番号", get("order_number")], ["ロット番号", get("lot")], ["関連不具合 Issue", get("related_defect")]],
+    sections: [["詳細", get("detail")], ["補足", get("extra")]],
+    attachments: uploadedItems.map(u => ({ name: u.name, url: u.url, status: u.status })),
+  });
+  if (!_confirmed) return;
 
   // ---- body markdown ----
   const lines = ["| 項目 | 値 |", "|---|---|"];
