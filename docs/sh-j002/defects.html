@@ -35,6 +35,20 @@
   }
   .issue-card[data-collapsed="true"] .body-md { display: none; }
 
+  .admin-actions {
+    margin-top: 12px; padding-top: 10px;
+    border-top: 1px dashed var(--line);
+    display: flex; gap: 8px; justify-content: flex-end;
+  }
+  .admin-actions button {
+    font: inherit; font-size: 12px; padding: 5px 12px;
+    border: 1px solid var(--line-2); border-radius: 6px;
+    background: #fff; cursor: pointer; color: var(--ink-2);
+  }
+  .admin-actions button:hover { border-color: var(--ink); }
+  .admin-actions button.danger { color: #b8350c; border-color: #f3c4a8; }
+  .admin-actions button.danger:hover { background: #fff5ed; border-color: #d93b3b; color: #d93b3b; }
+
   /* Sort toolbar */
   .sort-bar {
     display: flex; justify-content: flex-end; align-items: center; gap: 6px;
@@ -256,7 +270,30 @@
 const PRODUCT = "sh-j002";
 const REPO = "eda0825-spec/shojiki-rakuten-stats";
 const BRANCH = "main";
+const ISSUE_REPO = "eda0825-spec/shojiki-defects-j002";
 const LS_LANG_KEY = "shojiki-dashboard-lang";
+const LS_PAT_KEY = "shojiki-uploader-pat";
+
+function getPAT() {
+  try { return localStorage.getItem(LS_PAT_KEY); } catch(e) { return null; }
+}
+
+async function closeIssue(num) {
+  const pat = getPAT();
+  if (!pat) return false;
+  try {
+    const r = await fetch(`https://api.github.com/repos/${ISSUE_REPO}/issues/${num}`, {
+      method: "PATCH",
+      headers: {
+        "Authorization": `Bearer ${pat}`,
+        "Accept": "application/vnd.github+json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ state: "closed", state_reason: "not_planned" }),
+    });
+    return r.ok;
+  } catch (e) { console.error(e); return false; }
+}
 
 function applyLang(lang) {
   document.body.classList.toggle("lang-ja", lang === "ja");
@@ -541,29 +578,51 @@ function reflow() {
 
   const isJa = document.body.classList.contains("lang-ja");
   const aiHeads = (cachedSummary && cachedSummary.issue_headlines) || {};
+  const isAdmin = !!getPAT();
 
   list.innerHTML = issues.slice(0, 100).map(i => {
     const parsed = parseBody(i.body || i.body_excerpt);
     const aiH = aiHeads[String(i.number)];
     const headline = (aiH && (isJa ? aiH.ja : aiH.zh)) || makeHeadline(i, parsed);
     const no = noMap.get(i.number) || "";
+    const adminHtml = isAdmin ? `
+      <div class="admin-actions">
+        <button type="button" data-action="edit" data-num="${i.number}">✏️ 編集</button>
+        <button type="button" data-action="close" data-num="${i.number}" class="danger">🗑️ 削除</button>
+      </div>` : "";
     return `
-    <article class="issue-card" data-collapsed="true">
+    <article class="issue-card" data-collapsed="true" data-issue="${i.number}">
       <div class="head">
         <h3><span style="color:var(--ink-3);font-weight:600;margin-right:6px;flex-shrink:0">No.${no}</span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(headline)}</span></h3>
         <div class="head-meta">
           <span>${esc((i.updated_at || "").slice(0,10))}</span>
         </div>
       </div>
-      <div class="body-md">${renderDetails(parsed)}</div>
+      <div class="body-md">${renderDetails(parsed)}${adminHtml}</div>
     </article>`;
   }).join("");
 
-  // Wire up collapse/expand
   list.querySelectorAll(".issue-card .head").forEach(head => {
     head.addEventListener("click", () => {
       const card = head.closest(".issue-card");
       card.dataset.collapsed = card.dataset.collapsed === "true" ? "false" : "true";
+    });
+  });
+
+  list.querySelectorAll('.admin-actions button').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const num = btn.dataset.num;
+      const action = btn.dataset.action;
+      if (action === 'edit') {
+        location.href = `./admin-defect.html?issue=${num}`;
+      } else if (action === 'close') {
+        if (!confirm(`No.${noMap.get(parseInt(num))} を削除 (クローズ) します。よろしいですか?`)) return;
+        closeIssue(num).then(ok => {
+          if (ok) { alert('削除しました。'); location.reload(); }
+          else alert('削除に失敗しました。PAT 権限を確認してください。');
+        });
+      }
     });
   });
 
