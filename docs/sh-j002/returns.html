@@ -183,8 +183,8 @@
       <ol id="ai-acts"></ol>
     </div>
     <div class="src">
-      <span class="ja-only">🤖 Claude AI ・ 全データ統合要約</span>
-      <span class="zh-only">🤖 Claude AI ・ 全数据综合摘要</span>
+      <span class="ja-only">🤖 Claude AI ・ 返品データのみから生成</span>
+      <span class="zh-only">🤖 Claude AI ・ 仅基于退货数据生成</span>
     </div>
   </section>
 
@@ -370,23 +370,27 @@ function parseBody(body) {
 // Compose a clean headline from 詳細 (or fallback to title minus prefix)
 function makeHeadline(issue, parsed) {
   const detail = parsed.sections["詳細"] || parsed.sections["症状 (日本語)"] || parsed.sections["症状"] || "";
-  const MAX = 42;
+  const MAX = 26;
+  let core;
   if (detail) {
     let first = detail.split(/[。\n]/)[0].trim();
-    // 長すぎる場合は読点で切る
     if (first.length > MAX) {
+      // Try to cut at 読点 first to keep semantic
       const byComma = first.split(/[、,]/);
       let acc = "";
       for (const c of byComma) {
-        if ((acc + c).length > MAX) break;
-        acc = acc ? acc + "、" + c : c;
+        const candidate = acc ? acc + "、" + c : c;
+        if (candidate.length > MAX) break;
+        acc = candidate;
       }
-      first = acc || first.slice(0, MAX);
+      first = acc && acc.length >= 8 ? acc : first.slice(0, MAX);
     }
-    if (first.length > 4) return first.length > MAX ? first.slice(0, MAX) + "…" : first;
+    if (first.length > 4) core = first;
   }
-  // Fallback: strip leading bracket prefixes from title
-  return String(issue.title || "").replace(/^\s*(\[[^\]]+\]\s*){1,3}/, "").trim() || issue.title;
+  if (!core) {
+    core = String(issue.title || "").replace(/^\s*(\[[^\]]+\]\s*){1,3}/, "").trim() || issue.title;
+  }
+  return (core.length > MAX ? core.slice(0, MAX) + "…" : core);
 }
 
 // Render a clean detail table (form fields + 詳細 row) + media block
@@ -503,10 +507,11 @@ function reflow() {
     renderBars("agg-channel", aggregate(issues, (f) => f["購入チャネル"]), "b");
   }
 
-  // AI insights from summary-*.json (focus on actions related to returns/defects)
-  if (ai && cachedSummary) {
+  // AI insights from summary-*.json — RETURNS ONLY (returns_summary)
+  if (ai && cachedSummary && cachedSummary.returns_summary) {
     const isJa = document.body.classList.contains("lang-ja");
-    const block = isJa ? cachedSummary.summary_ja : cachedSummary.summary_zh;
+    const block = isJa ? cachedSummary.returns_summary.summary_ja
+                       : cachedSummary.returns_summary.summary_zh;
     if (block) {
       ai.hidden = false;
       document.getElementById("ai-narr").textContent = block.narrative || "";
@@ -515,15 +520,20 @@ function reflow() {
     }
   }
 
+  // Assign sequential No. by issue.number ASC (No.1 = oldest), then display newest-first
+  const byOldest = [...issues].sort((a, b) => a.number - b.number);
+  const noMap = new Map();
+  byOldest.forEach((it, idx) => noMap.set(it.number, idx + 1));
+
   list.innerHTML = issues.slice(0, 100).map(i => {
     const parsed = parseBody(i.body || i.body_excerpt);
     const headline = makeHeadline(i, parsed);
+    const no = noMap.get(i.number) || "";
     return `
     <article class="issue-card">
       <div class="head">
-        <h3>${esc(headline)}</h3>
+        <h3><span style="color:var(--ink-3);font-weight:600;margin-right:8px">No.${no}</span>${esc(headline)}</h3>
         <div class="head-meta">
-          <span>#${i.number}</span>
           <span>${esc((i.updated_at || "").slice(0,10))}</span>
         </div>
       </div>
