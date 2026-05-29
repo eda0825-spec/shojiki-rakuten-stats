@@ -36,6 +36,13 @@
   }
   .issue-card[data-collapsed="true"] .body-md { display: none; }
 
+  /* モバイルでは見出しを全幅にし、日付を下に回す (見出しの省略を減らす) */
+  @media (max-width: 520px) {
+    .issue-card .head { align-items: flex-start; }
+    .issue-card h3 { flex-basis: 100%; }
+    .issue-card .head-meta { width: 100%; }
+  }
+
   .admin-actions {
     margin-top: 12px; padding-top: 10px;
     border-top: 1px dashed var(--line);
@@ -319,6 +326,11 @@ function esc(s) {
   return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
+function safeUrl(u) {
+  const raw = String(u == null ? "" : u).replace(/&amp;/g, "&").trim();
+  return /^https?:\/\//i.test(raw) ? esc(raw) : "";
+}
+
 // "日本語 / 中文" 併記文字列から、現在の表示言語側だけを返す
 function localize(str) {
   if (str == null) return "";
@@ -358,7 +370,11 @@ function md2html(src) {
     if (!ln.trim()) { out.push(""); i++; continue; }
 
     let img = ln.match(/^!\[([^\]]*)\]\(([^)]+)\)\s*$/);
-    if (img) { out.push(`<p><img src="${esc(img[2])}" alt="${esc(img[1])}" loading="lazy"></p>`); i++; continue; }
+    if (img) {
+      const url = safeUrl(img[2]);
+      out.push(url ? `<p><img src="${url}" alt="${esc(img[1])}" loading="lazy"></p>` : `<p>${esc(img[1])} (${esc(img[2])})</p>`);
+      i++; continue;
+    }
 
     let buf = [ln]; i++;
     while (i < lines.length && lines[i].trim() && !lines[i].includes("|") && !/^#{2,3}\s/.test(lines[i])) {
@@ -372,17 +388,28 @@ function md2html(src) {
 function inline(s) {
   s = esc(s);
   s = s.replace(/&lt;br&gt;/g, "<br>");
-  s = s.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, a, u) => `<img src="${u}" alt="${a}" loading="lazy">`);
+  s = s.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, a, u) => {
+    const url = safeUrl(u);
+    return url ? `<img src="${url}" alt="${a}" loading="lazy">` : `${a} (${u})`;
+  });
   s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, t, u) => {
+    const url = safeUrl(u);
+    if (!url) return `${t} (${u})`;
     if (/\.(mp4|mov|webm|m4v)(\?|$)/i.test(u)) {
-      return `<video controls preload="metadata"><source src="${u}"></video>`;
+      return `<video controls preload="metadata"><source src="${url}"></video>`;
     }
-    return `<a href="${u}" target="_blank" rel="noopener">${t}</a>`;
+    return `<a href="${url}" target="_blank" rel="noopener">${t}</a>`;
   });
   s = s.replace(/(^|[\s>])(https?:\/\/[^\s<]+\.(?:jpg|jpeg|png|gif|webp))/gi,
-    (_, p, u) => `${p}<img src="${u}" loading="lazy" alt="">`);
+    (_, p, u) => {
+      const url = safeUrl(u);
+      return url ? `${p}<img src="${url}" loading="lazy" alt="">` : `${p}${u}`;
+    });
   s = s.replace(/(^|[\s>])(https?:\/\/[^\s<]+\.(?:mp4|mov|webm|m4v))/gi,
-    (_, p, u) => `${p}<video controls preload="metadata"><source src="${u}"></video>`);
+    (_, p, u) => {
+      const url = safeUrl(u);
+      return url ? `${p}<video controls preload="metadata"><source src="${url}"></video>` : `${p}${u}`;
+    });
   s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
   return s;
 }
@@ -432,26 +459,23 @@ function parseBody(body) {
 
 function makeHeadline(issue, parsed) {
   const detail = parsed.sections["症状 (日本語)"] || parsed.sections["症状"] || parsed.sections["詳細"] || "";
-  const MAX = 26;
-  let core;
-  if (detail) {
-    let first = detail.split(/[。\n]/)[0].trim();
-    if (first.length > MAX) {
-      const byComma = first.split(/[、,]/);
-      let acc = "";
-      for (const c of byComma) {
-        const candidate = acc ? acc + "、" + c : c;
-        if (candidate.length > MAX) break;
-        acc = candidate;
-      }
-      first = acc && acc.length >= 8 ? acc : first.slice(0, MAX);
+  const MAX = 32;
+  // 症状文があればそれ、無ければタイトルから [タグ] を除去したものを元ネタに
+  const src = detail || String(issue.title || "").replace(/^\s*(\[[^\]]+\]\s*){1,3}/, "").trim() || String(issue.title || "");
+  // 第1文 (。/改行 区切り) だけを見出しにする
+  let first = src.split(/[。\n]/)[0].trim();
+  if (first.length > MAX) {
+    // 長い場合は読点で意味を保ったまま詰める
+    const byComma = first.split(/[、,]/);
+    let acc = "";
+    for (const c of byComma) {
+      const candidate = acc ? acc + "、" + c : c;
+      if (candidate.length > MAX) break;
+      acc = candidate;
     }
-    if (first.length > 4) core = first;
+    first = acc && acc.length >= 8 ? acc : first.slice(0, MAX) + "…";
   }
-  if (!core) {
-    core = String(issue.title || "").replace(/^\s*(\[[^\]]+\]\s*){1,3}/, "").trim() || issue.title;
-  }
-  return (core.length > MAX ? core.slice(0, MAX) + "…" : core);
+  return first || src;
 }
 
 function renderDetails(parsed) {
@@ -615,7 +639,7 @@ function reflow() {
     return `
     <article class="issue-card" data-collapsed="true" data-issue="${i.number}">
       <div class="head">
-        <h3><span style="color:var(--ink-3);font-weight:600;margin-right:6px;flex-shrink:0">No.${no}</span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(headline)}</span></h3>
+        <h3><span style="color:var(--ink-3);font-weight:600;margin-right:6px;flex-shrink:0">No.${no}</span><span style="overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.4">${esc(headline)}</span></h3>
         <div class="head-meta">
           <span>${esc((i.updated_at || "").slice(0,10))}</span>
         </div>

@@ -35,6 +35,13 @@
   }
   .issue-card[data-collapsed="true"] .body-md { display: none; }
 
+  /* モバイルでは見出しを全幅にし、日付を下に回す (見出しの省略を減らす) */
+  @media (max-width: 520px) {
+    .issue-card .head { align-items: flex-start; }
+    .issue-card h3 { flex-basis: 100%; }
+    .issue-card .head-meta { width: 100%; }
+  }
+
   .admin-actions {
     margin-top: 12px; padding-top: 10px;
     border-top: 1px dashed var(--line);
@@ -450,26 +457,23 @@ function parseBody(body) {
 
 function makeHeadline(issue, parsed) {
   const detail = parsed.sections["症状 (日本語)"] || parsed.sections["症状"] || parsed.sections["詳細"] || "";
-  const MAX = 26;
-  let core;
-  if (detail) {
-    let first = detail.split(/[。\n]/)[0].trim();
-    if (first.length > MAX) {
-      const byComma = first.split(/[、,]/);
-      let acc = "";
-      for (const c of byComma) {
-        const candidate = acc ? acc + "、" + c : c;
-        if (candidate.length > MAX) break;
-        acc = candidate;
-      }
-      first = acc && acc.length >= 8 ? acc : first.slice(0, MAX);
+  const MAX = 32;
+  // 症状文があればそれ、無ければタイトルから [タグ] を除去したものを元ネタに
+  const src = detail || String(issue.title || "").replace(/^\s*(\[[^\]]+\]\s*){1,3}/, "").trim() || String(issue.title || "");
+  // 第1文 (。/改行 区切り) だけを見出しにする
+  let first = src.split(/[。\n]/)[0].trim();
+  if (first.length > MAX) {
+    // 長い場合は読点で意味を保ったまま詰める
+    const byComma = first.split(/[、,]/);
+    let acc = "";
+    for (const c of byComma) {
+      const candidate = acc ? acc + "、" + c : c;
+      if (candidate.length > MAX) break;
+      acc = candidate;
     }
-    if (first.length > 4) core = first;
+    first = acc && acc.length >= 8 ? acc : first.slice(0, MAX) + "…";
   }
-  if (!core) {
-    core = String(issue.title || "").replace(/^\s*(\[[^\]]+\]\s*){1,3}/, "").trim() || issue.title;
-  }
-  return (core.length > MAX ? core.slice(0, MAX) + "…" : core);
+  return first || src;
 }
 
 function renderDetails(parsed) {
@@ -633,7 +637,7 @@ function reflow() {
     return `
     <article class="issue-card" data-collapsed="true" data-issue="${i.number}">
       <div class="head">
-        <h3><span style="color:var(--ink-3);font-weight:600;margin-right:6px;flex-shrink:0">No.${no}</span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(headline)}</span></h3>
+        <h3><span style="color:var(--ink-3);font-weight:600;margin-right:6px;flex-shrink:0">No.${no}</span><span style="overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.4">${esc(headline)}</span></h3>
         <div class="head-meta">
           <span>${esc((i.updated_at || "").slice(0,10))}</span>
         </div>
