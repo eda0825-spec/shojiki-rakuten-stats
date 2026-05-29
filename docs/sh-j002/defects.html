@@ -512,7 +512,7 @@ async function load() {
       .catch(() => fetch(`https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" }));
     if (!r.ok) { reflow(); return; }
     const data = await r.json();
-    cachedIssues = (data.issues || []).filter(i => i.product === PRODUCT && isDefectIssue(i));
+    cachedIssues = (data.issues || []).filter(i => i.product === PRODUCT && i.state !== "closed" && isDefectIssue(i));
   } catch (e) {
     cachedIssues = [];
   }
