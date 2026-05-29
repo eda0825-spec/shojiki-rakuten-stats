@@ -317,6 +317,26 @@ function esc(s) {
   return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
+function safeUrl(u) {
+  const raw = String(u == null ? "" : u).replace(/&amp;/g, "&").trim();
+  return /^https?:\/\//i.test(raw) ? esc(raw) : "";
+}
+
+// "日本語 / 中文" 併記文字列から、現在の表示言語側だけを返す
+function localize(str) {
+  if (str == null) return "";
+  let s = String(str);
+  const idx = s.indexOf(" / ");
+  if (idx > 0) {
+    const ja = s.slice(0, idx).trim();
+    const zh = s.slice(idx + 3).trim();
+    if (ja && zh && zh.indexOf(" / ") === -1) {
+      s = document.body.classList.contains("lang-zh") ? zh : ja;
+    }
+  }
+  return s;
+}
+
 function md2html(src) {
   if (!src) return "";
   const lines = String(src).replace(/\r\n/g, "\n").split("\n");
@@ -341,7 +361,11 @@ function md2html(src) {
     if (!ln.trim()) { out.push(""); i++; continue; }
 
     let img = ln.match(/^!\[([^\]]*)\]\(([^)]+)\)\s*$/);
-    if (img) { out.push(`<p><img src="${esc(img[2])}" alt="${esc(img[1])}" loading="lazy"></p>`); i++; continue; }
+    if (img) {
+      const url = safeUrl(img[2]);
+      out.push(url ? `<p><img src="${url}" alt="${esc(img[1])}" loading="lazy"></p>` : `<p>${esc(img[1])} (${esc(img[2])})</p>`);
+      i++; continue;
+    }
 
     let buf = [ln]; i++;
     while (i < lines.length && lines[i].trim() && !lines[i].includes("|") && !/^#{2,3}\s/.test(lines[i])) {
@@ -355,17 +379,28 @@ function md2html(src) {
 function inline(s) {
   s = esc(s);
   s = s.replace(/&lt;br&gt;/g, "<br>");
-  s = s.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, a, u) => `<img src="${u}" alt="${a}" loading="lazy">`);
+  s = s.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, a, u) => {
+    const url = safeUrl(u);
+    return url ? `<img src="${url}" alt="${a}" loading="lazy">` : `${a} (${u})`;
+  });
   s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, t, u) => {
+    const url = safeUrl(u);
+    if (!url) return `${t} (${u})`;
     if (/\.(mp4|mov|webm|m4v)(\?|$)/i.test(u)) {
-      return `<video controls preload="metadata"><source src="${u}"></video>`;
+      return `<video controls preload="metadata"><source src="${url}"></video>`;
     }
-    return `<a href="${u}" target="_blank" rel="noopener">${t}</a>`;
+    return `<a href="${url}" target="_blank" rel="noopener">${t}</a>`;
   });
   s = s.replace(/(^|[\s>])(https?:\/\/[^\s<]+\.(?:jpg|jpeg|png|gif|webp))/gi,
-    (_, p, u) => `${p}<img src="${u}" loading="lazy" alt="">`);
+    (_, p, u) => {
+      const url = safeUrl(u);
+      return url ? `${p}<img src="${url}" loading="lazy" alt="">` : `${p}${u}`;
+    });
   s = s.replace(/(^|[\s>])(https?:\/\/[^\s<]+\.(?:mp4|mov|webm|m4v))/gi,
-    (_, p, u) => `${p}<video controls preload="metadata"><source src="${u}"></video>`);
+    (_, p, u) => {
+      const url = safeUrl(u);
+      return url ? `${p}<video controls preload="metadata"><source src="${url}"></video>` : `${p}${u}`;
+    });
   s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
   return s;
 }
@@ -400,7 +435,8 @@ function parseBody(body) {
     if (h) { flush(); curHeading = h[1].trim(); continue; }
     if (ln.includes("|") && !/^\s*\|?[\s:-]+\|[\s:|-]+$/.test(ln)) {
       const cells = ln.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim());
-      if (cells.length === 2 && cells[0] && cells[1] && cells[0] !== "項目" && cells[0] !== "値") {
+      const _kja = cells[0].split(" / ")[0].trim();
+      if (cells.length === 2 && cells[0] && cells[1] && _kja !== "項目" && _kja !== "値") {
         fields[cells[0]] = cells[1];
         continue;
       }
@@ -445,14 +481,18 @@ function renderDetails(parsed) {
   });
   // Include 症状 + 想定原因 + 補足 sections in the table
   const inlineSecs = ["症状 (日本語)", "症状 (中文)", "症状", "詳細", "想定原因 (任意) / 推測原因 (可选)", "想定原因", "補足", "補足 / 补充内容"];
+  const _zhMode = document.body.classList.contains("lang-zh");
   inlineSecs.forEach(name => {
-    if (parsed.sections[name]) rows.push([name, parsed.sections[name]]);
+    if (!parsed.sections[name]) return;
+    if (_zhMode && /日本語/.test(name)) return;
+    if (!_zhMode && /中文/.test(name)) return;
+    rows.push([name, parsed.sections[name]]);
   });
 
   let html = "";
   if (rows.length) {
     html += `<table><tbody>` +
-      rows.map(([k, v]) => `<tr><th>${esc(k)}</th><td>${inline(String(v).replace(/\n/g, "<br>"))}</td></tr>`).join("") +
+      rows.map(([k, v]) => `<tr><th>${esc(localize(k))}</th><td>${inline(localize(String(v).replace(/\n/g, "<br>")))}</td></tr>`).join("") +
       `</tbody></table>`;
   }
   // Media block (写真 / 動画 URL)

@@ -322,6 +322,21 @@ function esc(s) {
   return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
+// "日本語 / 中文" 併記文字列から、現在の表示言語側だけを返す
+function localize(str) {
+  if (str == null) return "";
+  let s = String(str);
+  const idx = s.indexOf(" / ");
+  if (idx > 0) {
+    const ja = s.slice(0, idx).trim();
+    const zh = s.slice(idx + 3).trim();
+    if (ja && zh && zh.indexOf(" / ") === -1) {
+      s = document.body.classList.contains("lang-zh") ? zh : ja;
+    }
+  }
+  return s;
+}
+
 // Minimal markdown -> HTML for our issue body shape (table + img + link + headings).
 function md2html(src) {
   if (!src) return "";
@@ -421,7 +436,8 @@ function parseBody(body) {
     // Table row
     if (ln.includes("|") && !/^\s*\|?[\s:-]+\|[\s:|-]+$/.test(ln)) {
       const cells = ln.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim());
-      if (cells.length === 2 && cells[0] && cells[1] && cells[0] !== "項目" && cells[0] !== "値") {
+      const _kja = cells[0].split(" / ")[0].trim();
+      if (cells.length === 2 && cells[0] && cells[1] && _kja !== "項目" && _kja !== "値") {
         fields[cells[0]] = cells[1];
         continue;
       }
@@ -479,7 +495,7 @@ function renderDetails(parsed) {
   let html = "";
   if (rows.length) {
     html += `<table><tbody>` +
-      rows.map(([k, v]) => `<tr><th>${esc(k)}</th><td>${inline(String(v).replace(/\n/g, "<br>"))}</td></tr>`).join("") +
+      rows.map(([k, v]) => `<tr><th>${esc(localize(k))}</th><td>${inline(localize(String(v).replace(/\n/g, "<br>")))}</td></tr>`).join("") +
       `</tbody></table>`;
   }
   // Render media block (photos/videos) separately if section "写真・動画" exists
