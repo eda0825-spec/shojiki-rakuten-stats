@@ -307,12 +307,7 @@ def call_claude_type_summary(api_key: str, model: str, payload_in: dict) -> dict
     with urllib.request.urlopen(req, timeout=120) as r:
         data = json.loads(r.read())
     text = "".join(b.get("text", "") for b in data.get("content", []) if b.get("type") == "text").strip()
-    if text.startswith("```"):
-        text = text.split("```", 2)[1]
-        if text.startswith("json"):
-            text = text[4:]
-        text = text.strip().rstrip("`").strip()
-    return json.loads(text)
+    return _parse_json_lenient(text)
 
 
 def parse_issue_body(body: str) -> dict:
@@ -418,6 +413,28 @@ def build_issue_headlines(api_key: str, model: str, product: str) -> dict | None
     except Exception as e:  # noqa: BLE001
         print(f"WARN {product} headlines failed: {e}", file=sys.stderr)
         return None
+
+
+def _parse_json_lenient(text: str) -> dict:
+    """Robust JSON parser: strips code fences, retries with relaxed escape handling."""
+    t = text.strip()
+    if t.startswith("```"):
+        t = t.split("```", 2)[1]
+        if t.startswith("json"):
+            t = t[4:]
+        t = t.strip().rstrip("`").strip()
+    try:
+        return json.loads(t)
+    except json.JSONDecodeError:
+        # Best-effort: replace unescaped real newlines inside strings with \n.
+        # Strategy: find narrative/actions value strings and re-escape.
+        import re as _re
+        # Replace bare LF inside double-quoted strings only
+        def fix_str(m):
+            inner = m.group(1).replace("\n", "\\n").replace("\r", "")
+            return f'"{inner}"'
+        t2 = _re.sub(r'"((?:[^"\\]|\\.)*)"', fix_str, t, flags=_re.DOTALL)
+        return json.loads(t2)
 
 
 def build_type_summary(api_key: str, model: str, product: str, issue_type: str) -> dict | None:
