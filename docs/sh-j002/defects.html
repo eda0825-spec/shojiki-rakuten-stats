@@ -4,161 +4,50 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SHOJIKI SH-J002 不具合報告</title>
+<title>SHOJIKI SH-J002 不具合一覧</title>
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="./simple.css">
 <style>
-  .form-wrap { max-width: 760px; margin: 0 auto; }
-  .product-badge {
-    display: inline-block;
-    background: var(--ink); color: #fff;
-    padding: 6px 14px; border-radius: 6px;
-    font-weight: 700; font-size: 14px; letter-spacing: 0.05em;
-    margin-bottom: 16px;
+  .issue-card {
+    background: #fff; border: 1px solid var(--line);
+    border-radius: 10px; padding: 16px 18px;
+    margin-bottom: 10px;
+    display: block; text-decoration: none; color: inherit;
   }
-  .field { margin-bottom: 14px; }
-  .field label {
-    display: block; font-size: 13px; color: var(--ink-2);
-    margin-bottom: 4px; font-weight: 600;
+  .issue-card:hover { border-color: var(--ink); text-decoration: none; }
+  .issue-card h3 { margin: 0 0 6px; font-size: 15px; font-weight: 600; }
+  .issue-card .meta {
+    display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+    font-size: 12px; color: var(--ink-3);
   }
-  .field label .sub { color: var(--ink-3); font-weight: 400; margin-left: 6px; }
-  .field input[type=text], .field input[type=url], .field select, .field textarea {
-    width: 100%; padding: 10px 12px;
-    border: 1px solid var(--line-2); border-radius: 8px;
-    background: #fff; font: inherit;
+  .issue-tag {
+    background: #f0f0f3; color: var(--ink-2);
+    padding: 2px 8px; border-radius: 999px; font-size: 11px;
   }
-  .field textarea { min-height: 96px; resize: vertical; font-family: inherit; }
-  .checks { display: flex; flex-wrap: wrap; gap: 6px 8px; }
-  .checks label {
-    font-weight: 400; font-size: 13px; display: inline-flex; align-items: center; gap: 4px;
-    background: #fff; border: 1px solid var(--line-2); padding: 6px 14px; border-radius: 999px;
-    cursor: pointer;
-  }
-  .checks label.on { background: var(--ink); color: #fff; border-color: var(--ink); }
-  .checks label input { display: none; }
-  .submit {
-    background: var(--ink); color: #fff;
-    padding: 16px 28px; border: none; border-radius: 10px;
-    font-size: 16px; font-weight: 700; cursor: pointer;
-    margin-top: 8px;
-  }
-  .submit:hover { background: #000; }
-  .submit:disabled { background: #aaa; cursor: not-allowed; }
-  .note {
-    background: #fff7e6; border: 1px solid #f3d99c;
-    padding: 12px 16px; border-radius: 10px; font-size: 13px;
-    margin-bottom: 20px; line-height: 1.7;
-  }
-  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  @media (max-width: 600px) { .row2 { grid-template-columns: 1fr; } }
+  .issue-tag.sev-high { background: #d93b3b; color: #fff; }
+  .issue-tag.sev-medium { background: #d98330; color: #fff; }
+  .issue-tag.status-open { background: #eef6ff; color: #114178; }
+  .issue-tag.status-closed { background: #effaf0; color: #0f5c2b; }
 
-  .ai-btn {
-    background: #fff7e6;
-    border: 1px solid #f3d99c;
-    color: #6b4a00;
-    padding: 4px 12px;
-    border-radius: 999px;
-    font-size: 12px; font-weight: 600;
-    cursor: pointer;
-    font-family: inherit;
+  .summary-line {
+    background: #f6f6f8; padding: 12px 18px;
+    border-radius: 10px; margin-bottom: 16px;
+    display: flex; gap: 24px; flex-wrap: wrap;
+    font-size: 14px;
   }
-  .ai-btn:hover { background: #ffe9a8; }
-  .ai-btn:disabled { opacity: 0.5; cursor: wait; }
-  .ai-btn--undo { background: #f0f0f3; border-color: #d8d8de; color: var(--ink-2); }
+  .summary-line strong { font-size: 20px; font-weight: 700; }
+  .summary-line .open strong { color: #114178; }
+  .summary-line .closed strong { color: #0f5c2b; }
+  .summary-line[hidden] { display: none; }
 
-  .submit-banner {
-    display: flex; align-items: center; gap: 10px;
-    padding: 14px 18px; border-radius: 10px;
-    margin-bottom: 16px;
-    font-size: 14px; line-height: 1.6;
-    white-space: pre-wrap;
+  .empty-hero {
+    text-align: center; padding: 60px 20px;
+    background: #fff; border: 1px solid var(--line);
+    border-radius: 14px;
   }
-  .submit-banner.success { background: #effaf0; border: 1px solid #20a55a; color: #0f5c2b; }
-  .submit-banner.error   { background: #fff5f5; border: 1px solid #d93b3b; color: #8a1f1f; }
-
-  .defect-type-groups { display: flex; flex-direction: column; gap: 8px; }
-  .dt-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-  .dt-group-label {
-    min-width: 130px; font-size: 12px; color: var(--ink-2); font-weight: 600;
-    white-space: nowrap;
-  }
-  @media (max-width: 600px) {
-    .dt-row { flex-direction: column; align-items: flex-start; gap: 4px; }
-    .dt-group-label { min-width: auto; }
-  }
-  .dt-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-  .dt-chip {
-    background: #fff; border: 1px solid var(--line-2);
-    padding: 6px 14px; border-radius: 999px;
-    font-size: 13px; font-weight: 500; font-family: inherit;
-    color: var(--ink); cursor: pointer;
-  }
-  .dt-chip:hover { border-color: var(--ink-3); }
-  .dt-chip.active {
-    background: #d93b3b; color: #fff; border-color: #d93b3b; font-weight: 700;
-  }
-
-  /* Video drop zone */
-  .drop-zone {
-    border: 2px dashed var(--line-2);
-    border-radius: 12px;
-    padding: 24px;
-    text-align: center;
-    background: #fafafa;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .drop-zone:hover, .drop-zone.dragover {
-    border-color: var(--ink); background: #fff;
-  }
-  .drop-zone .emoji { font-size: 32px; line-height: 1; margin-bottom: 6px; }
-  .drop-zone .main { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
-  .drop-zone .sub { font-size: 11px; color: var(--ink-3); }
-  .drop-zone input[type=file] { display: none; }
-  .drop-zone.uploading { pointer-events: none; opacity: 0.6; }
-  .drop-zone.success {
-    background: #effaf0; border-color: #20a55a; border-style: solid;
-  }
-  .drop-zone.error {
-    background: #fff5f5; border-color: #d93b3b; border-style: solid;
-  }
-  .uploaded-list {
-    list-style: none; padding: 0; margin: 8px 0 0;
-    font-size: 12px;
-  }
-  .uploaded-list li {
-    background: #f0f0f3; padding: 4px 10px; border-radius: 4px;
-    margin-bottom: 4px;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .uploaded-list a { color: var(--accent); text-decoration: underline; word-break: break-all; }
-  .uploaded-list .copy-btn {
-    background: var(--ink); color: #fff; border: none;
-    padding: 2px 8px; border-radius: 4px; cursor: pointer; font-size: 11px;
-  }
-
-  /* PAT setup modal */
-  .modal-bg {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.5);
-    display: none; align-items: center; justify-content: center; z-index: 100;
-    padding: 20px;
-  }
-  .modal-bg[open] { display: flex; }
-  .modal {
-    background: #fff; border-radius: 14px;
-    padding: 24px; max-width: 540px; width: 100%;
-    max-height: 90vh; overflow-y: auto;
-  }
-  .modal h3 { margin: 0 0 12px; font-size: 18px; }
-  .modal p { font-size: 13px; color: var(--ink-2); line-height: 1.7; margin: 0 0 12px; }
-  .modal ol { font-size: 13px; line-height: 1.8; padding-left: 18px; }
-  .modal input { width: 100%; padding: 10px 12px; border: 1px solid var(--line-2); border-radius: 8px; font: inherit; }
-  .modal-actions { display: flex; gap: 8px; margin-top: 16px; justify-content: flex-end; }
-  .modal-actions button {
-    padding: 8px 16px; border-radius: 8px; border: 1px solid var(--line-2);
-    background: #fff; cursor: pointer; font: inherit;
-  }
-  .modal-actions button.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .empty-hero .emoji { font-size: 64px; margin-bottom: 12px; }
+  .empty-hero h2 { margin: 0 0 6px; font-size: 18px; }
+  .empty-hero p { margin: 0; color: var(--ink-3); font-size: 13px; }
 </style>
 </head>
 <body class="lang-ja">
@@ -168,15 +57,14 @@
     <div class="hdr-title">
       <span class="brand">SHOJIKI</span>
       <span class="sub" style="font-weight:600;color:var(--ink)">SH-J002</span>
-      <span class="sub ja-only">不具合報告</span>
-      <span class="sub zh-only">故障报告</span>
+      <span class="sub ja-only">不具合一覧</span>
+      <span class="sub zh-only">故障列表</span>
     </div>
     <div class="hdr-meta">
       <div class="lang-toggle">
         <button data-lang="ja" class="active">日本語</button>
         <button data-lang="zh">中文</button>
       </div>
-      
     </div>
   </div>
 </header>
@@ -184,342 +72,53 @@
 <nav class="topnav">
   <a href="./"             class="tn-item"><span class="ja-only">🏠 TOP</span><span class="zh-only">🏠 总览</span></a>
   <a href="./defects.html" class="tn-item active"><span class="ja-only">🔧 不具合</span><span class="zh-only">🔧 故障</span></a>
-  <a href="./feedback.html" class="tn-item"><span class="ja-only">💬 お客様の声</span><span class="zh-only">💬 客户反馈</span></a>
   <a href="./returns.html" class="tn-item"><span class="ja-only">📦 返品</span><span class="zh-only">📦 退货</span></a>
+  <a href="./feedback.html" class="tn-item"><span class="ja-only">💬 お客様の声</span><span class="zh-only">💬 客户反馈</span></a>
 </nav>
 
+<main id="app" style="max-width:960px">
 
-<main id="app">
-  <!-- Factory view-only notice (ZH mode) -->
-  <div class="view-only-notice zh-only" style="background:#eef4ff;border:1px solid #b9d2ff;border-radius:12px;padding:18px 22px;margin-bottom:16px">
-    <div style="font-size:15px;font-weight:700;margin-bottom:6px">🔧 故障记录 (仅查看)</div>
-    <p style="margin:0;font-size:13px;line-height:1.7;color:#444">
-      此页是日本侧 (枝川先生) 录入的故障数据。工厂侧无需在此页提交，请前往
-      <a href="./" style="color:#0070f3;font-weight:600">总览页</a>
-      查看汇总信息。
+  <div id="summary-line" class="summary-line" hidden>
+    <div class="open">
+      <strong id="count-open">—</strong>
+      <span class="ja-only">対応中</span><span class="zh-only">处理中</span>
+    </div>
+    <div class="closed">
+      <strong id="count-closed">—</strong>
+      <span class="ja-only">解決済み</span><span class="zh-only">已解决</span>
+    </div>
+  </div>
+
+  <div id="issue-list"></div>
+
+  <div id="empty" class="empty-hero" hidden>
+    <div class="emoji">📭</div>
+    <h2><span class="ja-only">まだ不具合報告はありません</span><span class="zh-only">还没有故障报告</span></h2>
+    <p>
+      <span class="ja-only">問題が登録されると、ここに一覧で表示されます</span>
+      <span class="zh-only">问题登记后会在此处显示列表</span>
     </p>
   </div>
 
-  <div class="form-wrap submit-only">
-
-
-
-    <div class="note ja-only">
-      📝 このフォームに入力して「GitHub に投稿」を押すと、GitHub Issue として登録されます (初回は GitHub アカウントが必要 / 無料: <a href="https://github.com/signup" target="_blank">github.com/signup</a>)。
-    </div>
-
-    <form id="defect-form" onsubmit="return submitDefect(event)">
-
-      <div class="row2">
-        <div class="field">
-          <label><span class="ja-only">購入日</span><span class="zh-only">购买日</span></label>
-          <input type="date" name="purchase_date" id="purchase_date">
-        </div>
-        <div class="field">
-          <label><span class="ja-only">問い合わせ日</span><span class="zh-only">咨询日</span></label>
-          <input type="date" name="inquiry_date" id="inquiry_date">
-        </div>
-      </div>
-
-      <div class="field">
-        <label><span class="ja-only">不具合の種類</span><span class="zh-only">故障种类</span> <span class="sub">*</span></label>
-        <input type="hidden" name="defect_type" id="defect_type" required>
-        <div class="defect-type-groups">
-          <div class="dt-row">
-            <span class="dt-group-label">⚡ <span class="ja-only">電源・充電系</span><span class="zh-only">电源·充电</span></span>
-            <div class="dt-chips">
-              <button type="button" class="dt-chip" data-val="充電ランプ不点灯"><span class="ja-only">充電ランプ</span><span class="zh-only">充电指示灯</span></button>
-              <button type="button" class="dt-chip" data-val="バッテリー不具合"><span class="ja-only">バッテリー</span><span class="zh-only">电池</span></button>
-              <button type="button" class="dt-chip" data-val="アダプター破損"><span class="ja-only">アダプター</span><span class="zh-only">适配器</span></button>
-              <button type="button" class="dt-chip" data-val="電源入らない"><span class="ja-only">電源</span><span class="zh-only">电源</span></button>
-            </div>
-          </div>
-          <div class="dt-row">
-            <span class="dt-group-label">💨 <span class="ja-only">吸引・ヘッド系</span><span class="zh-only">吸力·吸头</span></span>
-            <div class="dt-chips">
-              <button type="button" class="dt-chip" data-val="吸引力不足"><span class="ja-only">吸引力</span><span class="zh-only">吸力</span></button>
-              <button type="button" class="dt-chip" data-val="回転ブラシ異常"><span class="ja-only">回転ブラシ</span><span class="zh-only">滚刷</span></button>
-              <button type="button" class="dt-chip" data-val="床ノズル不良"><span class="ja-only">床ノズル</span><span class="zh-only">地刷</span></button>
-              <button type="button" class="dt-chip" data-val="パイプ不良"><span class="ja-only">パイプ</span><span class="zh-only">管子</span></button>
-            </div>
-          </div>
-          <div class="dt-row">
-            <span class="dt-group-label">📦 <span class="ja-only">破損・外観系</span><span class="zh-only">破损·外观</span></span>
-            <div class="dt-chips">
-              <button type="button" class="dt-chip" data-val="本体破損"><span class="ja-only">本体破損</span><span class="zh-only">机身破损</span></button>
-              <button type="button" class="dt-chip" data-val="フィルター破損"><span class="ja-only">フィルター</span><span class="zh-only">过滤器</span></button>
-              <button type="button" class="dt-chip" data-val="傷"><span class="ja-only">傷</span><span class="zh-only">划痕</span></button>
-              <button type="button" class="dt-chip" data-val="汚れ"><span class="ja-only">汚れ</span><span class="zh-only">污渍</span></button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row2">
-        <div class="field">
-          <label><span class="ja-only">報告元</span><span class="zh-only">来源</span> <span class="sub">*</span></label>
-          <select name="source" required>
-            <option value="" data-ja="-- 選択 --" data-zh="-- 选择 --">-- 選択 --</option>
-            <option value="問い合わせ"     data-ja="問い合わせ"     data-zh="咨询">問い合わせ</option>
-            <option value="顧客レビュー"   data-ja="顧客レビュー"   data-zh="客户评论">顧客レビュー</option>
-            <option value="その他"         data-ja="その他"         data-zh="其他">その他</option>
-          </select>
-        </div>
-        <div class="field">
-          <label><span class="ja-only">深刻度</span><span class="zh-only">严重度</span> <span class="sub">*</span></label>
-          <select name="severity" required>
-            <option value="" data-ja="-- 選択 --" data-zh="-- 选择 --">-- 選択 --</option>
-            <option value="高" data-ja="高" data-zh="高">高</option>
-            <option value="中" data-ja="中" data-zh="中">中</option>
-            <option value="低" data-ja="低" data-zh="低">低</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row2">
-        <div class="field">
-          <label><span class="ja-only">ロット番号</span><span class="zh-only">批次号</span></label>
-          <input type="text" name="lot" placeholder="例 2026-W18">
-        </div>
-        <div class="field">
-          <label><span class="ja-only">シリアル番号 (任意)</span><span class="zh-only">序列号 (可选)</span></label>
-          <input type="text" name="serial">
-        </div>
-      </div>
-
-      <!-- 症状 — JP MODE ONLY -->
-      <div class="field ja-only">
-        <label style="display:flex;align-items:center;gap:8px">
-          症状 <span class="sub">*</span>
-          <button type="button" class="ai-btn" onclick="aiRewrite('symptom_ja')">💡 AI で整える</button>
-          <button type="button" class="ai-btn ai-btn--undo" onclick="aiUndo('symptom_ja')" style="display:none">↩︎ 元に戻す</button>
-          <span class="ai-status" id="status-symptom_ja" style="font-size:11px;color:var(--ink-3)"></span>
-        </label>
-        <textarea name="symptom_ja" placeholder="顧客コメントをそのまま貼り付けて「💡 AI で整える」を押すと、症状文として整理されます。"></textarea>
-      </div>
-      <!-- 症状 — ZH MODE ONLY -->
-      <div class="field zh-only">
-        <label style="display:flex;align-items:center;gap:8px">
-          症状 <span class="sub">*</span>
-          <button type="button" class="ai-btn" onclick="aiRewrite('symptom_zh')">💡 AI 整理</button>
-          <button type="button" class="ai-btn ai-btn--undo" onclick="aiUndo('symptom_zh')" style="display:none">↩︎ 还原</button>
-          <span class="ai-status" id="status-symptom_zh" style="font-size:11px;color:var(--ink-3)"></span>
-        </label>
-        <textarea name="symptom_zh" placeholder="粘贴客户评论后点击「💡 AI 整理」，自动整理为症状描述。"></textarea>
-      </div>
-
-      <!-- VIDEO DROP ZONE + URL fallback -->
-      <div class="field">
-        <label><span class="ja-only">動画・写真</span><span class="zh-only">视频·照片</span></label>
-        <div class="drop-zone" id="drop-zone">
-          <input type="file" id="file-input" accept="video/*,image/*" multiple>
-          <div class="emoji">🎬</div>
-          <div class="main">
-            <span class="ja-only">ここに動画・写真をドラッグ&ドロップ (複数可)</span>
-            <span class="zh-only">将视频·照片拖拽到此处 (可多个)</span>
-          </div>
-          <div class="sub">
-            <span class="ja-only">またはクリックして選択 (1ファイル最大 100MB ・ 複数選択可)</span>
-            <span class="zh-only">或点击选择 (单文件最大 100MB ・ 可多选)</span>
-          </div>
-        </div>
-        <ul class="uploaded-list" id="uploaded-list"></ul>
-        <details style="margin-top:8px;font-size:12px;color:var(--ink-3)">
-          <summary style="cursor:pointer">
-            <span class="ja-only">URL を貼り付ける場合 (WeTransfer 等)</span>
-            <span class="zh-only">粘贴 URL (如 WeTransfer)</span>
-          </summary>
-          <input type="url" name="video_url" placeholder="https://..." style="margin-top:8px;width:100%;padding:8px;border:1px solid var(--line-2);border-radius:6px">
-        </details>
-      </div>
-
-      <div class="field">
-        <label><span class="ja-only">想定原因 (任意)</span><span class="zh-only">推测原因 (可选)</span></label>
-        <textarea name="suspected_cause" data-placeholder-ja="わかれば書いてください" data-placeholder-zh="知道则填写"></textarea>
-      </div>
-
-      <div class="field">
-        <label><span class="ja-only">補足 (任意)</span><span class="zh-only">补充 (可选)</span></label>
-        <textarea name="extra" data-placeholder-ja="その他のコメント" data-placeholder-zh="其他备注"></textarea>
-      </div>
-
-      <button type="submit" class="submit"><span class="ja-only">GitHub に投稿 →</span><span class="zh-only">提交到 GitHub →</span></button>
-
-    </form>
-
-  </div>
 </main>
-
-<!-- PAT setup modal -->
-<div class="modal-bg submit-only" id="pat-modal">
-  <div class="modal">
-    <h3><span class="ja-only">🔑 動画アップロード設定 (一度だけ)</span><span class="zh-only">🔑 视频上传配置 (仅一次)</span></h3>
-    <p class="ja-only">
-      動画をドラッグ&ドロップで GitHub リポジトリにアップロードするには GitHub PAT (Personal Access Token) が必要です。
-      この設定はブラウザに保存され、サーバーには送信されません。
-    </p>
-    <p class="zh-only">
-      为了通过拖拽将视频上传到 GitHub 仓库，需要 GitHub PAT (个人访问令牌)。
-      此设置保存在浏览器本地，不会发送到任何服务器。
-    </p>
-    <ol class="ja-only">
-      <li><a href="https://github.com/settings/personal-access-tokens/new" target="_blank">github.com/settings/personal-access-tokens/new</a> を開く</li>
-      <li>Repository access → <strong>Only select repositories</strong> で次の3つを選択:<br>
-        <code>shojiki-rakuten-stats</code> / <code>shojiki-defects-j001</code> / <code>shojiki-defects-j002</code></li>
-      <li>Permissions → <strong>Contents: Read and write</strong> と <strong>Issues: Read and write</strong> を ON</li>
-      <li>「Generate token」→ 表示された <code>github_pat_...</code> を全コピーして下に貼り付け</li>
-    </ol>
-    <ol class="zh-only">
-      <li>打开 <a href="https://github.com/settings/personal-access-tokens/new" target="_blank">github.com/settings/personal-access-tokens/new</a></li>
-      <li>Repository access → <strong>Only select repositories</strong> 选择以下3个:<br>
-        <code>shojiki-rakuten-stats</code> / <code>shojiki-defects-j001</code> / <code>shojiki-defects-j002</code></li>
-      <li>Permissions → <strong>Contents: Read and write</strong> 与 <strong>Issues: Read and write</strong></li>
-      <li>「Generate token」→ 复制 <code>github_pat_...</code> 并粘贴到下方</li>
-    </ol>
-    <input type="password" id="pat-input" placeholder="github_pat_...">
-    <div class="modal-actions">
-      <button onclick="closePATModal()"><span class="ja-only">後で</span><span class="zh-only">稍后</span></button>
-      <button class="primary" onclick="savePAT()"><span class="ja-only">保存</span><span class="zh-only">保存</span></button>
-    </div>
-  </div>
-</div>
 
 <footer class="ftr">
   <p>
-    Issues: <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues" target="_blank">shojiki-defects-j002</a>
+    <span class="ja-only">不具合データは <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues" target="_blank">GitHub</a> で管理</span>
+    <span class="zh-only">故障数据由 <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues" target="_blank">GitHub</a> 管理</span>
   </p>
 </footer>
 
 <script>
-const DEFECT_REPO = "eda0825-spec/shojiki-defects-j002";
-const PRODUCT_TAG = "[J002]";
 const PRODUCT = "sh-j002";
-const STORAGE_REPO = "eda0825-spec/shojiki-rakuten-stats";   // where videos are committed
+const REPO = "eda0825-spec/shojiki-rakuten-stats";
+const BRANCH = "main";
 const LS_LANG_KEY = "shojiki-dashboard-lang";
-const LS_PAT_KEY = "shojiki-uploader-pat";
-const LS_ANTHROPIC_KEY = "shojiki-anthropic-key";
 
-// ===== AI rewrite (customer comment → defect symptom) =====
-const aiBackup = {};   // textarea name → previous content (for undo)
-
-async function aiRewrite(fieldName) {
-  const ta = document.querySelector(`textarea[name="${fieldName}"]`);
-  const text = (ta.value || "").trim();
-  if (!text) { alert("先に顧客コメントを貼り付けてください"); return; }
-  let key = localStorage.getItem(LS_ANTHROPIC_KEY);
-  if (!key) {
-    key = prompt(
-      "Anthropic API キーを入力してください (一度だけ。ブラウザに保存)\n" +
-      "発行: https://console.anthropic.com/settings/keys"
-    );
-    if (!key || !key.startsWith("sk-ant-")) {
-      alert("有効な API キーが入力されませんでした");
-      return;
-    }
-    localStorage.setItem(LS_ANTHROPIC_KEY, key.trim());
-  }
-
-  const isJa = fieldName === "symptom_ja";
-  const btn = document.querySelector(`button[onclick*="aiRewrite('${fieldName}')"]`);
-  const undoBtn = document.querySelector(`button[onclick*="aiUndo('${fieldName}')"]`);
-  const status = document.getElementById(`status-${fieldName}`);
-  btn.disabled = true; status.textContent = "整形中…";
-
-  const prompt_text = isJa
-    ? `以下は顧客のレビュー/コメント、または現場メモです。これを「不具合の症状」として、中国工場と日本エンジニアが共有しやすい形に書き直してください。
-
-要件:
-- 事実のみ (感情・主観・愚痴を除く)
-- 何が・いつ・どんな状況で発生するか具体的に
-- 200字以内
-- 日本語
-- 出力は書き直し本文のみ (前置きや解説は禁止)
-
-元のコメント:
-"""
-${text}
-"""`
-    : `以下是顾客评论/反馈或现场记录。请改写成"故障症状"，便于中国工厂和日本工程师共享。
-
-要求:
-- 仅写事实（去除情感、主观、抱怨）
-- 具体描述: 什么、什么时候、什么情况下发生
-- 不超过200字
-- 用中文
-- 仅输出改写后的正文（不要前言或解释）
-
-原始评论:
-"""
-${text}
-"""`;
-
-  try {
-    aiBackup[fieldName] = ta.value;
-    const resp = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": key,
-        "anthropic-version": "2023-06-01",
-        "anthropic-dangerous-direct-browser-access": "true",
-      },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-6",
-        max_tokens: 600,
-        temperature: 0.3,
-        messages: [{ role: "user", content: prompt_text }],
-      }),
-    });
-    if (!resp.ok) {
-      const err = await resp.text();
-      if (resp.status === 401) {
-        localStorage.removeItem(LS_ANTHROPIC_KEY);
-        throw new Error("API キー無効。再度入力してください");
-      }
-      throw new Error(`${resp.status}: ${err.slice(0, 150)}`);
-    }
-    const data = await resp.json();
-    const out = (data.content?.[0]?.text || "").trim();
-    if (!out) throw new Error("AI 応答が空");
-    ta.value = out;
-    status.textContent = "✅ " + (isJa ? "整形済み" : "已整理");
-    undoBtn.style.display = "";
-    setTimeout(() => { status.textContent = ""; }, 4000);
-  } catch (e) {
-    status.textContent = "❌ " + e.message;
-    setTimeout(() => { status.textContent = ""; }, 6000);
-  } finally {
-    btn.disabled = false;
-  }
-}
-
-function aiUndo(fieldName) {
-  const ta = document.querySelector(`textarea[name="${fieldName}"]`);
-  if (aiBackup[fieldName] !== undefined) {
-    ta.value = aiBackup[fieldName];
-    delete aiBackup[fieldName];
-    document.querySelector(`button[onclick*="aiUndo('${fieldName}')"]`).style.display = "none";
-  }
-}
-
-// ===== Language toggle =====
 function applyLang(lang) {
   document.body.classList.toggle("lang-ja", lang === "ja");
   document.body.classList.toggle("lang-zh", lang === "zh");
   document.querySelectorAll(".lang-toggle button").forEach(b => b.classList.toggle("active", b.dataset.lang === lang));
-  // swap dropdown option text
-  document.querySelectorAll("select option[data-ja]").forEach(o => {
-    o.textContent = o.dataset[lang] || o.dataset.ja;
-  });
-  // swap placeholders
-  document.querySelectorAll("[data-placeholder-ja]").forEach(el => {
-    el.placeholder = el.dataset[`placeholder${lang.charAt(0).toUpperCase()}${lang.slice(1)}`] || "";
-  });
-  // toggle required on symptom fields per lang
-  const sJa = document.querySelector('textarea[name="symptom_ja"]');
-  const sZh = document.querySelector('textarea[name="symptom_zh"]');
-  if (sJa) sJa.required = (lang === "ja");
-  if (sZh) sZh.required = (lang === "zh");
 }
 (function initLang() {
   const lang = (typeof localStorage !== "undefined" && localStorage.getItem(LS_LANG_KEY)) || "ja";
@@ -529,299 +128,81 @@ function applyLang(lang) {
       const l = b.dataset.lang;
       try { localStorage.setItem(LS_LANG_KEY, l); } catch(e) {}
       applyLang(l);
+      reflow();
     });
   });
 })();
 
-// ===== Area checkbox toggle =====
-// ===== Date defaults (today) =====
-(function setDateDefaults() {
-  const today = new Date().toISOString().slice(0, 10);
-  ["purchase_date", "inquiry_date"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el && !el.value) el.value = today;
-  });
-})();
-
-// ===== Defect-type single-select chips =====
-document.querySelectorAll(".dt-chip").forEach(chip => {
-  chip.addEventListener("click", () => {
-    const v = chip.dataset.val;
-    document.querySelectorAll(".dt-chip").forEach(c => c.classList.toggle("active", c === chip));
-    document.getElementById("defect_type").value = v;
-  });
-});
-
-// ===== PAT setup =====
-function getPAT() {
-  try { return localStorage.getItem(LS_PAT_KEY); } catch(e) { return null; }
-}
-function openPATModal() {
-  // Safety: never open in ZH (factory view-only) mode
-  if (document.body.classList.contains("lang-zh")) return;
-  document.getElementById("pat-modal").setAttribute("open", "");
-  setTimeout(() => document.getElementById("pat-input").focus(), 50);
-}
-function closePATModal() {
-  document.getElementById("pat-modal").removeAttribute("open");
-}
-function savePAT() {
-  const v = document.getElementById("pat-input").value.trim();
-  if (!v) return;
-  try { localStorage.setItem(LS_PAT_KEY, v); } catch(e) {}
-  closePATModal();
-  // If there was a pending file, retry upload
-  if (window._pendingFile) {
-    const f = window._pendingFile;
-    window._pendingFile = null;
-    uploadFile(f);
-  }
-}
-
-// ===== Drag & drop video / image upload to GitHub repo =====
-const uploadedItems = [];
-
-function setupDropZone() {
-  const dz = document.getElementById("drop-zone");
-  const fi = document.getElementById("file-input");
-  dz.addEventListener("click", () => fi.click());
-  dz.addEventListener("dragover", (e) => { e.preventDefault(); dz.classList.add("dragover"); });
-  dz.addEventListener("dragleave", () => dz.classList.remove("dragover"));
-  dz.addEventListener("drop", (e) => {
-    e.preventDefault(); dz.classList.remove("dragover");
-    for (const f of e.dataTransfer.files) uploadFile(f);
-  });
-  fi.addEventListener("change", () => {
-    for (const f of fi.files) uploadFile(f);
-    fi.value = "";
-  });
-}
-
-async function uploadFile(file) {
-  const MAX = 100 * 1024 * 1024;
-  const isJa = document.body.classList.contains("lang-ja");
-  if (file.size > MAX) {
-    alert((isJa ? "ファイルが大きすぎます (100MB制限): " : "文件过大 (100MB 限制): ") + Math.round(file.size/1024/1024) + "MB");
-    return;
-  }
-  let pat = getPAT();
-  if (!pat) {
-    window._pendingFile = file;
-    openPATModal();
-    return;
-  }
-
-  // Add item with "uploading" status — multiple uploads in parallel safely tracked
-  const item = { name: file.name, size: file.size, status: "uploading", url: null, error: null };
-  uploadedItems.push(item);
-  renderUploadedList();
-
-  try {
-    const b64 = await new Promise((res, rej) => {
-      const r = new FileReader();
-      r.onload = () => res(r.result.split(",")[1]);
-      r.onerror = rej;
-      r.readAsDataURL(file);
-    });
-
-    const ts = new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19);
-    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-    const path = `docs/defects-uploads/${PRODUCT}/${ts}-${safeName}`;
-
-    const resp = await fetch(`https://api.github.com/repos/${STORAGE_REPO}/contents/${path}`, {
-      method: "PUT",
-      headers: {
-        "Authorization": `Bearer ${pat}`,
-        "Accept": "application/vnd.github+json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        message: `upload: ${PRODUCT} defect attachment ${ts}`,
-        content: b64,
-      }),
-    });
-    if (!resp.ok) {
-      const err = await resp.text();
-      throw new Error(`${resp.status}: ${err.slice(0, 200)}`);
-    }
-    const data = await resp.json();
-    item.url = data.content.download_url;
-    item.status = "done";
-    renderUploadedList();
-  } catch (e) {
-    item.status = "error";
-    item.error = e.message;
-    renderUploadedList();
-    if (e.message.startsWith("401")) {
-      try { localStorage.removeItem(LS_PAT_KEY); } catch(_) {}
-      setTimeout(openPATModal, 600);
-    }
-  }
-}
-
-function renderUploadedList() {
-  const ul = document.getElementById("uploaded-list");
-  const isJa = document.body.classList.contains("lang-ja");
-  if (!uploadedItems.length) { ul.innerHTML = ""; return; }
-  ul.innerHTML = uploadedItems.map((u, i) => {
-    const kb = Math.round(u.size / 1024);
-    if (u.status === "uploading") {
-      return `<li>
-        <span>⏳</span>
-        <span>${esc(u.name)}</span>
-        <span style="color:var(--ink-3);font-size:11px">(${kb}KB) ${isJa ? "アップロード中…" : "上传中…"}</span>
-        <button class="copy-btn" style="background:#999;margin-left:auto" onclick="removeUpload(${i})">${isJa ? "キャンセル" : "取消"}</button>
-      </li>`;
-    }
-    if (u.status === "error") {
-      return `<li style="border:1px solid #d93b3b;background:#fff5f5">
-        <span>❌</span>
-        <span>${esc(u.name)}</span>
-        <span style="color:#d93b3b;font-size:11px">${esc(u.error || "")}</span>
-        <button class="copy-btn" style="background:#999;margin-left:auto" onclick="removeUpload(${i})">${isJa ? "削除" : "删除"}</button>
-      </li>`;
-    }
-    return `<li>
-      <span>✅</span>
-      <a href="${esc(u.url)}" target="_blank">${esc(u.name)}</a>
-      <span style="color:var(--ink-3);font-size:11px">(${kb}KB)</span>
-      <button class="copy-btn" onclick="copyURL('${esc(u.url)}')">${isJa ? "URL" : "URL"}</button>
-      <button class="copy-btn" style="background:#999" onclick="removeUpload(${i})">${isJa ? "削除" : "删除"}</button>
-    </li>`;
-  }).join("");
-}
-function copyURL(url) {
-  navigator.clipboard.writeText(url);
-}
-function removeUpload(i) {
-  uploadedItems.splice(i, 1);
-  renderUploadedList();
-}
 function esc(s) {
   return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
-setupDropZone();
+// "type:return" Issue は返品ページ側で表示するため、不具合ページからは除外
+function isDefectIssue(i) {
+  const labels = (i.labels || []).map(l => String(l).toLowerCase());
+  if (labels.some(l => l.includes("return"))) return false;
+  return true;
+}
 
-// ===== Submit (direct GitHub API — stays on dashboard) =====
-async function submitDefect(e) {
-  e.preventDefault();
-  const fd = new FormData(e.target);
-  const get = (k) => (fd.get(k) || "").toString().trim();
+let cachedIssues = null;
 
-  if (!get("defect_type")) {
-    alert("不具合の種類 / 故障种类を選択してください");
-    return;
-  }
-  const pat = getPAT();
-  if (!pat) {
-    showError("先に GitHub PAT を設定してください (写真/動画 ドラッグゾーン参照)");
-    openPATModal();
-    return;
-  }
-
-  const doneUploads = uploadedItems.filter(u => u.status === "done");
-  const stillUploading = uploadedItems.filter(u => u.status === "uploading");
-  if (stillUploading.length) {
-    if (!confirm(`${stillUploading.length} 件アップロード中です。このまま登録しますか？`)) return;
-  }
-
-  // ---- Build title ----
-  const sev = get("severity");
-  const dtype = get("defect_type");
-  const ja1 = (get("symptom_ja") || get("symptom_zh")).split("\n")[0].slice(0, 40);
-  const title = [PRODUCT_TAG + "-不具合", sev ? `[${sev}]` : "", dtype ? `[${dtype}]` : "", ja1 || "不具合報告"]
-    .filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
-
-  // ---- Build body markdown ----
-  const lines = ["| 項目 | 値 |", "|---|---|"];
-  const row = (k, v) => v && lines.push(`| ${k} | ${v} |`);
-  row("購入日", get("purchase_date"));
-  row("問い合わせ日", get("inquiry_date"));
-  row("不具合の種類", dtype);
-  row("報告元", get("source"));
-  row("深刻度", sev);
-  row("ロット番号", get("lot"));
-  row("シリアル番号", get("serial"));
-
-  const body_parts = [lines.join("\n")];
-  if (get("symptom_ja"))      body_parts.push(`\n## 症状 (日本語)\n${get("symptom_ja")}`);
-  if (get("symptom_zh"))      body_parts.push(`\n## 症状 (中文)\n${get("symptom_zh")}`);
-  if (get("suspected_cause")) body_parts.push(`\n## 想定原因\n${get("suspected_cause")}`);
-  if (get("extra"))           body_parts.push(`\n## 補足\n${get("extra")}`);
-  if (get("video_url"))       body_parts.push(`\n## 動画 URL\n${get("video_url")}`);
-  if (doneUploads.length) {
-    body_parts.push("\n## 添付ファイル");
-    body_parts.push(doneUploads.map(u => {
-      const isVideo = /\.(mp4|mov|webm|m4v|avi)$/i.test(u.name);
-      const isImage = /\.(png|jpg|jpeg|gif|webp)$/i.test(u.name);
-      if (isImage) return `![${u.name}](${u.url})`;
-      if (isVideo) return `<video src="${u.url}" controls width="480"></video>\n\n[${u.name}](${u.url})`;
-      return `- [${u.name}](${u.url})`;
-    }).join("\n\n"));
-  }
-  const body = body_parts.join("\n");
-
-  // ---- Labels ----
-  const labels = ["type:defect", "status:new"];
-  if (sev === "高") labels.push("severity:high");
-  else if (sev === "中") labels.push("severity:medium");
-  else if (sev === "低") labels.push("severity:low");
-
-  // ---- POST directly ----
-  const btn = e.target.querySelector('button[type="submit"]');
-  const origText = btn.innerHTML;
-  btn.disabled = true; btn.innerHTML = "登録中…";
-
+async function load() {
   try {
-    const resp = await fetch(`https://api.github.com/repos/${DEFECT_REPO}/issues`, {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${pat}`,
-        "Accept": "application/vnd.github+json",
-        "X-GitHub-Api-Version": "2022-11-28",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title, body, labels }),
-    });
-    if (!resp.ok) {
-      const err = await resp.text();
-      if (resp.status === 401 || resp.status === 403 || resp.status === 404) {
-        throw new Error(
-          `権限不足 (${resp.status}): PAT に shojiki-defects-j002 への ` +
-          `'Issues: Read and write' 権限が必要です。\n` +
-          `更新: https://github.com/settings/tokens?type=beta\n\n詳細: ${err.slice(0,150)}`
-        );
-      }
-      throw new Error(`${resp.status}: ${err.slice(0, 200)}`);
-    }
-    const issue = await resp.json();
-    showSubmitBanner("success", `✅ 登録完了 — Issue <a href="${issue.html_url}" target="_blank" style="color:inherit;text-decoration:underline">#${issue.number}</a> として記録しました`);
-    e.target.reset();
-    uploadedItems.length = 0;
-    renderUploadedList();
-    document.getElementById("purchase_date").value = new Date().toISOString().slice(0,10);
-    document.getElementById("inquiry_date").value = new Date().toISOString().slice(0,10);
-    document.querySelectorAll(".dt-chip").forEach(c => c.classList.remove("active"));
-    document.getElementById("defect_type").value = "";
-  } catch (e2) {
-    showSubmitBanner("error", `❌ ${esc(e2.message)}`);
-  } finally {
-    btn.disabled = false; btn.innerHTML = origText;
+    const r = await fetch(`https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" })
+      .catch(() => fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" }));
+    if (!r.ok) { reflow(); return; }
+    const data = await r.json();
+    cachedIssues = (data.issues || []).filter(i => i.product === PRODUCT && isDefectIssue(i));
+  } catch (e) {
+    cachedIssues = [];
   }
+  reflow();
 }
 
-function showSubmitBanner(kind, html) {
-  let banner = document.getElementById("submit-banner");
-  if (!banner) {
-    banner = document.createElement("div");
-    banner.id = "submit-banner";
-    document.querySelector(".form-wrap").prepend(banner);
+function reflow() {
+  const issues = cachedIssues || [];
+  const open = issues.filter(i => i.state === "open");
+  const closed = issues.filter(i => i.state !== "open");
+
+  const sumLine = document.getElementById("summary-line");
+  const empty = document.getElementById("empty");
+  const list = document.getElementById("issue-list");
+
+  if (issues.length === 0) {
+    sumLine.hidden = true;
+    empty.hidden = false;
+    list.innerHTML = "";
+    return;
   }
-  banner.className = "submit-banner " + kind;
-  banner.innerHTML = html + ` <button onclick="this.parentElement.remove()" style="margin-left:auto;background:none;border:none;cursor:pointer;color:inherit;font-size:20px">×</button>`;
-  banner.scrollIntoView({behavior: "smooth", block: "start"});
+  sumLine.hidden = false;
+  empty.hidden = true;
+  document.getElementById("count-open").textContent = open.length;
+  document.getElementById("count-closed").textContent = closed.length;
+
+  const isJa = document.body.classList.contains("lang-ja");
+  const statusLab = (s) => isJa
+    ? (s === "open" ? "対応中" : "解決済み")
+    : (s === "open" ? "处理中" : "已解决");
+  const sevLab = (s) => {
+    const map = isJa
+      ? { high: "深刻度 高", medium: "深刻度 中", low: "深刻度 低" }
+      : { high: "严重度 高", medium: "严重度 中", low: "严重度 低" };
+    return map[s] || "";
+  };
+  list.innerHTML = issues.slice(0, 100).map(i => `
+    <a href="${esc(i.url)}" target="_blank" class="issue-card">
+      <h3>${esc(i.title)}</h3>
+      <div class="meta">
+        <span class="issue-tag status-${i.state === "open" ? "open" : "closed"}">${esc(statusLab(i.state))}</span>
+        ${i.severity ? `<span class="issue-tag sev-${esc(i.severity)}">${esc(sevLab(i.severity))}</span>` : ""}
+        ${(i.areas || []).slice(0, 3).map(a => `<span class="issue-tag">${esc(a)}</span>`).join("")}
+        <span style="margin-left:auto">#${i.number} ・ ${esc((i.updated_at || "").slice(0,10))} ・ 💬 ${i.comments || 0}</span>
+      </div>
+    </a>
+  `).join("");
 }
+
+load();
 </script>
 
 </body>
