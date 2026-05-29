@@ -215,11 +215,16 @@
       <span class="ja-only">💡 改善提案 (AI 自動分析)</span>
       <span class="zh-only">💡 改善建议 (AI 自动分析)</span>
     </h4>
+    <div id="ai-headline" style="font-size:15px;font-weight:700;margin:2px 0 6px;color:#6b4a00"></div>
     <p class="narr" id="ai-narr"></p>
-    <div>
+    <div id="ai-find-wrap" style="margin-top:6px">
+      <strong style="font-size:12px"><span class="ja-only">📌 主な傾向 (優先順)</span><span class="zh-only">📌 主要趋势 (优先)</span></strong>
+      <ol id="ai-find" style="margin:4px 0 0;padding-left:20px;font-size:12.5px;line-height:1.6"></ol>
+    </div>
+    <div style="margin-top:8px">
       <strong style="font-size:12px">
-        <span class="ja-only">推奨アクション:</span>
-        <span class="zh-only">推荐行动:</span>
+        <span class="ja-only">🎯 工場が今やること</span>
+        <span class="zh-only">🎯 工厂当前任务</span>
       </strong>
       <ol id="ai-acts"></ol>
     </div>
@@ -650,7 +655,13 @@ function reflow() {
                        : cachedSummary.defects_summary.summary_zh;
     if (block) {
       ai.hidden = false;
+      const _hl = document.getElementById("ai-headline"); if (_hl) _hl.textContent = block.headline || "";
       document.getElementById("ai-narr").textContent = block.narrative || "";
+      const _fd = document.getElementById("ai-find");
+      const _fw = document.getElementById("ai-find-wrap");
+      const kf = block.key_findings || [];
+      if (_fd) _fd.innerHTML = kf.map(f => `<li><strong>${esc(f.topic || "")}</strong>${f.count ? ` (${f.count})` : ""}${f.finding ? "：" + esc(f.finding) : ""}</li>`).join("");
+      if (_fw) _fw.style.display = kf.length ? "" : "none";
       document.getElementById("ai-acts").innerHTML = (block.actions || [])
         .map(a => `<li>${esc(a)}</li>`).join("");
     }

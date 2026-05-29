@@ -36,6 +36,16 @@
 
 <main id="app">
 
+  <!-- AI 全体サマリー (summary-*.json から) -->
+  <section id="ai-insights" hidden style="background:linear-gradient(135deg,#fff7e6,#fff5f5);border:1px solid #f3d99c;border-radius:12px;padding:16px 18px;margin-bottom:16px">
+    <div style="font-size:12px;font-weight:700;color:#6b4a00;margin-bottom:6px"><span class="ja-only">💡 全体サマリー (AI)</span><span class="zh-only">💡 整体摘要 (AI)</span></div>
+    <div id="ai-headline" style="font-size:16px;font-weight:700;margin-bottom:6px"></div>
+    <p id="ai-narr" style="font-size:13px;line-height:1.7;margin:0 0 10px;color:#333"></p>
+    <div id="ai-find-wrap"><strong style="font-size:12px"><span class="ja-only">📌 不満が多いトピック (優先順)</span><span class="zh-only">📌 不满最多话题 (优先)</span></strong><ol id="ai-find" style="margin:4px 0 0;padding-left:20px;font-size:12.5px;line-height:1.6"></ol></div>
+    <div style="margin-top:8px"><strong style="font-size:12px"><span class="ja-only">🎯 工場が今やること</span><span class="zh-only">🎯 工厂当前任务</span></strong><ol id="ai-acts" style="margin:4px 0 0;font-size:13px;line-height:1.6"></ol></div>
+    <div style="font-size:11px;color:#999;margin-top:8px;text-align:right"><span class="ja-only">🤖 Claude AI 自動要約 (レビュー全体)</span><span class="zh-only">🤖 Claude AI 自动摘要</span></div>
+  </section>
+
   <!-- SALES WIDGET (loads sales-summary.json, hidden if no data) -->
   <section class="sales-widget" id="sales-widget" hidden>
     <div class="sw-title">

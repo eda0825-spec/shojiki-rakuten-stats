@@ -298,8 +298,10 @@ def call_claude_type_summary(api_key: str, model: str, payload_in: dict) -> dict
     for _attempt in range(3):
         body = json.dumps({
             "model": model,
-            "max_tokens": 1200,
-            "temperature": 0,
+            "max_tokens": 2000,
+            # temperature を 0 にすると毎回同じ壊れたJSONを返しリトライが無意味になるため、
+            # わずかに散らして試行ごとに出力を変える
+            "temperature": 0.4,
             "system": [{"type": "text", "text": TYPE_SUMMARY_SYSTEM, "cache_control": {"type": "ephemeral"}}],
             "messages": [{"role": "user", "content": user_content}],
         }).encode("utf-8")
@@ -446,7 +448,13 @@ def _parse_json_lenient(text: str) -> dict:
             inner = m.group(1).replace("\n", "\\n").replace("\r", "")
             return f'"{inner}"'
         t2 = _re.sub(r'"((?:[^"\\]|\\.)*)"', fix_str, t, flags=_re.DOTALL)
-        return json.loads(t2)
+        try:
+            return json.loads(t2)
+        except json.JSONDecodeError:
+            # オブジェクト/配列要素間のカンマ抜けを補修 ( }{ , }"  ]" など)
+            t3 = _re.sub(r'}\s*{', '},{', t2)
+            t3 = _re.sub(r'(["\]\}])\s*\n\s*(")', r'\1,\n\2', t3)
+            return json.loads(t3)
 
 
 def build_type_summary(api_key: str, model: str, product: str, issue_type: str) -> dict | None:

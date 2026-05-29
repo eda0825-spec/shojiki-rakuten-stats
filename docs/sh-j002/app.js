@@ -634,3 +634,32 @@ async function init() {
   }
 }
 init();
+
+// ===== 冒頭の AI 全体サマリー (#ai-insights があるページのみ) =====
+(async function renderTopSummary() {
+  const box = document.getElementById("ai-insights");
+  if (!box) return;
+  const _esc = (s) => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  let summary = null;
+  try {
+    const r = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/summary-${PRODUCT}.json`, { cache: "no-cache" });
+    if (r.ok) summary = await r.json();
+  } catch (e) { /* 取得失敗時は何も出さない */ }
+  if (!summary || !summary.summary_ja) return;
+  const setHtml = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+  const setText = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
+  function render() {
+    const isZh = document.body.classList.contains("lang-zh");
+    const b = (isZh ? summary.summary_zh : summary.summary_ja) || summary.summary_ja;
+    if (!b) return;
+    box.hidden = false;
+    setText("ai-headline", b.headline || "");
+    setText("ai-narr", b.narrative || "");
+    const kf = b.key_findings || [];
+    setHtml("ai-find", kf.map(f => `<li><strong>${_esc(f.topic || "")}</strong>${f.count ? ` (${f.count})` : ""}${f.finding ? "：" + _esc(f.finding) : ""}</li>`).join(""));
+    const fw = document.getElementById("ai-find-wrap"); if (fw) fw.style.display = kf.length ? "" : "none";
+    setHtml("ai-acts", (b.actions || []).map(a => `<li>${_esc(a)}</li>`).join(""));
+  }
+  render();
+  document.querySelectorAll(".lang-toggle button").forEach(btn => btn.addEventListener("click", () => setTimeout(render, 30)));
+})();
