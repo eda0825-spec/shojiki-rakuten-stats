@@ -35,44 +35,73 @@
     } catch (e) { console.warn("image compress failed", e); return { blob: file, name: file.name, compressed: false }; }
   }
 
-  let _ff = null;
-  async function getFFmpeg() {
-    if (_ff) return _ff;
-    const ffBase = "https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/esm";
-    const utilBase = "https://unpkg.com/@ffmpeg/util@0.12.1/dist/esm";
-    const coreBase = "https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm";
-    const { FFmpeg } = await import(ffBase + "/index.js");
-    const { toBlobURL, fetchFile } = await import(utilBase + "/index.js");
-    const ff = new FFmpeg();
-    await ff.load({
-      coreURL: await toBlobURL(coreBase + "/ffmpeg-core.js", "text/javascript"),
-      wasmURL: await toBlobURL(coreBase + "/ffmpeg-core.wasm", "application/wasm"),
-    });
-    _ff = { ff, fetchFile };
-    return _ff;
-  }
-
+  // 動画圧縮: ブラウザ標準の MediaRecorder で再エンコード (長辺 VID_MAX に縮小 + ビットレート制限)。
+  // ffmpeg.wasm は GitHub Pages では cross-origin Worker がブロックされ動かないため不採用。
+  // 追加ライブラリ不要・同一オリジンで確実に動作。出力は WebM。音声があれば保持。
+  const VID_BITRATE = 1500000; // ~1.5Mbps
   async function compressVideo(file, onProgress) {
+    let url = null;
     try {
-      const { ff, fetchFile } = await getFFmpeg();
-      const onProg = ({ progress }) => { if (onProgress) onProgress(Math.max(0, Math.min(100, Math.round((progress || 0) * 100)))); };
-      ff.on("progress", onProg);
-      const ext = (file.name.match(/\.[^.]+$/) || [".mp4"])[0];
-      const inName = "in" + ext;
-      await ff.writeFile(inName, await fetchFile(file));
-      await ff.exec([
-        "-i", inName,
-        "-vf", `scale='min(${VID_MAX},iw)':'min(${VID_MAX},ih)':force_original_aspect_ratio=decrease,scale=trunc(iw/2)*2:trunc(ih/2)*2`,
-        "-c:v", "libx264", "-preset", "veryfast", "-crf", "28",
-        "-c:a", "aac", "-b:a", "96k", "-movflags", "+faststart",
-        "out.mp4",
-      ]);
-      const data = await ff.readFile("out.mp4");
-      try { ff.off && ff.off("progress", onProg); } catch (_) {}
-      const blob = new Blob([data.buffer], { type: "video/mp4" });
+      if (typeof MediaRecorder === "undefined") throw new Error("MediaRecorder unsupported");
+      url = URL.createObjectURL(file);
+      const video = document.createElement("video");
+      video.src = url; video.muted = true; video.playsInline = true; video.preload = "auto";
+      await new Promise((res, rej) => {
+        video.onloadedmetadata = res;
+        video.onerror = () => rej(new Error("video load error"));
+        setTimeout(() => rej(new Error("video metadata timeout")), 20000);
+      });
+      const dur = video.duration;
+      let w = video.videoWidth, h = video.videoHeight;
+      if (!w || !h) throw new Error("no video dimensions");
+      const scale = Math.min(1, VID_MAX / Math.max(w, h));
+      w = Math.max(2, Math.round(w * scale / 2) * 2);
+      h = Math.max(2, Math.round(h * scale / 2) * 2);
+      const canvas = document.createElement("canvas");
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext("2d");
+      const mime = ["video/webm;codecs=vp9", "video/webm;codecs=vp8", "video/webm"]
+        .find(m => MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(m)) || "video/webm";
+      const outStream = canvas.captureStream(24);
+      // 音声トラックがあれば引き継ぐ
+      try {
+        const cap = video.captureStream ? video.captureStream() : (video.mozCaptureStream ? video.mozCaptureStream() : null);
+        const at = cap && cap.getAudioTracks && cap.getAudioTracks()[0];
+        if (at) { video.muted = false; outStream.addTrack(at); }
+      } catch (_) {}
+      const rec = new MediaRecorder(outStream, { mimeType: mime, videoBitsPerSecond: VID_BITRATE });
+      const chunks = [];
+      rec.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
+      const stopped = new Promise(res => { rec.onstop = res; });
+      rec.start(250);
+      await video.play();
+      await new Promise((res) => {
+        let done = false;
+        const finish = () => { if (!done) { done = true; res(); } };
+        video.onended = finish;
+        const tick = () => {
+          if (done) return;
+          if (video.ended || video.paused) { finish(); return; }
+          ctx.drawImage(video, 0, 0, w, h);
+          if (onProgress && dur && isFinite(dur)) onProgress(Math.min(99, Math.round((video.currentTime / dur) * 100)));
+          requestAnimationFrame(tick);
+        };
+        tick();
+        // セーフティ: 想定の約2倍でも終わらなければ打ち切り
+        if (isFinite(dur) && dur > 0) setTimeout(finish, Math.min(600000, dur * 2000 + 8000));
+      });
+      try { rec.stop(); } catch (_) {}
+      await stopped;
+      const blob = new Blob(chunks, { type: "video/webm" });
+      if (onProgress) onProgress(100);
       if (!blob.size || blob.size >= file.size) return { blob: file, name: file.name, compressed: false };
-      return { blob, name: file.name.replace(/\.[^.]+$/, "") + ".mp4", compressed: true };
-    } catch (e) { console.warn("video compress failed", e); return { blob: file, name: file.name, compressed: false }; }
+      return { blob, name: file.name.replace(/\.[^.]+$/, "") + ".webm", compressed: true };
+    } catch (e) {
+      console.warn("video compress failed (uploading original)", e);
+      return { blob: file, name: file.name, compressed: false };
+    } finally {
+      if (url) try { URL.revokeObjectURL(url); } catch (_) {}
+    }
   }
 
   // file -> { blob, name, compressed }。onStage(stageLabel, percent?) で進捗通知。
