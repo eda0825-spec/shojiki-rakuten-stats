@@ -330,20 +330,80 @@ function isReturnIssue(i) {
   return labels.some(l => l.includes("return"));
 }
 
-// Parse markdown table body → {key: value} object
+// Parse markdown body → { fields: {key: value}, sections: {heading: text}, mediaLines: [] }
 function parseBody(body) {
   const fields = {};
-  if (!body) return fields;
+  const sections = {};
+  const mediaLines = [];
+  if (!body) return { fields, sections, mediaLines };
   const lines = String(body).replace(/\r\n/g, "\n").split("\n");
+  let curHeading = null;
+  let buf = [];
+  const flush = () => {
+    if (curHeading && buf.length) sections[curHeading] = buf.join("\n").trim();
+    buf = [];
+  };
   for (let i = 0; i < lines.length; i++) {
     const ln = lines[i];
-    if (!ln.includes("|") || /^\s*\|?[\s:-]+\|[\s:|-]+$/.test(ln)) continue;
-    const cells = ln.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim());
-    if (cells.length === 2 && cells[0] && cells[1] && cells[0] !== "項目" && cells[0] !== "値") {
-      fields[cells[0]] = cells[1];
+    // Heading
+    const h = ln.match(/^#{2,3}\s+(.+)$/);
+    if (h) { flush(); curHeading = h[1].trim(); continue; }
+    // Table row
+    if (ln.includes("|") && !/^\s*\|?[\s:-]+\|[\s:|-]+$/.test(ln)) {
+      const cells = ln.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim());
+      if (cells.length === 2 && cells[0] && cells[1] && cells[0] !== "項目" && cells[0] !== "値") {
+        fields[cells[0]] = cells[1];
+        continue;
+      }
     }
+    if (/^\s*\|?[\s:-]+\|[\s:|-]+$/.test(ln)) continue; // table separator
+    // Media-ish lines (image/video markdown or bare URL)
+    if (curHeading && (/!\[.*?\]\(.+?\)/.test(ln) || /https?:\/\/\S+\.(jpg|jpeg|png|gif|webp|mp4|mov|webm)/i.test(ln))) {
+      mediaLines.push(ln);
+    }
+    if (curHeading) buf.push(ln);
   }
-  return fields;
+  flush();
+  return { fields, sections, mediaLines };
+}
+
+// Compose a clean headline from 詳細 (or fallback to title minus prefix)
+function makeHeadline(issue, parsed) {
+  const detail = parsed.sections["詳細"] || parsed.sections["症状 (日本語)"] || parsed.sections["症状"] || "";
+  if (detail) {
+    // First sentence (split on 。 or newline), max 80 chars
+    const first = detail.split(/[。\n]/)[0].trim();
+    if (first.length > 4) return first.length > 80 ? first.slice(0, 80) + "…" : first;
+  }
+  // Fallback: strip leading bracket prefixes from title
+  return String(issue.title || "").replace(/^\s*(\[[^\]]+\]\s*){1,3}/, "").trim() || issue.title;
+}
+
+// Render a clean detail table (form fields + 詳細 row) + media block
+function renderDetails(parsed) {
+  const order = ["返品日", "理由", "対応", "購入チャネル", "注文番号", "ロット番号", "関連不具合 Issue"];
+  const rows = [];
+  order.forEach(k => { if (parsed.fields[k]) rows.push([k, parsed.fields[k]]); });
+  // Include any extra fields not in `order`
+  Object.keys(parsed.fields).forEach(k => {
+    if (!order.includes(k)) rows.push([k, parsed.fields[k]]);
+  });
+  // Append 詳細 row from section content
+  if (parsed.sections["詳細"]) rows.push(["詳細", parsed.sections["詳細"]]);
+  if (parsed.sections["補足"] && parsed.sections["補足"].length > 0) rows.push(["補足", parsed.sections["補足"]]);
+
+  let html = "";
+  if (rows.length) {
+    html += `<table><tbody>` +
+      rows.map(([k, v]) => `<tr><th>${esc(k)}</th><td>${inline(String(v).replace(/\n/g, "<br>"))}</td></tr>`).join("") +
+      `</tbody></table>`;
+  }
+  // Render media block (photos/videos) separately if section "写真・動画" exists
+  const media = parsed.sections["写真・動画"] || "";
+  if (media && media.trim()) {
+    html += `<div style="margin-top:8px">` + inline(media).replace(/\n/g, "") + `</div>`;
+  }
+  return html;
 }
 
 // Fallback: extract reason+action from title pattern
@@ -357,7 +417,7 @@ function parseTitle(title) {
 function aggregate(issues, getter) {
   const counts = {};
   issues.forEach(i => {
-    const fields = parseBody(i.body || i.body_excerpt);
+    const fields = parseBody(i.body || i.body_excerpt).fields;
     const titleFields = parseTitle(i.title);
     const v = getter(fields, titleFields, i);
     if (!v) return;
@@ -445,23 +505,21 @@ function reflow() {
     }
   }
 
-  const isJa = document.body.classList.contains("lang-ja");
-  const statusLab = (s) => isJa
-    ? (s === "open" ? "未対応" : "対応済み")
-    : (s === "open" ? "未处理" : "已处理");
-  list.innerHTML = issues.slice(0, 100).map(i => `
+  list.innerHTML = issues.slice(0, 100).map(i => {
+    const parsed = parseBody(i.body || i.body_excerpt);
+    const headline = makeHeadline(i, parsed);
+    return `
     <article class="issue-card">
       <div class="head">
-        <h3>${esc(i.title)}</h3>
+        <h3>${esc(headline)}</h3>
         <div class="head-meta">
-          <span class="issue-tag status-${i.state === "open" ? "open" : "closed"}">${esc(statusLab(i.state))}</span>
           <span>#${i.number}</span>
           <span>${esc((i.updated_at || "").slice(0,10))}</span>
         </div>
       </div>
-      <div class="body-md">${md2html(i.body || i.body_excerpt || "")}</div>
-    </article>
-  `).join("");
+      <div class="body-md">${renderDetails(parsed)}</div>
+    </article>`;
+  }).join("");
 
   // Lightbox for images
   document.querySelectorAll(".body-md img").forEach(img => {
