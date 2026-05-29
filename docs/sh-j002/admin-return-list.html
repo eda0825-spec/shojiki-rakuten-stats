@@ -682,6 +682,30 @@ function reflow() {
         .map(a => `<li>${esc(a)}</li>`).join("");
     }
   }
+  // AI 要約が未生成のときのフォールバック: 返品データの簡易集計で要約を表示
+  if (ai && ai.hidden) {
+    const isJa = document.body.classList.contains("lang-ja");
+    const byReason = aggregate(issues, (f, t) => (f["理由"] || (t && t.reason)));
+    const total = issues.length;
+    const top = byReason[0];
+    ai.hidden = false;
+    const _hl = document.getElementById("ai-headline");
+    if (_hl) _hl.textContent = isJa
+      ? `返品 ${total} 件${top ? `・最多理由「${top[0]}」(${top[1]}件)` : ""}`
+      : `退货 ${total} 件${top ? `・最多原因「${top[0]}」(${top[1]})` : ""}`;
+    const _nr = document.getElementById("ai-narr");
+    if (_nr) _nr.textContent = isJa
+      ? `現在 ${total} 件の返品。理由・対応・購入チャネル別の内訳は下記グラフを参照。`
+      : `当前 ${total} 件退货。按原因 / 处理 / 渠道的明细见下方图表。`;
+    const _fd = document.getElementById("ai-find");
+    const _fw = document.getElementById("ai-find-wrap");
+    const kf = byReason.slice(0, 3);
+    if (_fd) _fd.innerHTML = kf.map(([k, v]) => `<li><strong>${esc(k)}</strong> (${v})</li>`).join("");
+    if (_fw) _fw.style.display = kf.length ? "" : "none";
+    const _ac = document.getElementById("ai-acts"); if (_ac) _ac.innerHTML = "";
+    const sj = ai.querySelector(".src .ja-only"); if (sj) sj.textContent = "📊 返品データの簡易集計";
+    const sz = ai.querySelector(".src .zh-only"); if (sz) sz.textContent = "📊 退货数据汇总";
+  }
 
   // Assign sequential No. by issue.number ASC (No.1 = oldest), then display newest-first
   const byOldest = [...issues].sort((a, b) => a.number - b.number);
