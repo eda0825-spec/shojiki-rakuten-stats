@@ -10,22 +10,61 @@
 <style>
   .issue-card {
     background: #fff; border: 1px solid var(--line);
-    border-radius: 10px; padding: 16px 18px;
-    margin-bottom: 10px;
-    display: block; text-decoration: none; color: inherit;
+    border-radius: 10px; padding: 18px 20px;
+    margin-bottom: 12px;
   }
-  .issue-card:hover { border-color: var(--ink); text-decoration: none; }
-  .issue-card h3 { margin: 0 0 6px; font-size: 15px; font-weight: 600; }
-  .issue-card .meta {
-    display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
-    font-size: 12px; color: var(--ink-3);
+  .issue-card .head {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+    margin-bottom: 10px; flex-wrap: wrap;
+  }
+  .issue-card h3 { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.4; }
+  .issue-card .head-meta {
+    font-size: 11px; color: var(--ink-3); white-space: nowrap;
+    display: flex; gap: 10px; align-items: center;
   }
   .issue-tag {
     background: #f0f0f3; color: var(--ink-2);
-    padding: 2px 8px; border-radius: 999px; font-size: 11px;
+    padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600;
   }
   .issue-tag.status-open { background: #fff3e8; color: #8a4400; }
   .issue-tag.status-closed { background: #effaf0; color: #0f5c2b; }
+
+  /* Inline rendered body */
+  .body-md { font-size: 13px; line-height: 1.7; color: var(--ink); }
+  .body-md table {
+    border-collapse: collapse; margin: 8px 0;
+    width: 100%; max-width: 540px;
+  }
+  .body-md th, .body-md td {
+    border: 1px solid var(--line); padding: 6px 12px;
+    text-align: left; vertical-align: top;
+  }
+  .body-md th { background: #f6f6f8; font-weight: 600; font-size: 12px; width: 120px; }
+  .body-md td { background: #fff; }
+  .body-md h2, .body-md h3 {
+    font-size: 13px; font-weight: 700; margin: 12px 0 6px;
+    color: var(--ink-2);
+  }
+  .body-md img {
+    max-width: 320px; max-height: 240px; border-radius: 6px;
+    border: 1px solid var(--line); margin: 6px 6px 6px 0;
+    cursor: zoom-in;
+  }
+  .body-md video {
+    max-width: 480px; max-height: 320px; border-radius: 6px;
+    border: 1px solid var(--line); margin: 6px 0;
+  }
+  .body-md a { color: var(--accent); text-decoration: underline; word-break: break-all; }
+  .body-md p { margin: 6px 0; }
+  .body-md ul { margin: 6px 0; padding-left: 22px; }
+
+  .img-lightbox {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+    display: none; align-items: center; justify-content: center; z-index: 999;
+    padding: 20px; cursor: zoom-out;
+  }
+  .img-lightbox.open { display: flex; }
+  .img-lightbox img { max-width: 95vw; max-height: 95vh; }
 
   .summary-line {
     background: #f6f6f8; padding: 12px 18px;
@@ -100,12 +139,7 @@
 
 </main>
 
-<footer class="ftr">
-  <p>
-    <span class="ja-only">返品データは <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues?q=label%3Atype%3Areturn" target="_blank">GitHub</a> で管理</span>
-    <span class="zh-only">退货数据由 <a href="https://github.com/eda0825-spec/shojiki-defects-j002/issues?q=label%3Atype%3Areturn" target="_blank">GitHub</a> 管理</span>
-  </p>
-</footer>
+<div id="img-lightbox" class="img-lightbox"><img id="img-lightbox-img" src="" alt=""></div>
 
 <script>
 const PRODUCT = "sh-j002";
@@ -135,12 +169,81 @@ function esc(s) {
   return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
+// Minimal markdown -> HTML for our issue body shape (table + img + link + headings).
+function md2html(src) {
+  if (!src) return "";
+  const lines = String(src).replace(/\r\n/g, "\n").split("\n");
+  let out = []; let i = 0;
+  while (i < lines.length) {
+    const ln = lines[i];
+
+    // Heading (## or ###)
+    let h = ln.match(/^(#{2,3})\s+(.+)$/);
+    if (h) { out.push(`<h3>${esc(h[2])}</h3>`); i++; continue; }
+
+    // Table: line that contains | and next line is | --- | --- |
+    if (ln.includes("|") && i + 1 < lines.length && /^\s*\|?[\s:-]+\|[\s:|-]+$/.test(lines[i+1])) {
+      const splitRow = (row) => row.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim());
+      const head = splitRow(ln);
+      i += 2; // skip header + separator
+      let rows = [];
+      while (i < lines.length && lines[i].includes("|")) {
+        rows.push(splitRow(lines[i]));
+        i++;
+      }
+      out.push("<table><thead><tr>" + head.map(c => `<th>${inline(c)}</th>`).join("") + "</tr></thead><tbody>" +
+        rows.map(r => "<tr>" + r.map(c => `<td>${inline(c)}</td>`).join("") + "</tr>").join("") +
+        "</tbody></table>");
+      continue;
+    }
+
+    // Blank line
+    if (!ln.trim()) { out.push(""); i++; continue; }
+
+    // Image-only line: ![alt](url)
+    let img = ln.match(/^!\[([^\]]*)\]\(([^)]+)\)\s*$/);
+    if (img) { out.push(`<p><img src="${esc(img[2])}" alt="${esc(img[1])}" loading="lazy"></p>`); i++; continue; }
+
+    // Default: paragraph (collect contiguous non-blank lines)
+    let buf = [ln]; i++;
+    while (i < lines.length && lines[i].trim() && !lines[i].includes("|") && !/^#{2,3}\s/.test(lines[i])) {
+      buf.push(lines[i]); i++;
+    }
+    out.push(`<p>${inline(buf.join("<br>"))}</p>`);
+  }
+  return out.join("\n");
+}
+
+// Inline rules: image, link, bold, code
+function inline(s) {
+  s = esc(s);
+  // Restore <br> that we inserted ourselves (esc turned it to &lt;br&gt;)
+  s = s.replace(/&lt;br&gt;/g, "<br>");
+  // Images: ![alt](url)
+  s = s.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, a, u) => `<img src="${u}" alt="${a}" loading="lazy">`);
+  // Links: [text](url) → if it ends with video ext, render <video>
+  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, t, u) => {
+    if (/\.(mp4|mov|webm|m4v)(\?|$)/i.test(u)) {
+      return `<video controls preload="metadata"><source src="${u}"></video>`;
+    }
+    return `<a href="${u}" target="_blank" rel="noopener">${t}</a>`;
+  });
+  // Bare image/video URLs
+  s = s.replace(/(^|[\s>])(https?:\/\/[^\s<]+\.(?:jpg|jpeg|png|gif|webp))/gi,
+    (_, p, u) => `${p}<img src="${u}" loading="lazy" alt="">`);
+  s = s.replace(/(^|[\s>])(https?:\/\/[^\s<]+\.(?:mp4|mov|webm|m4v))/gi,
+    (_, p, u) => `${p}<video controls preload="metadata"><source src="${u}"></video>`);
+  // Bold **text**
+  s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  return s;
+}
+
+let cachedIssues = null;
+
 function isReturnIssue(i) {
   const labels = (i.labels || []).map(l => String(l).toLowerCase());
   return labels.some(l => l.includes("return"));
 }
-
-let cachedIssues = null;
 
 async function load() {
   try {
@@ -180,16 +283,32 @@ function reflow() {
     ? (s === "open" ? "未対応" : "対応済み")
     : (s === "open" ? "未处理" : "已处理");
   list.innerHTML = issues.slice(0, 100).map(i => `
-    <a href="${esc(i.url)}" target="_blank" class="issue-card">
-      <h3>${esc(i.title)}</h3>
-      <div class="meta">
-        <span class="issue-tag status-${i.state === "open" ? "open" : "closed"}">${esc(statusLab(i.state))}</span>
-        ${(i.areas || []).slice(0, 3).map(a => `<span class="issue-tag">${esc(a)}</span>`).join("")}
-        <span style="margin-left:auto">#${i.number} ・ ${esc((i.updated_at || "").slice(0,10))} ・ 💬 ${i.comments || 0}</span>
+    <article class="issue-card">
+      <div class="head">
+        <h3>${esc(i.title)}</h3>
+        <div class="head-meta">
+          <span class="issue-tag status-${i.state === "open" ? "open" : "closed"}">${esc(statusLab(i.state))}</span>
+          <span>#${i.number}</span>
+          <span>${esc((i.updated_at || "").slice(0,10))}</span>
+        </div>
       </div>
-    </a>
+      <div class="body-md">${md2html(i.body || i.body_excerpt || "")}</div>
+    </article>
   `).join("");
+
+  // Lightbox for images
+  document.querySelectorAll(".body-md img").forEach(img => {
+    img.addEventListener("click", () => {
+      const lb = document.getElementById("img-lightbox");
+      document.getElementById("img-lightbox-img").src = img.src;
+      lb.classList.add("open");
+    });
+  });
 }
+
+document.getElementById("img-lightbox").addEventListener("click", e => {
+  e.currentTarget.classList.remove("open");
+});
 
 load();
 </script>

@@ -94,6 +94,9 @@ def shape(issue: dict, product: str) -> dict:
         "closed_at": issue.get("closed_at"),
         "comments": issue.get("comments", 0),
         "body_excerpt": (issue.get("body") or "")[:280],
+        # Full body (capped at 12000 chars) for inline rendering on dashboard.
+        # Factory cannot access GitHub private repo, so we render markdown directly.
+        "body": (issue.get("body") or "")[:12000],
     }
 
 
