@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-05-29T08:05:03Z",
+  "updatedAt": "2026-05-29T08:45:37Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-05-29T04:34:23Z",
-  "count": 162,
+  "sourceUpdatedAt": "2026-05-29T08:45:19Z",
+  "count": 169,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -2038,6 +2038,95 @@
         "操作性"
       ],
       "action_hint": "LEDライトの独立ON/OFFスイッチ追加、またはモード切替への組み込みを検討する"
+    },
+    {
+      "id": "f94796355477ca1e",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "吸引力・LEDは良好だが、動作音が大きめ・ダストカップが小さい・ハンドル形状が握りづらいとの指摘あり",
+      "summary_zh": "吸力和LED灯表现良好，但运行噪音偏大、集尘杯容量偏小、手柄形状不符合人体工学，握持不舒适",
+      "topics": [
+        "動作音",
+        "ダストカップ",
+        "ハンドル",
+        "操作性"
+      ],
+      "action_hint": "ハンドル形状を手の形状に合わせた曲線設計に見直し、ダストカップ容量拡大の可否を検討する"
+    },
+    {
+      "id": "47b23acbcd763ce6",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "吸引力は概ね問題ないが、大きめのゴミが吸込口に詰まることがある",
+      "summary_zh": "整体吸力无明显问题，但较大垃圾容易堵塞吸入口",
+      "topics": [
+        "吸引力",
+        "吸込口",
+        "ゴミ詰まり"
+      ],
+      "action_hint": "吸込口の開口形状・サイズを見直し、大きめゴミの通過性を改善する"
+    },
+    {
+      "id": "2634a5dd2a3312db",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・お手入れのしやすさ・コードレスで高所作業がしやすいと好評",
+      "summary_zh": "重量轻、维护方便、无线设计便于高处清洁，用户评价良好",
+      "topics": [
+        "重量",
+        "操作性",
+        "コードレス"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "b535273a8b58a77e",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽量で日常使いに満足しているが、通常モードでは吸引力がやや物足りないとの意見あり",
+      "summary_zh": "机身轻便，日常使用满意，但标准模式下吸力略显不足",
+      "topics": [
+        "吸引力",
+        "モード切替"
+      ],
+      "action_hint": "標準モードの吸引力設定値を見直し、通常使用時の吸引性能を向上させる"
+    },
+    {
+      "id": "351a24c42284d5b7",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で使用感が良いと好評",
+      "summary_zh": "机身轻巧，使用感良好，用户给予好评",
+      "topics": [
+        "重量",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "61ab5a9bf0ec0469",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・コンパクトで収納場所に困らず、LEDライトでホコリが見やすいと好評",
+      "summary_zh": "机身轻巧紧凑，存放方便，LED灯照射下灰尘清晰可见，用户评价良好",
+      "topics": [
+        "重量",
+        "収納性",
+        "LEDライト"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "7c72f0b97313d580",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽量・吸引力は満足だが、バッテリー使用時間をもう少し延ばしてほしいとの要望あり",
+      "summary_zh": "机身轻便、吸力满意，但用户希望进一步延长电池续航时间",
+      "topics": [
+        "バッテリー",
+        "使用時間"
+      ],
+      "action_hint": "バッテリー容量の拡大または省電力制御の最適化により、連続使用時間の延長を検討する"
     }
   ]
 }
