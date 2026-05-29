@@ -74,6 +74,10 @@ a:hover { text-decoration: underline; }
 body.lang-ja .zh-only { display: none !important; }
 body.lang-zh .ja-only { display: none !important; }
 
+/* Submission features (form, drag-drop, PAT modal) — JP-only.
+   Chinese mode = factory view-only, no uploads. */
+body.lang-zh .submit-only { display: none !important; }
+
 /* Single-summary mode: when language is set, hide the opposite summary cell
    and let the other one take full width. */
 body.lang-ja .summary { grid-template-columns: 1fr; }

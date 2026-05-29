@@ -190,15 +190,22 @@
 
 
 <main id="app">
-  <div class="form-wrap">
+  <!-- Factory view-only notice (ZH mode) -->
+  <div class="view-only-notice zh-only" style="background:#eef4ff;border:1px solid #b9d2ff;border-radius:12px;padding:18px 22px;margin-bottom:16px">
+    <div style="font-size:15px;font-weight:700;margin-bottom:6px">🔧 故障记录 (仅查看)</div>
+    <p style="margin:0;font-size:13px;line-height:1.7;color:#444">
+      此页是日本侧 (枝川先生) 录入的故障数据。工厂侧无需在此页提交，请前往
+      <a href="./" style="color:#0070f3;font-weight:600">总览页</a>
+      查看汇总信息。
+    </p>
+  </div>
 
-    
+  <div class="form-wrap submit-only">
+
+
 
     <div class="note ja-only">
       📝 このフォームに入力して「GitHub に投稿」を押すと、GitHub Issue として登録されます (初回は GitHub アカウントが必要 / 無料: <a href="https://github.com/signup" target="_blank">github.com/signup</a>)。
-    </div>
-    <div class="note zh-only">
-      📝 填好这个表单点击"提交到 GitHub"，内容会作为 GitHub Issue 登记 (第一次需要 GitHub 账号 / 免费: <a href="https://github.com/signup" target="_blank">github.com/signup</a>)。
     </div>
 
     <form id="defect-form" onsubmit="return submitDefect(event)">
@@ -344,7 +351,7 @@
 </main>
 
 <!-- PAT setup modal -->
-<div class="modal-bg" id="pat-modal">
+<div class="modal-bg submit-only" id="pat-modal">
   <div class="modal">
     <h3><span class="ja-only">🔑 動画アップロード設定 (一度だけ)</span><span class="zh-only">🔑 视频上传配置 (仅一次)</span></h3>
     <p class="ja-only">
@@ -548,6 +555,8 @@ function getPAT() {
   try { return localStorage.getItem(LS_PAT_KEY); } catch(e) { return null; }
 }
 function openPATModal() {
+  // Safety: never open in ZH (factory view-only) mode
+  if (document.body.classList.contains("lang-zh")) return;
   document.getElementById("pat-modal").setAttribute("open", "");
   setTimeout(() => document.getElementById("pat-input").focus(), 50);
 }
