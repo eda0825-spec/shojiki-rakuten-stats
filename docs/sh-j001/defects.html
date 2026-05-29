@@ -87,6 +87,47 @@
   .empty-hero .emoji { font-size: 64px; margin-bottom: 12px; }
   .empty-hero h2 { margin: 0 0 6px; font-size: 18px; }
   .empty-hero p { margin: 0; color: var(--ink-3); font-size: 13px; }
+
+  /* Aggregation section */
+  .agg-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 720px) { .agg-grid { grid-template-columns: 1fr; } }
+  .agg-card {
+    background: #fff; border: 1px solid var(--line);
+    border-radius: 12px; padding: 14px 16px;
+  }
+  .agg-card h4 {
+    margin: 0 0 10px; font-size: 12px; font-weight: 700;
+    color: var(--ink-2); letter-spacing: 0.02em;
+  }
+  .agg-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; font-size: 12px; }
+  .agg-bar .label { min-width: 92px; color: var(--ink); }
+  .agg-bar .bar-track {
+    flex: 1; height: 16px; background: #f0f0f3; border-radius: 4px; overflow: hidden;
+  }
+  .agg-bar .bar-fill { height: 100%; background: #d93b3b; border-radius: 4px; }
+  .agg-bar .bar-fill.o { background: #d98330; }
+  .agg-bar .bar-fill.g { background: #20a55a; }
+  .agg-bar .bar-fill.b { background: #4a7dbf; }
+  .agg-bar .count { min-width: 24px; text-align: right; color: var(--ink-3); font-weight: 600; }
+
+  .insights-box {
+    background: linear-gradient(135deg, #fff7e6 0%, #fff5f5 100%);
+    border: 1px solid #f3d99c;
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+  }
+  .insights-box h4 {
+    margin: 0 0 8px; font-size: 13px; font-weight: 700;
+    color: #6b4a00;
+  }
+  .insights-box .narr { font-size: 13px; line-height: 1.7; color: var(--ink); margin: 0 0 10px; }
+  .insights-box ol { margin: 6px 0 0; padding-left: 22px; font-size: 13px; line-height: 1.7; }
+  .insights-box ol li { margin-bottom: 2px; }
+  .insights-box .src { font-size: 11px; color: var(--ink-3); margin-top: 8px; text-align: right; }
 </style>
 </head>
 <body class="lang-ja">
@@ -127,6 +168,48 @@
       <span class="ja-only">解決済み</span><span class="zh-only">已解决</span>
     </div>
   </div>
+
+  <!-- AI insights -->
+  <section id="ai-insights" class="insights-box" hidden>
+    <h4>
+      <span class="ja-only">💡 改善提案 (AI 自動分析)</span>
+      <span class="zh-only">💡 改善建议 (AI 自动分析)</span>
+    </h4>
+    <p class="narr" id="ai-narr"></p>
+    <div>
+      <strong style="font-size:12px">
+        <span class="ja-only">推奨アクション:</span>
+        <span class="zh-only">推荐行动:</span>
+      </strong>
+      <ol id="ai-acts"></ol>
+    </div>
+    <div class="src">
+      <span class="ja-only">🤖 Claude AI ・ 全データ統合要約</span>
+      <span class="zh-only">🤖 Claude AI ・ 全数据综合摘要</span>
+    </div>
+  </section>
+
+  <!-- Aggregation charts -->
+  <section id="agg-section" hidden>
+    <h3 style="font-size:14px;font-weight:700;margin:0 0 8px;color:var(--ink-2)">
+      <span class="ja-only">📊 不具合データ内訳</span>
+      <span class="zh-only">📊 故障数据明细</span>
+    </h3>
+    <div class="agg-grid">
+      <div class="agg-card">
+        <h4><span class="ja-only">不具合の種類別</span><span class="zh-only">故障类型</span></h4>
+        <div id="agg-type"></div>
+      </div>
+      <div class="agg-card">
+        <h4><span class="ja-only">深刻度別</span><span class="zh-only">严重度</span></h4>
+        <div id="agg-sev"></div>
+      </div>
+      <div class="agg-card">
+        <h4><span class="ja-only">報告元</span><span class="zh-only">报告来源</span></h4>
+        <div id="agg-src"></div>
+      </div>
+    </div>
+  </section>
 
   <div id="issue-list"></div>
 
@@ -225,12 +308,72 @@ function inline(s) {
 }
 
 let cachedIssues = null;
+let cachedSummary = null;
 
 // "type:return" Issue は返品ページ側で表示するため、不具合ページからは除外
 function isDefectIssue(i) {
   const labels = (i.labels || []).map(l => String(l).toLowerCase());
   if (labels.some(l => l.includes("return"))) return false;
   return true;
+}
+
+// Parse markdown table body → {key: value} object
+function parseBody(body) {
+  const fields = {};
+  if (!body) return fields;
+  const lines = String(body).replace(/\r\n/g, "\n").split("\n");
+  for (let i = 0; i < lines.length; i++) {
+    const ln = lines[i];
+    if (!ln.includes("|") || /^\s*\|?[\s:-]+\|[\s:|-]+$/.test(ln)) continue;
+    const cells = ln.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim());
+    if (cells.length === 2 && cells[0] && cells[1] && cells[0] !== "項目" && cells[0] !== "値") {
+      fields[cells[0]] = cells[1];
+    }
+  }
+  return fields;
+}
+
+// Fallback: extract type+severity from title pattern "[J002] [高] [本体破損] 症状..."
+function parseTitle(title) {
+  const out = {};
+  const t = String(title || "");
+  const sev = t.match(/\[\s*(高|中|低)\s*\]/);
+  if (sev) out.severity = sev[1];
+  const brackets = [...t.matchAll(/\[([^\]]+)\]/g)].map(m => m[1].trim());
+  // skip leading [J00X] and severity bracket
+  const knownSeverity = new Set(["高","中","低"]);
+  const knownPrefix = /^J\d{3}/;
+  const candidates = brackets.filter(b => !knownPrefix.test(b) && !knownSeverity.has(b));
+  if (candidates.length) out.defect_type = candidates[0];
+  return out;
+}
+
+function aggregate(issues, getter) {
+  const counts = {};
+  issues.forEach(i => {
+    const fields = parseBody(i.body);
+    const titleFields = parseTitle(i.title);
+    const v = getter(fields, titleFields, i);
+    if (!v) return;
+    counts[v] = (counts[v] || 0) + 1;
+  });
+  return Object.entries(counts).sort((a, b) => b[1] - a[1]);
+}
+
+function renderBars(containerId, data, color) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  if (data.length === 0) {
+    el.innerHTML = `<div style="color:var(--ink-3);font-size:12px">—</div>`;
+    return;
+  }
+  const max = Math.max(...data.map(d => d[1]));
+  el.innerHTML = data.slice(0, 6).map(([k, v]) => `
+    <div class="agg-bar">
+      <span class="label">${esc(k)}</span>
+      <span class="bar-track"><span class="bar-fill ${color || ""}" style="width:${(v/max*100)}%"></span></span>
+      <span class="count">${v}</span>
+    </div>`).join("");
 }
 
 async function load() {
@@ -243,6 +386,11 @@ async function load() {
   } catch (e) {
     cachedIssues = [];
   }
+  try {
+    const sr = await fetch(`https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/summary-${PRODUCT}.json`, { cache: "no-cache" })
+      .catch(() => fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/summary-${PRODUCT}.json`, { cache: "no-cache" }));
+    if (sr.ok) cachedSummary = await sr.json();
+  } catch (e) {}
   reflow();
 }
 
@@ -254,9 +402,13 @@ function reflow() {
   const sumLine = document.getElementById("summary-line");
   const empty = document.getElementById("empty");
   const list = document.getElementById("issue-list");
+  const agg = document.getElementById("agg-section");
+  const ai = document.getElementById("ai-insights");
 
   if (issues.length === 0) {
     sumLine.hidden = true;
+    if (agg) agg.hidden = true;
+    if (ai) ai.hidden = true;
     empty.hidden = false;
     list.innerHTML = "";
     return;
@@ -265,6 +417,26 @@ function reflow() {
   empty.hidden = true;
   document.getElementById("count-open").textContent = open.length;
   document.getElementById("count-closed").textContent = closed.length;
+
+  // Aggregations
+  if (agg) {
+    agg.hidden = false;
+    renderBars("agg-type", aggregate(issues, (f, t) => f["不具合の種類"] || t.defect_type), "");
+    renderBars("agg-sev",  aggregate(issues, (f, t) => f["深刻度"] || t.severity || (i => i.severity)(issues[0])), "o");
+    renderBars("agg-src",  aggregate(issues, (f) => f["報告元"]), "b");
+  }
+
+  // AI insights from summary-*.json
+  if (ai && cachedSummary) {
+    const isJa = document.body.classList.contains("lang-ja");
+    const block = isJa ? cachedSummary.summary_ja : cachedSummary.summary_zh;
+    if (block) {
+      ai.hidden = false;
+      document.getElementById("ai-narr").textContent = block.narrative || "";
+      document.getElementById("ai-acts").innerHTML = (block.actions || [])
+        .map(a => `<li>${esc(a)}</li>`).join("");
+    }
+  }
 
   const isJa = document.body.classList.contains("lang-ja");
   const statusLab = (s) => isJa
