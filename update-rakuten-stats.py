@@ -26,6 +26,7 @@ Output JSON shape (backward compatible):
   }
 """
 import os
+import re
 import sys
 import json
 import urllib.request
@@ -34,6 +35,73 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 API_URL = "https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20220601"
+
+# Public review pages carry the same review count/average a shopper sees.
+# The Item Search API's reviewCount caches and lags by days, so we prefer
+# the review page and only fall back to the API when scraping fails.
+SHOP_ID = os.environ.get("RAKUTEN_SHOP_ID", "437323")
+REVIEW_UA = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+)
+
+
+def _http_get(url):
+    req = urllib.request.Request(url, headers={
+        "User-Agent": REVIEW_UA,
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "ja,en-US;q=0.9,en;q=0.8",
+        "Referer": "https://www.rakuten.co.jp/",
+    })
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        return resp.read().decode("utf-8", errors="replace")
+
+
+def _extract_state(raw):
+    """Extract the first window.__XXX__ = {...} JSON object from the page."""
+    m = re.search(r"window\.__\w+__\s*=\s*", raw)
+    if not m:
+        raise RuntimeError("__INITIAL_STATE__ not found")
+    i = raw.find("{", m.end())
+    depth = 0
+    in_str = False
+    esc = False
+    end = None
+    for k in range(i, len(raw)):
+        c = raw[k]
+        if in_str:
+            if esc:
+                esc = False
+            elif c == "\\":
+                esc = True
+            elif c == '"':
+                in_str = False
+        else:
+            if c == '"':
+                in_str = True
+            elif c == "{":
+                depth += 1
+            elif c == "}":
+                depth -= 1
+                if depth == 0:
+                    end = k + 1
+                    break
+    if end is None:
+        raise RuntimeError("__INITIAL_STATE__ JSON not closed")
+    return json.loads(raw[i:end])
+
+
+def fetch_summary_review_page(item_number):
+    """Accurate review summary (rating/count) from the public review page."""
+    url = f"https://review.rakuten.co.jp/item/1/{SHOP_ID}_{item_number}/1.1/"
+    state = _extract_state(_http_get(url))
+    ratings = (state.get("itemInfo") or {}).get("reviewRatings") or {}
+    avg = ratings.get("average")
+    cnt = ratings.get("totalCount")
+    return {
+        "rating": round(float(avg), 2) if avg is not None else None,
+        "count": int(cnt) if cnt is not None else None,
+    }
 
 
 def fetch_one(app_id, access_key, item_code, origin):
@@ -76,12 +144,26 @@ def main() -> int:
 
     products = {}
     for key, code in targets.items():
+        item_number = code.split(":")[-1]
+        rec = None
+        # 1) Prefer the public review page (matches shopper-visible count; no API lag)
         try:
-            products[key] = fetch_one(app_id, access_key, code, origin)
-            print(f"OK {key}: {products[key]}")
+            s = fetch_summary_review_page(item_number)
+            if s.get("rating") is not None and s.get("count") is not None:
+                rec = {"rating": s["rating"], "count": s["count"], "itemCode": code}
+                print(f"OK {key} (review page): {rec}")
         except Exception as e:  # noqa: BLE001
-            print(f"ERROR fetching {key} ({code}): {e}", file=sys.stderr)
-            # keep previous value (merged below); do not abort the whole run
+            print(f"WARN review-page fetch failed for {key} ({item_number}): {e}", file=sys.stderr)
+        # 2) Fall back to the Item Search API
+        if rec is None:
+            try:
+                rec = fetch_one(app_id, access_key, code, origin)
+                print(f"OK {key} (item API fallback): {rec}")
+            except Exception as e:  # noqa: BLE001
+                print(f"ERROR fetching {key} ({code}): {e}", file=sys.stderr)
+                # keep previous value (merged below); do not abort the whole run
+        if rec is not None:
+            products[key] = rec
 
     out_path = Path(__file__).resolve().parent / "rakuten-stats.json"
 
