@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-02T23:51:26Z",
+  "updatedAt": "2026-06-03T04:47:09Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-02T23:51:11Z",
-  "count": 204,
+  "sourceUpdatedAt": "2026-06-03T04:47:04Z",
+  "count": 205,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -2568,6 +2568,20 @@
         "吸引力",
         "操作性",
         "ダストカップ"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "6e0b688f8adf841b",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "2台目購入。軽量・コンパクト・吸引力に満足。ダストカップ着脱も慣れで解決。",
+      "summary_zh": "二次购买。对轻量、紧凑设计及吸力表示满意。集尘杯拆卸经适应后无障碍。",
+      "topics": [
+        "ダストカップ",
+        "操作性",
+        "吸引力",
+        "重量"
       ],
       "action_hint": null
     }
