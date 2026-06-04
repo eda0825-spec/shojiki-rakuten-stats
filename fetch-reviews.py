@@ -276,6 +276,41 @@ def fetch_product(product: str, item_number: str, max_pages: int, sleep_sec: flo
         if page < max_pages:
             time.sleep(sleep_sec)
 
+    # 編集再リンク (full_rescan 限定): レビュー本文の編集で ID が変わると、旧IDが「削除」+
+    # 新IDが「新規」になり重複する。全ページ走査済みの full_rescan のときだけ、
+    # 同一 (nickname, postDate, rating) の「今回未確認の既存レビュー」に一意対応する新規を
+    # 旧レコードの更新扱いにして重複を防ぐ。複数候補(購入者 等の重複)のときは何もしない=従来通り。
+    if full_rescan:
+        def _edit_sig(rec):
+            return ((rec.get("nickname") or "").strip(),
+                    normalize_date(rec.get("postDate")) or "",
+                    rec.get("rating"))
+        missing_by_sig: dict = {}
+        for rid, rec in existing_records.items():
+            if rid not in seen_this_run:
+                missing_by_sig.setdefault(_edit_sig(rec), []).append(rid)
+        newly_ids = [rid for rid, rec in existing_records.items()
+                     if rec.get("first_seen_at") == today and rid in seen_this_run]
+        for nid in newly_ids:
+            nrec = existing_records.get(nid)
+            if not nrec:
+                continue
+            sig = _edit_sig(nrec)
+            cand = missing_by_sig.get(sig)
+            if cand and len(cand) == 1:
+                old = existing_records[cand[0]]
+                for k in ("body", "title", "rating", "topics"):
+                    if k in nrec:
+                        old[k] = nrec[k]
+                old["last_seen_at"] = today
+                old.pop("removed_at", None)
+                seen_this_run.add(cand[0])
+                del existing_records[nid]
+                seen_this_run.discard(nid)
+                missing_by_sig.pop(sig, None)
+                new_count -= 1
+                print(f"INFO [{product}] re-linked edited review {nid[:8]} -> {cand[0][:8]}", file=sys.stderr)
+
     # Mark removals — only possible in full_rescan (we scanned every page)
     removed_this_run = 0
     if full_rescan:
