@@ -586,7 +586,7 @@ function renderBars(containerId, data, color) {
 // private リポでも認証で読めるので、投稿直後でも待ち時間なく一覧に出る。
 async function fetchIssuesLive(pat) {
   const out = [];
-  for (let page = 1; page <= 3; page++) {
+  for (let page = 1; page <= 10; page++) {
     const r = await fetch(`https://api.github.com/repos/${ISSUE_REPO}/issues?state=all&per_page=100&page=${page}&sort=updated&direction=desc`, {
       headers: { "Authorization": `Bearer ${pat}`, "Accept": "application/vnd.github+json" },
       cache: "no-cache",

@@ -31,9 +31,10 @@ function esc(s) {
   return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 async function fetchJSON(file) {
+  // raw を優先 (fresh)。jsdelivr は中国アクセス用フォールバック (一覧ページと統一)
   const urls = [
-    `https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/${file}`,
     `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${file}`,
+    `https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/${file}`,
   ];
   let lastErr;
   for (const u of urls) {

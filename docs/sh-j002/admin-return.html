@@ -431,7 +431,7 @@ async function uploadFile(file) {
 
     const ts = new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19);
     const safeName = item.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-    const path = `docs/defects-uploads/${PRODUCT}/${ts}-${safeName}`;
+    const path = `docs/defects-uploads/${PRODUCT}/${ts}-${Math.random().toString(36).slice(2, 8)}-${safeName}`;
 
     const resp = await fetch(`https://api.github.com/repos/${STORAGE_REPO}/contents/${path}`, {
       method: "PUT",
