@@ -675,6 +675,105 @@ function esc(s) {
 setupDropZone();
 
 // ===== Submit (direct GitHub API — stays on dashboard) =====
+// ===== Edit mode (?issue=N) =====
+const _editIssueNum = ((new URLSearchParams(location.search).get("issue") || "").match(/^\d+$/) || [""])[0];
+
+function _parseBodyToFields(body) {
+  const fields = {}; const sections = {};
+  if (!body) return { fields, sections };
+  const lines = body.replace(/\r\n/g, "\n").split("\n");
+  let cur = null; let buf = [];
+  const flush = () => { if (cur && buf.length) sections[cur] = buf.join("\n").trim(); buf = []; };
+  for (const ln of lines) {
+    const h = ln.match(/^#{2,3}\s+(.+)$/);
+    if (h) { flush(); cur = h[1].trim(); continue; }
+    if (/^\s*\|?[\s:-]+\|[\s:|-]+$/.test(ln)) continue;
+    if (ln.includes("|")) {
+      const cells = ln.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim());
+      if (cells.length === 2 && cells[0] && cells[1] && cells[0] !== "項目" && cells[0] !== "値") {
+        fields[cells[0]] = cells[1]; continue;
+      }
+    }
+    if (cur) buf.push(ln);
+  }
+  flush();
+  return { fields, sections };
+}
+
+function _parseDefectTitleFallback(title) {
+  const out = {};
+  const t = String(title || "");
+  const sev = t.match(/\[\s*(高|中|低)\s*\]/);
+  if (sev) out.severity = sev[1];
+  const brackets = [...t.matchAll(/\[([^\]]+)\]/g)].map(m => m[1].trim());
+  const candidates = brackets.filter(b => !/^J\d{3}/.test(b) && !/^J\d{3}-/.test(b) && !["高","中","低","顧客"].includes(b));
+  if (candidates.length) out.defect_type = candidates[0];
+  out.symptom_ja = t
+    .replace(/^\s*\[J\d{3}\](?:-不具合)?\s*/, "")
+    .replace(/^\s*(\[[^\]]+\]\s*)+/, "")
+    .trim();
+  return out;
+}
+
+function _summaryText(sections, lang) {
+  const text = sections["要約 / 摘要"] || "";
+  const re = lang === "ja" ? /\*\*日本語\*\*:\s*(.+)/ : /\*\*中文\*\*:\s*(.+)/;
+  const m = text.match(re);
+  return m ? m[1].trim() : "";
+}
+
+function _selectDefectType(value) {
+  if (!value) return;
+  const f = document.getElementById("defect-form");
+  document.getElementById("defect_type").value = value;
+  f.querySelectorAll(".dt-chip").forEach(chip => {
+    chip.classList.toggle("active", chip.dataset.val === value);
+  });
+}
+
+async function _loadIssueForEdit(num) {
+  const pat = getPAT();
+  if (!pat) { openPATModal(); return; }
+  try {
+    const r = await fetch(`https://api.github.com/repos/${DEFECT_REPO}/issues/${num}`, {
+      headers: { "Authorization": `Bearer ${pat}`, "Accept": "application/vnd.github+json" },
+    });
+    if (!r.ok) { showSubmitBanner("error", `❌ Issue #${num} の取得に失敗 (${r.status})`); return; }
+    const issue = await r.json();
+    const { fields, sections } = _parseBodyToFields(issue.body || "");
+    const fallback = _parseDefectTitleFallback(issue.title);
+    const parsedAny = Object.keys(fields).length > 0 || Object.keys(sections).some(k => sections[k]);
+    const f = document.getElementById("defect-form");
+    const setVal = (name, val) => { const el = f.querySelector(`[name="${name}"]`); if (el && val != null) el.value = val; };
+    setVal("purchase_date", fields["購入日"]);
+    setVal("inquiry_date",  fields["問い合わせ日"]);
+    _selectDefectType(fields["不具合の種類"] || fallback.defect_type);
+    setVal("source",   fields["報告元"]);
+    setVal("severity", fields["深刻度"] || fallback.severity);
+    setVal("lot",      fields["ロット番号"]);
+    setVal("serial",   fields["シリアル番号"]);
+    setVal("symptom_ja",      sections["症状 (日本語)"] || _summaryText(sections, "ja") || fallback.symptom_ja || "");
+    setVal("symptom_zh",      sections["症状 (中文)"] || _summaryText(sections, "zh") || "");
+    setVal("suspected_cause", sections["想定原因"] || "");
+    setVal("extra",           sections["補足"] || "");
+    setVal("video_url",       (sections["動画 URL"] || "").trim());
+    showSubmitBanner(
+      parsedAny ? "success" : "error",
+      parsedAny
+        ? `✏️ 編集モード: Issue #${num} を更新します`
+        : `⚠️ Issue #${num} の本文が空または不正です。タイトルから復元できる範囲だけ入力しました`
+    );
+    const btn = f.querySelector('button[type="submit"]');
+    if (btn) btn.innerHTML = '<span class="ja-only">更新</span><span class="zh-only">更新</span>';
+  } catch (e) {
+    showSubmitBanner("error", `❌ Issue 読み込み失敗: ${esc(e.message)}`);
+  }
+}
+
+if (_editIssueNum) {
+  _loadIssueForEdit(_editIssueNum);
+}
+
 async function submitDefect(e) {
   e.preventDefault();
   const fd = new FormData(e.target);
@@ -752,8 +851,12 @@ async function submitDefect(e) {
   btn.disabled = true; btn.innerHTML = "登録中…";
 
   try {
-    const resp = await fetch(`https://api.github.com/repos/${DEFECT_REPO}/issues`, {
-      method: "POST",
+    const isEdit = !!_editIssueNum;
+    const url = isEdit
+      ? `https://api.github.com/repos/${DEFECT_REPO}/issues/${_editIssueNum}`
+      : `https://api.github.com/repos/${DEFECT_REPO}/issues`;
+    const resp = await fetch(url, {
+      method: isEdit ? "PATCH" : "POST",
       headers: {
         "Authorization": `Bearer ${pat}`,
         "Accept": "application/vnd.github+json",
@@ -774,14 +877,18 @@ async function submitDefect(e) {
       throw new Error(`${resp.status}: ${err.slice(0, 200)}`);
     }
     const issue = await resp.json();
-    showSubmitBanner("success", `✅ 登録完了 — Issue <a href="${issue.html_url}" target="_blank" style="color:inherit;text-decoration:underline">#${issue.number}</a> として記録しました`);
-    e.target.reset();
-    uploadedItems.length = 0;
-    renderUploadedList();
-    document.getElementById("purchase_date").value = new Date().toISOString().slice(0,10);
-    document.getElementById("inquiry_date").value = new Date().toISOString().slice(0,10);
-    document.querySelectorAll(".dt-chip").forEach(c => c.classList.remove("active"));
-    document.getElementById("defect_type").value = "";
+    showSubmitBanner("success", isEdit
+      ? `✅ 更新完了 — Issue <a href="${issue.html_url}" target="_blank" style="color:inherit;text-decoration:underline">#${issue.number}</a> (<a href="./defects.html" style="color:inherit;text-decoration:underline">一覧に戻る</a>)`
+      : `✅ 登録完了 — Issue <a href="${issue.html_url}" target="_blank" style="color:inherit;text-decoration:underline">#${issue.number}</a> として記録しました`);
+    if (!isEdit) {
+      e.target.reset();
+      uploadedItems.length = 0;
+      renderUploadedList();
+      document.getElementById("purchase_date").value = new Date().toISOString().slice(0,10);
+      document.getElementById("inquiry_date").value = new Date().toISOString().slice(0,10);
+      document.querySelectorAll(".dt-chip").forEach(c => c.classList.remove("active"));
+      document.getElementById("defect_type").value = "";
+    }
   } catch (e2) {
     showSubmitBanner("error", `❌ ${esc(e2.message)}`);
   } finally {

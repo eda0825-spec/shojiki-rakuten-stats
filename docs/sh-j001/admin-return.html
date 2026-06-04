@@ -511,6 +511,86 @@ setupDropZone();
 
 // ===== Submit =====
 
+// ===== Edit mode (?issue=N) =====
+const _editIssueNum = ((new URLSearchParams(location.search).get("issue") || "").match(/^\d+$/) || [""])[0];
+
+function _parseBodyToFields(body) {
+  const fields = {};
+  const sections = {};
+  if (!body) return { fields, sections };
+  const lines = body.replace(/\r\n/g, "\n").split("\n");
+  let cur = null; let buf = [];
+  const flush = () => { if (cur && buf.length) sections[cur] = buf.join("\n").trim(); buf = []; };
+  for (const ln of lines) {
+    const h = ln.match(/^#{2,3}\s+(.+)$/);
+    if (h) { flush(); cur = h[1].trim(); continue; }
+    if (/^\s*\|?[\s:-]+\|[\s:|-]+$/.test(ln)) continue;
+    if (ln.includes("|")) {
+      const cells = ln.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim());
+      if (cells.length === 2 && cells[0] && cells[1] && cells[0] !== "項目" && cells[0] !== "値") {
+        fields[cells[0]] = cells[1];
+        continue;
+      }
+    }
+    if (cur) buf.push(ln);
+  }
+  flush();
+  return { fields, sections };
+}
+
+function _parseReturnTitleFallback(title) {
+  const out = {};
+  const t = String(title || "");
+  const m = t.match(/\[(\d{4}-\d{2}-\d{2})\]\s*([^・]+?)\s*・\s*(.+?)$/);
+  if (m) {
+    out.return_date = m[1].trim();
+    out.reason = m[2].trim();
+    out.action = m[3].trim();
+  }
+  out.detail = t.replace(/^\s*(\[[^\]]+\]\s*)+/, "").trim();
+  return out;
+}
+
+async function _loadIssueForEdit(num) {
+  const pat = getPAT();
+  if (!pat) { openPATModal(); return; }
+  try {
+    const r = await fetch(`https://api.github.com/repos/${DEFECT_REPO}/issues/${num}`, {
+      headers: { "Authorization": `Bearer ${pat}`, "Accept": "application/vnd.github+json" },
+    });
+    if (!r.ok) { showSubmitBanner("error", `❌ Issue #${num} の取得に失敗 (${r.status})`); return; }
+    const issue = await r.json();
+    const { fields, sections } = _parseBodyToFields(issue.body || "");
+    const fallback = _parseReturnTitleFallback(issue.title);
+    const parsedAny = Object.keys(fields).length > 0 || Object.keys(sections).some(k => sections[k]);
+    const f = document.getElementById("defect-form");
+    const setVal = (name, val) => { const el = f.querySelector(`[name="${name}"]`); if (el && val != null) el.value = val; };
+    setVal("return_date", fields["返品日"] || fallback.return_date);
+    setVal("reason", fields["理由"] || fallback.reason);
+    setVal("action", fields["対応"] || fallback.action);
+    setVal("channel", fields["購入チャネル"]);
+    setVal("order_number", fields["注文番号"]);
+    setVal("lot", fields["ロット番号"]);
+    setVal("related_defect", fields["関連不具合 Issue"]);
+    setVal("detail", sections["詳細"] || fallback.detail || "");
+    setVal("extra",  sections["補足"] || "");
+    showSubmitBanner(
+      parsedAny ? "success" : "error",
+      parsedAny
+        ? `✏️ 編集モード: Issue #${num} を更新します`
+        : `⚠️ Issue #${num} の本文が空または不正です。タイトルから復元できる範囲だけ入力しました`
+    );
+    const btn = f.querySelector('button[type="submit"]');
+    if (btn) btn.innerHTML = '<span class="ja-only">更新</span><span class="zh-only">更新</span>';
+  } catch (e) {
+    showSubmitBanner("error", `❌ ${e.message}`);
+  }
+}
+
+if (_editIssueNum) {
+  _loadIssueForEdit(_editIssueNum);
+}
+
 async function submitReturn(e) {
   e.preventDefault();
   const fd = new FormData(e.target);
@@ -573,8 +653,12 @@ async function submitReturn(e) {
   btn.disabled = true; btn.innerHTML = "登録中…";
 
   try {
-    const resp = await fetch(`https://api.github.com/repos/${DEFECT_REPO}/issues`, {
-      method: "POST",
+    const isEdit = !!_editIssueNum;
+    const url = isEdit
+      ? `https://api.github.com/repos/${DEFECT_REPO}/issues/${_editIssueNum}`
+      : `https://api.github.com/repos/${DEFECT_REPO}/issues`;
+    const resp = await fetch(url, {
+      method: isEdit ? "PATCH" : "POST",
       headers: {
         "Authorization": `Bearer ${pat}`,
         "Accept": "application/vnd.github+json",
@@ -595,13 +679,17 @@ async function submitReturn(e) {
       throw new Error(`${resp.status}: ${err.slice(0, 200)}`);
     }
     const issue = await resp.json();
-    showSubmitBanner("success", `✅ 返品登録完了 — Issue <a href="${issue.html_url}" target="_blank" style="color:inherit;text-decoration:underline">#${issue.number}</a>`);
-    e.target.reset();
-    uploadedItems.length = 0;
-    renderUploadedList();
-    // re-set return_date default to today
-    const rd = document.querySelector('input[name="return_date"]');
-    if (rd) rd.value = new Date().toISOString().slice(0,10);
+    showSubmitBanner("success", isEdit
+      ? `✅ 更新完了 — Issue <a href="${issue.html_url}" target="_blank" style="color:inherit;text-decoration:underline">#${issue.number}</a> (<a href="./returns.html" style="color:inherit;text-decoration:underline">一覧に戻る</a>)`
+      : `✅ 返品登録完了 — Issue <a href="${issue.html_url}" target="_blank" style="color:inherit;text-decoration:underline">#${issue.number}</a>`);
+    if (!isEdit) {
+      e.target.reset();
+      uploadedItems.length = 0;
+      renderUploadedList();
+      // re-set return_date default to today
+      const rd = document.querySelector('input[name="return_date"]');
+      if (rd) rd.value = new Date().toISOString().slice(0,10);
+    }
   } catch (e2) {
     showSubmitBanner("error", `❌ ${esc(e2.message)}`);
   } finally {
