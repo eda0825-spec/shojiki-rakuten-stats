@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-04T16:23:37Z",
+  "updatedAt": "2026-06-04T19:25:45Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-04T16:23:03Z",
-  "count": 215,
+  "sourceUpdatedAt": "2026-06-04T19:25:40Z",
+  "count": 216,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -2710,6 +2710,19 @@
         "収納"
       ],
       "action_hint": null
+    },
+    {
+      "id": "a30539843923ac28",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽量・吸引力・静音性は良好。ヘッドの動きとハンドルの細さに若干の違和感あり。",
+      "summary_zh": "整体轻量、吸力及静音性表现良好。吸头移动灵活性及手柄细度略有不适感。",
+      "topics": [
+        "ヘッド",
+        "ハンドル",
+        "操作性"
+      ],
+      "action_hint": "床ノズルの首振り抵抗とハンドル径を見直し、操作フィーリングの改善を検討する"
     }
   ]
 }

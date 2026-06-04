@@ -1,19 +1,31 @@
 {
-  "updatedAt": "2026-06-04T16:23:03Z",
+  "updatedAt": "2026-06-04T19:25:40Z",
   "product": "sh-j002",
   "itemNumber": "10000004",
   "summary": {
-    "rating": 4.56,
-    "count": 209
+    "rating": 4.55,
+    "count": 210
   },
-  "reviewsCount": 215,
-  "activeCount": 210,
+  "reviewsCount": 216,
+  "activeCount": 211,
   "removedCount": 5,
-  "newReviewsThisRun": 9,
+  "newReviewsThisRun": 1,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
   "reviews": [
+    {
+      "id": "a30539843923ac28",
+      "rating": 4,
+      "postDate": "2026-06-05",
+      "title": null,
+      "body": "スティック型、充電スタンド付、軽量、高評価で決め購入しました。\n大変丁寧な取扱説明書のおかげで楽に組み立てができました。\n使用感は軽量でフローリング、畳、カーペットでの吸引力もよく、掃除中の音もさほど気になりませんでした。\nヘッド（床ノズル）の動きとハンドルの細さは、若干気になりましたがこれから徐々に慣れて行くと思います。\n耐久性はまだ使用二日間ですので、期待したいと思います。",
+      "nickname": "購入者",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-04",
+      "last_seen_at": "2026-06-04"
+    },
     {
       "id": "18e10757c6570475",
       "rating": 5,
