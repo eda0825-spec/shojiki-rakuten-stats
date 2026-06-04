@@ -176,9 +176,9 @@ def main() -> int:
         all_shaped.extend(shaped)
         print(f"[{product}] {len(shaped)} issues from {repo}")
 
-    # Merged feed sorted by updated_at desc, capped at 200
+    # Merged feed sorted by updated_at desc. cap を 1000 に引き上げ (200 だと件数集計が過小になるため)。
     all_shaped.sort(key=lambda x: x["updated_at"], reverse=True)
-    merged = {"updatedAt": now, "count": len(all_shaped), "issues": all_shaped[:200]}
+    merged = {"updatedAt": now, "count": len(all_shaped), "issues": all_shaped[:1000]}
     (out_dir / "defects-merged.json").write_text(
         json.dumps(merged, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )

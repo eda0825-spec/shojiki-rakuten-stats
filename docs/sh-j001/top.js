@@ -184,8 +184,8 @@ function renderLatestLists() {
   // Latest defects (from Issues with type:defect)
   const issues = (state.data.merged.issues || []).filter(i => i.product === PRODUCT);
   const isReturn = (i) => (i.labels || []).includes("type:return");
-  const defects = issues.filter(i => !isReturn(i)).slice(0, 5);
-  const returns = issues.filter(i =>  isReturn(i)).slice(0, 5);
+  const defects = issues.filter(i => !isReturn(i) && i.state === "open").slice(0, 5);
+  const returns = issues.filter(i =>  isReturn(i) && i.state === "open").slice(0, 5);
 
   const empty = `<li class="mini-empty">${isJa ? "まだありません" : "还没有"}</li>`;
 

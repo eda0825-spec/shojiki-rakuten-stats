@@ -398,8 +398,9 @@ function renderBars(containerId, data, color) {
 
 async function load() {
   try {
-    const r = await fetch(`https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" })
-      .catch(() => fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" }));
+    // raw を優先 (fresh)。jsdelivr は中国アクセス用フォールバック (J002 と統一)
+    const r = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" })
+      .catch(() => fetch(`https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" }));
     if (!r.ok) { reflow(); return; }
     const data = await r.json();
     cachedIssues = (data.issues || []).filter(i => i.product === PRODUCT && i.state !== "closed" && isDefectIssue(i));
@@ -407,8 +408,8 @@ async function load() {
     cachedIssues = [];
   }
   try {
-    const sr = await fetch(`https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/summary-${PRODUCT}.json`, { cache: "no-cache" })
-      .catch(() => fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/summary-${PRODUCT}.json`, { cache: "no-cache" }));
+    const sr = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/summary-${PRODUCT}.json`, { cache: "no-cache" })
+      .catch(() => fetch(`https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/summary-${PRODUCT}.json`, { cache: "no-cache" }));
     if (sr.ok) cachedSummary = await sr.json();
   } catch (e) {}
   reflow();
@@ -442,7 +443,7 @@ function reflow() {
   if (agg) {
     agg.hidden = false;
     renderBars("agg-type", aggregate(issues, (f, t) => f["不具合の種類"] || t.defect_type), "");
-    renderBars("agg-sev",  aggregate(issues, (f, t) => f["深刻度"] || t.severity || (i => i.severity)(issues[0])), "o");
+    renderBars("agg-sev",  aggregate(issues, (f, t) => f["深刻度"] || t.severity), "o");
     renderBars("agg-src",  aggregate(issues, (f) => f["報告元"]), "b");
   }
 

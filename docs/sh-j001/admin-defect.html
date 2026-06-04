@@ -687,7 +687,8 @@ async function submitDefect(e) {
 
   // ---- Build body markdown ----
   const lines = ["| 項目 | 値 |", "|---|---|"];
-  const row = (k, v) => v && lines.push(`| ${k} | ${v} |`);
+  // Markdown表が壊れないよう改行→空白・パイプ→全角に正規化
+  const row = (k, v) => { if (!v) return; const sv = String(v).replace(/\r?\n+/g, " ").replace(/\|/g, "｜").trim(); if (sv) lines.push(`| ${k} | ${sv} |`); };
   row("購入日", get("purchase_date"));
   row("問い合わせ日", get("inquiry_date"));
   row("不具合の種類", dtype);
