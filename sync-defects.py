@@ -55,8 +55,9 @@ def fetch_issues(repo: str, token: str) -> list[dict]:
             try:
                 items, _ = gh(url, token)
             except urllib.error.HTTPError as e:
-                print(f"WARN {repo} {state} p{page}: {e}", file=sys.stderr)
-                break
+                # 一時的なAPIエラーで部分結果を返すと、公開JSONを欠損状態で上書きしてしまう。
+                # ここで例外を伝播させ、呼び出し側(main)で「書き込まない」判断をさせる。
+                raise RuntimeError(f"{repo} {state} p{page} fetch failed: {e}") from e
             if not items:
                 break
             for it in items:
@@ -79,12 +80,13 @@ _ORDER_RE = re.compile(r"\d{6}-\d{8}-\d{10}")
 _EMAIL_RE = re.compile(r"[\w.+-]+@[\w-]+\.[\w.-]+")
 _PHONE_RE = re.compile(r"(?<!\d)0\d{1,3}[-(]?\d{1,4}[-)]?\d{3,4}(?!\d)")
 _POSTAL_RE = re.compile(r"〒\s?\d{3}-?\d{4}")
-# 構造化テーブル行で値をマスクする PII キー (ロット番号は工場の原因調査に必要なため残す)
+# 構造化テーブル行で値をマスクする PII/業務情報キー
 _PII_ROW_RE = re.compile(
-    r"(\|\s*(?:注文番号|氏名|お名前|名前|投稿者|電話番号|電話|TEL|メール|メールアドレス|E-?mail|住所|郵便番号|郵便|シリアル番号|シリアル)[^|]*\|\s*)([^|]+?)(\s*\|)"
+    r"(\|\s*(?:注文番号|氏名|お名前|名前|投稿者|電話番号|電話|TEL|メール|メールアドレス|E-?mail|住所|郵便番号|郵便|ロット番号|ロット|シリアル番号|シリアル)[^|]*\|\s*)([^|]+?)(\s*\|)"
 )
-# 逐語の顧客テキスト(PII最大)は公開JSONから内容を伏せる。要約/症状/詳細は工場に必要なため残す。
-_FREETEXT_HEADINGS = ("原文",)
+# 顧客の自由記述セクションは公開JSONから内容を伏せる (PII/業務情報の漏えい防止)。
+# AI 生成の「要約」「対策案」は残す。詳細はWeChat要約と管理画面(API実データ)で参照する。
+_FREETEXT_HEADINGS = ("原文", "詳細", "補足", "症状")
 
 
 def _hide_verbatim_sections(text: str) -> str:
@@ -162,13 +164,27 @@ def main() -> int:
     all_shaped: list[dict] = []
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
+    # まず全 repo を取得してから書き込む。1 つでも失敗したら既存ファイルを一切上書きしない
+    # (件数が突然 0 件/片側商品だけになる事故を防止)。
+    fetched: dict[str, list[dict]] = {}
+    failures: list[str] = []
     for product, repo in REPOS.items():
         try:
-            issues = fetch_issues(repo, token)
+            fetched[product] = fetch_issues(repo, token)
         except Exception as e:  # noqa: BLE001
             print(f"ERROR {repo}: {e}", file=sys.stderr)
-            continue
-        shaped = [shape(i, product) for i in issues]
+            failures.append(product)
+
+    if failures:
+        print(
+            f"ERROR: {failures} の取得に失敗したため、既存の公開JSONを保持します (欠損上書き防止)。"
+            " 次回の正常実行で更新されます。",
+            file=sys.stderr,
+        )
+        return 1
+
+    for product, repo in REPOS.items():
+        shaped = [shape(i, product) for i in fetched[product]]
         per_file = {"updatedAt": now, "product": product, "repo": repo, "count": len(shaped), "issues": shaped}
         (out_dir / f"defects-{product}.json").write_text(
             json.dumps(per_file, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"

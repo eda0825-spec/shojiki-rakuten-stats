@@ -29,7 +29,8 @@ jobs:
         run: python3 sync-defects.py
         env:
           DEFECTS_SYNC_PAT: ${{ secrets.DEFECTS_SYNC_PAT }}
-        continue-on-error: true   # PAT 未設定でもワークフロー全体は失敗扱いにしない
+        # PAT 未設定時は exit 0 (skip)。取得失敗時のみ exit 1 で job を失敗させ、
+        # 部分データの commit/push を防ぐ (continue-on-error は付けない)。
 
       - name: Commit and push if changed
         run: |
