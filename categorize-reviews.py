@@ -210,14 +210,19 @@ def categorize_product(product: str, api_key: str, model: str, batch_size: int, 
             row = by_id.get(r["id"])
             if not row:
                 continue
+            # AI 戻り値を許可値で検証 (未知カテゴリ/severity/壊れた配列が UI 集計や CSS を壊さないように)
+            _cat = row.get("category", "other")
+            _sev = row.get("severity", "n/a")
+            _topics = row.get("topics")
+            _hint = row.get("action_hint")
             results[r["id"]] = {
                 "id": r["id"],
-                "category": row.get("category", "other"),
-                "severity": row.get("severity", "n/a"),
-                "summary_ja": row.get("summary_ja", ""),
-                "summary_zh": row.get("summary_zh", ""),
-                "topics": row.get("topics") or [],
-                "action_hint": row.get("action_hint"),
+                "category": _cat if _cat in {"defect", "improvement", "praise", "question", "other", "unclassified"} else "other",
+                "severity": _sev if _sev in {"high", "medium", "low", "n/a"} else "n/a",
+                "summary_ja": str(row.get("summary_ja") or ""),
+                "summary_zh": str(row.get("summary_zh") or ""),
+                "topics": [str(t) for t in _topics][:8] if isinstance(_topics, list) else [],
+                "action_hint": _hint if isinstance(_hint, str) else None,
             }
         processed += len(batch)
         print(f"[{product}] batch {i // batch_size + 1}: +{len(batch)} (running {processed}/{len(todo)})", file=sys.stderr)

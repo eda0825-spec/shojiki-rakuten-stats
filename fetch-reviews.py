@@ -260,16 +260,18 @@ def fetch_product(product: str, item_number: str, max_pages: int, sleep_sec: flo
             file=sys.stderr,
         )
 
-        # Incremental stop: if NOT a full rescan and this page had zero new reviews,
-        # accept after one full page of known reviews (Rakuten orders newest first).
+        # Incremental stop: 楽天の並び替えや古いページへの追記で 1 ページだけ新規ゼロに
+        # なることがあるため、連続 3 ページ全て既知のときだけ停止する (取りこぼし防止)。
         if not full_rescan and page_new == 0 and page_reappeared == 0:
             consecutive_known_pages += 1
-            if consecutive_known_pages >= 1:
+            if consecutive_known_pages >= 3:
                 print(
-                    f"INFO [{product}] page {page} all known, stopping incremental scan",
+                    f"INFO [{product}] {consecutive_known_pages} consecutive known pages, stopping incremental scan",
                     file=sys.stderr,
                 )
                 break
+        else:
+            consecutive_known_pages = 0
 
         if page < max_pages:
             time.sleep(sleep_sec)

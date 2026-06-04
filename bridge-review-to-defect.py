@@ -117,7 +117,7 @@ def build_issue(review: dict, cat: dict, product: str) -> dict:
 🆔 Review ID: `{review.get("id")}`
 """
 
-    labels = ["status:new", "source:customer"]
+    labels = ["type:defect", "status:new", "source:customer"]
     if sev in ("high", "medium", "low"):
         labels.append(f"severity:{sev}")
     # map topics → area labels heuristically
@@ -207,7 +207,7 @@ def main() -> int:
                 print(f"  title: {issue['title']}")
                 print(f"  labels: {issue['labels']}")
                 print(f"  body (first 200 chars): {issue['body'][:200]}")
-                bridged[r['id']] = {"product": product, "dry_run": True}
+                # dry-run では bridged に記録しない (記録すると本番実行時に連携済み扱いで Issue 化されない)
                 continue
             try:
                 resp = gh_post(f"{API}/repos/{repo}/issues", token, issue)
