@@ -76,13 +76,41 @@ def fetch_issues(repo: str, token: str) -> list[dict]:
 # admin はこの JSON ではなく GitHub API から実データを直接取得するため、マスクは
 # 公開(PAT なし)閲覧者にのみ効く。管理側は引き続き実データを閲覧できる。
 _ORDER_RE = re.compile(r"\d{6}-\d{8}-\d{10}")
-_PII_ROW_RE = re.compile(r"(\|\s*(?:注文番号|氏名|お名前|名前|投稿者)[^|]*\|\s*)([^|]+?)(\s*\|)")
+_EMAIL_RE = re.compile(r"[\w.+-]+@[\w-]+\.[\w.-]+")
+_PHONE_RE = re.compile(r"(?<!\d)0\d{1,3}[-(]?\d{1,4}[-)]?\d{3,4}(?!\d)")
+_POSTAL_RE = re.compile(r"〒\s?\d{3}-?\d{4}")
+# 構造化テーブル行で値をマスクする PII キー (ロット番号は工場の原因調査に必要なため残す)
+_PII_ROW_RE = re.compile(
+    r"(\|\s*(?:注文番号|氏名|お名前|名前|投稿者|電話番号|電話|TEL|メール|メールアドレス|E-?mail|住所|郵便番号|郵便|シリアル番号|シリアル)[^|]*\|\s*)([^|]+?)(\s*\|)"
+)
+# 逐語の顧客テキスト(PII最大)は公開JSONから内容を伏せる。要約/症状/詳細は工場に必要なため残す。
+_FREETEXT_HEADINGS = ("原文",)
+
+
+def _hide_verbatim_sections(text: str) -> str:
+    out, skip = [], False
+    for ln in text.split("\n"):
+        h = re.match(r"^#{2,4}\s+(.+?)\s*$", ln)
+        if h:
+            base = re.split(r"\s*/\s*", h.group(1))[0]
+            skip = any(base.startswith(k) for k in _FREETEXT_HEADINGS)
+            out.append(ln)
+            if skip:
+                out.append("（個人情報を含むため管理画面で確認）")
+            continue
+        if not skip:
+            out.append(ln)
+    return "\n".join(out)
 
 
 def mask_pii(text: str) -> str:
     if not text:
         return text
-    t = _ORDER_RE.sub("●●●(管理画面で確認)", text)
+    t = _hide_verbatim_sections(text)
+    t = _ORDER_RE.sub("●●●（管理画面で確認）", t)
+    t = _EMAIL_RE.sub("●●●", t)
+    t = _PHONE_RE.sub("●●●", t)
+    t = _POSTAL_RE.sub("●●●", t)
     t = _PII_ROW_RE.sub(lambda m: m.group(1) + "●●●" + m.group(3), t)
     return t
 
