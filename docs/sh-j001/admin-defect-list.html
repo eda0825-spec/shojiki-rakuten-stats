@@ -1,0 +1,771 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SHOJIKI SH-J001 不具合一覧</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="./simple.css">
+<style>
+  .issue-card {
+    background: #fff; border: 1px solid var(--line);
+    border-radius: 10px; padding: 14px 18px;
+    margin-bottom: 8px;
+  }
+  .issue-card .head {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    flex-wrap: wrap; cursor: pointer;
+    user-select: none;
+  }
+  .issue-card[data-collapsed="false"] .head { margin-bottom: 10px; }
+  .issue-card h3 {
+    margin: 0; font-size: 14px; font-weight: 700; line-height: 1.4;
+    display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0;
+  }
+  .issue-card h3::before {
+    content: "▸"; color: var(--ink); font-size: 18px; font-weight: 700;
+    transition: transform 0.15s; display: inline-block;
+    width: 18px; text-align: center; line-height: 1;
+  }
+  .issue-card[data-collapsed="false"] h3::before { transform: rotate(90deg); }
+  .issue-card .head-meta {
+    font-size: 11px; color: var(--ink-3); white-space: nowrap;
+    display: flex; gap: 10px; align-items: center;
+  }
+  .issue-card[data-collapsed="true"] .body-md { display: none; }
+
+  /* モバイルでは見出しを全幅にし、日付を下に回す (見出しの省略を減らす) */
+  @media (max-width: 520px) {
+    .issue-card .head { align-items: flex-start; }
+    .issue-card h3 { flex-basis: 100%; }
+    .issue-card .head-meta { width: 100%; }
+  }
+
+  .admin-actions {
+    margin-top: 12px; padding-top: 10px;
+    border-top: 1px dashed var(--line);
+    display: flex; gap: 8px; justify-content: flex-end;
+  }
+  .admin-actions button {
+    font: inherit; font-size: 12px; padding: 5px 12px;
+    border: 1px solid var(--line-2); border-radius: 6px;
+    background: #fff; cursor: pointer; color: var(--ink-2);
+  }
+  .admin-actions button:hover { border-color: var(--ink); }
+  .admin-actions button.danger { color: #b8350c; border-color: #f3c4a8; }
+  .admin-actions button.danger:hover { background: #fff5ed; border-color: #d93b3b; color: #d93b3b; }
+
+  /* Sort toolbar */
+  .sort-bar {
+    display: flex; justify-content: flex-end; align-items: center; gap: 6px;
+    margin: 8px 0; font-size: 12px;
+  }
+  .sort-bar .sort-label { color: var(--ink-3); }
+  .sort-bar button {
+    background: #fff; border: 1px solid var(--line);
+    padding: 4px 10px; border-radius: 999px;
+    font-size: 12px; cursor: pointer; font: inherit;
+    color: var(--ink-2);
+  }
+  .sort-bar button:hover { border-color: var(--ink-3); }
+  .sort-bar button.active {
+    background: var(--ink); color: #fff; border-color: var(--ink); font-weight: 600;
+  }
+  .issue-tag {
+    background: #f0f0f3; color: var(--ink-2);
+    padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600;
+  }
+  .issue-tag.sev-high { background: #d93b3b; color: #fff; }
+  .issue-tag.sev-medium { background: #d98330; color: #fff; }
+  .issue-tag.sev-low { background: #f0f0f3; color: var(--ink-2); }
+  .issue-tag.status-open { background: #eef6ff; color: #114178; }
+  .issue-tag.status-closed { background: #effaf0; color: #0f5c2b; }
+
+  .body-md { font-size: 13px; line-height: 1.7; color: var(--ink); }
+  .body-md table {
+    border-collapse: collapse; margin: 8px 0;
+    width: 100%; max-width: 540px;
+  }
+  .body-md th, .body-md td {
+    border: 1px solid var(--line); padding: 6px 12px;
+    text-align: left; vertical-align: top;
+  }
+  .body-md th { background: #f6f6f8; font-weight: 600; font-size: 12px; width: 120px; }
+  .body-md td { background: #fff; }
+  .body-md h2, .body-md h3 {
+    font-size: 13px; font-weight: 700; margin: 12px 0 6px;
+    color: var(--ink-2);
+  }
+  .body-md img {
+    max-width: 320px; max-height: 240px; border-radius: 6px;
+    border: 1px solid var(--line); margin: 6px 6px 6px 0;
+    cursor: zoom-in;
+  }
+  .body-md video {
+    max-width: 480px; max-height: 320px; border-radius: 6px;
+    border: 1px solid var(--line); margin: 6px 0;
+  }
+  .body-md a { color: var(--accent); text-decoration: underline; word-break: break-all; }
+  .body-md p { margin: 6px 0; }
+  .body-md ul { margin: 6px 0; padding-left: 22px; }
+
+  .img-lightbox {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+    display: none; align-items: center; justify-content: center; z-index: 999;
+    padding: 20px; cursor: zoom-out;
+  }
+  .img-lightbox.open { display: flex; }
+  .img-lightbox img { max-width: 95vw; max-height: 95vh; }
+
+  .summary-line {
+    background: #f6f6f8; padding: 12px 18px;
+    border-radius: 10px; margin-bottom: 16px;
+    display: flex; gap: 24px; flex-wrap: wrap;
+    font-size: 14px;
+  }
+  .summary-line strong { font-size: 20px; font-weight: 700; }
+  .summary-line .open strong { color: #114178; }
+  .summary-line .closed strong { color: #0f5c2b; }
+  .summary-line[hidden] { display: none; }
+
+  .empty-hero {
+    text-align: center; padding: 60px 20px;
+    background: #fff; border: 1px solid var(--line);
+    border-radius: 14px;
+  }
+  .empty-hero .emoji { font-size: 64px; margin-bottom: 12px; }
+  .empty-hero h2 { margin: 0 0 6px; font-size: 18px; }
+  .empty-hero p { margin: 0; color: var(--ink-3); font-size: 13px; }
+
+  /* Aggregation section */
+  .agg-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 720px) { .agg-grid { grid-template-columns: 1fr; } }
+  .agg-card {
+    background: #fff; border: 1px solid var(--line);
+    border-radius: 12px; padding: 14px 16px;
+  }
+  .agg-card h4 {
+    margin: 0 0 10px; font-size: 12px; font-weight: 700;
+    color: var(--ink-2); letter-spacing: 0.02em;
+  }
+  .agg-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; font-size: 12px; }
+  .agg-bar .label { min-width: 92px; color: var(--ink); }
+  .agg-bar .bar-track {
+    flex: 1; height: 16px; background: #f0f0f3; border-radius: 4px; overflow: hidden;
+  }
+  .agg-bar .bar-fill { height: 100%; background: #d93b3b; border-radius: 4px; }
+  .agg-bar .bar-fill.o { background: #d98330; }
+  .agg-bar .bar-fill.g { background: #20a55a; }
+  .agg-bar .bar-fill.b { background: #4a7dbf; }
+  .agg-bar .count { min-width: 24px; text-align: right; color: var(--ink-3); font-weight: 600; }
+
+  .insights-box {
+    background: linear-gradient(135deg, #fff7e6 0%, #fff5f5 100%);
+    border: 1px solid #f3d99c;
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+  }
+  .insights-box h4 {
+    margin: 0 0 8px; font-size: 13px; font-weight: 700;
+    color: #6b4a00;
+  }
+  .insights-box .narr { font-size: 13px; line-height: 1.7; color: var(--ink); margin: 0 0 10px; }
+  .insights-box ol { margin: 6px 0 0; padding-left: 22px; font-size: 13px; line-height: 1.7; }
+  .insights-box ol li { margin-bottom: 2px; }
+  .insights-box .src { font-size: 11px; color: var(--ink-3); margin-top: 8px; text-align: right; }
+</style>
+</head>
+<body class="lang-ja">
+
+<header class="hdr">
+  <div class="hdr-inner">
+    <div class="hdr-title">
+      <span class="brand">SHOJIKI</span>
+      <span class="sub" style="font-weight:600;color:var(--ink)">SH-J001</span>
+      <span class="sub ja-only">不具合一覧</span>
+      <span class="sub zh-only">故障列表</span>
+    </div>
+    <div class="hdr-meta">
+      <div class="lang-toggle">
+        <button data-lang="ja" class="active">日本語</button>
+        <button data-lang="zh">中文</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="topnav">
+  <a href="./"             class="tn-item"><span class="ja-only">🏠 TOP</span><span class="zh-only">🏠 总览</span></a>
+  <a href="./defects.html" class="tn-item active"><span class="ja-only">🔧 不具合</span><span class="zh-only">🔧 故障</span></a>
+  <a href="./returns.html" class="tn-item"><span class="ja-only">📦 返品</span><span class="zh-only">📦 退货</span></a>
+  <a href="./feedback.html" class="tn-item"><span class="ja-only">💬 お客様の声</span><span class="zh-only">💬 客户反馈</span></a>
+</nav>
+
+<main id="app" style="max-width:960px">
+
+  <!-- AI insights -->
+  <section id="ai-insights" class="insights-box" hidden>
+    <h4>
+      <span class="ja-only">💡 改善提案 (AI 自動分析)</span>
+      <span class="zh-only">💡 改善建议 (AI 自动分析)</span>
+    </h4>
+    <div id="ai-headline" style="font-size:15px;font-weight:700;margin:2px 0 6px;color:#6b4a00"></div>
+    <p class="narr" id="ai-narr"></p>
+    <div id="ai-find-wrap" style="margin-top:6px">
+      <strong style="font-size:12px"><span class="ja-only">📌 主な傾向 (優先順)</span><span class="zh-only">📌 主要趋势 (优先)</span></strong>
+      <ol id="ai-find" style="margin:4px 0 0;padding-left:20px;font-size:12.5px;line-height:1.6"></ol>
+    </div>
+    <div style="margin-top:8px">
+      <strong style="font-size:12px">
+        <span class="ja-only">🎯 改善アクション</span>
+        <span class="zh-only">🎯 改善行动</span>
+      </strong>
+      <ol id="ai-acts"></ol>
+    </div>
+    <div class="src">
+      <span class="ja-only">🤖 Claude AI ・ 不具合データのみから生成</span>
+      <span class="zh-only">🤖 Claude AI ・ 仅基于故障数据生成</span>
+    </div>
+  </section>
+
+  <!-- Aggregation charts -->
+  <section id="agg-section" hidden>
+    <h3 style="font-size:14px;font-weight:700;margin:0 0 8px;color:var(--ink-2)">
+      <span class="ja-only">📊 不具合データ内訳</span>
+      <span class="zh-only">📊 故障数据明细</span>
+    </h3>
+    <div class="agg-grid">
+      <div class="agg-card">
+        <h4><span class="ja-only">不具合の種類別</span><span class="zh-only">故障类型</span></h4>
+        <div id="agg-type"></div>
+      </div>
+      <div class="agg-card">
+        <h4><span class="ja-only">深刻度別</span><span class="zh-only">严重度</span></h4>
+        <div id="agg-sev"></div>
+      </div>
+      <div class="agg-card">
+        <h4><span class="ja-only">報告元</span><span class="zh-only">报告来源</span></h4>
+        <div id="agg-src"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sort-bar" id="sort-bar" hidden>
+    <span class="sort-label">
+      <span class="ja-only">並び順:</span><span class="zh-only">排序:</span>
+    </span>
+    <button data-sort="desc" class="active"><span class="ja-only">新しい順</span><span class="zh-only">最新</span></button>
+    <button data-sort="asc"><span class="ja-only">古い順</span><span class="zh-only">最早</span></button>
+  </div>
+
+  <div id="issue-list"></div>
+
+  <div id="empty" class="empty-hero" hidden>
+    <div class="emoji">📭</div>
+    <h2><span class="ja-only">まだ不具合報告はありません</span><span class="zh-only">还没有故障报告</span></h2>
+    <p>
+      <span class="ja-only">問題が登録されると、ここに一覧で表示されます</span>
+      <span class="zh-only">问题登记后会在此处显示列表</span>
+    </p>
+  </div>
+
+</main>
+
+<div id="img-lightbox" class="img-lightbox"><img id="img-lightbox-img" src="" alt=""></div>
+
+<script>
+const ADMIN_MODE = true;
+const PRODUCT = "sh-j001";
+const REPO = "eda0825-spec/shojiki-rakuten-stats";
+const BRANCH = "main";
+const ISSUE_REPO = "eda0825-spec/shojiki-defects-j001";
+const LS_LANG_KEY = "shojiki-dashboard-lang";
+const LS_PAT_KEY = "shojiki-uploader-pat";
+
+function getPAT() {
+  try { return localStorage.getItem(LS_PAT_KEY); } catch(e) { return null; }
+}
+
+async function closeIssue(num) {
+  const pat = getPAT();
+  if (!pat) return false;
+  try {
+    const r = await fetch(`https://api.github.com/repos/${ISSUE_REPO}/issues/${num}`, {
+      method: "PATCH",
+      headers: {
+        "Authorization": `Bearer ${pat}`,
+        "Accept": "application/vnd.github+json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ state: "closed", state_reason: "not_planned" }),
+    });
+    return r.ok;
+  } catch (e) { console.error(e); return false; }
+}
+
+function applyLang(lang) {
+  document.body.classList.toggle("lang-ja", lang === "ja");
+  document.body.classList.toggle("lang-zh", lang === "zh");
+  document.querySelectorAll(".lang-toggle button").forEach(b => b.classList.toggle("active", b.dataset.lang === lang));
+}
+(function initLang() {
+  const lang = (typeof localStorage !== "undefined" && localStorage.getItem(LS_LANG_KEY)) || "ja";
+  applyLang(lang);
+  document.querySelectorAll(".lang-toggle button").forEach(b => {
+    b.addEventListener("click", () => {
+      const l = b.dataset.lang;
+      try { localStorage.setItem(LS_LANG_KEY, l); } catch(e) {}
+      applyLang(l);
+      reflow();
+    });
+  });
+})();
+
+function esc(s) {
+  return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+function safeUrl(u) {
+  const raw = String(u == null ? "" : u).replace(/&amp;/g, "&").trim();
+  return /^https?:\/\//i.test(raw) ? esc(raw) : "";
+}
+
+// 用語の日→中 辞書 (長い語を先に置換)。中文モードで値内の日本語キーワードを変換。
+const ZH_TERMS = [
+  ["関連不具合 Issue", "关联故障 Issue"], ["不具合の種類", "故障类型"], ["不具合 (動作不良)", "故障 (动作不良)"],
+  ["製品への不満", "对产品不满"], ["問い合わせ日", "咨询日期"], ["充電・バッテリー", "充电·电池"],
+  ["充電スタンド", "充电支架"], ["充電端子", "充电端子"], ["購入チャネル", "购买渠道"],
+  ["シリアル番号", "序列号"], ["想定原因", "推测原因"], ["ダストカップ", "尘杯"],
+  ["操作・ボタン", "操作·按钮"], ["デザイン・外装", "设计·外观"], ["重量・サイズ", "重量·尺寸"],
+  ["LED・ライト", "LED·灯"], ["本体破損", "机身破损"], ["基本機能", "基本功能"],
+  ["購入日", "购买日期"], ["返品日", "退货日期"], ["注文番号", "订单号"], ["ロット番号", "批次号"],
+  ["バッテリー", "电池"], ["フィルター", "滤网"], ["ローラー", "滚轮"], ["動作不良", "动作不良"],
+  ["報告元", "报告来源"], ["購入者", "购买者"], ["投稿者", "投稿人"], ["吸引力", "吸力"],
+  ["深刻度", "严重度"], ["操作性", "操作性"], ["デザイン", "设计"], ["ヘッド", "刷头"],
+  ["ノズル", "喷嘴"], ["ブラシ", "刷子"], ["ライト", "灯"], ["異音", "异响"], ["外装", "外观"],
+  ["重量", "重量"], ["サイズ", "尺寸"], ["充電", "充电"], ["返金", "退款"], ["交換", "换货"],
+  ["楽天", "乐天"], ["理由", "原因"], ["対応", "处理"], ["詳細", "详情"], ["補足", "补充"],
+  ["症状", "症状"], ["破損", "破损"], ["逆流", "逆流"], ["顧客", "客户"], ["商品", "产品"],
+  ["評価", "评价"], ["日付", "日期"], ["不具合", "故障"], ["返品", "退货"],
+];
+// "日本語 / 中文" 併記文字列から現在の表示言語側を返し、中文時は用語も変換
+function localize(str) {
+  if (str == null) return "";
+  let s = String(str);
+  const idx = s.indexOf(" / ");
+  if (idx > 0) {
+    const ja = s.slice(0, idx).trim();
+    const zh = s.slice(idx + 3).trim();
+    if (ja && zh && zh.indexOf(" / ") === -1) {
+      s = document.body.classList.contains("lang-zh") ? zh : ja;
+    }
+  }
+  if (document.body.classList.contains("lang-zh")) {
+    for (const [j, z] of ZH_TERMS) { if (s.indexOf(j) >= 0) s = s.split(j).join(z); }
+  }
+  return s;
+}
+
+function md2html(src) {
+  if (!src) return "";
+  const lines = String(src).replace(/\r\n/g, "\n").split("\n");
+  let out = []; let i = 0;
+  while (i < lines.length) {
+    const ln = lines[i];
+    let h = ln.match(/^(#{2,3})\s+(.+)$/);
+    if (h) { out.push(`<h3>${esc(h[2])}</h3>`); i++; continue; }
+
+    if (ln.includes("|") && i + 1 < lines.length && /^\s*\|?[\s:-]+\|[\s:|-]+$/.test(lines[i+1])) {
+      const splitRow = (row) => row.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim());
+      const head = splitRow(ln);
+      i += 2;
+      let rows = [];
+      while (i < lines.length && lines[i].includes("|")) { rows.push(splitRow(lines[i])); i++; }
+      out.push("<table><thead><tr>" + head.map(c => `<th>${inline(c)}</th>`).join("") + "</tr></thead><tbody>" +
+        rows.map(r => "<tr>" + r.map(c => `<td>${inline(c)}</td>`).join("") + "</tr>").join("") +
+        "</tbody></table>");
+      continue;
+    }
+
+    if (!ln.trim()) { out.push(""); i++; continue; }
+
+    let img = ln.match(/^!\[([^\]]*)\]\(([^)]+)\)\s*$/);
+    if (img) {
+      const url = safeUrl(img[2]);
+      out.push(url ? `<p><img src="${url}" alt="${esc(img[1])}" loading="lazy"></p>` : `<p>${esc(img[1])} (${esc(img[2])})</p>`);
+      i++; continue;
+    }
+
+    let buf = [ln]; i++;
+    while (i < lines.length && lines[i].trim() && !lines[i].includes("|") && !/^#{2,3}\s/.test(lines[i])) {
+      buf.push(lines[i]); i++;
+    }
+    out.push(`<p>${inline(buf.join("<br>"))}</p>`);
+  }
+  return out.join("\n");
+}
+
+function inline(s) {
+  s = esc(s);
+  s = s.replace(/&lt;br&gt;/g, "<br>");
+  s = s.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, a, u) => {
+    const url = safeUrl(u);
+    return url ? `<img src="${url}" alt="${a}" loading="lazy">` : `${a} (${u})`;
+  });
+  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, t, u) => {
+    const url = safeUrl(u);
+    if (!url) return `${t} (${u})`;
+    if (/\.(mp4|mov|webm|m4v)(\?|$)/i.test(u)) {
+      return `<video controls preload="metadata"><source src="${url}"></video>`;
+    }
+    return `<a href="${url}" target="_blank" rel="noopener">${t}</a>`;
+  });
+  s = s.replace(/(^|[\s>])(https?:\/\/[^\s<]+\.(?:jpg|jpeg|png|gif|webp))/gi,
+    (_, p, u) => {
+      const url = safeUrl(u);
+      return url ? `${p}<img src="${url}" loading="lazy" alt="">` : `${p}${u}`;
+    });
+  s = s.replace(/(^|[\s>])(https?:\/\/[^\s<]+\.(?:mp4|mov|webm|m4v))/gi,
+    (_, p, u) => {
+      const url = safeUrl(u);
+      return url ? `${p}<video controls preload="metadata"><source src="${url}"></video>` : `${p}${u}`;
+    });
+  s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  return s;
+}
+
+let cachedIssues = null;
+let cachedSummary = null;
+let sortOrder = "desc";
+
+// "type:return" Issue は返品ページ側で表示するため、不具合ページからは除外
+function isDefectIssue(i) {
+  const labels = (i.labels || []).map(l => String(l).toLowerCase());
+  if (labels.some(l => l.includes("return"))) return false;
+  return true;
+}
+
+// Parse markdown body → { fields, sections, mediaLines }
+function parseBody(body) {
+  const fields = {};
+  const sections = {};
+  const mediaLines = [];
+  if (!body) return { fields, sections, mediaLines };
+  const lines = String(body).replace(/\r\n/g, "\n").split("\n");
+  let curHeading = null;
+  let buf = [];
+  const flush = () => {
+    if (curHeading && buf.length) sections[curHeading] = buf.join("\n").trim();
+    buf = [];
+  };
+  for (let i = 0; i < lines.length; i++) {
+    const ln = lines[i];
+    const h = ln.match(/^#{2,3}\s+(.+)$/);
+    if (h) { flush(); curHeading = h[1].trim(); continue; }
+    if (ln.includes("|") && !/^\s*\|?[\s:-]+\|[\s:|-]+$/.test(ln)) {
+      const cells = ln.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim());
+      const _kja = cells[0].split(" / ")[0].trim();
+      if (cells.length === 2 && cells[0] && cells[1] && _kja !== "項目" && _kja !== "値") {
+        fields[cells[0]] = cells[1];
+        continue;
+      }
+    }
+    if (/^\s*\|?[\s:-]+\|[\s:|-]+$/.test(ln)) continue;
+    if (curHeading) buf.push(ln);
+  }
+  flush();
+  return { fields, sections, mediaLines };
+}
+
+function makeHeadline(issue, parsed) {
+  const detail = parsed.sections["症状 (日本語)"] || parsed.sections["症状"] || parsed.sections["詳細"] || "";
+  const MAX = 48;
+  // 症状文があればそれ、無ければタイトルから [タグ] を除去したものを元ネタに
+  const src = detail || String(issue.title || "").replace(/^\s*(\[[^\]]+\]\s*){1,3}/, "").trim() || String(issue.title || "");
+  // 第1文 (。/改行 区切り) だけを見出しにする
+  let first = src.split(/[。\n]/)[0].trim();
+  if (first.length > MAX) {
+    // 長い場合は読点で意味を保ったまま詰める
+    const byComma = first.split(/[、,]/);
+    let acc = "";
+    for (const c of byComma) {
+      const candidate = acc ? acc + "、" + c : c;
+      if (candidate.length > MAX) break;
+      acc = candidate;
+    }
+    first = acc && acc.length >= 8 ? acc : first.slice(0, MAX) + "…";
+  }
+  return first || src;
+}
+
+function renderDetails(parsed) {
+  const order = ["購入日", "問い合わせ日", "不具合の種類", "報告元", "深刻度", "ロット番号", "シリアル番号", "ロット番号 / 批次号", "シリアル番号 (任意) / 序列号 (可选)"];
+  const rows = [];
+  order.forEach(k => { if (parsed.fields[k]) rows.push([k, parsed.fields[k]]); });
+  Object.keys(parsed.fields).forEach(k => {
+    if (!order.includes(k)) rows.push([k, parsed.fields[k]]);
+  });
+  // Include 症状 + 想定原因 + 補足 sections in the table
+  const inlineSecs = ["症状 (日本語)", "症状 (中文)", "症状", "詳細", "想定原因 (任意) / 推測原因 (可选)", "想定原因", "補足", "補足 / 补充内容"];
+  const _zhMode = document.body.classList.contains("lang-zh");
+  inlineSecs.forEach(name => {
+    if (!parsed.sections[name]) return;
+    if (_zhMode && /日本語/.test(name)) return;
+    if (!_zhMode && /中文/.test(name)) return;
+    rows.push([name, parsed.sections[name]]);
+  });
+
+  let html = "";
+  if (rows.length) {
+    html += `<table><tbody>` +
+      rows.map(([k, v]) => `<tr><th>${esc(localize(k))}</th><td>${inline(localize(String(v).replace(/\n/g, "<br>")))}</td></tr>`).join("") +
+      `</tbody></table>`;
+  }
+  // Media block (写真 / 動画 URL)
+  const _mediaSecs = ["添付ファイル", "写真 / 照片", "写真", "写真・動画", "動画 URL / 视频链接", "動画 URL"];
+  let media = "";
+  _mediaSecs.forEach(n => { if (parsed.sections[n]) media += "\n" + parsed.sections[n]; });
+  // 旧形式の生 <video> タグは除去 (隣の markdown リンクが <video> として描画される)
+  media = media.replace(/<video[\s\S]*?<\/video>/gi, "").replace(/<video[^>]*>/gi, "");
+  if (media && media.trim()) {
+    html += `<div style="margin-top:8px">` + inline(media).replace(/\n/g, "") + `</div>`;
+  }
+  return html;
+}
+
+// Fallback: extract type+severity from title pattern "[J001] [高] [本体破損] 症状..."
+function parseTitle(title) {
+  const out = {};
+  const t = String(title || "");
+  const sev = t.match(/\[\s*(高|中|低)\s*\]/);
+  if (sev) out.severity = sev[1];
+  const brackets = [...t.matchAll(/\[([^\]]+)\]/g)].map(m => m[1].trim());
+  // skip leading [J00X] and severity bracket
+  const knownSeverity = new Set(["高","中","低"]);
+  const knownPrefix = /^J\d{3}/;
+  const candidates = brackets.filter(b => !knownPrefix.test(b) && !knownSeverity.has(b));
+  if (candidates.length) out.defect_type = candidates[0];
+  return out;
+}
+
+function aggregate(issues, getter) {
+  const counts = {};
+  issues.forEach(i => {
+    const fields = parseBody(i.body || i.body_excerpt).fields;
+    const titleFields = parseTitle(i.title);
+    const v = getter(fields, titleFields, i);
+    if (!v) return;
+    counts[v] = (counts[v] || 0) + 1;
+  });
+  return Object.entries(counts).sort((a, b) => b[1] - a[1]);
+}
+
+function renderBars(containerId, data, color) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  if (data.length === 0) {
+    el.innerHTML = `<div style="color:var(--ink-3);font-size:12px">—</div>`;
+    return;
+  }
+  const max = Math.max(...data.map(d => d[1]));
+  el.innerHTML = data.slice(0, 6).map(([k, v]) => `
+    <div class="agg-bar">
+      <span class="label">${esc(k)}</span>
+      <span class="bar-track"><span class="bar-fill ${color || ""}" style="width:${(v/max*100)}%"></span></span>
+      <span class="count">${v}</span>
+    </div>`).join("");
+}
+
+// PAT があれば GitHub Issues API から直接取得 (リアルタイム反映)。
+// private リポでも認証で読めるので、投稿直後でも待ち時間なく一覧に出る。
+async function fetchIssuesLive(pat) {
+  const out = [];
+  for (let page = 1; page <= 3; page++) {
+    const r = await fetch(`https://api.github.com/repos/${ISSUE_REPO}/issues?state=all&per_page=100&page=${page}&sort=updated&direction=desc`, {
+      headers: { "Authorization": `Bearer ${pat}`, "Accept": "application/vnd.github+json" },
+      cache: "no-cache",
+    });
+    if (!r.ok) throw new Error("GitHub API " + r.status);
+    const batch = await r.json();
+    if (!Array.isArray(batch) || !batch.length) break;
+    for (const it of batch) {
+      if (it.pull_request) continue;
+      out.push({
+        number: it.number, title: it.title,
+        body: it.body || "", body_excerpt: it.body || "",
+        state: it.state,
+        labels: (it.labels || []).map(l => typeof l === "string" ? l : (l && l.name) || ""),
+        updated_at: it.updated_at, created_at: it.created_at,
+        product: PRODUCT,
+      });
+    }
+    if (batch.length < 100) break;
+  }
+  return out;
+}
+
+async function load() {
+  const pat = getPAT();
+  try {
+    if (pat) {
+      const issues = await fetchIssuesLive(pat);
+      cachedIssues = issues.filter(i => i.state !== "closed" && isDefectIssue(i));
+    } else {
+      const r = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" })
+        .catch(() => fetch(`https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" }));
+      if (!r.ok) { reflow(); return; }
+      const data = await r.json();
+      cachedIssues = (data.issues || []).filter(i => i.product === PRODUCT && i.state !== "closed" && isDefectIssue(i));
+    }
+  } catch (e) {
+    cachedIssues = [];
+  }
+  // summary-*.json は小さく更新頻度が高いので raw を優先 (jsdelivr は 12h cache)
+  try {
+    const sr = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/summary-${PRODUCT}.json`, { cache: "no-cache" })
+      .catch(() => fetch(`https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/summary-${PRODUCT}.json`, { cache: "no-cache" }));
+    if (sr.ok) cachedSummary = await sr.json();
+  } catch (e) {}
+  reflow();
+}
+
+function reflow() {
+  const rawIssues = cachedIssues || [];
+
+  const empty = document.getElementById("empty");
+  const list = document.getElementById("issue-list");
+  const agg = document.getElementById("agg-section");
+  const ai = document.getElementById("ai-insights");
+  const sortBar = document.getElementById("sort-bar");
+
+  if (rawIssues.length === 0) {
+    if (agg) agg.hidden = true;
+    if (ai) ai.hidden = true;
+    if (sortBar) sortBar.hidden = true;
+    empty.hidden = false;
+    list.innerHTML = "";
+    return;
+  }
+  empty.hidden = true;
+  if (sortBar) sortBar.hidden = false;
+
+  const issues = [...rawIssues].sort((a, b) => {
+    const da = a.updated_at || "";
+    const db = b.updated_at || "";
+    return sortOrder === "asc" ? da.localeCompare(db) : db.localeCompare(da);
+  });
+
+  // Aggregations
+  if (agg) {
+    agg.hidden = false;
+    renderBars("agg-type", aggregate(issues, (f, t) => f["不具合の種類"] || t.defect_type), "");
+    renderBars("agg-sev",  aggregate(issues, (f, t) => f["深刻度"] || t.severity), "o");
+    renderBars("agg-src",  aggregate(issues, (f) => f["報告元"]), "b");
+  }
+
+  // AI insights — DEFECTS ONLY
+  if (ai && cachedSummary && cachedSummary.defects_summary) {
+    const isJa = document.body.classList.contains("lang-ja");
+    const block = isJa ? cachedSummary.defects_summary.summary_ja
+                       : cachedSummary.defects_summary.summary_zh;
+    if (block) {
+      ai.hidden = false;
+      const _hl = document.getElementById("ai-headline"); if (_hl) _hl.textContent = block.headline || "";
+      document.getElementById("ai-narr").textContent = block.narrative || "";
+      const _fd = document.getElementById("ai-find");
+      const _fw = document.getElementById("ai-find-wrap");
+      const kf = block.key_findings || [];
+      if (_fd) _fd.innerHTML = kf.map(f => `<li><strong>${esc(f.topic || "")}</strong>${f.count ? ` (${f.count})` : ""}${f.finding ? "：" + esc(f.finding) : ""}</li>`).join("");
+      if (_fw) _fw.style.display = kf.length ? "" : "none";
+      document.getElementById("ai-acts").innerHTML = (block.actions || [])
+        .map(a => `<li>${esc(a)}</li>`).join("");
+    }
+  }
+
+  const byOldest = [...issues].sort((a, b) => a.number - b.number);
+  const noMap = new Map();
+  byOldest.forEach((it, idx) => noMap.set(it.number, idx + 1));
+
+  const isJa = document.body.classList.contains("lang-ja");
+  const aiHeads = (cachedSummary && cachedSummary.issue_headlines) || {};
+  const isAdmin = (typeof ADMIN_MODE !== "undefined" && ADMIN_MODE) && !!getPAT();
+
+  list.innerHTML = issues.slice(0, 100).map(i => {
+    const parsed = parseBody(i.body || i.body_excerpt);
+    const aiH = aiHeads[String(i.number)];
+    const headline = (aiH && (isJa ? aiH.ja : aiH.zh)) || makeHeadline(i, parsed);
+    const no = noMap.get(i.number) || "";
+    const adminHtml = isAdmin ? `
+      <div class="admin-actions">
+        <button type="button" data-action="edit" data-num="${i.number}">✏️ 編集</button>
+        <button type="button" data-action="close" data-num="${i.number}" class="danger">🗑️ 削除</button>
+      </div>` : "";
+    return `
+    <article class="issue-card" data-collapsed="true" data-issue="${i.number}">
+      <div class="head">
+        <h3><span style="color:var(--ink-3);font-weight:600;margin-right:6px;flex-shrink:0">No.${no}</span><span style="overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.4">${esc(headline)}</span></h3>
+        <div class="head-meta">
+          <span>${esc((i.updated_at || "").slice(0,10))}</span>
+        </div>
+      </div>
+      <div class="body-md">${renderDetails(parsed)}${adminHtml}</div>
+    </article>`;
+  }).join("");
+
+  list.querySelectorAll(".issue-card .head").forEach(head => {
+    head.addEventListener("click", () => {
+      const card = head.closest(".issue-card");
+      card.dataset.collapsed = card.dataset.collapsed === "true" ? "false" : "true";
+    });
+  });
+
+  list.querySelectorAll('.admin-actions button').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const num = btn.dataset.num;
+      const action = btn.dataset.action;
+      if (action === 'edit') {
+        location.href = `./admin-defect.html?issue=${num}`;
+      } else if (action === 'close') {
+        if (!confirm(`No.${noMap.get(parseInt(num))} を削除 (クローズ) します。よろしいですか?`)) return;
+        closeIssue(num).then(ok => {
+          if (ok) { alert('削除しました。'); location.reload(); }
+          else alert('削除に失敗しました。PAT 権限を確認してください。');
+        });
+      }
+    });
+  });
+
+  document.querySelectorAll(".body-md img").forEach(img => {
+    img.addEventListener("click", () => {
+      const lb = document.getElementById("img-lightbox");
+      document.getElementById("img-lightbox-img").src = img.src;
+      lb.classList.add("open");
+    });
+  });
+}
+
+document.getElementById("img-lightbox").addEventListener("click", e => {
+  e.currentTarget.classList.remove("open");
+});
+
+document.querySelectorAll("#sort-bar button").forEach(b => {
+  b.addEventListener("click", () => {
+    sortOrder = b.dataset.sort;
+    document.querySelectorAll("#sort-bar button").forEach(x => x.classList.toggle("active", x.dataset.sort === sortOrder));
+    reflow();
+  });
+});
+
+load();
+</script>
+
+<script src="./sticky-nav.js"></script>
+</body>
+</html>
