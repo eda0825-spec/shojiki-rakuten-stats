@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-04T12:05:08Z",
+  "updatedAt": "2026-06-04T16:23:37Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-04T12:05:08Z",
-  "count": 206,
+  "sourceUpdatedAt": "2026-06-04T16:23:03Z",
+  "count": 215,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -2596,6 +2596,120 @@
         "操作性"
       ],
       "action_hint": "ダストカップのゴミ捨てボタンの位置・形状・操作力を見直し、直感的に操作できる設計に改善する"
+    },
+    {
+      "id": "65de6da34bfe5971",
+      "category": "other",
+      "severity": "n/a",
+      "summary_ja": "価格に見合った性能と店舗の誠意を評価。製品への具体的言及なし。",
+      "summary_zh": "认为性价比合适，对店铺服务态度给予好评，无具体产品反馈。",
+      "topics": [
+        "総合評価"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "7e17df9d95479dd2",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "静音・自走・軽量・吸引力の4点を満足と評価。",
+      "summary_zh": "对低噪音、自走功能、轻量化及吸力四项均表示满意。",
+      "topics": [
+        "静音性",
+        "自走機能",
+        "吸引力",
+        "重量"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "12d0932c6b8d9860",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・静音・吸引力を高評価。梱包・配送の丁寧さも好評。",
+      "summary_zh": "对轻量、低噪音、吸力给予高度评价，同时称赞包装细致、发货迅速。",
+      "topics": [
+        "重量",
+        "静音性",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "afb9b970959a6ff8",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽量・コンパクトヘッド・自立収納を高評価。ダストカップ満杯時の吸引力低下を指摘。",
+      "summary_zh": "对轻量、紧凑吸头及自立收纳给予好评；指出尘杯装满后吸力明显下降。",
+      "topics": [
+        "吸引力",
+        "ダストカップ",
+        "フィルター"
+      ],
+      "action_hint": "ダストカップ容量拡大またはフィルター目詰まり抑制構造の見直しを検討する"
+    },
+    {
+      "id": "14fc404d6b88da98",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "梱包・説明書・本体の小型軽量・ダストカップの開閉フィット感を高評価。",
+      "summary_zh": "对包装、说明书、机身小巧轻量及尘杯开合卡扣手感均给予高度评价。",
+      "topics": [
+        "ダストカップ",
+        "回転ブラシ",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "d23286b405b28d28",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コンパクトさとデザインを気に入っている。",
+      "summary_zh": "对产品紧凑的尺寸和外观设计表示满意。",
+      "topics": [
+        "デザイン",
+        "コンパクト"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "3f369b73ec20844a",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽量・吸引力は満足だが、ダストカップ容量が想定より小さく大掃除には不向きと指摘。",
+      "summary_zh": "对轻量化和吸力表示满意，但指出尘杯容积小于预期，不适合大面积清扫。",
+      "topics": [
+        "ダストカップ",
+        "容量"
+      ],
+      "action_hint": "ダストカップ容量の拡大またはラインナップに大容量モデルの追加を検討する"
+    },
+    {
+      "id": "3d8d3200b0c7f5fe",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "吸引力・バッテリーは十分だが、ヘッドの取り回しが他社製品より劣ると指摘。",
+      "summary_zh": "吸力和续航表现充分，但反映吸头转向灵活性不及竞品，操控不够顺畅。",
+      "topics": [
+        "ヘッド",
+        "操作性",
+        "取り回し"
+      ],
+      "action_hint": "ヘッドの旋回抵抗・ジョイント構造を見直し、取り回し性の改善を検討する"
+    },
+    {
+      "id": "57d86e21ac40e92d",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で操作が簡単、自立機能と省スペース収納が高評価。母親世代にも使いやすい。",
+      "summary_zh": "机身轻巧、操作简便，自立功能及省空间收纳设计获得好评，适合老年用户使用。",
+      "topics": [
+        "重量",
+        "自立機能",
+        "収納"
+      ],
+      "action_hint": null
     }
   ]
 }
