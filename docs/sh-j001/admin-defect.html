@@ -387,7 +387,8 @@ const PRODUCT = "sh-j001";
 const STORAGE_REPO = "eda0825-spec/shojiki-rakuten-stats";   // where videos are committed
 const LS_LANG_KEY = "shojiki-dashboard-lang";
 const LS_PAT_KEY = "shojiki-uploader-pat";
-const LS_ANTHROPIC_KEY = "shojiki-anthropic-key";
+const AI_REWRITE_ENDPOINT = ""; // Set to a server-side proxy endpoint. Never store model API keys in the browser.
+try { localStorage.removeItem("shojiki-anthropic-key"); } catch(e) {}
 
 // ===== AI rewrite (customer comment → defect symptom) =====
 const aiBackup = {};   // textarea name → previous content (for undo)
@@ -396,80 +397,41 @@ async function aiRewrite(fieldName) {
   const ta = document.querySelector(`textarea[name="${fieldName}"]`);
   const text = (ta.value || "").trim();
   if (!text) { alert("先に顧客コメントを貼り付けてください"); return; }
-  let key = localStorage.getItem(LS_ANTHROPIC_KEY);
-  if (!key) {
-    key = prompt(
-      "Anthropic API キーを入力してください (一度だけ。ブラウザに保存)\n" +
-      "発行: https://console.anthropic.com/settings/keys"
-    );
-    if (!key || !key.startsWith("sk-ant-")) {
-      alert("有効な API キーが入力されませんでした");
-      return;
-    }
-    localStorage.setItem(LS_ANTHROPIC_KEY, key.trim());
-  }
 
   const isJa = fieldName === "symptom_ja";
   const btn = document.querySelector(`button[onclick*="aiRewrite('${fieldName}')"]`);
   const undoBtn = document.querySelector(`button[onclick*="aiUndo('${fieldName}')"]`);
   const status = document.getElementById(`status-${fieldName}`);
+  if (!AI_REWRITE_ENDPOINT) {
+    status.textContent = isJa
+      ? "AI整形は安全なサーバー側API未設定のため無効です"
+      : "AI整理功能需要先配置安全的服务端 API";
+    setTimeout(() => { status.textContent = ""; }, 6000);
+    return;
+  }
   btn.disabled = true; status.textContent = "整形中…";
-
-  const prompt_text = isJa
-    ? `以下は顧客のレビュー/コメント、または現場メモです。これを「不具合の症状」として、中国工場と日本エンジニアが共有しやすい形に書き直してください。
-
-要件:
-- 事実のみ (感情・主観・愚痴を除く)
-- 何が・いつ・どんな状況で発生するか具体的に
-- 200字以内
-- 日本語
-- 出力は書き直し本文のみ (前置きや解説は禁止)
-
-元のコメント:
-"""
-${text}
-"""`
-    : `以下是顾客评论/反馈或现场记录。请改写成"故障症状"，便于中国工厂和日本工程师共享。
-
-要求:
-- 仅写事实（去除情感、主观、抱怨）
-- 具体描述: 什么、什么时候、什么情况下发生
-- 不超过200字
-- 用中文
-- 仅输出改写后的正文（不要前言或解释）
-
-原始评论:
-"""
-${text}
-"""`;
 
   try {
     aiBackup[fieldName] = ta.value;
-    const resp = await fetch("https://api.anthropic.com/v1/messages", {
+    const resp = await fetch(AI_REWRITE_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": key,
-        "anthropic-version": "2023-06-01",
-        "anthropic-dangerous-direct-browser-access": "true",
       },
+      credentials: "same-origin",
       body: JSON.stringify({
-        model: "claude-sonnet-4-6",
-        max_tokens: 600,
-        temperature: 0.3,
-        messages: [{ role: "user", content: prompt_text }],
+        field: fieldName,
+        lang: isJa ? "ja" : "zh",
+        product: PRODUCT,
+        text,
       }),
     });
     if (!resp.ok) {
       const err = await resp.text();
-      if (resp.status === 401) {
-        localStorage.removeItem(LS_ANTHROPIC_KEY);
-        throw new Error("API キー無効。再度入力してください");
-      }
       throw new Error(`${resp.status}: ${err.slice(0, 150)}`);
     }
     const data = await resp.json();
-    const out = (data.content?.[0]?.text || "").trim();
+    const out = (data.text || "").trim();
     if (!out) throw new Error("AI 応答が空");
     ta.value = out;
     status.textContent = "✅ " + (isJa ? "整形済み" : "已整理");
@@ -705,7 +667,7 @@ async function submitDefect(e) {
   }
   const pat = getPAT();
   if (!pat) {
-    showError("先に GitHub PAT を設定してください (写真/動画 ドラッグゾーン参照)");
+    showSubmitBanner("error", "❌ 先に GitHub PAT を設定してください (写真/動画 ドラッグゾーン参照)");
     openPATModal();
     return;
   }
