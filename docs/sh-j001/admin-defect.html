@@ -605,6 +605,9 @@ async function uploadFile(file) {
     });
     if (!resp.ok) {
       const err = await resp.text();
+      if (resp.status === 401 || resp.status === 403 || resp.status === 404) {
+        throw new Error(`添付アップロード失敗 (${resp.status}): PAT に「${STORAGE_REPO}」への Contents: Read and write 権限が必要です (Issue用の ${DEFECT_REPO} とは別リポジトリ)。両方を含む PAT に更新してください`);
+      }
       throw new Error(`${resp.status}: ${err.slice(0, 200)}`);
     }
     const data = await resp.json();

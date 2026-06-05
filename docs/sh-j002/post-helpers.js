@@ -150,7 +150,9 @@
     const rows = (data.rows || []).filter(r => r[1] != null && String(r[1]).trim() !== "");
     const secs = (data.sections || []).filter(s => s[1] != null && String(s[1]).trim() !== "");
     const atts = data.attachments || [];
-    const pending = atts.filter(a => a.status && a.status !== "done");
+    // 進行中(圧縮/アップロード中)だけ投稿をブロック。エラー添付は警告のみで投稿は許可
+    const inProgress = atts.filter(a => a.status === "compressing" || a.status === "uploading");
+    const errored = atts.filter(a => a.status === "error");
 
     const rowsHtml = rows.map(r => `<tr><th>${esc(r[0])}</th><td>${esc(r[1])}</td></tr>`).join("");
     const secsHtml = secs.map(s => `<div class="ph-sec-title">${esc(s[0])}</div><div style="font-size:13px;white-space:pre-wrap">${esc(s[1])}</div>`).join("");
@@ -163,7 +165,9 @@
       const badge = a.status === "done" ? "✅" : (a.status === "error" ? "❌" : "⏳");
       return `<div class="ph-card">${media}<div>${badge} ${esc(a.name || "")}</div></div>`;
     }).join("") + `</div>` : "";
-    const warnHtml = pending.length ? `<div class="ph-warn">${isJa ? `⚠️ ${pending.length} 件のメディアがまだ処理中です。完了を待ってから投稿してください。` : `⚠️ ${pending.length} 个媒体仍在处理中，请等待完成后再提交。`}</div>` : "";
+    const warnHtml =
+      (inProgress.length ? `<div class="ph-warn">${isJa ? `⏳ ${inProgress.length} 件のメディアが処理中です。完了を待ってから投稿してください。` : `⏳ ${inProgress.length} 个媒体处理中，请等待完成。`}</div>` : "") +
+      (errored.length ? `<div class="ph-warn">${isJa ? `❌ ${errored.length} 件の添付がアップロード失敗しています。このまま投稿するとその添付は付きません(PATの権限を確認してください)。` : `❌ ${errored.length} 个附件上传失败，提交后将不含这些附件 (请检查 PAT 权限)。`}</div>` : "");
 
     return new Promise((resolve) => {
       const bg = document.createElement("div");
@@ -178,7 +182,7 @@
           ${attHtml}
           <div class="ph-actions">
             <button type="button" class="ph-back">${isJa ? "← 修正に戻る" : "← 返回修改"}</button>
-            <button type="button" class="ph-ok" ${pending.length ? "disabled" : ""}>${isJa ? "この内容で投稿" : "确认提交"}</button>
+            <button type="button" class="ph-ok" ${inProgress.length ? "disabled" : ""}>${isJa ? "この内容で投稿" : "确认提交"}</button>
           </div>
         </div>`;
       document.body.appendChild(bg);
