@@ -262,10 +262,15 @@ function renderSummary() {
       ? { rev: "📝 レビュー", iss_d: "🔧 不具合Issue", iss_r: "📦 返品", praise: "👍 称賛" }
       : { rev: "📝 评价", iss_d: "🔧 故障Issue", iss_r: "📦 退货", praise: "👍 好评" };
     const reviewNeg = (st.defect || 0) + (st.improvement || 0);
+    // Issue件数は要約stats(生成時点で古いことがある)ではなく merged から live 集計し、下のカードと一致させる
+    const _iss = (state.data.merged.issues || []).filter(i => i.product === PRODUCT && i.state === "open");
+    const _isRet = i => (i.labels || []).includes("type:return");
+    const liveDefect = _iss.filter(i => !_isRet(i)).length;
+    const liveReturn = _iss.filter(_isRet).length;
     srcEl.innerHTML = [
       `<span class="src-chip src-neg">${labels.rev} ${reviewNeg}${isJa?"件":"条"} <small>(${isJa?"不満":"不满"})</small></span>`,
-      `<span class="src-chip src-iss">${labels.iss_d} ${st.issue_defect || 0}${isJa?"件":"条"}</span>`,
-      `<span class="src-chip src-ret">${labels.iss_r} ${st.issue_return || 0}${isJa?"件":"条"}</span>`,
+      `<span class="src-chip src-iss">${labels.iss_d} ${liveDefect}${isJa?"件":"条"}</span>`,
+      `<span class="src-chip src-ret">${labels.iss_r} ${liveReturn}${isJa?"件":"条"}</span>`,
       `<span class="src-chip src-praise">${labels.praise} ${st.praise || 0}${isJa?"件":"条"}</span>`,
     ].join("");
     srcEl.hidden = false;
