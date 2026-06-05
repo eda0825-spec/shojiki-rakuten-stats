@@ -358,11 +358,40 @@ function savePAT() {
   if (!v) return;
   try { localStorage.setItem(LS_PAT_KEY, v); } catch(e) {}
   closePATModal();
+  verifyPATScopes(v);
   // If there was a pending file, retry upload
   if (window._pendingFile) {
     const f = window._pendingFile;
     window._pendingFile = null;
     uploadFile(f);
+  }
+}
+
+// PAT のリポジトリ・アクセスを事前検証 (写真/動画に必要な STORAGE_REPO 権限欠落を早期警告)
+async function verifyPATScopes(pat) {
+  const isJa = document.body.classList.contains("lang-ja");
+  const probe = async (repo) => {
+    try {
+      const r = await fetch(`https://api.github.com/repos/${repo}`, {
+        headers: { "Authorization": `Bearer ${pat}`, "Accept": "application/vnd.github+json" }, cache: "no-cache",
+      });
+      if (!r.ok) return { ok: false, push: false };
+      const d = await r.json();
+      return { ok: true, push: !!(d.permissions && d.permissions.push) };
+    } catch (e) { return { ok: true, push: true }; } // ネットワーク不通時は警告しない
+  };
+  const [issueRepo, storageRepo] = await Promise.all([probe(DEFECT_REPO), probe(STORAGE_REPO)]);
+  const problems = [];
+  if (!issueRepo.ok) problems.push(`${DEFECT_REPO}: ${isJa ? "アクセス不可 (Issue投稿に必要)" : "无法访问 (报告所需)"}`);
+  else if (!issueRepo.push) problems.push(`${DEFECT_REPO}: ${isJa ? "書込権限なし (Issues: Read and write が必要)" : "无写入权限 (Issues)"}`);
+  if (!storageRepo.ok) problems.push(`${STORAGE_REPO}: ${isJa ? "アクセス不可 (写真/動画の保存先)" : "无法访问 (照片/视频存放处)"}`);
+  else if (!storageRepo.push) problems.push(`${STORAGE_REPO}: ${isJa ? "書込権限なし (Contents: Read and write が必要)" : "无写入权限 (Contents)"}`);
+  if (problems.length) {
+    alert((isJa
+      ? "\u26a0\ufe0f このPATでは一部の機能が使えません:\n\n\u30fb" + problems.join("\n\u30fb") +
+        "\n\n\u5199\u771f\u30fb\u52d5\u753b\u3092\u6dfb\u4ed8\u3059\u308b\u306b\u306f\u3001\u4e0a\u8a182\u30ea\u30dd\u30b8\u30c8\u30ea\u4e21\u65b9\u3092\u542b\u3080 fine-grained PAT \u304c\u5fc5\u8981\u3067\u3059\u3002\u6a29\u9650\u3092\u66f4\u65b0\u3057\u3066\u518d\u4fdd\u5b58\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
+      : "\u26a0\ufe0f \u6b64 PAT \u6743\u9650\u4e0d\u8db3:\n\n\u30fb" + problems.join("\n\u30fb") +
+        "\n\n\u5982\u9700\u9644\u52a0\u7167\u7247/\u89c6\u9891\uff0c\u9700\u8981\u540c\u65f6\u5305\u542b\u4e0a\u8ff0\u4e24\u4e2a\u4ed3\u5e93\u7684 fine-grained PAT\u3002"));
   }
 }
 
