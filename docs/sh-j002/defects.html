@@ -556,6 +556,7 @@ function aggregate(issues, getter) {
   const counts = {};
   issues.forEach(i => {
     const fields = parseBody(i.body || i.body_excerpt).fields;
+    if (!fields["報告元"] && (i.labels || []).includes("source:customer")) fields["報告元"] = "顧客（楽天レビュー）";
     const titleFields = parseTitle(i.title);
     const v = getter(fields, titleFields, i);
     if (!v) return;
@@ -696,6 +697,7 @@ function reflow() {
 
   list.innerHTML = issues.slice(0, 100).map(i => {
     const parsed = parseBody(i.body || i.body_excerpt);
+    if (!parsed.fields["報告元"] && (i.labels || []).includes("source:customer")) parsed.fields["報告元"] = isJa ? "顧客（楽天レビュー）" : "客户（乐天评论）";
     const aiH = aiHeads[String(i.number)];
     const headline = (aiH && (isJa ? aiH.ja : aiH.zh)) || makeHeadline(i, parsed);
     const no = noMap.get(i.number) || "";

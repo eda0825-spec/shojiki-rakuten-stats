@@ -10,17 +10,68 @@
 <style>
   .issue-card {
     background: #fff; border: 1px solid var(--line);
-    border-radius: 10px; padding: 18px 20px;
-    margin-bottom: 12px;
+    border-radius: 10px; padding: 14px 18px;
+    margin-bottom: 8px;
   }
   .issue-card .head {
-    display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
-    margin-bottom: 10px; flex-wrap: wrap;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    flex-wrap: wrap; cursor: pointer;
+    user-select: none;
   }
-  .issue-card h3 { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.4; }
+  .issue-card[data-collapsed="false"] .head { margin-bottom: 10px; }
+  .issue-card h3 {
+    margin: 0; font-size: 14px; font-weight: 700; line-height: 1.4;
+    display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0;
+  }
+  .issue-card h3::before {
+    content: "▸"; color: var(--ink); font-size: 18px; font-weight: 700;
+    transition: transform 0.15s; display: inline-block;
+    width: 18px; text-align: center; line-height: 1;
+  }
+  .issue-card[data-collapsed="false"] h3::before { transform: rotate(90deg); }
   .issue-card .head-meta {
     font-size: 11px; color: var(--ink-3); white-space: nowrap;
     display: flex; gap: 10px; align-items: center;
+  }
+  .issue-card[data-collapsed="true"] .body-md { display: none; }
+
+  /* モバイルでは見出しを全幅にし、日付を下に回す (見出しの省略を減らす) */
+  @media (max-width: 520px) {
+    .issue-card .head { align-items: flex-start; }
+    .issue-card h3 { flex-basis: 100%; }
+    .issue-card .head-meta { width: 100%; }
+  }
+
+  /* Admin action buttons (PAT-gated) */
+  .admin-actions {
+    margin-top: 12px; padding-top: 10px;
+    border-top: 1px dashed var(--line);
+    display: flex; gap: 8px; justify-content: flex-end;
+  }
+  .admin-actions button {
+    font: inherit; font-size: 12px; padding: 5px 12px;
+    border: 1px solid var(--line-2); border-radius: 6px;
+    background: #fff; cursor: pointer; color: var(--ink-2);
+  }
+  .admin-actions button:hover { border-color: var(--ink); }
+  .admin-actions button.danger { color: #b8350c; border-color: #f3c4a8; }
+  .admin-actions button.danger:hover { background: #fff5ed; border-color: #d93b3b; color: #d93b3b; }
+
+  /* Sort toolbar */
+  .sort-bar {
+    display: flex; justify-content: flex-end; align-items: center; gap: 6px;
+    margin: 8px 0; font-size: 12px;
+  }
+  .sort-bar .sort-label { color: var(--ink-3); }
+  .sort-bar button {
+    background: #fff; border: 1px solid var(--line);
+    padding: 4px 10px; border-radius: 999px;
+    font-size: 12px; cursor: pointer; font: inherit;
+    color: var(--ink-2);
+  }
+  .sort-bar button:hover { border-color: var(--ink-3); }
+  .sort-bar button.active {
+    background: var(--ink); color: #fff; border-color: var(--ink); font-weight: 600;
   }
   .issue-tag {
     background: #f0f0f3; color: var(--ink-2);
@@ -157,34 +208,28 @@
 
 <main id="app" style="max-width:960px">
 
-  <div id="summary-line" class="summary-line" hidden>
-    <div class="open">
-      <strong id="count-open">—</strong>
-      <span class="ja-only">未対応</span><span class="zh-only">未处理</span>
-    </div>
-    <div class="closed">
-      <strong id="count-closed">—</strong>
-      <span class="ja-only">対応済み</span><span class="zh-only">已处理</span>
-    </div>
-  </div>
-
   <!-- AI insights (loaded from summary-*.json) -->
   <section id="ai-insights" class="insights-box" hidden>
     <h4>
       <span class="ja-only">💡 改善提案 (AI 自動分析)</span>
       <span class="zh-only">💡 改善建议 (AI 自动分析)</span>
     </h4>
+    <div id="ai-headline" style="font-size:15px;font-weight:700;margin:2px 0 6px;color:#6b4a00"></div>
     <p class="narr" id="ai-narr"></p>
-    <div>
+    <div id="ai-find-wrap" style="margin-top:6px">
+      <strong style="font-size:12px"><span class="ja-only">📌 主な傾向 (優先順)</span><span class="zh-only">📌 主要趋势 (优先)</span></strong>
+      <ol id="ai-find" style="margin:4px 0 0;padding-left:20px;font-size:12.5px;line-height:1.6"></ol>
+    </div>
+    <div style="margin-top:8px">
       <strong style="font-size:12px">
-        <span class="ja-only">推奨アクション:</span>
-        <span class="zh-only">推荐行动:</span>
+        <span class="ja-only">🎯 改善アクション</span>
+        <span class="zh-only">🎯 改善行动</span>
       </strong>
       <ol id="ai-acts"></ol>
     </div>
     <div class="src">
-      <span class="ja-only">🤖 Claude AI ・ 全データ統合要約</span>
-      <span class="zh-only">🤖 Claude AI ・ 全数据综合摘要</span>
+      <span class="ja-only">🤖 Claude AI ・ 返品データのみから生成</span>
+      <span class="zh-only">🤖 Claude AI ・ 仅基于退货数据生成</span>
     </div>
   </section>
 
@@ -210,6 +255,14 @@
     </div>
   </section>
 
+  <div class="sort-bar" id="sort-bar" hidden>
+    <span class="sort-label">
+      <span class="ja-only">並び順:</span><span class="zh-only">排序:</span>
+    </span>
+    <button data-sort="desc" class="active"><span class="ja-only">新しい順</span><span class="zh-only">最新</span></button>
+    <button data-sort="asc"><span class="ja-only">古い順</span><span class="zh-only">最早</span></button>
+  </div>
+
   <div id="issue-list"></div>
 
   <div id="empty" class="empty-hero" hidden>
@@ -229,7 +282,33 @@
 const PRODUCT = "sh-j001";
 const REPO = "eda0825-spec/shojiki-rakuten-stats";
 const BRANCH = "main";
+const ISSUE_REPO = "eda0825-spec/shojiki-defects-j001";
 const LS_LANG_KEY = "shojiki-dashboard-lang";
+const LS_PAT_KEY = "shojiki-uploader-pat";
+
+function getPAT() {
+  try { return localStorage.getItem(LS_PAT_KEY); } catch(e) { return null; }
+}
+
+async function closeIssue(num) {
+  const pat = getPAT();
+  if (!pat) return false;
+  try {
+    const r = await fetch(`https://api.github.com/repos/${ISSUE_REPO}/issues/${num}`, {
+      method: "PATCH",
+      headers: {
+        "Authorization": `Bearer ${pat}`,
+        "Accept": "application/vnd.github+json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ state: "closed", state_reason: "not_planned" }),
+    });
+    return r.ok;
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
+}
 
 function applyLang(lang) {
   document.body.classList.toggle("lang-ja", lang === "ja");
@@ -256,6 +335,42 @@ function esc(s) {
 function safeUrl(u) {
   const raw = String(u == null ? "" : u).replace(/&amp;/g, "&").trim();
   return /^https?:\/\//i.test(raw) ? esc(raw) : "";
+}
+
+// 用語の日→中 辞書 (長い語を先に置換)。中文モードで値内の日本語キーワードを変換。
+const ZH_TERMS = [
+  ["関連不具合 Issue", "关联故障 Issue"], ["不具合の種類", "故障类型"], ["不具合 (動作不良)", "故障 (动作不良)"],
+  ["製品への不満", "对产品不满"], ["問い合わせ日", "咨询日期"], ["充電・バッテリー", "充电·电池"],
+  ["充電スタンド", "充电支架"], ["充電端子", "充电端子"], ["購入チャネル", "购买渠道"],
+  ["シリアル番号", "序列号"], ["想定原因", "推测原因"], ["ダストカップ", "尘杯"],
+  ["操作・ボタン", "操作·按钮"], ["デザイン・外装", "设计·外观"], ["重量・サイズ", "重量·尺寸"],
+  ["LED・ライト", "LED·灯"], ["本体破損", "机身破损"], ["基本機能", "基本功能"],
+  ["購入日", "购买日期"], ["返品日", "退货日期"], ["注文番号", "订单号"], ["ロット番号", "批次号"],
+  ["バッテリー", "电池"], ["フィルター", "滤网"], ["ローラー", "滚轮"], ["動作不良", "动作不良"],
+  ["報告元", "报告来源"], ["購入者", "购买者"], ["投稿者", "投稿人"], ["吸引力", "吸力"],
+  ["深刻度", "严重度"], ["操作性", "操作性"], ["デザイン", "设计"], ["ヘッド", "刷头"],
+  ["ノズル", "喷嘴"], ["ブラシ", "刷子"], ["ライト", "灯"], ["異音", "异响"], ["外装", "外观"],
+  ["重量", "重量"], ["サイズ", "尺寸"], ["充電", "充电"], ["返金", "退款"], ["交換", "换货"],
+  ["楽天", "乐天"], ["理由", "原因"], ["対応", "处理"], ["詳細", "详情"], ["補足", "补充"],
+  ["症状", "症状"], ["破損", "破损"], ["逆流", "逆流"], ["顧客", "客户"], ["商品", "产品"],
+  ["評価", "评价"], ["日付", "日期"], ["不具合", "故障"], ["返品", "退货"],
+];
+// "日本語 / 中文" 併記文字列から現在の表示言語側を返し、中文時は用語も変換
+function localize(str) {
+  if (str == null) return "";
+  let s = String(str);
+  const idx = s.indexOf(" / ");
+  if (idx > 0) {
+    const ja = s.slice(0, idx).trim();
+    const zh = s.slice(idx + 3).trim();
+    if (ja && zh && zh.indexOf(" / ") === -1) {
+      s = document.body.classList.contains("lang-zh") ? zh : ja;
+    }
+  }
+  if (document.body.classList.contains("lang-zh")) {
+    for (const [j, z] of ZH_TERMS) { if (s.indexOf(j) >= 0) s = s.split(j).join(z); }
+  }
+  return s;
 }
 
 // Minimal markdown -> HTML for our issue body shape (table + img + link + headings).
@@ -344,30 +459,106 @@ function inline(s) {
 
 let cachedIssues = null;
 let cachedSummary = null;
+let sortOrder = "desc"; // "desc" = 新しい順, "asc" = 古い順
 
 function isReturnIssue(i) {
   const labels = (i.labels || []).map(l => String(l).toLowerCase());
   return labels.some(l => l.includes("return"));
 }
 
-// Parse markdown table body → {key: value} object
+// Parse markdown body → { fields: {key: value}, sections: {heading: text}, mediaLines: [] }
 function parseBody(body) {
   const fields = {};
-  if (!body) return fields;
+  const sections = {};
+  const mediaLines = [];
+  if (!body) return { fields, sections, mediaLines };
   const lines = String(body).replace(/\r\n/g, "\n").split("\n");
+  let curHeading = null;
+  let buf = [];
+  const flush = () => {
+    if (curHeading && buf.length) sections[curHeading] = buf.join("\n").trim();
+    buf = [];
+  };
   for (let i = 0; i < lines.length; i++) {
     const ln = lines[i];
-    if (!ln.includes("|") || /^\s*\|?[\s:-]+\|[\s:|-]+$/.test(ln)) continue;
-    const cells = ln.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim());
-    if (cells.length === 2 && cells[0] && cells[1] && cells[0] !== "項目" && cells[0] !== "値") {
-      fields[cells[0]] = cells[1];
+    // Heading
+    const h = ln.match(/^#{2,3}\s+(.+)$/);
+    if (h) { flush(); curHeading = h[1].trim(); continue; }
+    // Table row
+    if (ln.includes("|") && !/^\s*\|?[\s:-]+\|[\s:|-]+$/.test(ln)) {
+      const cells = ln.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim());
+      const _kja = cells[0].split(" / ")[0].trim();
+      if (cells.length === 2 && cells[0] && cells[1] && _kja !== "項目" && _kja !== "値") {
+        fields[cells[0]] = cells[1];
+        continue;
+      }
     }
+    if (/^\s*\|?[\s:-]+\|[\s:|-]+$/.test(ln)) continue; // table separator
+    // Media-ish lines (image/video markdown or bare URL)
+    if (curHeading && (/!\[.*?\]\(.+?\)/.test(ln) || /https?:\/\/\S+\.(jpg|jpeg|png|gif|webp|mp4|mov|webm)/i.test(ln))) {
+      mediaLines.push(ln);
+    }
+    if (curHeading) buf.push(ln);
   }
-  return fields;
+  flush();
+  return { fields, sections, mediaLines };
+}
+
+// Compose a clean headline from 詳細 (or fallback to title minus prefix)
+function makeHeadline(issue, parsed) {
+  const detail = parsed.sections["詳細"] || parsed.sections["症状 (日本語)"] || parsed.sections["症状"] || "";
+  const MAX = 48;
+  // 詳細文があればそれ、無ければタイトルから [タグ] を除去したものを元ネタに
+  const src = detail || String(issue.title || "").replace(/^\s*(\[[^\]]+\]\s*){1,3}/, "").trim() || String(issue.title || "");
+  // 第1文 (。/改行 区切り) だけを見出しにする
+  let first = src.split(/[。\n]/)[0].trim();
+  if (first.length > MAX) {
+    // 長い場合は読点で意味を保ったまま詰める
+    const byComma = first.split(/[、,]/);
+    let acc = "";
+    for (const c of byComma) {
+      const candidate = acc ? acc + "、" + c : c;
+      if (candidate.length > MAX) break;
+      acc = candidate;
+    }
+    first = acc && acc.length >= 8 ? acc : first.slice(0, MAX) + "…";
+  }
+  return first || src;
+}
+
+// Render a clean detail table (form fields + 詳細 row) + media block
+function renderDetails(parsed) {
+  const order = ["返品日", "理由", "対応", "購入チャネル", "注文番号", "ロット番号", "関連不具合 Issue"];
+  const rows = [];
+  order.forEach(k => { if (parsed.fields[k]) rows.push([k, parsed.fields[k]]); });
+  // Include any extra fields not in `order`
+  Object.keys(parsed.fields).forEach(k => {
+    if (!order.includes(k)) rows.push([k, parsed.fields[k]]);
+  });
+  // Append 詳細 row from section content
+  if (parsed.sections["詳細"]) rows.push(["詳細", parsed.sections["詳細"]]);
+  if (parsed.sections["補足"] && parsed.sections["補足"].length > 0) rows.push(["補足", parsed.sections["補足"]]);
+
+  let html = "";
+  if (rows.length) {
+    html += `<table><tbody>` +
+      rows.map(([k, v]) => `<tr><th>${esc(localize(k))}</th><td>${inline(localize(String(v).replace(/\n/g, "<br>")))}</td></tr>`).join("") +
+      `</tbody></table>`;
+  }
+  // Render media block (photos/videos) separately if section "写真・動画" exists
+  const _mediaSecs = ["添付ファイル", "写真・動画", "写真 / 照片", "写真", "動画 URL / 视频链接", "動画 URL"];
+  let media = "";
+  _mediaSecs.forEach(n => { if (parsed.sections[n]) media += "\n" + parsed.sections[n]; });
+  // 旧形式の生 <video> タグは除去 (隣の markdown リンクが <video> として描画される)
+  media = media.replace(/<video[\s\S]*?<\/video>/gi, "").replace(/<video[^>]*>/gi, "");
+  if (media && media.trim()) {
+    html += `<div style="margin-top:8px">` + inline(media).replace(/\n/g, "") + `</div>`;
+  }
+  return html;
 }
 
 // Fallback: extract reason+action from title pattern
-// "[J002-返品] [2026-04-29] 製品への不満 ・ 返金"
+// "[J001-返品] [2026-04-29] 製品への不満 ・ 返金"
 function parseTitle(title) {
   const m = String(title || "").match(/\[\d{4}-\d{2}-\d{2}\]\s*([^・]+)・\s*(.+?)$/);
   if (m) return { reason: m[1].trim(), action: m[2].trim() };
@@ -377,7 +568,7 @@ function parseTitle(title) {
 function aggregate(issues, getter) {
   const counts = {};
   issues.forEach(i => {
-    const fields = parseBody(i.body || i.body_excerpt);
+    const fields = parseBody(i.body || i.body_excerpt).fields;
     const titleFields = parseTitle(i.title);
     const v = getter(fields, titleFields, i);
     if (!v) return;
@@ -402,18 +593,53 @@ function renderBars(containerId, data, color) {
     </div>`).join("");
 }
 
+// PAT があれば GitHub Issues API から直接取得 (リアルタイム反映)。
+// private リポでも認証で読めるので、投稿直後でも待ち時間なく一覧に出る。
+async function fetchIssuesLive(pat) {
+  const out = [];
+  for (let page = 1; page <= 3; page++) {
+    const r = await fetch(`https://api.github.com/repos/${ISSUE_REPO}/issues?state=all&per_page=100&page=${page}&sort=updated&direction=desc`, {
+      headers: { "Authorization": `Bearer ${pat}`, "Accept": "application/vnd.github+json" },
+      cache: "no-cache",
+    });
+    if (!r.ok) throw new Error("GitHub API " + r.status);
+    const batch = await r.json();
+    if (!Array.isArray(batch) || !batch.length) break;
+    for (const it of batch) {
+      if (it.pull_request) continue;
+      out.push({
+        number: it.number, title: it.title,
+        body: it.body || "", body_excerpt: it.body || "",
+        state: it.state,
+        labels: (it.labels || []).map(l => typeof l === "string" ? l : (l && l.name) || ""),
+        updated_at: it.updated_at, created_at: it.created_at,
+        product: PRODUCT,
+      });
+    }
+    if (batch.length < 100) break;
+  }
+  return out;
+}
+
 async function load() {
+  const pat = getPAT();
   try {
-    // raw を優先 (fresh)。jsdelivr は中国アクセス用フォールバック (J002 と統一)
-    const r = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" })
-      .catch(() => fetch(`https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" }));
-    if (!r.ok) { reflow(); return; }
-    const data = await r.json();
-    cachedIssues = (data.issues || []).filter(i => i.product === PRODUCT && i.state !== "closed" && isReturnIssue(i));
+    if (pat) {
+      const issues = await fetchIssuesLive(pat);
+      cachedIssues = issues.filter(i => i.state !== "closed" && isReturnIssue(i));
+    } else {
+      // raw を優先 (fresh)。jsdelivr は中国アクセス用フォールバック
+      const r = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" })
+        .catch(() => fetch(`https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" }));
+      if (!r.ok) { reflow(); return; }
+      const data = await r.json();
+      cachedIssues = (data.issues || []).filter(i => i.product === PRODUCT && i.state !== "closed" && isReturnIssue(i));
+    }
   } catch (e) {
     cachedIssues = [];
   }
-  // Load AI summary in parallel (best-effort)
+  // Load AI summary. summary-*.json is small + updates often, so prefer raw
+  // (fresh) over jsdelivr (cached 12h). Fallback to jsdelivr for China.
   try {
     const sr = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/summary-${PRODUCT}.json`, { cache: "no-cache" })
       .catch(() => fetch(`https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/summary-${PRODUCT}.json`, { cache: "no-cache" }));
@@ -422,29 +648,76 @@ async function load() {
   reflow();
 }
 
-function reflow() {
-  const issues = cachedIssues || [];
-  const open = issues.filter(i => i.state === "open");
-  const closed = issues.filter(i => i.state !== "open");
+// 返品要約を読み込んだ実データから集計 (リアルタイム・正確、誤った推論なし)
+function renderReturnsSummary(ai, issues) {
+  const isJa = document.body.classList.contains("lang-ja");
+  const aiHeads = (cachedSummary && cachedSummary.issue_headlines) || {};
+  const TOPICS = [
+    ["吸引力", "吸力", /吸引|吸わ|吸い込|吸え|吸えな|逆流|パワー|吸力|吸不/],
+    ["充電・バッテリー", "充电・电池", /充電|充电|バッテリ|电池|アダプタ|适配器|電源|电源|通電|発熱|发热/],
+    ["ダストカップ", "尘杯", /ダストカップ|尘杯|カップ|ゴミ捨て|集塵|集尘/],
+    ["ヘッド・ブラシ", "刷头", /ブラシ|刷|ヘッド|喷嘴|ノズル|ローラー|滚轮|絡ま|缠/],
+  ];
+  const counts = new Map(), zh = new Map();
+  let other = 0;
+  issues.forEach(i => {
+    const head = aiHeads[String(i.number)];
+    const text = (((head && head.ja) || "") + " " + (i.title || "") + " " + (i.body || i.body_excerpt || "")).slice(0, 400);
+    const hit = TOPICS.find(t => t[2].test(text));
+    if (hit) { counts.set(hit[0], (counts.get(hit[0]) || 0) + 1); zh.set(hit[0], hit[1]); }
+    else other++;
+  });
+  const ranked = [...counts.entries()].sort((a, b) => b[1] - a[1]);
+  const total = issues.length;
+  const top = ranked[0];
+  const ACT = {
+    "吸引力": isJa ? "吸引力低下の原因 (モーター・シール・フィルター) を全数で再現検査し規格を見直す" : "全数复现检测吸力下降原因 (电机/密封/滤网) 并修订规格",
+    "充電・バッテリー": isJa ? "充電端子・アダプターの接触と発熱を全数検査し、接点構造を設計見直し" : "全数检测充电端子/适配器接触与发热，改进端子结构",
+    "ダストカップ": isJa ? "ダストカップ着脱機構の操作力を規格内に収める設計変更" : "将尘杯拆装操作力控制在规格内的设计变更",
+    "ヘッド・ブラシ": isJa ? "ヘッド・ブラシの毛絡み対策と吸引経路の気密改善" : "改善刷头缠绕与吸气通道气密性",
+  };
+  ai.hidden = false;
+  const setT = (id, t) => { const e = document.getElementById(id); if (e) e.textContent = t; };
+  const setH = (id, h) => { const e = document.getElementById(id); if (e) e.innerHTML = h; };
+  setT("ai-headline", isJa
+    ? `返品 ${total} 件・最多は「${top ? top[0] : "—"}」${top ? `(${top[1]}件)` : ""}`
+    : `退货 ${total} 件・最多「${top ? zh.get(top[0]) : "—"}」${top ? `(${top[1]})` : ""}`);
+  setT("ai-narr", isJa
+    ? `返品は計 ${total} 件 (販売は楽天のみ・全件返金)。内容は ${ranked.slice(0, 3).map(r => `${r[0]} ${r[1]}件`).join(" / ") || "—"}${other ? ` / その他 ${other}件` : ""} に集中している。`
+    : `退货共 ${total} 件 (仅楽天销售・全部退款)。内容集中在 ${ranked.slice(0, 3).map(r => `${zh.get(r[0])} ${r[1]}件`).join(" / ") || "—"}。`);
+  setH("ai-find", ranked.slice(0, 4).map(([k, v]) => `<li><strong>${esc(isJa ? k : (zh.get(k) || k))}</strong> (${v}件)</li>`).join(""));
+  const fw = document.getElementById("ai-find-wrap"); if (fw) fw.style.display = ranked.length ? "" : "none";
+  setH("ai-acts", ranked.slice(0, 2).map(([k]) => ACT[k]).filter(Boolean).map(a => `<li>${esc(a)}</li>`).join(""));
+  const sj = ai.querySelector(".src .ja-only"); if (sj) sj.textContent = "📊 返品データから自動集計 (最新)";
+  const sz = ai.querySelector(".src .zh-only"); if (sz) sz.textContent = "📊 实时汇总自退货数据";
+}
 
-  const sumLine = document.getElementById("summary-line");
+function reflow() {
+  const rawIssues = cachedIssues || [];
+
   const empty = document.getElementById("empty");
   const list = document.getElementById("issue-list");
   const agg = document.getElementById("agg-section");
   const ai = document.getElementById("ai-insights");
+  const sortBar = document.getElementById("sort-bar");
 
-  if (issues.length === 0) {
-    sumLine.hidden = true;
+  if (rawIssues.length === 0) {
     if (agg) agg.hidden = true;
     if (ai) ai.hidden = true;
+    if (sortBar) sortBar.hidden = true;
     empty.hidden = false;
     list.innerHTML = "";
     return;
   }
-  sumLine.hidden = false;
   empty.hidden = true;
-  document.getElementById("count-open").textContent = open.length;
-  document.getElementById("count-closed").textContent = closed.length;
+  if (sortBar) sortBar.hidden = false;
+
+  // Apply sort by updated_at
+  const issues = [...rawIssues].sort((a, b) => {
+    const da = a.updated_at || "";
+    const db = b.updated_at || "";
+    return sortOrder === "asc" ? da.localeCompare(db) : db.localeCompare(da);
+  });
 
   // Aggregations
   if (agg) {
@@ -454,35 +727,70 @@ function reflow() {
     renderBars("agg-channel", aggregate(issues, (f) => f["購入チャネル"]), "b");
   }
 
-  // AI insights from summary-*.json (focus on actions related to returns/defects)
-  if (ai && cachedSummary) {
-    const isJa = document.body.classList.contains("lang-ja");
-    const block = isJa ? cachedSummary.summary_ja : cachedSummary.summary_zh;
-    if (block) {
-      ai.hidden = false;
-      document.getElementById("ai-narr").textContent = block.narrative || "";
-      document.getElementById("ai-acts").innerHTML = (block.actions || [])
-        .map(a => `<li>${esc(a)}</li>`).join("");
-    }
+  // 返品要約: 読み込んだ実データからその場で集計 (常に最新・正確、誤った推論なし)
+  if (ai) {
+    renderReturnsSummary(ai, issues);
   }
 
+  // Assign sequential No. by issue.number ASC (No.1 = oldest), then display newest-first
+  const byOldest = [...issues].sort((a, b) => a.number - b.number);
+  const noMap = new Map();
+  byOldest.forEach((it, idx) => noMap.set(it.number, idx + 1));
+
   const isJa = document.body.classList.contains("lang-ja");
-  const statusLab = (s) => isJa
-    ? (s === "open" ? "未対応" : "対応済み")
-    : (s === "open" ? "未处理" : "已处理");
-  list.innerHTML = issues.slice(0, 100).map(i => `
-    <article class="issue-card">
+  const aiHeads = (cachedSummary && cachedSummary.issue_headlines) || {};
+  const isAdmin = (typeof ADMIN_MODE !== "undefined" && ADMIN_MODE) && !!getPAT();
+
+  list.innerHTML = issues.slice(0, 100).map(i => {
+    const parsed = parseBody(i.body || i.body_excerpt);
+    const aiH = aiHeads[String(i.number)];
+    const headline = (aiH && (isJa ? aiH.ja : aiH.zh)) || makeHeadline(i, parsed);
+    const no = noMap.get(i.number) || "";
+    const adminHtml = isAdmin ? `
+      <div class="admin-actions">
+        <button type="button" data-action="edit" data-num="${i.number}">✏️ 編集</button>
+        <button type="button" data-action="close" data-num="${i.number}" class="danger">🗑️ 削除</button>
+      </div>` : "";
+    return `
+    <article class="issue-card" data-collapsed="true" data-issue="${i.number}">
       <div class="head">
-        <h3>${esc(i.title)}</h3>
+        <h3><span style="color:var(--ink-3);font-weight:600;margin-right:6px;flex-shrink:0">No.${no}</span><span style="overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.4">${esc(headline)}</span></h3>
         <div class="head-meta">
-          <span class="issue-tag status-${i.state === "open" ? "open" : "closed"}">${esc(statusLab(i.state))}</span>
-          <span>#${i.number}</span>
           <span>${esc((i.updated_at || "").slice(0,10))}</span>
         </div>
       </div>
-      <div class="body-md">${md2html(i.body || i.body_excerpt || "")}</div>
-    </article>
-  `).join("");
+      <div class="body-md">${renderDetails(parsed)}${adminHtml}</div>
+    </article>`;
+  }).join("");
+
+  list.querySelectorAll(".issue-card .head").forEach(head => {
+    head.addEventListener("click", () => {
+      const card = head.closest(".issue-card");
+      card.dataset.collapsed = card.dataset.collapsed === "true" ? "false" : "true";
+    });
+  });
+
+  // Admin actions
+  list.querySelectorAll('.admin-actions button').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const num = btn.dataset.num;
+      const action = btn.dataset.action;
+      if (action === 'edit') {
+        location.href = `./admin-return.html?issue=${num}`;
+      } else if (action === 'close') {
+        if (!confirm(`No.${noMap.get(parseInt(num))} を削除 (クローズ) します。よろしいですか?`)) return;
+        closeIssue(num).then(ok => {
+          if (ok) {
+            alert('削除しました。ページを再読み込みします。');
+            location.reload();
+          } else {
+            alert('削除に失敗しました。PAT 権限を確認してください。');
+          }
+        });
+      }
+    });
+  });
 
   // Lightbox for images
   document.querySelectorAll(".body-md img").forEach(img => {
@@ -498,8 +806,18 @@ document.getElementById("img-lightbox").addEventListener("click", e => {
   e.currentTarget.classList.remove("open");
 });
 
+// Sort toggle
+document.querySelectorAll("#sort-bar button").forEach(b => {
+  b.addEventListener("click", () => {
+    sortOrder = b.dataset.sort;
+    document.querySelectorAll("#sort-bar button").forEach(x => x.classList.toggle("active", x.dataset.sort === sortOrder));
+    reflow();
+  });
+});
+
 load();
 </script>
 
+<script src="./sticky-nav.js"></script>
 </body>
 </html>

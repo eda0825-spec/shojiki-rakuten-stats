@@ -10,17 +10,67 @@
 <style>
   .issue-card {
     background: #fff; border: 1px solid var(--line);
-    border-radius: 10px; padding: 18px 20px;
-    margin-bottom: 12px;
+    border-radius: 10px; padding: 14px 18px;
+    margin-bottom: 8px;
   }
   .issue-card .head {
-    display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
-    margin-bottom: 10px; flex-wrap: wrap;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    flex-wrap: wrap; cursor: pointer;
+    user-select: none;
   }
-  .issue-card h3 { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.4; }
+  .issue-card[data-collapsed="false"] .head { margin-bottom: 10px; }
+  .issue-card h3 {
+    margin: 0; font-size: 14px; font-weight: 700; line-height: 1.4;
+    display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0;
+  }
+  .issue-card h3::before {
+    content: "▸"; color: var(--ink); font-size: 18px; font-weight: 700;
+    transition: transform 0.15s; display: inline-block;
+    width: 18px; text-align: center; line-height: 1;
+  }
+  .issue-card[data-collapsed="false"] h3::before { transform: rotate(90deg); }
   .issue-card .head-meta {
     font-size: 11px; color: var(--ink-3); white-space: nowrap;
     display: flex; gap: 10px; align-items: center;
+  }
+  .issue-card[data-collapsed="true"] .body-md { display: none; }
+
+  /* モバイルでは見出しを全幅にし、日付を下に回す (見出しの省略を減らす) */
+  @media (max-width: 520px) {
+    .issue-card .head { align-items: flex-start; }
+    .issue-card h3 { flex-basis: 100%; }
+    .issue-card .head-meta { width: 100%; }
+  }
+
+  .admin-actions {
+    margin-top: 12px; padding-top: 10px;
+    border-top: 1px dashed var(--line);
+    display: flex; gap: 8px; justify-content: flex-end;
+  }
+  .admin-actions button {
+    font: inherit; font-size: 12px; padding: 5px 12px;
+    border: 1px solid var(--line-2); border-radius: 6px;
+    background: #fff; cursor: pointer; color: var(--ink-2);
+  }
+  .admin-actions button:hover { border-color: var(--ink); }
+  .admin-actions button.danger { color: #b8350c; border-color: #f3c4a8; }
+  .admin-actions button.danger:hover { background: #fff5ed; border-color: #d93b3b; color: #d93b3b; }
+
+  /* Sort toolbar */
+  .sort-bar {
+    display: flex; justify-content: flex-end; align-items: center; gap: 6px;
+    margin: 8px 0; font-size: 12px;
+  }
+  .sort-bar .sort-label { color: var(--ink-3); }
+  .sort-bar button {
+    background: #fff; border: 1px solid var(--line);
+    padding: 4px 10px; border-radius: 999px;
+    font-size: 12px; cursor: pointer; font: inherit;
+    color: var(--ink-2);
+  }
+  .sort-bar button:hover { border-color: var(--ink-3); }
+  .sort-bar button.active {
+    background: var(--ink); color: #fff; border-color: var(--ink); font-weight: 600;
   }
   .issue-tag {
     background: #f0f0f3; color: var(--ink-2);
@@ -158,34 +208,28 @@
 
 <main id="app" style="max-width:960px">
 
-  <div id="summary-line" class="summary-line" hidden>
-    <div class="open">
-      <strong id="count-open">—</strong>
-      <span class="ja-only">対応中</span><span class="zh-only">处理中</span>
-    </div>
-    <div class="closed">
-      <strong id="count-closed">—</strong>
-      <span class="ja-only">解決済み</span><span class="zh-only">已解决</span>
-    </div>
-  </div>
-
   <!-- AI insights -->
   <section id="ai-insights" class="insights-box" hidden>
     <h4>
       <span class="ja-only">💡 改善提案 (AI 自動分析)</span>
       <span class="zh-only">💡 改善建议 (AI 自动分析)</span>
     </h4>
+    <div id="ai-headline" style="font-size:15px;font-weight:700;margin:2px 0 6px;color:#6b4a00"></div>
     <p class="narr" id="ai-narr"></p>
-    <div>
+    <div id="ai-find-wrap" style="margin-top:6px">
+      <strong style="font-size:12px"><span class="ja-only">📌 主な傾向 (優先順)</span><span class="zh-only">📌 主要趋势 (优先)</span></strong>
+      <ol id="ai-find" style="margin:4px 0 0;padding-left:20px;font-size:12.5px;line-height:1.6"></ol>
+    </div>
+    <div style="margin-top:8px">
       <strong style="font-size:12px">
-        <span class="ja-only">推奨アクション:</span>
-        <span class="zh-only">推荐行动:</span>
+        <span class="ja-only">🎯 改善アクション</span>
+        <span class="zh-only">🎯 改善行动</span>
       </strong>
       <ol id="ai-acts"></ol>
     </div>
     <div class="src">
-      <span class="ja-only">🤖 Claude AI ・ 全データ統合要約</span>
-      <span class="zh-only">🤖 Claude AI ・ 全数据综合摘要</span>
+      <span class="ja-only">🤖 Claude AI ・ 不具合データのみから生成</span>
+      <span class="zh-only">🤖 Claude AI ・ 仅基于故障数据生成</span>
     </div>
   </section>
 
@@ -211,6 +255,14 @@
     </div>
   </section>
 
+  <div class="sort-bar" id="sort-bar" hidden>
+    <span class="sort-label">
+      <span class="ja-only">並び順:</span><span class="zh-only">排序:</span>
+    </span>
+    <button data-sort="desc" class="active"><span class="ja-only">新しい順</span><span class="zh-only">最新</span></button>
+    <button data-sort="asc"><span class="ja-only">古い順</span><span class="zh-only">最早</span></button>
+  </div>
+
   <div id="issue-list"></div>
 
   <div id="empty" class="empty-hero" hidden>
@@ -230,7 +282,30 @@
 const PRODUCT = "sh-j001";
 const REPO = "eda0825-spec/shojiki-rakuten-stats";
 const BRANCH = "main";
+const ISSUE_REPO = "eda0825-spec/shojiki-defects-j001";
 const LS_LANG_KEY = "shojiki-dashboard-lang";
+const LS_PAT_KEY = "shojiki-uploader-pat";
+
+function getPAT() {
+  try { return localStorage.getItem(LS_PAT_KEY); } catch(e) { return null; }
+}
+
+async function closeIssue(num) {
+  const pat = getPAT();
+  if (!pat) return false;
+  try {
+    const r = await fetch(`https://api.github.com/repos/${ISSUE_REPO}/issues/${num}`, {
+      method: "PATCH",
+      headers: {
+        "Authorization": `Bearer ${pat}`,
+        "Accept": "application/vnd.github+json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ state: "closed", state_reason: "not_planned" }),
+    });
+    return r.ok;
+  } catch (e) { console.error(e); return false; }
+}
 
 function applyLang(lang) {
   document.body.classList.toggle("lang-ja", lang === "ja");
@@ -257,6 +332,42 @@ function esc(s) {
 function safeUrl(u) {
   const raw = String(u == null ? "" : u).replace(/&amp;/g, "&").trim();
   return /^https?:\/\//i.test(raw) ? esc(raw) : "";
+}
+
+// 用語の日→中 辞書 (長い語を先に置換)。中文モードで値内の日本語キーワードを変換。
+const ZH_TERMS = [
+  ["関連不具合 Issue", "关联故障 Issue"], ["不具合の種類", "故障类型"], ["不具合 (動作不良)", "故障 (动作不良)"],
+  ["製品への不満", "对产品不满"], ["問い合わせ日", "咨询日期"], ["充電・バッテリー", "充电·电池"],
+  ["充電スタンド", "充电支架"], ["充電端子", "充电端子"], ["購入チャネル", "购买渠道"],
+  ["シリアル番号", "序列号"], ["想定原因", "推测原因"], ["ダストカップ", "尘杯"],
+  ["操作・ボタン", "操作·按钮"], ["デザイン・外装", "设计·外观"], ["重量・サイズ", "重量·尺寸"],
+  ["LED・ライト", "LED·灯"], ["本体破損", "机身破损"], ["基本機能", "基本功能"],
+  ["購入日", "购买日期"], ["返品日", "退货日期"], ["注文番号", "订单号"], ["ロット番号", "批次号"],
+  ["バッテリー", "电池"], ["フィルター", "滤网"], ["ローラー", "滚轮"], ["動作不良", "动作不良"],
+  ["報告元", "报告来源"], ["購入者", "购买者"], ["投稿者", "投稿人"], ["吸引力", "吸力"],
+  ["深刻度", "严重度"], ["操作性", "操作性"], ["デザイン", "设计"], ["ヘッド", "刷头"],
+  ["ノズル", "喷嘴"], ["ブラシ", "刷子"], ["ライト", "灯"], ["異音", "异响"], ["外装", "外观"],
+  ["重量", "重量"], ["サイズ", "尺寸"], ["充電", "充电"], ["返金", "退款"], ["交換", "换货"],
+  ["楽天", "乐天"], ["理由", "原因"], ["対応", "处理"], ["詳細", "详情"], ["補足", "补充"],
+  ["症状", "症状"], ["破損", "破损"], ["逆流", "逆流"], ["顧客", "客户"], ["商品", "产品"],
+  ["評価", "评价"], ["日付", "日期"], ["不具合", "故障"], ["返品", "退货"],
+];
+// "日本語 / 中文" 併記文字列から現在の表示言語側を返し、中文時は用語も変換
+function localize(str) {
+  if (str == null) return "";
+  let s = String(str);
+  const idx = s.indexOf(" / ");
+  if (idx > 0) {
+    const ja = s.slice(0, idx).trim();
+    const zh = s.slice(idx + 3).trim();
+    if (ja && zh && zh.indexOf(" / ") === -1) {
+      s = document.body.classList.contains("lang-zh") ? zh : ja;
+    }
+  }
+  if (document.body.classList.contains("lang-zh")) {
+    for (const [j, z] of ZH_TERMS) { if (s.indexOf(j) >= 0) s = s.split(j).join(z); }
+  }
+  return s;
 }
 
 function md2html(src) {
@@ -329,6 +440,7 @@ function inline(s) {
 
 let cachedIssues = null;
 let cachedSummary = null;
+let sortOrder = "desc";
 
 // "type:return" Issue は返品ページ側で表示するため、不具合ページからは除外
 function isDefectIssue(i) {
@@ -337,23 +449,95 @@ function isDefectIssue(i) {
   return true;
 }
 
-// Parse markdown table body → {key: value} object
+// Parse markdown body → { fields, sections, mediaLines }
 function parseBody(body) {
   const fields = {};
-  if (!body) return fields;
+  const sections = {};
+  const mediaLines = [];
+  if (!body) return { fields, sections, mediaLines };
   const lines = String(body).replace(/\r\n/g, "\n").split("\n");
+  let curHeading = null;
+  let buf = [];
+  const flush = () => {
+    if (curHeading && buf.length) sections[curHeading] = buf.join("\n").trim();
+    buf = [];
+  };
   for (let i = 0; i < lines.length; i++) {
     const ln = lines[i];
-    if (!ln.includes("|") || /^\s*\|?[\s:-]+\|[\s:|-]+$/.test(ln)) continue;
-    const cells = ln.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim());
-    if (cells.length === 2 && cells[0] && cells[1] && cells[0] !== "項目" && cells[0] !== "値") {
-      fields[cells[0]] = cells[1];
+    const h = ln.match(/^#{2,3}\s+(.+)$/);
+    if (h) { flush(); curHeading = h[1].trim(); continue; }
+    if (ln.includes("|") && !/^\s*\|?[\s:-]+\|[\s:|-]+$/.test(ln)) {
+      const cells = ln.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim());
+      const _kja = cells[0].split(" / ")[0].trim();
+      if (cells.length === 2 && cells[0] && cells[1] && _kja !== "項目" && _kja !== "値") {
+        fields[cells[0]] = cells[1];
+        continue;
+      }
     }
+    if (/^\s*\|?[\s:-]+\|[\s:|-]+$/.test(ln)) continue;
+    if (curHeading) buf.push(ln);
   }
-  return fields;
+  flush();
+  return { fields, sections, mediaLines };
 }
 
-// Fallback: extract type+severity from title pattern "[J002] [高] [本体破損] 症状..."
+function makeHeadline(issue, parsed) {
+  const detail = parsed.sections["症状 (日本語)"] || parsed.sections["症状"] || parsed.sections["詳細"] || "";
+  const MAX = 48;
+  // 症状文があればそれ、無ければタイトルから [タグ] を除去したものを元ネタに
+  const src = detail || String(issue.title || "").replace(/^\s*(\[[^\]]+\]\s*){1,3}/, "").trim() || String(issue.title || "");
+  // 第1文 (。/改行 区切り) だけを見出しにする
+  let first = src.split(/[。\n]/)[0].trim();
+  if (first.length > MAX) {
+    // 長い場合は読点で意味を保ったまま詰める
+    const byComma = first.split(/[、,]/);
+    let acc = "";
+    for (const c of byComma) {
+      const candidate = acc ? acc + "、" + c : c;
+      if (candidate.length > MAX) break;
+      acc = candidate;
+    }
+    first = acc && acc.length >= 8 ? acc : first.slice(0, MAX) + "…";
+  }
+  return first || src;
+}
+
+function renderDetails(parsed) {
+  const order = ["購入日", "問い合わせ日", "不具合の種類", "報告元", "深刻度", "ロット番号", "シリアル番号", "ロット番号 / 批次号", "シリアル番号 (任意) / 序列号 (可选)"];
+  const rows = [];
+  order.forEach(k => { if (parsed.fields[k]) rows.push([k, parsed.fields[k]]); });
+  Object.keys(parsed.fields).forEach(k => {
+    if (!order.includes(k)) rows.push([k, parsed.fields[k]]);
+  });
+  // Include 症状 + 想定原因 + 補足 sections in the table
+  const inlineSecs = ["症状 (日本語)", "症状 (中文)", "症状", "詳細", "想定原因 (任意) / 推測原因 (可选)", "想定原因", "補足", "補足 / 补充内容"];
+  const _zhMode = document.body.classList.contains("lang-zh");
+  inlineSecs.forEach(name => {
+    if (!parsed.sections[name]) return;
+    if (_zhMode && /日本語/.test(name)) return;
+    if (!_zhMode && /中文/.test(name)) return;
+    rows.push([name, parsed.sections[name]]);
+  });
+
+  let html = "";
+  if (rows.length) {
+    html += `<table><tbody>` +
+      rows.map(([k, v]) => `<tr><th>${esc(localize(k))}</th><td>${inline(localize(String(v).replace(/\n/g, "<br>")))}</td></tr>`).join("") +
+      `</tbody></table>`;
+  }
+  // Media block (写真 / 動画 URL)
+  const _mediaSecs = ["添付ファイル", "写真 / 照片", "写真", "写真・動画", "動画 URL / 视频链接", "動画 URL"];
+  let media = "";
+  _mediaSecs.forEach(n => { if (parsed.sections[n]) media += "\n" + parsed.sections[n]; });
+  // 旧形式の生 <video> タグは除去 (隣の markdown リンクが <video> として描画される)
+  media = media.replace(/<video[\s\S]*?<\/video>/gi, "").replace(/<video[^>]*>/gi, "");
+  if (media && media.trim()) {
+    html += `<div style="margin-top:8px">` + inline(media).replace(/\n/g, "") + `</div>`;
+  }
+  return html;
+}
+
+// Fallback: extract type+severity from title pattern "[J001] [高] [本体破損] 症状..."
 function parseTitle(title) {
   const out = {};
   const t = String(title || "");
@@ -371,7 +555,8 @@ function parseTitle(title) {
 function aggregate(issues, getter) {
   const counts = {};
   issues.forEach(i => {
-    const fields = parseBody(i.body || i.body_excerpt);
+    const fields = parseBody(i.body || i.body_excerpt).fields;
+    if (!fields["報告元"] && (i.labels || []).includes("source:customer")) fields["報告元"] = "顧客（楽天レビュー）";
     const titleFields = parseTitle(i.title);
     const v = getter(fields, titleFields, i);
     if (!v) return;
@@ -396,17 +581,51 @@ function renderBars(containerId, data, color) {
     </div>`).join("");
 }
 
+// PAT があれば GitHub Issues API から直接取得 (リアルタイム反映)。
+// private リポでも認証で読めるので、投稿直後でも待ち時間なく一覧に出る。
+async function fetchIssuesLive(pat) {
+  const out = [];
+  for (let page = 1; page <= 3; page++) {
+    const r = await fetch(`https://api.github.com/repos/${ISSUE_REPO}/issues?state=all&per_page=100&page=${page}&sort=updated&direction=desc`, {
+      headers: { "Authorization": `Bearer ${pat}`, "Accept": "application/vnd.github+json" },
+      cache: "no-cache",
+    });
+    if (!r.ok) throw new Error("GitHub API " + r.status);
+    const batch = await r.json();
+    if (!Array.isArray(batch) || !batch.length) break;
+    for (const it of batch) {
+      if (it.pull_request) continue;
+      out.push({
+        number: it.number, title: it.title,
+        body: it.body || "", body_excerpt: it.body || "",
+        state: it.state,
+        labels: (it.labels || []).map(l => typeof l === "string" ? l : (l && l.name) || ""),
+        updated_at: it.updated_at, created_at: it.created_at,
+        product: PRODUCT,
+      });
+    }
+    if (batch.length < 100) break;
+  }
+  return out;
+}
+
 async function load() {
+  const pat = getPAT();
   try {
-    // raw を優先 (fresh)。jsdelivr は中国アクセス用フォールバック (J002 と統一)
-    const r = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" })
-      .catch(() => fetch(`https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" }));
-    if (!r.ok) { reflow(); return; }
-    const data = await r.json();
-    cachedIssues = (data.issues || []).filter(i => i.product === PRODUCT && i.state !== "closed" && isDefectIssue(i));
+    if (pat) {
+      const issues = await fetchIssuesLive(pat);
+      cachedIssues = issues.filter(i => i.state !== "closed" && isDefectIssue(i));
+    } else {
+      const r = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" })
+        .catch(() => fetch(`https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/docs/data/defects-merged.json`, { cache: "no-cache" }));
+      if (!r.ok) { reflow(); return; }
+      const data = await r.json();
+      cachedIssues = (data.issues || []).filter(i => i.product === PRODUCT && i.state !== "closed" && isDefectIssue(i));
+    }
   } catch (e) {
     cachedIssues = [];
   }
+  // summary-*.json は小さく更新頻度が高いので raw を優先 (jsdelivr は 12h cache)
   try {
     const sr = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/summary-${PRODUCT}.json`, { cache: "no-cache" })
       .catch(() => fetch(`https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}/summary-${PRODUCT}.json`, { cache: "no-cache" }));
@@ -416,28 +635,30 @@ async function load() {
 }
 
 function reflow() {
-  const issues = cachedIssues || [];
-  const open = issues.filter(i => i.state === "open");
-  const closed = issues.filter(i => i.state !== "open");
+  const rawIssues = cachedIssues || [];
 
-  const sumLine = document.getElementById("summary-line");
   const empty = document.getElementById("empty");
   const list = document.getElementById("issue-list");
   const agg = document.getElementById("agg-section");
   const ai = document.getElementById("ai-insights");
+  const sortBar = document.getElementById("sort-bar");
 
-  if (issues.length === 0) {
-    sumLine.hidden = true;
+  if (rawIssues.length === 0) {
     if (agg) agg.hidden = true;
     if (ai) ai.hidden = true;
+    if (sortBar) sortBar.hidden = true;
     empty.hidden = false;
     list.innerHTML = "";
     return;
   }
-  sumLine.hidden = false;
   empty.hidden = true;
-  document.getElementById("count-open").textContent = open.length;
-  document.getElementById("count-closed").textContent = closed.length;
+  if (sortBar) sortBar.hidden = false;
+
+  const issues = [...rawIssues].sort((a, b) => {
+    const da = a.updated_at || "";
+    const db = b.updated_at || "";
+    return sortOrder === "asc" ? da.localeCompare(db) : db.localeCompare(da);
+  });
 
   // Aggregations
   if (agg) {
@@ -447,42 +668,79 @@ function reflow() {
     renderBars("agg-src",  aggregate(issues, (f) => f["報告元"]), "b");
   }
 
-  // AI insights from summary-*.json
-  if (ai && cachedSummary) {
+  // AI insights — DEFECTS ONLY
+  if (ai && cachedSummary && cachedSummary.defects_summary) {
     const isJa = document.body.classList.contains("lang-ja");
-    const block = isJa ? cachedSummary.summary_ja : cachedSummary.summary_zh;
+    const block = isJa ? cachedSummary.defects_summary.summary_ja
+                       : cachedSummary.defects_summary.summary_zh;
     if (block) {
       ai.hidden = false;
+      const _hl = document.getElementById("ai-headline"); if (_hl) _hl.textContent = block.headline || "";
       document.getElementById("ai-narr").textContent = block.narrative || "";
+      const _fd = document.getElementById("ai-find");
+      const _fw = document.getElementById("ai-find-wrap");
+      const kf = block.key_findings || [];
+      if (_fd) _fd.innerHTML = kf.map(f => `<li><strong>${esc(f.topic || "")}</strong>${f.count ? ` (${f.count})` : ""}${f.finding ? "：" + esc(f.finding) : ""}</li>`).join("");
+      if (_fw) _fw.style.display = kf.length ? "" : "none";
       document.getElementById("ai-acts").innerHTML = (block.actions || [])
         .map(a => `<li>${esc(a)}</li>`).join("");
     }
   }
 
+  const byOldest = [...issues].sort((a, b) => a.number - b.number);
+  const noMap = new Map();
+  byOldest.forEach((it, idx) => noMap.set(it.number, idx + 1));
+
   const isJa = document.body.classList.contains("lang-ja");
-  const statusLab = (s) => isJa
-    ? (s === "open" ? "対応中" : "解決済み")
-    : (s === "open" ? "处理中" : "已解决");
-  const sevLab = (s) => {
-    const map = isJa
-      ? { high: "深刻 高", medium: "深刻 中", low: "深刻 低" }
-      : { high: "严重 高", medium: "严重 中", low: "严重 低" };
-    return map[s] || "";
-  };
-  list.innerHTML = issues.slice(0, 100).map(i => `
-    <article class="issue-card">
+  const aiHeads = (cachedSummary && cachedSummary.issue_headlines) || {};
+  const isAdmin = (typeof ADMIN_MODE !== "undefined" && ADMIN_MODE) && !!getPAT();
+
+  list.innerHTML = issues.slice(0, 100).map(i => {
+    const parsed = parseBody(i.body || i.body_excerpt);
+    if (!parsed.fields["報告元"] && (i.labels || []).includes("source:customer")) parsed.fields["報告元"] = isJa ? "顧客（楽天レビュー）" : "客户（乐天评论）";
+    const aiH = aiHeads[String(i.number)];
+    const headline = (aiH && (isJa ? aiH.ja : aiH.zh)) || makeHeadline(i, parsed);
+    const no = noMap.get(i.number) || "";
+    const adminHtml = isAdmin ? `
+      <div class="admin-actions">
+        <button type="button" data-action="edit" data-num="${i.number}">✏️ 編集</button>
+        <button type="button" data-action="close" data-num="${i.number}" class="danger">🗑️ 削除</button>
+      </div>` : "";
+    return `
+    <article class="issue-card" data-collapsed="true" data-issue="${i.number}">
       <div class="head">
-        <h3>${esc(i.title)}</h3>
+        <h3><span style="color:var(--ink-3);font-weight:600;margin-right:6px;flex-shrink:0">No.${no}</span><span style="overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.4">${esc(headline)}</span></h3>
         <div class="head-meta">
-          <span class="issue-tag status-${i.state === "open" ? "open" : "closed"}">${esc(statusLab(i.state))}</span>
-          ${i.severity ? `<span class="issue-tag sev-${esc(i.severity)}">${esc(sevLab(i.severity))}</span>` : ""}
-          <span>#${i.number}</span>
           <span>${esc((i.updated_at || "").slice(0,10))}</span>
         </div>
       </div>
-      <div class="body-md">${md2html(i.body || i.body_excerpt || "")}</div>
-    </article>
-  `).join("");
+      <div class="body-md">${renderDetails(parsed)}${adminHtml}</div>
+    </article>`;
+  }).join("");
+
+  list.querySelectorAll(".issue-card .head").forEach(head => {
+    head.addEventListener("click", () => {
+      const card = head.closest(".issue-card");
+      card.dataset.collapsed = card.dataset.collapsed === "true" ? "false" : "true";
+    });
+  });
+
+  list.querySelectorAll('.admin-actions button').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const num = btn.dataset.num;
+      const action = btn.dataset.action;
+      if (action === 'edit') {
+        location.href = `./admin-defect.html?issue=${num}`;
+      } else if (action === 'close') {
+        if (!confirm(`No.${noMap.get(parseInt(num))} を削除 (クローズ) します。よろしいですか?`)) return;
+        closeIssue(num).then(ok => {
+          if (ok) { alert('削除しました。'); location.reload(); }
+          else alert('削除に失敗しました。PAT 権限を確認してください。');
+        });
+      }
+    });
+  });
 
   document.querySelectorAll(".body-md img").forEach(img => {
     img.addEventListener("click", () => {
@@ -497,8 +755,17 @@ document.getElementById("img-lightbox").addEventListener("click", e => {
   e.currentTarget.classList.remove("open");
 });
 
+document.querySelectorAll("#sort-bar button").forEach(b => {
+  b.addEventListener("click", () => {
+    sortOrder = b.dataset.sort;
+    document.querySelectorAll("#sort-bar button").forEach(x => x.classList.toggle("active", x.dataset.sort === sortOrder));
+    reflow();
+  });
+});
+
 load();
 </script>
 
+<script src="./sticky-nav.js"></script>
 </body>
 </html>

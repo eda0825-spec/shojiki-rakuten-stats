@@ -385,7 +385,14 @@ function renderStats(d, joined) {
   for (const r of joined) c[r.category] = (c[r.category] || 0) + 1;
   document.getElementById("stat-defect").textContent = c.defect;
   document.getElementById("stat-improvement").textContent = c.improvement;
-  document.getElementById("stat-praise").textContent = c.praise;
+  const _praise = document.getElementById("stat-praise");
+  if (_praise) _praise.textContent = c.praise;
+  // 統計カードの絞り込み: 現在のカテゴリをハイライト
+  document.querySelectorAll(".stat-filter").forEach(el => {
+    const on = (el.dataset.cat || "all") === (state.cat || "all");
+    el.style.outline = on ? "2px solid var(--ink)" : "";
+    el.style.outlineOffset = on ? "-2px" : "";
+  });
 }
 
 function renderTopics(joined) {
@@ -474,11 +481,17 @@ function renderList(rows) {
     const showJa = state.lang === "ja";
     const showZh = state.lang === "zh";
     const removedLab = state.lang === "zh" ? "已删除" : "削除済み";
+    // レビュー出所 (楽天 / Amazon / Shopify)。データに platform/source が無ければ楽天市場とみなす
+    const _plat = String(r.platform || r.source || "rakuten").toLowerCase();
+    const srcLabel = _plat.includes("amazon") ? "Amazon" : (_plat.includes("shopify") ? "Shopify" : (showZh ? "乐天市场" : "楽天市場"));
+    const srcStyle = _plat.includes("amazon") ? "background:#ff9900;color:#1a1a1a"
+                   : (_plat.includes("shopify") ? "background:#5a31f4;color:#fff" : "background:#bf0000;color:#fff");
     return `
     <article class="card ${r.removed_at ? 'card--removed' : ''}" id="rev-${esc(r.id)}">
       <div class="card-head">
         <span class="stars">${stars(r.rating)}</span>
         <span class="cdate">${esc(fmtDate(r.postDate))}</span>
+        <span class="badge" style="${srcStyle}" title="レビュー出所 / 来源">${esc(srcLabel)}</span>
         <span class="badge cat-${esc(r.category)}">${esc(catLab)}</span>
         ${sevLab ? `<span class="badge sev-${esc(r.severity)}">${esc(sevLab)}</span>` : ""}
         ${r.removed_at ? `<span class="badge badge-removed" title="楽天から削除されました: ${esc(r.removed_at)}">🗑 ${esc(removedLab)}</span>` : ""}
@@ -492,9 +505,9 @@ function renderList(rows) {
           <div class="sum-cell zh"><div class="lang">${esc(labels.summaryLabel_zh)}</div>${esc(r.summary_zh || "—")}</div>
         </div>` : ""}
       ${r.action_hint && showJa ? `<div class="action-hint">${esc(r.action_hint)}</div>` : ""}
-      ${r.action_hint && showZh ? `<div class="action-hint" title="${esc(r.action_hint)}">${esc(labels.notranslated)}</div>` : ""}
-      ${r.title ? `<div style="font-weight:600;margin-bottom:4px">${esc(r.title)}</div>` : ""}
-      <div class="body">${esc(r.body)}</div>
+      ${showZh
+        ? ((r.title || r.body) ? `<details style="margin-top:6px"><summary style="cursor:pointer;color:#999;font-size:12px">原文（日文）</summary>${r.title ? `<div style="font-weight:600;margin:4px 0">${esc(r.title)}</div>` : ""}<div class="body">${esc(r.body)}</div></details>` : "")
+        : `${r.title ? `<div style="font-weight:600;margin-bottom:4px">${esc(r.title)}</div>` : ""}<div class="body">${esc(r.body)}</div>`}
     </article>`;
   }).join("");
   if (rows.length > MAX_RENDER) {
@@ -609,6 +622,18 @@ async function init() {
       render();
     });
   });
+
+  // 統計カード (レビュー全件 / 不具合 / 改善要望) クリックでカテゴリ絞り込み
+  document.querySelectorAll(".stat-filter").forEach(card => {
+    card.addEventListener("click", () => {
+      state.cat = card.dataset.cat || "all";
+      state.cluster = null;
+      document.querySelectorAll(".simple-filter .big-chip").forEach(b => b.classList.toggle("active", b.dataset.cat === state.cat));
+      render();
+      const list = document.getElementById("list");
+      if (list) list.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
   // Advanced filters inside the <details>: severity, star
   function bindAdvChips(label, key) {
     document.querySelectorAll(`.advanced-body .fgrp .chip[data-${key}]`).forEach(btn => {
@@ -634,3 +659,32 @@ async function init() {
   }
 }
 init();
+
+// ===== 冒頭の AI 全体サマリー (#ai-insights があるページのみ) =====
+(async function renderTopSummary() {
+  const box = document.getElementById("ai-insights");
+  if (!box) return;
+  const _esc = (s) => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  let summary = null;
+  try {
+    const r = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/summary-${PRODUCT}.json`, { cache: "no-cache" });
+    if (r.ok) summary = await r.json();
+  } catch (e) { /* 取得失敗時は何も出さない */ }
+  if (!summary || !summary.summary_ja) return;
+  const setHtml = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+  const setText = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
+  function render() {
+    const isZh = document.body.classList.contains("lang-zh");
+    const b = (isZh ? summary.summary_zh : summary.summary_ja) || summary.summary_ja;
+    if (!b) return;
+    box.hidden = false;
+    setText("ai-headline", b.headline || "");
+    setText("ai-narr", b.narrative || "");
+    const kf = b.key_findings || [];
+    setHtml("ai-find", kf.map(f => `<li><strong>${_esc(f.topic || "")}</strong>${f.count ? ` (${f.count})` : ""}${f.finding ? "：" + _esc(f.finding) : ""}</li>`).join(""));
+    const fw = document.getElementById("ai-find-wrap"); if (fw) fw.style.display = kf.length ? "" : "none";
+    setHtml("ai-acts", (b.actions || []).map(a => `<li>${_esc(a)}</li>`).join(""));
+  }
+  render();
+  document.querySelectorAll(".lang-toggle button").forEach(btn => btn.addEventListener("click", () => setTimeout(render, 30)));
+})();
