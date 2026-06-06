@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-06-06T14:46:37Z",
+  "updatedAt": "2026-06-06T16:11:09Z",
   "product": "sh-j002",
   "itemNumber": "10000004",
   "summary": {
     "rating": 4.55,
-    "count": 220
+    "count": 222
   },
   "reviewsCount": 227,
   "activeCount": 222,
   "removedCount": 5,
-  "newReviewsThisRun": 2,
+  "newReviewsThisRun": 0,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
