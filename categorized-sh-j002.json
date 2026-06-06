@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-06T18:11:28Z",
+  "updatedAt": "2026-06-06T20:13:53Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-06T18:11:23Z",
-  "count": 228,
+  "sourceUpdatedAt": "2026-06-06T20:13:50Z",
+  "count": 229,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -2876,6 +2876,20 @@
         "重量"
       ],
       "action_hint": "吸引力の設定値または気流経路を見直し、軽量性を維持しつつ吸引性能の向上を検討する"
+    },
+    {
+      "id": "298e25b6761265d1",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力・軽さ・デザイン・使いやすさ・価格のすべてに満足との評価。",
+      "summary_zh": "用户对吸力、重量、设计、易用性及价格均表示满意。",
+      "topics": [
+        "吸引力",
+        "重量",
+        "デザイン",
+        "操作性"
+      ],
+      "action_hint": null
     }
   ]
 }
