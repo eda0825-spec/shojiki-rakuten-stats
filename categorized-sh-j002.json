@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-06T12:08:49Z",
+  "updatedAt": "2026-06-06T14:46:43Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-06T12:08:45Z",
-  "count": 225,
+  "sourceUpdatedAt": "2026-06-06T14:46:37Z",
+  "count": 227,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -2837,6 +2837,32 @@
         "操作性"
       ],
       "action_hint": "ダストカップ容量の拡大またはゴミ捨て頻度を減らす設計改善を検討する"
+    },
+    {
+      "id": "49c53484890be09f",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "組み立て簡単で軽量コンパクト。2歳児でも扱えるほど持ちやすい。",
+      "summary_zh": "组装简便，机身轻巧紧凑，连2岁幼儿也能轻松握持操作。",
+      "topics": [
+        "重量",
+        "操作性",
+        "コンパクト設計"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "641151cb373199ac",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽さ・吸引力・仕上げ品質を高評価。価格も満足。",
+      "summary_zh": "用户对机身重量、吸力及外观做工给予高度评价，认为性价比突出。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "品質"
+      ],
+      "action_hint": null
     }
   ]
 }
