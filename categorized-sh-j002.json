@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-06T10:10:25Z",
+  "updatedAt": "2026-06-06T12:08:49Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-06T10:10:18Z",
-  "count": 224,
+  "sourceUpdatedAt": "2026-06-06T12:08:45Z",
+  "count": 225,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -2825,6 +2825,18 @@
         "デザイン"
       ],
       "action_hint": null
+    },
+    {
+      "id": "c562241854cfdac5",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "自走式で操作性に満足。ダストカップ容量が小さく感じるが、ゴミ捨ては簡単。",
+      "summary_zh": "自驱式操作性良好，用户满意。集尘杯容量偏小，但清倒方便。",
+      "topics": [
+        "ダストカップ",
+        "操作性"
+      ],
+      "action_hint": "ダストカップ容量の拡大またはゴミ捨て頻度を減らす設計改善を検討する"
     }
   ]
 }

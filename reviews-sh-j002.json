@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-06-06T10:10:18Z",
+  "updatedAt": "2026-06-06T12:08:45Z",
   "product": "sh-j002",
   "itemNumber": "10000004",
   "summary": {
-    "rating": 4.53,
-    "count": 215
+    "rating": 4.55,
+    "count": 220
   },
-  "reviewsCount": 224,
-  "activeCount": 219,
+  "reviewsCount": 225,
+  "activeCount": 220,
   "removedCount": 5,
-  "newReviewsThisRun": 2,
+  "newReviewsThisRun": 1,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
@@ -81,6 +81,18 @@
       "title": "デザイン最高",
       "body": "はじめてのコードレス掃除機で不安でしたが、吸引力もありしかも軽くて使いやすいです。\nそして何よりデザインが良いのでリビングに置きっぱなしでも汚らしくならないのがポイント高いです。\n毎日フル活用しそうです。",
       "nickname": "砂の船",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-06",
+      "last_seen_at": "2026-06-06"
+    },
+    {
+      "id": "c562241854cfdac5",
+      "rating": 5,
+      "postDate": "2026-06-06",
+      "title": "満足の逸品です。",
+      "body": "到着後、早速、セットアップしました。\nとても簡単。\nそして、掃除、スタート。\n旧式の掃除機を使用していた自分には、とても快適。\n自走式で、力いらず。\n旧式派としては、ゴミ収納が小さく感じましたが、簡単に捨てられるので、これくらいでいいのかも。\n満足の逸品です。",
+      "nickname": "Katsukatsu9308",
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-06",
