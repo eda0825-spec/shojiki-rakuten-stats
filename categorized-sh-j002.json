@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-06T16:11:09Z",
+  "updatedAt": "2026-06-06T18:11:28Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-06T16:11:09Z",
-  "count": 227,
+  "sourceUpdatedAt": "2026-06-06T18:11:23Z",
+  "count": 228,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -2863,6 +2863,19 @@
         "品質"
       ],
       "action_hint": null
+    },
+    {
+      "id": "7601554a4648169c",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽量で使い勝手は良いが、吸引力がやや不足と感じている。バッテリー持続性は未評価。",
+      "summary_zh": "机身轻巧、操作性良好，但吸力略感不足。电池续航尚未充分验证。",
+      "topics": [
+        "吸引力",
+        "バッテリー",
+        "重量"
+      ],
+      "action_hint": "吸引力の設定値または気流経路を見直し、軽量性を維持しつつ吸引性能の向上を検討する"
     }
   ]
 }

@@ -1,19 +1,31 @@
 {
-  "updatedAt": "2026-06-06T16:11:09Z",
+  "updatedAt": "2026-06-06T18:11:23Z",
   "product": "sh-j002",
   "itemNumber": "10000004",
   "summary": {
     "rating": 4.55,
-    "count": 222
+    "count": 223
   },
-  "reviewsCount": 227,
-  "activeCount": 222,
+  "reviewsCount": 228,
+  "activeCount": 223,
   "removedCount": 5,
-  "newReviewsThisRun": 0,
+  "newReviewsThisRun": 1,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
   "reviews": [
+    {
+      "id": "7601554a4648169c",
+      "rating": 5,
+      "postDate": "2026-06-07",
+      "title": null,
+      "body": "予定通りに届きました。\nまだ使用して数日ですが問題なく使えています。\n吸引力はもう少し欲しいところですが、軽量で使い勝手は良いです。\nバッテリーの持ちに期待しています。",
+      "nickname": "購入者",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-06",
+      "last_seen_at": "2026-06-06"
+    },
     {
       "id": "1c3f4d1619d279d3",
       "rating": 5,
