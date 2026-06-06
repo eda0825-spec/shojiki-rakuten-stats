@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-06-06T04:57:31Z",
+  "updatedAt": "2026-06-06T07:52:07Z",
   "product": "sh-j002",
   "itemNumber": "10000004",
   "summary": {
     "rating": 4.53,
-    "count": 214
+    "count": 215
   },
-  "reviewsCount": 220,
-  "activeCount": 215,
+  "reviewsCount": 222,
+  "activeCount": 217,
   "removedCount": 5,
   "newReviewsThisRun": 2,
   "removedThisRun": 0,
@@ -33,6 +33,30 @@
       "title": null,
       "body": "安価でメーカー的にもどうかと思いましたが、今のところ問題無いです\nこれからどんどん使いこなして行きたいと思います",
       "nickname": "購入者",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-06",
+      "last_seen_at": "2026-06-06"
+    },
+    {
+      "id": "d363d7eeb2721d58",
+      "rating": 5,
+      "postDate": "2026-06-06",
+      "title": null,
+      "body": "非常に良かった。\n充電がうまく出来ず問い合わせようと思っていましたが、事前によくあるQAを記載してくださっており、不良ではなく組み立て方を見直して改善しました。",
+      "nickname": "D3782",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-06",
+      "last_seen_at": "2026-06-06"
+    },
+    {
+      "id": "c0bd76530f5116b8",
+      "rating": 5,
+      "postDate": "2026-06-06",
+      "title": null,
+      "body": "軽いです\nハイハイする赤ん坊がいるので、光ってゴミが見えるのは助かります\n付属品もまとめて片付けられるのもありがたいです",
+      "nickname": "ひーろ1981",
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-06",

@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-06T04:57:36Z",
+  "updatedAt": "2026-06-06T07:52:20Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-06T04:57:31Z",
-  "count": 220,
+  "sourceUpdatedAt": "2026-06-06T07:52:07Z",
+  "count": 222,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -2772,6 +2772,31 @@
       "topics": [
         "価格",
         "信頼性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "d363d7eeb2721d58",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "充電不具合と思ったが、FAQを参照し組み立て見直しで解決。サポート情報が有効だった。",
+      "summary_zh": "用户以为充电异常，参考FAQ重新组装后问题解决，随附说明文档有效。",
+      "topics": [
+        "充電",
+        "組み立て"
+      ],
+      "action_hint": "充電トラブルに関するFAQ・組み立て手順の記載をさらに充実させ、誤組み立てを未然に防ぐ"
+    },
+    {
+      "id": "c0bd76530f5116b8",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で扱いやすく、LEDでゴミが見えやすい点と付属品収納が好評。",
+      "summary_zh": "机身轻便，LED照明便于发现垃圾，配件集中收纳设计受到好评。",
+      "topics": [
+        "重量",
+        "LEDライト",
+        "付属品収納"
       ],
       "action_hint": null
     }
