@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-06T00:12:55Z",
+  "updatedAt": "2026-06-06T04:57:36Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-06T00:12:55Z",
-  "count": 218,
+  "sourceUpdatedAt": "2026-06-06T04:57:31Z",
+  "count": 220,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -2749,6 +2749,31 @@
         "組み立て"
       ],
       "action_hint": "組み立て手順の図解をより詳細・明確にし、説明書のユーザビリティを改善する"
+    },
+    {
+      "id": "1c3f4d1619d279d3",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "ダイソンからの買い替えで、価格に対するクオリティに驚き。耐久性に期待。",
+      "summary_zh": "从戴森换购，对产品性价比感到惊喜，期待长期耐用性。",
+      "topics": [
+        "価格",
+        "品質",
+        "耐久性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "d1acdb00d1b21c8a",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "低価格帯ブランドへの不安があったが、現時点では問題なく使用できている。",
+      "summary_zh": "购买前对低价品牌有所顾虑，目前使用无异常。",
+      "topics": [
+        "価格",
+        "信頼性"
+      ],
+      "action_hint": null
     }
   ]
 }
