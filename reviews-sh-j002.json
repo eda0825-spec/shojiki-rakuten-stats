@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-06-06T07:52:07Z",
+  "updatedAt": "2026-06-06T10:10:18Z",
   "product": "sh-j002",
   "itemNumber": "10000004",
   "summary": {
     "rating": 4.53,
     "count": 215
   },
-  "reviewsCount": 222,
-  "activeCount": 217,
+  "reviewsCount": 224,
+  "activeCount": 219,
   "removedCount": 5,
   "newReviewsThisRun": 2,
   "removedThisRun": 0,
@@ -57,6 +57,30 @@
       "title": null,
       "body": "軽いです\nハイハイする赤ん坊がいるので、光ってゴミが見えるのは助かります\n付属品もまとめて片付けられるのもありがたいです",
       "nickname": "ひーろ1981",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-06",
+      "last_seen_at": "2026-06-06"
+    },
+    {
+      "id": "ecbebcac89fd8eb0",
+      "rating": 5,
+      "postDate": "2026-06-06",
+      "title": "メイン使い",
+      "body": "紙パック派の私ですが子供の食べかす猫砂などでいちいち出すのが面倒くさい。できればメインで使えるのはないか探してたどり着きました。まず猫砂吸えます！ほんの少しだけしたのですがえっ！猫の毛落ちてた？ってぐらい吸えました！　クーポンでお安くも買え次の日には届く。大変良かったです！\nメインで使います。あと付属を買えるのがよかったです！",
+      "nickname": "購入者",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-06",
+      "last_seen_at": "2026-06-06"
+    },
+    {
+      "id": "6df9a8d14191993e",
+      "rating": 5,
+      "postDate": "2026-06-06",
+      "title": "デザイン最高",
+      "body": "はじめてのコードレス掃除機で不安でしたが、吸引力もありしかも軽くて使いやすいです。\nそして何よりデザインが良いのでリビングに置きっぱなしでも汚らしくならないのがポイント高いです。\n毎日フル活用しそうです。",
+      "nickname": "砂の船",
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-06",

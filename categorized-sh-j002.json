@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-06T07:52:20Z",
+  "updatedAt": "2026-06-06T10:10:25Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-06T07:52:07Z",
-  "count": 222,
+  "sourceUpdatedAt": "2026-06-06T10:10:18Z",
+  "count": 224,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -2797,6 +2797,32 @@
         "重量",
         "LEDライト",
         "付属品収納"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "ecbebcac89fd8eb0",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "猫砂・猫毛の吸引力に満足。翌日配送・クーポン価格・別売アタッチメントも好評。",
+      "summary_zh": "对吸猫砂和猫毛的吸力表示满意。次日送达、优惠券价格及可选配件均获好评。",
+      "topics": [
+        "吸引力",
+        "ペット対応",
+        "アタッチメント"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "6df9a8d14191993e",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "初コードレスで吸引力・軽量・デザインを高評価。リビング置きっぱなしに適したデザインと言及。",
+      "summary_zh": "首次使用无线吸尘器，对吸力强、重量轻及外观设计给予高度评价，认为适合放置在客厅。",
+      "topics": [
+        "吸引力",
+        "重量",
+        "デザイン"
       ],
       "action_hint": null
     }
