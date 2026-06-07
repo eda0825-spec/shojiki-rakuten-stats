@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-06T22:07:54Z",
+  "updatedAt": "2026-06-07T00:09:54Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-06T22:07:54Z",
-  "count": 229,
+  "sourceUpdatedAt": "2026-06-07T00:09:45Z",
+  "count": 232,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -2888,6 +2888,44 @@
         "重量",
         "デザイン",
         "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "df64b54ea979749e",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽量で日常使いには十分だが、長期耐久性への不安が残る",
+      "summary_zh": "重量轻，日常使用无问题，但对长期耐久性存有疑虑",
+      "topics": [
+        "耐久性",
+        "重量"
+      ],
+      "action_hint": "長期使用を想定した耐久試験の基準を見直し、主要部品の寿命データを開示できるよう整備する"
+    },
+    {
+      "id": "e83612b6ebb286d5",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "走行時にヘッドからガラガラと異音が発生。フローリング面での騒音が気になる",
+      "summary_zh": "在木地板上推动吸头时发出较大的滚动噪音，影响使用体验",
+      "topics": [
+        "ヘッド",
+        "騒音",
+        "フローリング対応"
+      ],
+      "action_hint": "ヘッドのローラーまたは車輪部品の素材・形状を見直し、硬質床面での走行音を低減する"
+    },
+    {
+      "id": "4c2f74393773641f",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量さとパワーに満足。バッテリー持続時間は使用中に確認予定",
+      "summary_zh": "对轻量化和吸力表示满意，电池续航时间有待实际使用验证",
+      "topics": [
+        "重量",
+        "吸引力",
+        "バッテリー"
       ],
       "action_hint": null
     }
