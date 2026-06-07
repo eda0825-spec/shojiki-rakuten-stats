@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-07T21:22:23Z",
+  "updatedAt": "2026-06-07T22:09:35Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-07T21:21:21Z",
-  "count": 252,
+  "sourceUpdatedAt": "2026-06-07T22:09:31Z",
+  "count": 253,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -3182,6 +3182,19 @@
         "カーペット対応"
       ],
       "action_hint": "ダストカップの逆流防止弁とフィルターのロック機構を設計・強度面から再検証し、カーペットモード時の吸引力確保を検討する"
+    },
+    {
+      "id": "ee678aec801c2db2",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "旧機種が壊れ買い替え。デザイン・軽量・吸引力すべて満足との評価。",
+      "summary_zh": "因旧机损坏而购买。对外观设计、重量轻便及吸力均表示满意。",
+      "topics": [
+        "デザイン",
+        "重量",
+        "吸引力"
+      ],
+      "action_hint": null
     }
   ]
 }

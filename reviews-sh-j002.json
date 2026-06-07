@@ -1,19 +1,31 @@
 {
-  "updatedAt": "2026-06-07T21:21:21Z",
+  "updatedAt": "2026-06-07T22:09:31Z",
   "product": "sh-j002",
   "itemNumber": "10000004",
   "summary": {
     "rating": 4.57,
     "count": 243
   },
-  "reviewsCount": 252,
-  "activeCount": 243,
+  "reviewsCount": 253,
+  "activeCount": 244,
   "removedCount": 9,
-  "newReviewsThisRun": 4,
-  "removedThisRun": 4,
+  "newReviewsThisRun": 1,
+  "removedThisRun": 0,
   "reappearedThisRun": 0,
-  "fullRescan": true,
+  "fullRescan": false,
   "reviews": [
+    {
+      "id": "ee678aec801c2db2",
+      "rating": 5,
+      "postDate": "2026-06-08",
+      "title": null,
+      "body": "注文番号\n437323-20260527-0278030049\n使用していたものが壊れてしまったため、購入しました。他の方のレビュー通り、スタイリッシュで軽くて、吸引力も満足です！しっかりお手入れをしながら長く使いたいです。",
+      "nickname": "piro2541",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-07",
+      "last_seen_at": "2026-06-07"
+    },
     {
       "id": "7601554a4648169c",
       "rating": 5,
