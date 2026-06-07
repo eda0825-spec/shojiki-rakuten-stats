@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-06-07T14:05:37Z",
+  "updatedAt": "2026-06-07T16:21:49Z",
   "product": "sh-j002",
   "itemNumber": "10000004",
   "summary": {
-    "rating": 4.56,
-    "count": 238
+    "rating": 4.57,
+    "count": 243
   },
-  "reviewsCount": 247,
-  "activeCount": 242,
+  "reviewsCount": 248,
+  "activeCount": 243,
   "removedCount": 5,
-  "newReviewsThisRun": 4,
+  "newReviewsThisRun": 1,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
@@ -249,6 +249,18 @@
       "title": null,
       "body": "暗いところでかけると、ホコリが光って見えます。\n軽く、買って満足しています。",
       "nickname": "akkopeko",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-07",
+      "last_seen_at": "2026-06-07"
+    },
+    {
+      "id": "5cdc5da99cb06131",
+      "rating": 5,
+      "postDate": "2026-06-07",
+      "title": "軽くて使いやすい",
+      "body": "軽くて使いやすく満足して使用しています。\n吸引力も申し分ないです。",
+      "nickname": "よしぴ一",
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-07",
