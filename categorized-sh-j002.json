@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-07T05:26:49Z",
+  "updatedAt": "2026-06-07T09:24:03Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-07T05:26:41Z",
-  "count": 234,
+  "sourceUpdatedAt": "2026-06-07T09:23:43Z",
+  "count": 243,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -2954,6 +2954,123 @@
         "充電ランプ"
       ],
       "action_hint": "充電台コネクタのはめ込みストローク・クリック感を見直し、未接続時に気づきやすい構造に改善する"
+    },
+    {
+      "id": "d1a3eac654aab130",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・組立簡単で吸引力も十分。価格対比で満足度高い。",
+      "summary_zh": "重量轻、组装简便，吸力充足，性价比高，用户满意度高。",
+      "topics": [
+        "軽量",
+        "吸引力",
+        "組立"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "295f89fe761b50fb",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・コンパクトで自立収納可能。ライト付きで暗所の埃も確認しやすく吸引力も良好。",
+      "summary_zh": "机身轻巧紧凑，可自立放置，配备照明灯便于清洁暗处，吸力良好。",
+      "topics": [
+        "軽量",
+        "ライト",
+        "ヘッド",
+        "自立スタンド"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "4d1bde051b2192d6",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽量・ライト・吸引力は好評。交換用バッテリーの別売り販売を希望する声あり。",
+      "summary_zh": "机身轻便、照明灯及吸力均获好评，但用户希望提供替换电池单独销售。",
+      "topics": [
+        "バッテリー",
+        "軽量",
+        "ライト",
+        "吸引力"
+      ],
+      "action_hint": "交換用バッテリーの単品販売・補修部品供給体制を検討する"
+    },
+    {
+      "id": "5276d1f29431ee0d",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コンパクトで軽量、片手操作が容易との評価。",
+      "summary_zh": "机身紧凑轻便，可单手轻松操作，用户印象良好。",
+      "topics": [
+        "軽量",
+        "コンパクト"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "134eb39038b5a24a",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽量化のため各部品が華奢に感じられる。吸引力・使用感は良好。",
+      "summary_zh": "为减轻重量各部件显得较为单薄，用户略感担忧，但吸力及使用感良好。",
+      "topics": [
+        "軽量",
+        "部品強度",
+        "吸引力"
+      ],
+      "action_hint": "主要部品（ジョイント・ダストカップ等）の強度・耐久性を設計上で再確認する"
+    },
+    {
+      "id": "b777c7d1b39411b1",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・自立・スタイリッシュなデザインと丁寧な取扱説明書を高評価。",
+      "summary_zh": "机身轻便可自立，外观时尚，说明书字体清晰、内容详尽，用户评价高。",
+      "topics": [
+        "軽量",
+        "自立スタンド",
+        "デザイン",
+        "取扱説明書"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "c3243b7dc75e5b74",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で取り回しが良く、価格にも満足。",
+      "summary_zh": "机身轻便、操控灵活，价格实惠，用户满意。",
+      "topics": [
+        "軽量",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "b73c3c53a72082a3",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で吸引力も十分との評価。",
+      "summary_zh": "机身轻便，吸力充足，用户满意。",
+      "topics": [
+        "軽量",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "4ef535ad2338e4c6",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "フローリング用途で吸引力・軽量性・手入れのしやすさに満足。",
+      "summary_zh": "用于木地板时，吸力、轻量性及清洁维护便利性均令用户满意。",
+      "topics": [
+        "吸引力",
+        "重量",
+        "お手入れ"
+      ],
+      "action_hint": null
     }
   ]
 }
