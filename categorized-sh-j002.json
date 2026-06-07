@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-07T11:52:48Z",
+  "updatedAt": "2026-06-07T14:05:46Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-07T11:52:48Z",
-  "count": 243,
+  "sourceUpdatedAt": "2026-06-07T14:05:37Z",
+  "count": 247,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -3069,6 +3069,51 @@
         "吸引力",
         "重量",
         "お手入れ"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "da2ea17842a7fb36",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コンパクトで吸引力に満足。良い買い物と評価。",
+      "summary_zh": "体积紧凑，吸力良好，用户表示满意。",
+      "topics": [
+        "吸引力",
+        "コンパクト"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "a3a45ecc13fe19c8",
+      "category": "other",
+      "severity": "n/a",
+      "summary_ja": "充電中で未使用。販売者の姿勢に好印象を持っている。",
+      "summary_zh": "商品尚未使用，仍在充电中，用户对销售方态度印象良好。",
+      "topics": [],
+      "action_hint": null
+    },
+    {
+      "id": "008c412e6a3c5345",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽さと吸引性能に満足。スタンドへの固定が不安定で外れやすい。",
+      "summary_zh": "对重量和吸力满意，但充电座固定不稳，掌机易脱落。",
+      "topics": [
+        "スタンド",
+        "固定機構"
+      ],
+      "action_hint": "スタンドの保持機構（ロック爪・摩擦部材）の保持力を見直し、脱落しにくい構造に改善する"
+    },
+    {
+      "id": "4a5f2b38034cc63b",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "暗所でホコリが光って見える。軽量で満足。",
+      "summary_zh": "暗处使用时可见灰尘发光，机身轻便，用户满意。",
+      "topics": [
+        "重量",
+        "吸引力"
       ],
       "action_hint": null
     }
