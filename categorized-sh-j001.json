@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-07T18:08:39Z",
+  "updatedAt": "2026-06-07T20:17:12Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-06-07T18:08:34Z",
-  "count": 919,
+  "sourceUpdatedAt": "2026-06-07T20:16:58Z",
+  "count": 922,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -11652,6 +11652,44 @@
         "ゴミ捨て"
       ],
       "action_hint": "ダストカップ下蓋開放時にゴミが上部に残留しないよう、内壁形状またはゴミ排出機構を改善する"
+    },
+    {
+      "id": "818bd437b6f8f7b1",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽さ・吸引力は高評価だが、動作音がやや大きく改善を希望",
+      "summary_zh": "重量轻、吸力强，获得好评，但运行噪音偏大，用户希望改善",
+      "topics": [
+        "動作音",
+        "吸引力",
+        "重量"
+      ],
+      "action_hint": "モーターまたはファン周辺の防音・吸音構造を見直し、騒音低減を検討する"
+    },
+    {
+      "id": "34b6b41a5039aa86",
+      "category": "improvement",
+      "severity": "medium",
+      "summary_ja": "ダストカップのワンタッチ排塵が機能せず、ゴミが自然落下しない",
+      "summary_zh": "尘杯一键排尘功能失效，垃圾无法自动落出，需手动取出",
+      "topics": [
+        "ダストカップ",
+        "排塵機構",
+        "操作性"
+      ],
+      "action_hint": "ダストカップ開口時のゴミ落下を妨げる形状・付着要因を調査し、排塵口の角度や内壁の摩擦を見直す"
+    },
+    {
+      "id": "f8f1fe910bc4342b",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "重さ・吸引力ともに満足で、総合的に高評価",
+      "summary_zh": "重量适中，吸力良好，用户整体满意度高",
+      "topics": [
+        "重量",
+        "吸引力"
+      ],
+      "action_hint": null
     }
   ]
 }
