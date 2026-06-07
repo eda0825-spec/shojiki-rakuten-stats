@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-07T00:09:54Z",
+  "updatedAt": "2026-06-07T05:26:49Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-07T00:09:45Z",
-  "count": 232,
+  "sourceUpdatedAt": "2026-06-07T05:26:41Z",
+  "count": 234,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -2928,6 +2928,32 @@
         "バッテリー"
       ],
       "action_hint": null
+    },
+    {
+      "id": "0112bf59ea4f4293",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "静音性・吸引力・小回りに満足。価格と品質のバランスを高く評価。",
+      "summary_zh": "用户对低噪音、吸力及灵活性表示满意，认为性价比高。",
+      "topics": [
+        "静音性",
+        "吸引力",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "87786cc1c8d9bee3",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "充電台の接続が最後まで入りにくく、充電ランプが点灯しないと誤認しやすい。",
+      "summary_zh": "充电底座插接不到位时充电指示灯不亮，用户易误判为故障，连接手感需改善。",
+      "topics": [
+        "充電台",
+        "接続部",
+        "充電ランプ"
+      ],
+      "action_hint": "充電台コネクタのはめ込みストローク・クリック感を見直し、未接続時に気づきやすい構造に改善する"
     }
   ]
 }

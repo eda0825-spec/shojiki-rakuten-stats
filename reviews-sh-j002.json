@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-06-07T00:09:45Z",
+  "updatedAt": "2026-06-07T05:26:41Z",
   "product": "sh-j002",
   "itemNumber": "10000004",
   "summary": {
     "rating": 4.55,
-    "count": 225
+    "count": 228
   },
-  "reviewsCount": 232,
-  "activeCount": 227,
+  "reviewsCount": 234,
+  "activeCount": 229,
   "removedCount": 5,
-  "newReviewsThisRun": 3,
+  "newReviewsThisRun": 2,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
@@ -69,6 +69,30 @@
       "title": "満足です",
       "body": "軽量、パワフルに満足です。\n充電がどのくらいもつのか、使いながら確かめて行きたいです。",
       "nickname": "しゃんく6762",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-07",
+      "last_seen_at": "2026-06-07"
+    },
+    {
+      "id": "0112bf59ea4f4293",
+      "rating": 5,
+      "postDate": "2026-06-07",
+      "title": "良いものに出会いました！",
+      "body": "本当に静か！吸引力も問題なし！です\n\n毎日掃除機を使うので、音の大きさや動かす音が気になり時間帯を気にして掃除機を使っていました。\n\n海外製はゴミが詰まるし、音が大きく、小回りが効かない。隅のゴミが吸えない…など小さなストレスが次第に大きくなっていました…\n\n日本製も大手製品を使用していましたが、吸引力が思ったらより無かったり、2年くらいで壊れたり…\nえ、日本のメーカーなのに…って思うこともしばしば\n\nメーカーにこだわらず探したところ、写真の日本国旗マークが目に止まり価格がそんなに高くないのに…と逆に不安に思いながら購入してみました。\n\n日本製でそして価格はありがたい！\n\n新型がでたらまた購入考えます！",
+      "nickname": "購入者",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-07",
+      "last_seen_at": "2026-06-07"
+    },
+    {
+      "id": "87786cc1c8d9bee3",
+      "rating": 5,
+      "postDate": "2026-06-07",
+      "title": null,
+      "body": "組み立ては簡単でしたが、充電台を，カチッと最後まで接続できてなくて、充電ランプが点灯せずに焦りました。が、よくある質問を見るとすぐに改善されました。軽くて使い勝手がよく、サッとお掃除ができるので、これからとても重宝しそうです。",
+      "nickname": "ねねねねねねねねー",
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-07",
