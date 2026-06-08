@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-08T00:15:05Z",
+  "updatedAt": "2026-06-08T05:56:18Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-06-08T00:14:57Z",
-  "count": 945,
+  "sourceUpdatedAt": "2026-06-08T05:56:00Z",
+  "count": 946,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -11967,6 +11967,20 @@
       "topics": [
         "吸引力",
         "ダストカップ"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "ffc012f90413e08e",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・コンパクト・自走ヘッド・40分駆動・ダストカップ洗浄可能など全体的に高評価。日本語説明書も好評。",
+      "summary_zh": "产品轻巧紧凑，自驱动吸头操作舒适，续航40分钟可完成全屋清洁，集尘杯可水洗，日文说明书清晰易懂，用户整体评价极高。",
+      "topics": [
+        "自走ヘッド",
+        "ダストカップ",
+        "バッテリー",
+        "重量"
       ],
       "action_hint": null
     }
