@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-06-08T05:56:13Z",
+  "updatedAt": "2026-06-08T11:11:50Z",
   "product": "sh-j002",
   "itemNumber": "10000004",
   "summary": {
     "rating": 4.57,
-    "count": 249
+    "count": 250
   },
-  "reviewsCount": 260,
-  "activeCount": 251,
+  "reviewsCount": 263,
+  "activeCount": 254,
   "removedCount": 9,
-  "newReviewsThisRun": 6,
+  "newReviewsThisRun": 3,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
@@ -93,6 +93,30 @@
       "title": null,
       "body": "とても使いやすくて概ね満足です。\n吸引力が弱いと感じました。強にすると概ね解決できました。\n軽く、折り曲げる機能は重宝してます。\n1日5～15分程度の利用ですが、問題なく使えてます。",
       "nickname": "りんごMIX",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-08",
+      "last_seen_at": "2026-06-08"
+    },
+    {
+      "id": "42e4ea38bd77d24e",
+      "rating": 5,
+      "postDate": "2026-06-08",
+      "title": null,
+      "body": "とても良い掃除機でした。絨毯の猫の毛もしっかり吸い取ってくれ、軽くて扱いやすいです。\n買って良かったと本当に思います。\nありがとうございました。",
+      "nickname": "購入者",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-08",
+      "last_seen_at": "2026-06-08"
+    },
+    {
+      "id": "df2fe5f3919a9e7e",
+      "rating": 4,
+      "postDate": "2026-06-08",
+      "title": null,
+      "body": "コンパクトで使いやすいです。ダストボックスは小さいですがこまめにゴミを捨てられるので、これはこれでいいのかなと。\nヘッドのLEDライトが眩しく感じます。ON/OFF機能があれば尚良いなと思います。",
+      "nickname": "購入者",
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-08",
@@ -973,6 +997,18 @@
       "gender": null,
       "first_seen_at": "2026-05-31",
       "last_seen_at": "2026-06-07"
+    },
+    {
+      "id": "489710e535f3aa88",
+      "rating": 5,
+      "postDate": "2026-05-31",
+      "title": "使用しての感想",
+      "body": "使用後の感想です～\n1 良かった点  1-1 先ず軽い\n1-2 ソフアー下の掃除が出来る\n1-3 充電が簡単 1-4 ヘッドのライトで埃が一目瞭然  1-5 ワンタッチで塵が捨てられる\n1-6 集塵機が取り付け簡単\n1-7 集塵機の清掃が出来て清潔\n1-8取手が非常に持ち易い\n \n2 改善提案\n2-1 178センチの私には掃除機全体の長さが短かく感じるので後10センチ位の長さが欲しい\n2-2 ヘッドのライトが明る過ぎと感じるので2割減位にしてその分バッテリーの寿命を永く成るのでは\n2-3 USBメモリは便利ですが使用頻度は私の様な高齢者は少ないと思いますので付けるなら埃避けに蓋の取り外し出来る仕様が有ればと思います\n2-4 本体ブラツクの場合電源オン、オフ、強モードの色が同色の為に見辛いのでセンスの面も有りますが「白色」なら解り易いと思います\n                                           以上",
+      "nickname": "noborukunn-1001",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-08",
+      "last_seen_at": "2026-06-08"
     },
     {
       "id": "30798845e103ba67",

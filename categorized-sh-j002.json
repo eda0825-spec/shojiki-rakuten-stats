@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-08T05:56:37Z",
+  "updatedAt": "2026-06-08T11:12:00Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-08T05:56:13Z",
-  "count": 260,
+  "sourceUpdatedAt": "2026-06-08T11:11:50Z",
+  "count": 263,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -3286,6 +3286,45 @@
         "折り畳み機能"
       ],
       "action_hint": "通常モードの吸引力設定値を見直し、標準使用時の体感吸引力を改善する"
+    },
+    {
+      "id": "42e4ea38bd77d24e",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "絨毯の猫の毛をしっかり吸引でき、軽量で扱いやすいと高評価。",
+      "summary_zh": "地毯上的猫毛吸附效果好，机身轻便，操作性获得好评。",
+      "topics": [
+        "吸引力",
+        "重量",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "df2fe5f3919a9e7e",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "ヘッドLEDライトが眩しすぎるため、ON/OFFスイッチの追加を要望。",
+      "summary_zh": "吸头LED灯亮度过高，用户要求增加开关功能。",
+      "topics": [
+        "LEDライト",
+        "操作性"
+      ],
+      "action_hint": "ヘッドLEDライトにON/OFFスイッチを追加するか、輝度調整機能の搭載を検討する"
+    },
+    {
+      "id": "489710e535f3aa88",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "本体長さが約10cm不足・LEDが明るすぎ・電源ボタンの視認性が低い等、複数の改善要望あり。",
+      "summary_zh": "机身长度不足约10cm、吸头LED亮度过高、黑色机身上电源及强力模式按键颜色辨识度低，存在多项改善需求。",
+      "topics": [
+        "本体サイズ",
+        "LEDライト",
+        "操作パネル",
+        "視認性"
+      ],
+      "action_hint": "黒色モデルの電源・モード切替ボタンをコントラストの高い白色等に変更し視認性を改善する"
     }
   ]
 }
