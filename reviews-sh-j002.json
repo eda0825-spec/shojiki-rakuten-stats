@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-06-08T11:11:50Z",
+  "updatedAt": "2026-06-08T16:06:58Z",
   "product": "sh-j002",
   "itemNumber": "10000004",
   "summary": {
     "rating": 4.57,
-    "count": 250
+    "count": 254
   },
-  "reviewsCount": 263,
-  "activeCount": 254,
+  "reviewsCount": 265,
+  "activeCount": 256,
   "removedCount": 9,
-  "newReviewsThisRun": 3,
+  "newReviewsThisRun": 2,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
@@ -117,6 +117,30 @@
       "title": null,
       "body": "コンパクトで使いやすいです。ダストボックスは小さいですがこまめにゴミを捨てられるので、これはこれでいいのかなと。\nヘッドのLEDライトが眩しく感じます。ON/OFF機能があれば尚良いなと思います。",
       "nickname": "購入者",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-08",
+      "last_seen_at": "2026-06-08"
+    },
+    {
+      "id": "e8a96a073dd508f5",
+      "rating": 5,
+      "postDate": "2026-06-08",
+      "title": null,
+      "body": "リウマチもちの母が軽い掃除機が欲しいとのことでプレゼントしました。とても軽くて使いやすいそうです。ただ、ゴミ捨てがやりづらいようで、そこは父に頼んでいるようです。今後改善されると嬉しいです。期待しています。",
+      "nickname": "Galaxyview",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-08",
+      "last_seen_at": "2026-06-08"
+    },
+    {
+      "id": "d9fab173a9971e2e",
+      "rating": 5,
+      "postDate": "2026-06-08",
+      "title": "初コードレス掃除機",
+      "body": "今回初めてコードレス掃除機を購入し、吸引力など正直不安がありましたが、使ってみて安心しました。\n掃除機をかけるハードルも下がり、掃除が楽しくなりそうです。",
+      "nickname": "れいこうママ81",
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-08",
