@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-07T22:09:35Z",
+  "updatedAt": "2026-06-08T00:15:08Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-07T22:09:31Z",
-  "count": 253,
+  "sourceUpdatedAt": "2026-06-08T00:15:05Z",
+  "count": 254,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -3193,6 +3193,20 @@
         "デザイン",
         "重量",
         "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "91b4521096e44d7a",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力・軽量・LEDライト機能・充電台・アフターサポートをすべて高評価",
+      "summary_zh": "用户对吸引力、轻量化、LED照明、充电底座及售后支持均给予高度评价",
+      "topics": [
+        "吸引力",
+        "LEDライト",
+        "充電台",
+        "操作性"
       ],
       "action_hint": null
     }
