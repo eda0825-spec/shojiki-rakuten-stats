@@ -1,19 +1,55 @@
 {
-  "updatedAt": "2026-06-08T19:24:34Z",
+  "updatedAt": "2026-06-08T21:54:14Z",
   "product": "sh-j002",
   "itemNumber": "10000004",
   "summary": {
     "rating": 4.57,
     "count": 256
   },
-  "reviewsCount": 265,
-  "activeCount": 256,
+  "reviewsCount": 268,
+  "activeCount": 259,
   "removedCount": 9,
-  "newReviewsThisRun": 0,
+  "newReviewsThisRun": 3,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
   "reviews": [
+    {
+      "id": "0c06fccde3876d1a",
+      "rating": 4,
+      "postDate": "2026-06-09",
+      "title": null,
+      "body": "届いた時、品物を受け取った娘が「これ、本当に掃除機？？」と疑うほど箱が小さくて驚きました。\n楽しく組み立てました笑\n吸引力は普段遣いならこんなもんかな？って感じです。\n受電スタンドに立てる時、どうしてもうまく立てれなくてもたつきます。\n練習が必要かな。\nゴミ捨てのとき、本体のブラシにゴミが付いちゃうんですが、私の捨て方が悪いのでしょうか。\nブラシを起こして捨てればゴミに干渉しないんですが、、、説明書ではそのままだし。\n私の捨て方が悪いのかな？\nこれも練習が必要です笑\n\n軽くて取り回しがよく犬の毛もよく吸ってくれます！\n娘がとにかく気に入って、自分の部屋の掃除を始めてくれたのが嬉しいです笑\n機会があれば親にもプレゼントしたいです！",
+      "nickname": "・★パンダ★・",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-08",
+      "last_seen_at": "2026-06-08"
+    },
+    {
+      "id": "94f1a141edbbbbce",
+      "rating": 4,
+      "postDate": "2026-06-09",
+      "title": "軽い",
+      "body": "某有名メーカーよりの買い替えです。\n\n圧倒的に軽くて取り回しが良いです。\n階段を掃除しながら登るのも苦になりません。\n吸引力に関しては劣りますが、必要十分だと思います。\n\nこちらの機種もバッテリーが交換出来ればありがたいです。\n前の掃除機が約6年使えたので、こちらの掃除機も長く使えれば最高です。",
+      "nickname": "購入者",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-08",
+      "last_seen_at": "2026-06-08"
+    },
+    {
+      "id": "0076b7f68eb8773f",
+      "rating": 4,
+      "postDate": "2026-06-09",
+      "title": "ダストボックス",
+      "body": "届いた時は小さい箱やと感じましたがコンパクトに収納梱包されていました。使い勝手は良いですが、ダストボックスの取り外しは難点ですもう少し軽快に出来る工夫が有れば5でした。",
+      "nickname": "ｚｕｉｋｅｎ",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-08",
+      "last_seen_at": "2026-06-08"
+    },
     {
       "id": "ee678aec801c2db2",
       "rating": 5,
