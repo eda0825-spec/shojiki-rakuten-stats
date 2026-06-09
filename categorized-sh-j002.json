@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-09T08:33:49Z",
+  "updatedAt": "2026-06-09T12:09:08Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-09T08:33:43Z",
-  "count": 273,
+  "sourceUpdatedAt": "2026-06-09T12:09:01Z",
+  "count": 275,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -3452,6 +3452,31 @@
         "吸引力"
       ],
       "action_hint": null
+    },
+    {
+      "id": "29235d8d2f6741ec",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "大きなゴミは詰まって吸えないが、ホコリの吸引力は良好との評価。",
+      "summary_zh": "大颗粒垃圾容易堵塞吸口，但细小灰尘的吸力表现良好。",
+      "topics": [
+        "吸引力",
+        "ゴミ詰まり"
+      ],
+      "action_hint": "吸込口またはダクト径を見直し、大きなゴミの通過性を改善する"
+    },
+    {
+      "id": "17363ffc399b8cc8",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽量で取り回しやすく吸引力も十分だが、ダストカップの容量が小さいと感じる。",
+      "summary_zh": "机身轻便、操控灵活、吸力充足，但集尘杯容量偏小，用户希望增大。",
+      "topics": [
+        "ダストカップ",
+        "軽量",
+        "操作性"
+      ],
+      "action_hint": "ダストカップの容量拡大、または本体サイズとのバランスを再設計する"
     }
   ]
 }

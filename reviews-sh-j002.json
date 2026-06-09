@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-06-09T08:33:43Z",
+  "updatedAt": "2026-06-09T12:09:01Z",
   "product": "sh-j002",
   "itemNumber": "10000004",
   "summary": {
     "rating": 4.58,
-    "count": 261
+    "count": 264
   },
-  "reviewsCount": 273,
-  "activeCount": 264,
+  "reviewsCount": 275,
+  "activeCount": 266,
   "removedCount": 9,
-  "newReviewsThisRun": 0,
+  "newReviewsThisRun": 2,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
@@ -105,6 +105,30 @@
       "title": null,
       "body": "シンプルなデザインに惹かれて購入しました。\nしっかりとパワーがあるのにすごく軽くビックリです！！",
       "nickname": "mirai8go",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-09",
+      "last_seen_at": "2026-06-09"
+    },
+    {
+      "id": "29235d8d2f6741ec",
+      "rating": 5,
+      "postDate": "2026-06-09",
+      "title": "勝ちました。",
+      "body": "到着してからだいぶ使ってみました。\nなかなかイイです。ちょっと大きなゴミは詰まって吸いませんがホコリはめちゃ取れます。\n先日弟が帰って来て「掃除機買った」て言ったら\n「え！なんでこんなの買ってんの？○○の方が良かったのに！！」て言われたんですが無視。\n勝手に使ってたんで、どうだったか聞くと\n「むっちゃ良かった」と。勝った気持ちです。",
+      "nickname": "購入者",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-09",
+      "last_seen_at": "2026-06-09"
+    },
+    {
+      "id": "17363ffc399b8cc8",
+      "rating": 5,
+      "postDate": "2026-06-09",
+      "title": null,
+      "body": "サイクロン式の掃除機をこれまで6台くらい使ってきましたが　こちらは軽量で取り回しがしやすいです\n欲を言えばもう少しカップが大きかったらよかったかなと言った感じです\n吸引力も十分です\n掃除が楽しみになりそうです",
+      "nickname": "購入者",
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-09",
