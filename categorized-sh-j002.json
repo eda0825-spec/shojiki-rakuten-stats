@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-10T12:27:52Z",
+  "updatedAt": "2026-06-10T16:39:21Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-10T12:27:37Z",
-  "count": 282,
+  "sourceUpdatedAt": "2026-06-10T16:39:03Z",
+  "count": 286,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -3568,6 +3568,60 @@
         "重量",
         "コンパクト性",
         "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "a0bb6fa43ef0abf6",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "充電ランプが点灯せず問い合わせ。スタンドのはめ込み不足が原因で、組み直しで解決。吸引力・軽さは満足。",
+      "summary_zh": "充电指示灯不亮，经咨询发现底座卡扣未完全卡紧，重新安装后恢复正常。吸力和重量用户满意。",
+      "topics": [
+        "充電スタンド",
+        "充電ランプ",
+        "組み立て"
+      ],
+      "action_hint": "スタンドのカチッとはまる感触が明確になるよう、ロック機構の嵌合力・クリック感を見直す"
+    },
+    {
+      "id": "205fd098f1f229f4",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で驚き。緑色LEDでゴミや犬の毛が視認しやすく、吸引力も確認できると好評。",
+      "summary_zh": "重量轻，绿色LED灯照明效果好，便于发现宠物毛发，吸力表现获好评。",
+      "topics": [
+        "重量",
+        "LEDライト",
+        "吸引力",
+        "ペットの毛"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "c68e31cb91175b96",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "猫の毛・猫砂の日常清掃に適しており、手軽に使える点を評価。日本メーカーとして応援の声。",
+      "summary_zh": "适合日常清理猫毛和猫砂，取用方便，用户对产品整体表现满意。",
+      "topics": [
+        "吸引力",
+        "操作性",
+        "ペットの毛"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "c853c8173f18c01b",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・コンパクトながら吸引力が強く、鳥の羽毛清掃や多階層での持ち運びに適していると好評。",
+      "summary_zh": "机身轻巧紧凑，吸力强劲，适合清理鸟羽及多楼层携带使用，用户评价积极。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "携帯性",
+        "コンパクト設計"
       ],
       "action_hint": null
     }

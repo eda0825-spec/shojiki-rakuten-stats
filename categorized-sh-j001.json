@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-10T12:27:48Z",
+  "updatedAt": "2026-06-10T16:39:07Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-06-10T12:27:30Z",
-  "count": 959,
+  "sourceUpdatedAt": "2026-06-10T16:38:49Z",
+  "count": 960,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -12147,6 +12147,19 @@
         "軽量性",
         "ダストカップ",
         "LEDライト"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "8d504d6ccace245f",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で使いやすく、収納性も良好。価格以上の満足感との評価。",
+      "summary_zh": "机器重量轻、操作方便，收纳性好，用户认为性价比高。",
+      "topics": [
+        "重量",
+        "操作性",
+        "収納"
       ],
       "action_hint": null
     }
