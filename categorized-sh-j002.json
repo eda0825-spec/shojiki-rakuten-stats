@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-10T08:53:31Z",
+  "updatedAt": "2026-06-10T12:27:52Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-10T08:53:30Z",
-  "count": 281,
+  "sourceUpdatedAt": "2026-06-10T12:27:37Z",
+  "count": 282,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -3555,6 +3555,19 @@
         "操作性",
         "重量",
         "デザイン"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "070c5136acccc56d",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・コンパクト・コードレスで使いやすく、アフターサポートにも好印象。",
+      "summary_zh": "产品轻巧紧凑、无线设计方便日常使用，用户对售后支持评价良好。",
+      "topics": [
+        "重量",
+        "コンパクト性",
+        "操作性"
       ],
       "action_hint": null
     }

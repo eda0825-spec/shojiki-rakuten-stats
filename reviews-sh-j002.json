@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-06-10T08:53:30Z",
+  "updatedAt": "2026-06-10T12:27:37Z",
   "product": "sh-j002",
   "itemNumber": "10000004",
   "summary": {
     "rating": 4.58,
     "count": 270
   },
-  "reviewsCount": 281,
-  "activeCount": 272,
+  "reviewsCount": 282,
+  "activeCount": 273,
   "removedCount": 9,
-  "newReviewsThisRun": 0,
+  "newReviewsThisRun": 1,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
@@ -45,6 +45,18 @@
       "title": "満足！",
       "body": "今まで使ったコードレスの中で一番満足です。\n隅の方まできちんと入るし、小回りもきくし、重すぎず、安っぽくもなく、デザインもオシャレで気に入っています。\n隙間時間にささっと掃除ができて嬉しいです！",
       "nickname": "購入者",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-10",
+      "last_seen_at": "2026-06-10"
+    },
+    {
+      "id": "070c5136acccc56d",
+      "rating": 5,
+      "postDate": "2026-06-10",
+      "title": "この掃除機に出会う為に！？",
+      "body": "ひとら暮らしでかれこれ1年以上新しい掃除機を買おうか悩んでいて、よさそうな掃除機は高くて躊躇していたところ、たまたまこちらの商品に出会いました◎\n電化製品をネットで買うのには少し抵抗があったのですが、いろんな方のレビューをみたり、日本製ということもあり購入してみました！！\n結果大正解でした☆ずっと悩んでたのはこの掃除機に出会うためだったのかと思うほどでしたww\nめちゃくちゃ軽くてコンパクトなので置き場所にも困らず、コードレスなのでちょっとしたときに気軽に掃除できて部屋がピカピカですww\nアフターサポートもよさそうなので普段レビューは書いたことないですが、思わず書いてしまいました！！\n素敵な商品をありがとうございます◎",
+      "nickname": "keeejeee",
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-10",
