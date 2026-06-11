@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-11T21:25:16Z",
+  "updatedAt": "2026-06-11T23:40:55Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-06-11T21:25:11Z",
-  "count": 965,
+  "sourceUpdatedAt": "2026-06-11T23:40:46Z",
+  "count": 966,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -12224,6 +12224,19 @@
         "吸引力",
         "静音性",
         "使いやすさ"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "e82903aa1e523b90",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力・重量ともに満足。2階への持ち運びや階段掃除も問題なし。",
+      "summary_zh": "吸力和重量均令用户满意，携带至二楼及清洁楼梯均无障碍。",
+      "topics": [
+        "吸引力",
+        "重量",
+        "携帯性"
       ],
       "action_hint": null
     }

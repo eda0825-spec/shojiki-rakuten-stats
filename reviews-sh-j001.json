@@ -1,19 +1,31 @@
 {
-  "updatedAt": "2026-06-11T21:25:11Z",
+  "updatedAt": "2026-06-11T23:40:46Z",
   "product": "sh-j001",
   "itemNumber": "10000000",
   "summary": {
     "rating": 4.56,
     "count": 998
   },
-  "reviewsCount": 963,
-  "activeCount": 960,
+  "reviewsCount": 964,
+  "activeCount": 961,
   "removedCount": 3,
-  "newReviewsThisRun": 0,
+  "newReviewsThisRun": 1,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
   "reviews": [
+    {
+      "id": "e82903aa1e523b90",
+      "rating": 4,
+      "postDate": "2026-06-12",
+      "title": "満足です。",
+      "body": "お値段の割にしっかり吸引力もあり満足しました。重過ぎず2階に持って行くのも階段も楽に掃除出来ました。",
+      "nickname": "もも＆みぃママ",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-11",
+      "last_seen_at": "2026-06-11"
+    },
     {
       "id": "44a972bdbab0cda1",
       "rating": 5,
