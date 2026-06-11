@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-11T10:46:58Z",
+  "updatedAt": "2026-06-11T14:45:01Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-06-11T10:46:46Z",
-  "count": 961,
+  "sourceUpdatedAt": "2026-06-11T14:44:45Z",
+  "count": 965,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -12173,6 +12173,57 @@
         "コスパ",
         "吸引力",
         "アタッチメント"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "c469dc15acec5d63",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "ダストカップ内サイクロン部に髪・猫毛が絡まりワンタッチ廃棄できない場合がある",
+      "summary_zh": "集尘杯内旋风组件易缠绕头发和猫毛，导致无法一键倒尘",
+      "topics": [
+        "ダストカップ",
+        "サイクロン",
+        "猫毛",
+        "操作性"
+      ],
+      "action_hint": "サイクロンカップの形状または表面処理を見直し、毛類の絡まりを低減する"
+    },
+    {
+      "id": "6ff143fcd9233f8a",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "静止時にやや重さを感じるが、自走機能により使用中は気にならないとのこと",
+      "summary_zh": "静止状态下感觉略重，但启动自走功能后重量感不明显",
+      "topics": [
+        "重量",
+        "自走機能"
+      ],
+      "action_hint": "本体重量の軽量化、または重心バランスの最適化を検討する"
+    },
+    {
+      "id": "2045bab8c17b17ee",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コードレスながら吸引力に満足。耐久性への期待を述べている",
+      "summary_zh": "对无线吸尘器的吸力表示满意，期待产品耐久性",
+      "topics": [
+        "吸引力",
+        "耐久性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "459bec364826a766",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力・静音性・使いやすさを高く評価。前機種より多くのほこりを吸引",
+      "summary_zh": "对吸力、低噪音及易用性给予高度评价，吸尘量明显优于旧机型",
+      "topics": [
+        "吸引力",
+        "静音性",
+        "使いやすさ"
       ],
       "action_hint": null
     }
