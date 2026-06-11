@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-11T00:21:02Z",
+  "updatedAt": "2026-06-11T05:55:09Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-06-11T00:20:55Z",
-  "count": 960,
+  "sourceUpdatedAt": "2026-06-11T05:55:00Z",
+  "count": 961,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -12160,6 +12160,19 @@
         "重量",
         "操作性",
         "収納"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "44a972bdbab0cda1",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "サブ機としてコスパが良く、車やソファの掃除に活用できている。",
+      "summary_zh": "作为副吸尘器性价比高，可用于清洁汽车和沙发，使用效果良好。",
+      "topics": [
+        "コスパ",
+        "吸引力",
+        "アタッチメント"
       ],
       "action_hint": null
     }
