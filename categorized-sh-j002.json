@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-11T05:55:09Z",
+  "updatedAt": "2026-06-11T10:47:10Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-11T05:55:05Z",
-  "count": 287,
+  "sourceUpdatedAt": "2026-06-11T10:46:58Z",
+  "count": 291,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -3637,6 +3637,58 @@
         "軽量性"
       ],
       "action_hint": "バッテリー容量または電力効率を見直し、2階建て住宅の全室連続使用を可能にする改善を検討する"
+    },
+    {
+      "id": "05a9f274d315a250",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "充電時にコツが必要との指摘あり。軽量・毛絡まりにくさは高評価。",
+      "summary_zh": "充电时操作需要一定技巧，存在轻微不便。机身轻量及防缠绕性能获好评。",
+      "topics": [
+        "充電",
+        "重量",
+        "ローラー"
+      ],
+      "action_hint": "充電端子または充電台の接続ガイド形状を見直し、誰でも迷わず接続できる構造に改善する"
+    },
+    {
+      "id": "6d6e0ef2eabf2260",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・吸引力・ダストカップのゴミ捨てしやすさを評価。",
+      "summary_zh": "用户对机身轻量、吸力及集尘杯清倒便利性给予好评。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "ダストカップ"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "ba845666f1e11f7f",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "フレキシブルヘッド・LEDライト・スタイリッシュなデザインを高評価。",
+      "summary_zh": "用户对可弯曲吸头、LED照明及外观设计给予高度评价。",
+      "topics": [
+        "ヘッド可動",
+        "LEDライト",
+        "デザイン"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "1dad5a5ac3def59f",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・バッテリー持続時間・低床下への到達性を高評価。",
+      "summary_zh": "用户对机身轻量、续航时间及可伸入低矮家具下方的清洁能力给予好评。",
+      "topics": [
+        "重量",
+        "バッテリー",
+        "操作性"
+      ],
+      "action_hint": null
     }
   ]
 }
