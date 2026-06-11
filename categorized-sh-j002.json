@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-10T22:08:54Z",
+  "updatedAt": "2026-06-11T00:21:08Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-10T22:08:54Z",
-  "count": 286,
+  "sourceUpdatedAt": "2026-06-11T00:21:02Z",
+  "count": 287,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -3624,6 +3624,19 @@
         "コンパクト設計"
       ],
       "action_hint": null
+    },
+    {
+      "id": "1c4e1e6c9defa305",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "吸引力・軽量さに満足だが、バッテリーが2階建て全室を一度にカバーできない容量",
+      "summary_zh": "吸力和重量满意，但电池续航不足以一次完成两层楼全部房间的清扫",
+      "topics": [
+        "バッテリー",
+        "吸引力",
+        "軽量性"
+      ],
+      "action_hint": "バッテリー容量または電力効率を見直し、2階建て住宅の全室連続使用を可能にする改善を検討する"
     }
   ]
 }
