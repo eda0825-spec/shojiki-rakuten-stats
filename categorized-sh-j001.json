@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-11T23:40:55Z",
+  "updatedAt": "2026-06-12T04:38:17Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-06-11T23:40:46Z",
-  "count": 966,
+  "sourceUpdatedAt": "2026-06-12T04:38:10Z",
+  "count": 967,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -12237,6 +12237,20 @@
         "吸引力",
         "重量",
         "携帯性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "7c5666b556edafce",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力・床面密着性・操作性・収納コンパクト性をすべて高評価。",
+      "summary_zh": "吸力强，地面贴合性好，操作顺畅，收纳紧凑，用户全面好评。",
+      "topics": [
+        "吸引力",
+        "床面密着",
+        "操作性",
+        "収納"
       ],
       "action_hint": null
     }
