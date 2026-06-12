@@ -1,19 +1,91 @@
 {
-  "updatedAt": "2026-06-12T09:02:59Z",
+  "updatedAt": "2026-06-12T12:58:17Z",
   "product": "sh-j002",
   "itemNumber": "10000004",
   "summary": {
-    "rating": 4.58,
-    "count": 289
+    "rating": 4.59,
+    "count": 290
   },
-  "reviewsCount": 291,
-  "activeCount": 282,
+  "reviewsCount": 301,
+  "activeCount": 292,
   "removedCount": 9,
-  "newReviewsThisRun": 0,
+  "newReviewsThisRun": 10,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
   "reviews": [
+    {
+      "id": "9949cfe46af175c3",
+      "rating": 5,
+      "postDate": "2026-06-12",
+      "title": null,
+      "body": "HITACHIの掃除機が壊れかけていたので、クーポンでお安くなっていたこともあり購入しました。\n使用してみて、デザイン、軽さ、自立するところ、回転ブラシが水洗いできるところがとてもいいなと思いました！\n\n個人的に少し使いづらいなと思ったところもありました。（気に入ったので、これからもっと良くなりますようにという思いを込めて書かせていただきます！）\n・ヘッドの角度はそのままで斜めに進めないところ\n・スタンドから取る時にスタンドが上がってしまうところ（足で押さえれば解決）\n・動かし方にもよりますがたまにキーっという高い音がでます（ローラーが擦れている音かな？と思うので、ローラーがフサフサの生地だったら改善されるのかな？と思いました！）\n\n全体的にこのお値段でこのクオリティなら大満足です！大切に使わせていただきます。",
+      "nickname": "satssu",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-12",
+      "last_seen_at": "2026-06-12"
+    },
+    {
+      "id": "910bd1d5b5e268b2",
+      "rating": 4,
+      "postDate": "2026-06-12",
+      "title": null,
+      "body": "音が静かです。\n吸引力はこれから使用してみたいと思います。",
+      "nickname": "mon.eee",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-12",
+      "last_seen_at": "2026-06-12"
+    },
+    {
+      "id": "cd711d82a5aec199",
+      "rating": 5,
+      "postDate": "2026-06-12",
+      "title": null,
+      "body": "とても素晴らしい商品です。まず、届いた商品が思った以上にコンパクトで吸引力が心配でしたが、しっかりゴミを吸収してくれました。そして軽いので疲れない。色もかっこいい黒なのでリビングの端に置いていても見た目が良い。いい商品なので友人にも勧めます。",
+      "nickname": "購入者",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-12",
+      "last_seen_at": "2026-06-12"
+    },
+    {
+      "id": "d128d8c04b31e6ee",
+      "rating": 4,
+      "postDate": "2026-06-12",
+      "title": null,
+      "body": "非常に軽く、スタイリッシュ、吸引力もあり、普段使いに最適です。長く使えることを期待しています。",
+      "nickname": "るはし",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-12",
+      "last_seen_at": "2026-06-12"
+    },
+    {
+      "id": "5689965cdee79da5",
+      "rating": 5,
+      "postDate": "2026-06-12",
+      "title": null,
+      "body": "軽くて吸引力もそこそこあり、毎日の掃除にとても良いです。ライトが光るのも小さい埃などを見逃さないので嬉しいところ。お値段以上だな、と感じました。",
+      "nickname": "naolife1224",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-12",
+      "last_seen_at": "2026-06-12"
+    },
+    {
+      "id": "6916c00b98a4c9ba",
+      "rating": 5,
+      "postDate": "2026-06-12",
+      "title": "使いやすいです",
+      "body": "使っていた掃除機が壊れてしまい困っていたため、すぐに発送していただいて本当に助かりました。以前はダイソンを使っていましたが、こちらの掃除機の方が軽く、小回りが効くので使いやすいです。暗い部屋でも、LEDが明るく掃除もしやすいです。デザインもシンプルでかっこいいので、長く使えるといいなと思います。",
+      "nickname": "購入者",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-12",
+      "last_seen_at": "2026-06-12"
+    },
     {
       "id": "a0bb6fa43ef0abf6",
       "rating": 5,
@@ -36,7 +108,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-10",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "1c4e1e6c9defa305",
@@ -72,7 +144,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-11",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "ba845666f1e11f7f",
@@ -84,7 +156,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-11",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "1dad5a5ac3def59f",
@@ -96,7 +168,55 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-11",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
+    },
+    {
+      "id": "c45820393fd548a5",
+      "rating": 4,
+      "postDate": "2026-06-11",
+      "title": null,
+      "body": "コンパクトで軽く使い勝手が良さそうです。他の方も書いて有りましたがダストカップを取り外しに最初ちょっと引っかかったのと立てて充電させる時不安定さはあるかな？",
+      "nickname": "購入者",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-12",
+      "last_seen_at": "2026-06-12"
+    },
+    {
+      "id": "bb8d843f149830b5",
+      "rating": 5,
+      "postDate": "2026-06-11",
+      "title": null,
+      "body": "とにかく軽い！緑のライトが埃やゴミをちゃんと照らしてくれるところも気に入りました！洗面所で髪を乾かす度など毎日こまめに使いたいタイプなのでこの手軽さ、静音さ、購入してよかったです。",
+      "nickname": "購入者",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-12",
+      "last_seen_at": "2026-06-12"
+    },
+    {
+      "id": "8c2b1726074ad08b",
+      "rating": 5,
+      "postDate": "2026-06-11",
+      "title": null,
+      "body": "軽くて使いやすいです。吸引力もしっかりあると思います。自立させた時、やや不安定な気もしますが、スタンド無しでも自立するので問題ない範囲かと思います。",
+      "nickname": "購入者",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-12",
+      "last_seen_at": "2026-06-12"
+    },
+    {
+      "id": "b4e30c6dc3253b43",
+      "rating": 5,
+      "postDate": "2026-06-11",
+      "title": null,
+      "body": "価格はお手頃なのに使いやすく満足しています。\n片付けの際もすっきりまとまる、充電器の仕方が2パターンあり状況に応じて変えることができる、などストレスフリーです。",
+      "nickname": "購入者",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-12",
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "fddae1dbcdb760d3",
@@ -120,7 +240,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-10",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "c34d996e3a34d1ff",
@@ -132,7 +252,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-10",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "070c5136acccc56d",
@@ -156,7 +276,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-10",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "c853c8173f18c01b",
@@ -168,7 +288,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-10",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "0c06fccde3876d1a",
@@ -192,7 +312,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-08",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "0076b7f68eb8773f",
@@ -204,7 +324,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-08",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "6789300c55621ee6",
@@ -240,7 +360,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-09",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "d8db0bf317037696",
@@ -252,7 +372,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-09",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "b76375a3078ba60b",
@@ -264,7 +384,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-09",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "29235d8d2f6741ec",
@@ -288,7 +408,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-09",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "51613a00be27f0db",
@@ -312,7 +432,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-09",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "0981876b44998bb8",
@@ -324,7 +444,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-09",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "ee678aec801c2db2",
@@ -372,7 +492,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-08",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "5c2e301486bcd282",
@@ -384,7 +504,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-08",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "0cfa0b6bba79e1cd",
@@ -396,7 +516,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-08",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "0a318e9ee7547323",
@@ -408,7 +528,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-08",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "42e4ea38bd77d24e",
@@ -420,7 +540,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-08",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "df2fe5f3919a9e7e",
@@ -432,7 +552,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-08",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "e8a96a073dd508f5",
@@ -456,7 +576,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-08",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "7601554a4648169c",
@@ -468,7 +588,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-06",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "298e25b6761265d1",
@@ -480,7 +600,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-06",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "df64b54ea979749e",
@@ -516,7 +636,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-07",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "0112bf59ea4f4293",
@@ -540,7 +660,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-07",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "d1a3eac654aab130",
@@ -576,7 +696,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-07",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "5276d1f29431ee0d",
@@ -588,7 +708,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-07",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "134eb39038b5a24a",
@@ -600,7 +720,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-07",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "b777c7d1b39411b1",
@@ -612,7 +732,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-07",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "c3243b7dc75e5b74",
@@ -624,7 +744,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-07",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "b73c3c53a72082a3",
@@ -636,7 +756,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-07",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "4ef535ad2338e4c6",
@@ -648,7 +768,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-07",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "da2ea17842a7fb36",
@@ -672,7 +792,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-07",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "008c412e6a3c5345",
@@ -684,7 +804,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-07",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "4a5f2b38034cc63b",
@@ -708,7 +828,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-07",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "91b4521096e44d7a",
@@ -732,7 +852,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-06",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "d1acdb00d1b21c8a",
@@ -744,7 +864,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-06",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "d363d7eeb2721d58",
@@ -756,7 +876,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-06",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "c0bd76530f5116b8",
@@ -768,7 +888,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-06",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "ecbebcac89fd8eb0",
@@ -792,7 +912,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-06",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "c562241854cfdac5",
@@ -804,7 +924,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-06",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "49c53484890be09f",
@@ -816,7 +936,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-06",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "641151cb373199ac",
@@ -828,7 +948,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-06",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "9fa7c9906dd16ce1",
@@ -876,7 +996,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-05",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "18e10757c6570475",
@@ -900,7 +1020,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-04",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "7e17df9d95479dd2",
@@ -912,7 +1032,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-04",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "12d0932c6b8d9860",
@@ -924,7 +1044,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-04",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "afb9b970959a6ff8",
@@ -936,7 +1056,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-04",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "14fc404d6b88da98",
@@ -948,7 +1068,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-04",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "0046023c13f39ff5",
@@ -984,7 +1104,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-02",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "6e0b688f8adf841b",
@@ -1008,7 +1128,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-04",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "3f369b73ec20844a",
@@ -1020,7 +1140,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-04",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "3d8d3200b0c7f5fe",
@@ -1032,7 +1152,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-04",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "57d86e21ac40e92d",
@@ -1044,7 +1164,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-04",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "ffc0cb7bb73e3303",
@@ -1092,7 +1212,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-02",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "4c4272806ef23e01",
@@ -1104,7 +1224,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-02",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "f540e5432c9fef48",
@@ -1116,7 +1236,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-02",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "7bf0079f8004103b",
@@ -1140,7 +1260,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-02",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "1d5fa6baa8732021",
@@ -1152,7 +1272,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-02",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "8fe5b9d4539a8a1b",
@@ -1164,7 +1284,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-02",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "c3455072fcf95949",
@@ -1224,7 +1344,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-31",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "769693f5818e59bf",
@@ -1236,7 +1356,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-31",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "e6e153d0a4f42fe7",
@@ -1248,7 +1368,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-31",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "931790ce61774d9f",
@@ -1260,7 +1380,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-31",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "dade70c636669b63",
@@ -1272,7 +1392,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-31",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "778ef31e8fa17c79",
@@ -1296,7 +1416,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-31",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "a741a632f653525b",
@@ -1308,7 +1428,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-31",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "6ca635210c9d4dd7",
@@ -1320,7 +1440,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-31",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "1afcd5dc1f47ccc4",
@@ -1392,7 +1512,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-31",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "b45441adb26404cd",
@@ -1404,7 +1524,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-31",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "a274ff01940206f3",
@@ -1452,7 +1572,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-29",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "aab007078603fbf8",
@@ -1476,7 +1596,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-31",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "3ca12ebdafbb599f",
@@ -1500,7 +1620,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-29",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "351a24c42284d5b7",
@@ -1512,7 +1632,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-29",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "61ab5a9bf0ec0469",
@@ -1524,7 +1644,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-29",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "7c72f0b97313d580",
@@ -1536,7 +1656,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-29",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "668fc8f944b30210",
@@ -1596,7 +1716,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-28",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "f133fdc24e490955",
@@ -1608,7 +1728,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-28",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "23b38dd01f35276d",
@@ -1620,7 +1740,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-28",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "21387b0fc9310d32",
@@ -1632,7 +1752,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-28",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "ce147fc82736f863",
@@ -1644,7 +1764,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-26",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "71a4516ad443cccd",
@@ -1668,7 +1788,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-27",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "af05a0fdee633203",
@@ -1680,7 +1800,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-27",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "b11e78c1d4546180",
@@ -1692,7 +1812,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-27",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "768c98864e730dac",
@@ -1716,7 +1836,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-26",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "ae51ad2176c07991",
@@ -1728,7 +1848,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-26",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "ffd448ed9972fdd2",
@@ -1740,7 +1860,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-26",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "5ce06a2ffbd054ea",
@@ -1752,7 +1872,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-26",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "da020594ca300814",
@@ -1764,7 +1884,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-26",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "a24d43ce0c482734",
@@ -1776,7 +1896,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-26",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "4ffbccd5e120783c",
@@ -1788,7 +1908,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-26",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "e71ac8d5ce6f7df9",
@@ -1800,7 +1920,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-26",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "e71c4d8a8d688696",
@@ -1824,7 +1944,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-26",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "7f56138cab2c5240",
@@ -1836,7 +1956,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-26",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "e20689683f19f891",
@@ -1900,7 +2020,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-21",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "b0fbf1c18604758f",
@@ -2756,7 +2876,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-07",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "7a20a31ead15b57a",
@@ -2792,7 +2912,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-06",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "16e345e3e9994e0a",
@@ -2804,7 +2924,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-06",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "45750ede341dff13",
@@ -3008,7 +3128,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-01",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "7fc67321f80abf61",
@@ -3020,7 +3140,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-05-01",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "445b560752f70017",
@@ -3092,7 +3212,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-04-30",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "e06253732eaba41f",
@@ -3164,7 +3284,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-04-29",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "b5dae7006ce6d84a",
@@ -3212,7 +3332,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-04-28",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "ee8d53015e71f966",
@@ -3224,7 +3344,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-04-28",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "df571e2ef381e89b",
@@ -3320,7 +3440,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-04-27",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "a081b9427fed517c",
@@ -3332,7 +3452,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-04-27",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "452028df63f32494",
@@ -3392,7 +3512,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-04-26",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "7980d0d29c07d78f",
@@ -3441,7 +3561,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-04-24",
-      "last_seen_at": "2026-06-11"
+      "last_seen_at": "2026-06-12"
     },
     {
       "id": "b20ddf8df60e70e3",

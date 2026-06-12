@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-12T09:02:59Z",
+  "updatedAt": "2026-06-12T12:58:59Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-12T09:02:59Z",
-  "count": 291,
+  "sourceUpdatedAt": "2026-06-12T12:58:17Z",
+  "count": 301,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -3687,6 +3687,135 @@
         "重量",
         "バッテリー",
         "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "9949cfe46af175c3",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "ヘッドの直進性・スタンドの安定性・動作時の高音（キー音）の3点に改善要望あり",
+      "summary_zh": "用户反映三点改善需求：吸头无法斜向推进、从支架取出时支架会抬起、运行时偶发高频异响（疑似滚刷摩擦声）",
+      "topics": [
+        "ヘッド操作性",
+        "スタンド",
+        "ローラー",
+        "異音"
+      ],
+      "action_hint": "ローラーブラシの素材・表面仕上げを見直し、摺動音の低減を検討する"
+    },
+    {
+      "id": "910bd1d5b5e268b2",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "静音性を高く評価。吸引力は今後確認予定とのこと",
+      "summary_zh": "用户对低噪音表示好评，吸引力尚未充分验证",
+      "topics": [
+        "静音性",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "cd711d82a5aec199",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コンパクトながら吸引力・軽量性・デザインを高く評価",
+      "summary_zh": "用户对产品的紧凑尺寸、吸力表现、轻量化及外观设计均给予高度评价",
+      "topics": [
+        "吸引力",
+        "軽量性",
+        "デザイン"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "d128d8c04b31e6ee",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・スタイリッシュ・吸引力を評価し、耐久性に期待",
+      "summary_zh": "用户对轻量、外观及吸力表示满意，期待长期耐用性",
+      "topics": [
+        "軽量性",
+        "吸引力",
+        "耐久性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "5689965cdee79da5",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・吸引力・LEDライトによる細かいゴミの視認性を評価",
+      "summary_zh": "用户对轻量化、吸力及LED照明辅助发现细小灰尘的功能给予好评",
+      "topics": [
+        "軽量性",
+        "吸引力",
+        "LEDライト"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "6916c00b98a4c9ba",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・小回り・LED明るさ・デザインを高く評価。ダイソンより使いやすいとの声",
+      "summary_zh": "用户反映产品比Dyson更轻便灵活，LED照明亮度充足，外观设计简洁，综合评价优秀",
+      "topics": [
+        "軽量性",
+        "LEDライト",
+        "操作性",
+        "デザイン"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "c45820393fd548a5",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "ダストカップ取り外し時の引っかかりと、充電時のスタンド不安定さを指摘",
+      "summary_zh": "用户反映集尘杯拆卸时有卡滞感，以及竖立充电时支架稳定性不足",
+      "topics": [
+        "ダストカップ",
+        "スタンド",
+        "充電"
+      ],
+      "action_hint": "ダストカップのリリース機構の操作力と嵌合精度を見直し、スタンドの重心・接地面積を改善する"
+    },
+    {
+      "id": "bb8d843f149830b5",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・LEDライトによるゴミ視認性・静音性を高く評価",
+      "summary_zh": "用户对产品轻量化、LED照明对灰尘的可视性及低噪音性能给予高度评价",
+      "topics": [
+        "軽量性",
+        "LEDライト",
+        "静音性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "8c2b1726074ad08b",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽量で吸引力も十分だが、自立時にやや不安定さを感じる",
+      "summary_zh": "重量轻、吸力充足，但直立放置时稳定性略有不足",
+      "topics": [
+        "自立安定性",
+        "本体設計"
+      ],
+      "action_hint": "本体自立時の重心バランスおよびスタンド接地面積を見直す"
+    },
+    {
+      "id": "b4e30c6dc3253b43",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コンパクト収納と2パターン充電方式を高評価、価格対満足度も良好",
+      "summary_zh": "收纳紧凑、支持两种充电方式，性价比高，用户满意度良好",
+      "topics": [
+        "充電方式",
+        "収納性"
       ],
       "action_hint": null
     }
