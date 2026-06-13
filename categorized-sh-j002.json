@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-12T23:23:02Z",
+  "updatedAt": "2026-06-13T04:17:54Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-12T23:23:02Z",
-  "count": 301,
+  "sourceUpdatedAt": "2026-06-13T04:17:27Z",
+  "count": 306,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -3816,6 +3816,70 @@
       "topics": [
         "充電方式",
         "収納性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "982bad809b2c916c",
+      "category": "improvement",
+      "severity": "medium",
+      "summary_ja": "吸引力は強モード必須、ローラー幅不足で端のゴミが取りにくく、フィルターが外れやすい。付属ブラシの収納場所もなし。",
+      "summary_zh": "强力模式才能满足吸力需求；滚刷左右未延伸至边缘，边角垃圾难以吸取；过滤器卡扣不牢易脱落；附属清洁刷无法收纳于充电座。",
+      "topics": [
+        "吸引力",
+        "ローラー",
+        "フィルター",
+        "収納"
+      ],
+      "action_hint": "フィルターのロック機構の保持力を見直し、ローラー幅を左右端まで拡張できるか設計検討する"
+    },
+    {
+      "id": "4ff56d8bee96c57c",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "梱包の薄さに不安を感じたが、組み立て後の使用感に大満足。家庭用途として十分な性能。",
+      "summary_zh": "包装较薄令人担忧，但组装后实际使用效果令人满意，家用性能完全足够。",
+      "topics": [
+        "梱包",
+        "使用感"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "7576f2812cc4b68b",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽量・自走式・LEDライトを高齢者が高評価。ダストカップのゴミ捨てレバー操作が硬く使いにくい。",
+      "summary_zh": "轻量化、自走功能及LED灯获老年用户好评；但垃圾桶排尘拨杆操作费力，使用不便。",
+      "topics": [
+        "重量",
+        "ダストカップ",
+        "操作性",
+        "LEDライト"
+      ],
+      "action_hint": "ダストカップのゴミ捨てレバーの操作力を低減し、高齢者でも片手で扱いやすい機構に見直す"
+    },
+    {
+      "id": "a69f37e025b24759",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "ダイソンからの買い替えで、軽量かつ吸引力にも満足。",
+      "summary_zh": "从戴森换购，对轻量化及吸力均表示满意。",
+      "topics": [
+        "重量",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "db19cdd39d443ecc",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "本体の軽さに驚き、吸引力も十分で掃除が楽になると好評。",
+      "summary_zh": "机身轻量令人惊喜，吸力充足，使用省力，评价良好。",
+      "topics": [
+        "重量",
+        "吸引力"
       ],
       "action_hint": null
     }
