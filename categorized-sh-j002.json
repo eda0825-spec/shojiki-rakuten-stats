@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-13T11:20:14Z",
+  "updatedAt": "2026-06-13T14:11:54Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-13T11:19:54Z",
-  "count": 313,
+  "sourceUpdatedAt": "2026-06-13T14:11:34Z",
+  "count": 318,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -3973,6 +3973,66 @@
         "吸引力"
       ],
       "action_hint": null
+    },
+    {
+      "id": "3a5cb3a5f3decd32",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "グリップ形状が滑りやすく、子どもが使う際に手が引っかかる形状があると安心との要望",
+      "summary_zh": "握柄形状偏滑，建议增加防滑或手指卡扣设计，以提升儿童使用时的安全性",
+      "topics": [
+        "グリップ",
+        "操作性"
+      ],
+      "action_hint": "グリップ部に滑り止め形状またはフィンガーガードを追加し、子どもでも安定して持てる形状を検討する"
+    },
+    {
+      "id": "18dc31a6419f6580",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で掃除のハードルが下がったと高評価",
+      "summary_zh": "用户对轻量化设计给予高度评价，表示降低了打扫的心理门槛",
+      "topics": [
+        "重量"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "3def99901b4969dd",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・静音・ヘッドライトの実用性を高く評価",
+      "summary_zh": "用户对轻量、低噪音及吸头照明灯的实用性给予高度评价",
+      "topics": [
+        "重量",
+        "静音性",
+        "ヘッドライト"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "2f21f3ee5888492d",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "ダストカップ容量が小さく、ゴミの吸い込みに時間がかかるとの指摘。軽さ・静音性は満足",
+      "summary_zh": "尘杯容量偏小，吸尘效率略低，耗时较长；轻量与低噪音方面用户满意",
+      "topics": [
+        "ダストカップ",
+        "吸引力"
+      ],
+      "action_hint": "ダストカップ容量の拡大、またはゴミ圧縮機構の導入を検討し、吸引効率を改善する"
+    },
+    {
+      "id": "63ca940e364fa321",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "本体の質感がおもちゃのように感じられるとの印象。吸引力・自立機能は問題なし",
+      "summary_zh": "机身质感偏低，用户感觉类似玩具；吸尘性能及自立功能无异常",
+      "topics": [
+        "本体質感",
+        "外装"
+      ],
+      "action_hint": "外装素材の表面仕上げや部品の嵌合精度を見直し、高級感・堅牢感を向上させる"
     }
   ]
 }

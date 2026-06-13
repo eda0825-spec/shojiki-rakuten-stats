@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-13T11:19:54Z",
+  "updatedAt": "2026-06-13T14:11:40Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-06-13T11:19:41Z",
-  "count": 975,
+  "sourceUpdatedAt": "2026-06-13T14:11:21Z",
+  "count": 977,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -12358,6 +12358,32 @@
         "軽量"
       ],
       "action_hint": null
+    },
+    {
+      "id": "afa7546623d8f076",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力・軽さ・コンパクトさ・自立機能を高く評価し、家族にも推薦。",
+      "summary_zh": "用户对吸力强、重量轻、体积小、可自立等特点给予高度评价，并向家人推荐。",
+      "topics": [
+        "吸引力",
+        "重量",
+        "コンパクトさ",
+        "自立機能"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "8b1ef3cf93b63eea",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "吸引力は満足だが、動作音が想定より大きいと感じている。",
+      "summary_zh": "吸力表现令人满意，但运行噪音高于用户预期。",
+      "topics": [
+        "動作音",
+        "吸引力"
+      ],
+      "action_hint": "動作音の低減に向けてモーターおよび気流経路の騒音対策を検討する"
     }
   ]
 }
