@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-14T00:13:56Z",
+  "updatedAt": "2026-06-14T05:55:22Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-06-14T00:13:48Z",
-  "count": 978,
+  "sourceUpdatedAt": "2026-06-14T05:54:57Z",
+  "count": 980,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -12398,6 +12398,32 @@
         "操作性"
       ],
       "action_hint": null
+    },
+    {
+      "id": "ce29ae35b3c816fb",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "ダイソンから乗り換え。吸引力・軽さ・梱包の丁寧さを高く評価。長期耐久性に期待。",
+      "summary_zh": "从戴森换购，对吸力强、机身轻、包装精细给予高度评价，期待长期耐用性。",
+      "topics": [
+        "吸引力",
+        "重量",
+        "梱包"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "07453d5d83fc2157",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "吸引力・操作性を高評価。先端ライトの実用性が低いとの指摘あり。",
+      "summary_zh": "对吸力和操控性评价较高，但指出前端照明灯实用性不足。",
+      "topics": [
+        "ヘッドライト",
+        "操作性",
+        "吸引力"
+      ],
+      "action_hint": "ヘッドライトの照射角度・輝度を見直し、実用的なゴミ視認性を確保する"
     }
   ]
 }

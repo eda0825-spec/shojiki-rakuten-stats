@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-14T00:13:56Z",
+  "updatedAt": "2026-06-14T05:55:33Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-14T00:13:52Z",
-  "count": 318,
+  "sourceUpdatedAt": "2026-06-14T05:55:10Z",
+  "count": 322,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -4033,6 +4033,55 @@
         "外装"
       ],
       "action_hint": "外装素材の表面仕上げや部品の嵌合精度を見直し、高級感・堅牢感を向上させる"
+    },
+    {
+      "id": "bb0bedae16e629a1",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "全体的に高評価だが、ダストカップのワンタッチごみ捨て操作が分かりにくく使いづらいとの指摘あり。",
+      "summary_zh": "整体评价较高，但尘杯一键倒尘操作不够直观，用户反映使用不便。",
+      "topics": [
+        "ダストカップ",
+        "操作性"
+      ],
+      "action_hint": "ダストカップのワンタッチ開放機構の操作手順を見直し、直感的に操作できるよう改善する"
+    },
+    {
+      "id": "1ac49cabb441fe1f",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "ライト・自走・吸引力は高評価。ダストカップ容量が想定より小さく、頻繁な清掃が必要との指摘あり。",
+      "summary_zh": "灯光、自走功能及吸力获好评，但尘杯容量小于预期，需频繁清倒。",
+      "topics": [
+        "ダストカップ",
+        "容量"
+      ],
+      "action_hint": "ダストカップ容量の拡大、または容量目安の仕様明記・パッケージ表記の見直しを検討する"
+    },
+    {
+      "id": "64915b0eb780fa43",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "梱包の丁寧さとヘッドライトによるゴミの視認性の高さを評価。",
+      "summary_zh": "用户对包装精良及吸头灯光提升污垢可视性给予好评。",
+      "topics": [
+        "梱包",
+        "ヘッドライト"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "29f6176dda9d8e71",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・小回り・吸引力のすべてに満足との評価。",
+      "summary_zh": "用户对轻量化、灵活操控及吸力均表示满意。",
+      "topics": [
+        "重量",
+        "操作性",
+        "吸引力"
+      ],
+      "action_hint": null
     }
   ]
 }
