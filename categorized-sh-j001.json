@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-13T22:09:45Z",
+  "updatedAt": "2026-06-14T00:13:56Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-06-13T22:09:41Z",
-  "count": 977,
+  "sourceUpdatedAt": "2026-06-14T00:13:48Z",
+  "count": 978,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -12384,6 +12384,20 @@
         "吸引力"
       ],
       "action_hint": "動作音の低減に向けてモーターおよび気流経路の騒音対策を検討する"
+    },
+    {
+      "id": "14d0a342e2e691cb",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力・重量・騒音に不満なく快適に使用。操作性も良好で満足。",
+      "summary_zh": "吸力、重量、噪音均无不满，使用舒适，操控性良好，用户满意。",
+      "topics": [
+        "吸引力",
+        "重量",
+        "騒音",
+        "操作性"
+      ],
+      "action_hint": null
     }
   ]
 }
