@@ -1,9 +1,37 @@
 {
-  "updatedAt": "2026-06-15T00:17:37Z",
+  "updatedAt": "2026-06-15T05:39:36Z",
   "product": "sh-j001",
   "repo": "eda0825-spec/shojiki-defects-j001",
-  "count": 7,
+  "count": 8,
   "issues": [
+    {
+      "id": 4662339218,
+      "number": 8,
+      "product": "sh-j001",
+      "title": "[J001] [顧客] [高] 初期セッティング時にバッテリー関連の不備が発生。交換対応で解決済み。",
+      "url": "https://github.com/eda0825-spec/shojiki-defects-j001/issues/8",
+      "state": "open",
+      "user": "eda0825-spec",
+      "assignees": [],
+      "labels": [
+        "status:new",
+        "severity:high",
+        "area:battery",
+        "source:customer",
+        "type:defect"
+      ],
+      "severity": "high",
+      "status": "new",
+      "areas": [
+        "battery"
+      ],
+      "created_at": "2026-06-15T05:34:57Z",
+      "updated_at": "2026-06-15T05:34:57Z",
+      "closed_at": null,
+      "comments": 0,
+      "body_excerpt": "> ⚠️ **このIssueは楽天レビューから自動生成されました**\n> 自动从楽天评论生成 (2026-06-15)\n\n## レビュー内容 / 评论原文\n\n| 項目 / 项目 | 値 / 值 |\n|---|---|\n| 商品 / 产品 | SH-J001 |\n| 評価 / 评价 | ★★★★☆ (4) |\n| 投稿日 / 日期 | 2026-06-14 |\n| 投稿者 / 投稿者 | ●●● |\n| AI 分類 / AI 分类 | **defect** ・ 深刻度 **high** |\n| トピック / 话题 | バッテリー・初期不良 |\n\n",
+      "body": "> ⚠️ **このIssueは楽天レビューから自動生成されました**\n> 自动从楽天评论生成 (2026-06-15)\n\n## レビュー内容 / 评论原文\n\n| 項目 / 项目 | 値 / 值 |\n|---|---|\n| 商品 / 产品 | SH-J001 |\n| 評価 / 评价 | ★★★★☆ (4) |\n| 投稿日 / 日期 | 2026-06-14 |\n| 投稿者 / 投稿者 | ●●● |\n| AI 分類 / AI 分类 | **defect** ・ 深刻度 **high** |\n| トピック / 话题 | バッテリー・初期不良 |\n\n### 要約 / 摘要\n\n- **日本語**: 初期セッティング時にバッテリー関連の不備が発生。交換対応で解決済み。\n- **中文**: 初次安装时发现电池相关部件存在缺陷，经更换零部件后问题解决。\n\n### 対策案 (AI 提案) / 对策建议 (AI 提议)\n\nバッテリー部品の出荷前検査工程を強化し、初期不良率を低減する\n\n### 原文 / 原文\n（個人情報を含むため管理画面で確認）"
+    },
     {
       "id": 4560570469,
       "number": 7,
