@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-15T04:59:36Z",
+  "updatedAt": "2026-06-15T11:20:55Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-06-15T04:59:24Z",
-  "count": 1051,
+  "sourceUpdatedAt": "2026-06-15T11:20:43Z",
+  "count": 1053,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -13297,6 +13297,31 @@
         "自立機能",
         "保証",
         "コストパフォーマンス"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "7ccad558c1560663",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力は通常・MAX両モードとも十分。本体の軽さを評価。女性・子供には重く感じる可能性あり。",
+      "summary_zh": "普通和MAX两档吸力均充足，机身轻巧获好评。部分女性或儿童用户可能感觉偏重。",
+      "topics": [
+        "吸引力",
+        "重量"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "f557b03ff29e81a5",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コンパクトで吸引力十分。ダストカップの水洗い可・分解簡単・ゴミ捨てしやすい点を高評価。",
+      "summary_zh": "机身紧凑，吸力充足。集尘杯可水洗、易拆卸、倒尘方便，获用户高度评价。",
+      "topics": [
+        "ダストカップ",
+        "操作性",
+        "吸引力"
       ],
       "action_hint": null
     }
