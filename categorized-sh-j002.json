@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-16T10:20:00Z",
+  "updatedAt": "2026-06-16T16:01:25Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-16T10:19:52Z",
-  "count": 337,
+  "sourceUpdatedAt": "2026-06-16T16:01:06Z",
+  "count": 344,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -4269,6 +4269,95 @@
         "操作性"
       ],
       "action_hint": "ダストカップの取り付けガイド形状を見直し、角度ずれなく一方向でロックできる構造に改善する"
+    },
+    {
+      "id": "a4e640af51115657",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "全体的に満足だが、長期使用時のバッテリー持続性に不安を感じている",
+      "summary_zh": "整体满意，但对长期使用后电池续航能力存在担忧",
+      "topics": [
+        "バッテリー",
+        "吸引力",
+        "充電"
+      ],
+      "action_hint": "バッテリー劣化に関する長期耐久試験データを確認し、交換バッテリーの販売検討をエンジニアに提案する"
+    },
+    {
+      "id": "fcbee74f1b2109c9",
+      "category": "improvement",
+      "severity": "medium",
+      "summary_ja": "ダストカップが小さく着脱・ゴミ捨てしにくい。交換バッテリー未販売。カーペット用モーターヘッドの要望あり",
+      "summary_zh": "集尘杯容量小、拆装困难、内部垃圾难以清除；无替换电池销售；希望增加适用长毛地毯的电动地刷",
+      "topics": [
+        "ダストカップ",
+        "操作性",
+        "バッテリー",
+        "モーターヘッド"
+      ],
+      "action_hint": "ダストカップのロック機構と容量を見直し、ゴミ捨て時の操作性を改善する。また交換バッテリーの販売体制を検討する"
+    },
+    {
+      "id": "53f579e1f84540a0",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で走行がスムーズ、吸引力とLEDライトの視認性を高く評価",
+      "summary_zh": "重量轻、行走顺畅，对吸力强劲和LED灯照明效果评价很高",
+      "topics": [
+        "吸引力",
+        "LEDライト",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "2d2b3bce74e091bd",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "配送が早く、軽量で使いやすい。LEDライトで暗所の掃除がしやすい",
+      "summary_zh": "配送迅速，机身轻便易用，LED灯便于在昏暗处清扫",
+      "topics": [
+        "LEDライト",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "cb3804dfa3762f93",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "緑色LEDで埃が見やすく吸引力も十分。フレキシブルヘッドでソファ・ベッド下の掃除が楽",
+      "summary_zh": "绿色LED灯下灰尘清晰可见，吸力充足，可弯曲设计便于清洁沙发和床底",
+      "topics": [
+        "LEDライト",
+        "吸引力",
+        "フレキシブルヘッド"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "254b30fc754887bb",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "コンパクトで軽量に満足。スタンド自立時にやや不安定さを感じる",
+      "summary_zh": "对机身紧凑轻便表示满意，但放置于支架时稳定性略有不足",
+      "topics": [
+        "スタンド",
+        "操作性"
+      ],
+      "action_hint": "自立スタンドの重心バランスおよびホールド機構を見直し、安定性を向上させる"
+    },
+    {
+      "id": "e72cb6614a1e69ab",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コンパクトさと軽量に驚き、LEDライトの明るさと操作の簡単さを高く評価",
+      "summary_zh": "对机身小巧轻便印象深刻，高度评价LED灯亮度及操作简便性",
+      "topics": [
+        "LEDライト",
+        "操作性"
+      ],
+      "action_hint": null
     }
   ]
 }
