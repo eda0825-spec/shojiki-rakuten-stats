@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-17T00:22:18Z",
+  "updatedAt": "2026-06-17T06:20:13Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-17T00:22:18Z",
-  "count": 344,
+  "sourceUpdatedAt": "2026-06-17T06:20:07Z",
+  "count": 346,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -4356,6 +4356,32 @@
       "topics": [
         "LEDライト",
         "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "be069be2a8f622bf",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "ダイソンV8より軽量で操作しやすく、ゴミ照射ライトとダストカップも好評。",
+      "summary_zh": "与戴森V8相比，机身更轻、操作更便捷，垃圾照明灯和集尘杯获得好评。",
+      "topics": [
+        "重量",
+        "ヘッドライト",
+        "ダストカップ",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "99ca04988db2dc00",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "説明書の誠実さと使い勝手の良さを評価。J001からの買い替えで満足。",
+      "summary_zh": "用户对说明书的用心程度和产品易用性给予好评，从J001升级后表示满意。",
+      "topics": [
+        "操作性",
+        "説明書"
       ],
       "action_hint": null
     }
