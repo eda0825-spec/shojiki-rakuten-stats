@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-17T11:54:28Z",
+  "updatedAt": "2026-06-17T15:47:40Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-17T11:54:23Z",
-  "count": 347,
+  "sourceUpdatedAt": "2026-06-17T15:47:32Z",
+  "count": 350,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -4396,6 +4396,43 @@
         "静音性",
         "自走式",
         "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "56b9b5b6cbcc005f",
+      "category": "improvement",
+      "severity": "medium",
+      "summary_ja": "スタンド充電器へのセット角度が合わず充電しづらいと報告。軽量・分解清掃性は高評価。",
+      "summary_zh": "用户反映立式充电座角度不合适，充电困难。机身轻量及可拆卸清洁性获好评。",
+      "topics": [
+        "充電スタンド",
+        "充電端子",
+        "角度"
+      ],
+      "action_hint": "スタンド充電器の受け口角度と保持機構を見直し、確実に接触・固定できる構造に改善する"
+    },
+    {
+      "id": "cb24a8bb8e469c09",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で使い勝手が良く、子供も使えると好評。",
+      "summary_zh": "机身轻便，操作简单，连儿童也能使用，用户评价良好。",
+      "topics": [
+        "重量",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "252a5333d6a99fba",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "デザインと使いやすさを高く評価。",
+      "summary_zh": "用户对产品外观设计和易用性给予高度评价。",
+      "topics": [
+        "デザイン",
+        "操作性"
       ],
       "action_hint": null
     }
