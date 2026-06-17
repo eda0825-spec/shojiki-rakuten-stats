@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-06-17T06:20:07Z",
+  "updatedAt": "2026-06-17T11:54:23Z",
   "product": "sh-j002",
   "itemNumber": "10000004",
   "summary": {
     "rating": 4.58,
     "count": 334
   },
-  "reviewsCount": 343,
-  "activeCount": 332,
+  "reviewsCount": 344,
+  "activeCount": 333,
   "removedCount": 11,
-  "newReviewsThisRun": 2,
+  "newReviewsThisRun": 1,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
@@ -33,6 +33,18 @@
       "title": "更なる進化を待ってます",
       "body": "J001を見た時から　コレだな　と思いらがら買い時を逃してしまい\nJ002きっかけで購入しました　説明書からして誠実さを感じますね\n使い勝手もうまくデザインされいて　使用用途に十二分です",
       "nickname": "楽風の街",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-17",
+      "last_seen_at": "2026-06-17"
+    },
+    {
+      "id": "1692b3030b4cd8e9",
+      "rating": 5,
+      "postDate": "2026-06-17",
+      "title": null,
+      "body": "コードレスは初めてです。腰が悪いので軽いものがいいと思い色々悩んでこちらに決めました。とても軽く使い心地も良いですね。音も他の商品よりも静かです。自走式だし髪の毛も絡まないのでストレスもありません。コードレス式の方が吸引力はありますが許容範囲です。\nとても良い買い物をさせていただきました　ありがとうございます",
+      "nickname": "購入者",
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-17",

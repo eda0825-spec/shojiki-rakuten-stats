@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-17T06:20:13Z",
+  "updatedAt": "2026-06-17T11:54:28Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-17T06:20:07Z",
-  "count": 346,
+  "sourceUpdatedAt": "2026-06-17T11:54:23Z",
+  "count": 347,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -4382,6 +4382,20 @@
       "topics": [
         "操作性",
         "説明書"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "1692b3030b4cd8e9",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・静音・自走式で髪の毛が絡まず、腰痛持ちユーザーにも使いやすいと好評。吸引力はコード式より劣るが許容範囲と評価。",
+      "summary_zh": "机身轻巧、噪音低、自走式设计不缠绕头发，腰痛用户使用方便。吸力略弱于有线款，但在可接受范围内。",
+      "topics": [
+        "重量",
+        "静音性",
+        "自走式",
+        "吸引力"
       ],
       "action_hint": null
     }
