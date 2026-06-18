@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-18T13:32:27Z",
+  "updatedAt": "2026-06-18T17:18:01Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-18T13:32:22Z",
-  "count": 353,
+  "sourceUpdatedAt": "2026-06-18T17:17:56Z",
+  "count": 354,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -4471,6 +4471,20 @@
         "吸引力"
       ],
       "action_hint": null
+    },
+    {
+      "id": "8f83bb175adab30a",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "ダストカップの操作ボタンが分かりづらく、カーペット上の髪の毛への吸引力に物足りなさを感じる。",
+      "summary_zh": "集尘杯的操作按钮位置不直观，用户反映在地毯上吸附毛发时吸力不足。",
+      "topics": [
+        "ダストカップ",
+        "操作性",
+        "吸引力",
+        "カーペット"
+      ],
+      "action_hint": "ダストカップの開閉・着脱ボタンを視認しやすい位置・デザインに見直し、カーペットモード時の吸引力向上を検討する"
     }
   ]
 }

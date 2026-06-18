@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-06-18T13:32:22Z",
+  "updatedAt": "2026-06-18T17:17:56Z",
   "product": "sh-j002",
   "itemNumber": "10000004",
   "summary": {
     "rating": 4.57,
-    "count": 342
+    "count": 343
   },
-  "reviewsCount": 350,
-  "activeCount": 339,
+  "reviewsCount": 351,
+  "activeCount": 340,
   "removedCount": 11,
-  "newReviewsThisRun": 0,
+  "newReviewsThisRun": 1,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
@@ -45,6 +45,18 @@
       "title": null,
       "body": "商品の到着も早く、吸引力も申し分ありませんでした。",
       "nickname": "Tomy5",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-18",
+      "last_seen_at": "2026-06-18"
+    },
+    {
+      "id": "8f83bb175adab30a",
+      "rating": 4,
+      "postDate": "2026-06-18",
+      "title": null,
+      "body": "今まで使っていたdysonの調子が悪くなったので、買い替えました。コンパクトなつくりで驚きましたが、軽くて使いやすいです。ダストカップが小さくて不安でしたが、まめに捨てることで衛生的に保てるかなとも思います。\nライトでホコリがよく見えたり、スリムで細かいところの掃除が楽にできるようになった点が嬉しいです。\n自立する点も便利です。\nなれるまでは、ダストカップの取り外しや取り付け、ゴミを捨てるために開けるところのボタンがどこなのか、わかりづらかったです。\nカーペットの髪の毛に対してはもっと吸引力があるといいなぁと思いました。\nでも、このお値段では満足できるレベルだと思います。",
+      "nickname": "購入者",
       "age": null,
       "gender": null,
       "first_seen_at": "2026-06-18",
