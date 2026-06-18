@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-17T23:43:13Z",
+  "updatedAt": "2026-06-18T04:28:03Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-06-17T23:43:07Z",
-  "count": 1058,
+  "sourceUpdatedAt": "2026-06-18T04:27:53Z",
+  "count": 1060,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -13389,6 +13389,31 @@
         "視認性"
       ],
       "action_hint": "ヘッドライトのLED輝度または照射角度を見直し、床面の視認性を向上させる"
+    },
+    {
+      "id": "67566748edc9e4e5",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "全体的に満足だが、吸引力をもう少し強くしてほしいという要望あり。",
+      "summary_zh": "整体满意，但希望进一步提升吸力。",
+      "topics": [
+        "吸引力"
+      ],
+      "action_hint": "上位モデルまたは次期モデルで吸引力強化オプションの検討を行う"
+    },
+    {
+      "id": "f074cec1acfa79c0",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・自立・コンパクト収納・吸引力を評価。気軽に使える点を高く評価。",
+      "summary_zh": "用户对轻量化、自立设计、紧凑收纳及吸力表示满意，认为随时可便捷使用。",
+      "topics": [
+        "重量",
+        "自立機能",
+        "コンパクト収納",
+        "吸引力"
+      ],
+      "action_hint": null
     }
   ]
 }
