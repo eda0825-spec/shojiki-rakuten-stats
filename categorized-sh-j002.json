@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-18T04:28:03Z",
+  "updatedAt": "2026-06-18T09:20:17Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-18T04:27:57Z",
-  "count": 350,
+  "sourceUpdatedAt": "2026-06-18T09:20:09Z",
+  "count": 353,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -4433,6 +4433,42 @@
       "topics": [
         "デザイン",
         "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "3503a52f79873df8",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力・軽量・フレキシブルヘッドを高評価。ダストカップ未装着で吸引低下する点に注意喚起。",
+      "summary_zh": "用户对吸力强、机身轻、可弯曲接头给予高度评价。同时提醒：集尘杯未正确安装时吸力会明显下降，需注意。",
+      "topics": [
+        "吸引力",
+        "ダストカップ",
+        "フレキシブルヘッド",
+        "軽量"
+      ],
+      "action_hint": "ダストカップの装着完了をユーザーが確認しやすいよう、クリック感や装着確認マークの視認性を見直す"
+    },
+    {
+      "id": "2f96a70326f465b4",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "初めてのネット購入で使いやすさを評価。",
+      "summary_zh": "用户首次网购吸尘器，评价操作简便、易于使用。",
+      "topics": [
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "454492f5b2423250",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "配送の速さと吸引力を評価。",
+      "summary_zh": "用户对发货速度和吸力表示满意。",
+      "topics": [
+        "吸引力"
       ],
       "action_hint": null
     }
