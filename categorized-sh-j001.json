@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-18T09:20:09Z",
+  "updatedAt": "2026-06-18T13:32:27Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-06-18T09:19:54Z",
-  "count": 1060,
+  "sourceUpdatedAt": "2026-06-18T13:32:17Z",
+  "count": 1061,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -13414,6 +13414,20 @@
         "吸引力"
       ],
       "action_hint": null
+    },
+    {
+      "id": "a0cd07cffc85bbe7",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "本体単体使用時の重量・ハイパーモードのバッテリー持続時間・細口ノズルの追加を要望",
+      "summary_zh": "用户希望主机单独使用时减重约100g、强力模式续航再延长5分钟，并增加细口吸嘴配件",
+      "topics": [
+        "重量",
+        "バッテリー",
+        "ノズル",
+        "付属品"
+      ],
+      "action_hint": "本体単体使用時の重量低減およびハイパーモードのバッテリー容量拡大を設計検討する"
     }
   ]
 }
