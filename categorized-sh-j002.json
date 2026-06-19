@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-18T22:58:28Z",
+  "updatedAt": "2026-06-19T01:49:16Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-18T22:58:28Z",
-  "count": 354,
+  "sourceUpdatedAt": "2026-06-19T01:49:11Z",
+  "count": 356,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -4485,6 +4485,30 @@
         "カーペット"
       ],
       "action_hint": "ダストカップの開閉・着脱ボタンを視認しやすい位置・デザインに見直し、カーペットモード時の吸引力向上を検討する"
+    },
+    {
+      "id": "25ca6a3f775dc43d",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で操作しやすく、お手入れも簡単と好評。知人にも推薦。",
+      "summary_zh": "重量轻、操作顺畅，日常维护简便，用户已向他人推荐。",
+      "topics": [
+        "重量",
+        "操作性",
+        "お手入れ"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "0aa6522c04465ed1",
+      "category": "other",
+      "severity": "n/a",
+      "summary_ja": "未使用のため評価なし。コンパクト収納を評価するコメントのみ。",
+      "summary_zh": "用户尚未使用产品，仅对紧凑收纳设计表示认可，无实际使用反馈。",
+      "topics": [
+        "収納性"
+      ],
+      "action_hint": null
     }
   ]
 }
