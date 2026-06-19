@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-19T16:10:09Z",
+  "updatedAt": "2026-06-19T19:00:17Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-19T16:10:09Z",
-  "count": 356,
+  "sourceUpdatedAt": "2026-06-19T19:00:12Z",
+  "count": 357,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -4509,6 +4509,19 @@
         "収納性"
       ],
       "action_hint": null
+    },
+    {
+      "id": "7ab9dbb5675af31c",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "隙間ノズル使用時の吸引力低下と、米粒・食べかす等の大きめゴミを吸えない点に改善要望あり",
+      "summary_zh": "使用缝隙吸嘴时吸力明显下降，且无法吸入米粒、食物残渣等较大垃圾，用户希望提升吸引力",
+      "topics": [
+        "吸引力",
+        "隙間ノズル",
+        "ヘッド"
+      ],
+      "action_hint": "隙間ノズル装着時の吸引力低下を抑えるため、ノズル内径・気流設計を見直す"
     }
   ]
 }
