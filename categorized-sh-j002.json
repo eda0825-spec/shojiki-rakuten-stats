@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-20T15:05:59Z",
+  "updatedAt": "2026-06-20T17:39:37Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-20T15:05:47Z",
-  "count": 359,
+  "sourceUpdatedAt": "2026-06-20T17:39:21Z",
+  "count": 365,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -4547,6 +4547,83 @@
         "重量",
         "静音性",
         "ヘッド"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "0edb0ba968b4d671",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "手元の重さ・後部ローラーの安っぽい音・前部小ローラーへのゴミ絡みが気になるが、吸引力やLED・自立収納は高評価",
+      "summary_zh": "手柄部分偏重、后轮滚轮有廉价噪音、前部小滚轮易缠绕垃圾，但吸力、LED灯及自立收纳获好评",
+      "topics": [
+        "重量",
+        "ローラー",
+        "ヘッド",
+        "LED"
+      ],
+      "action_hint": "前部小ローラーの形状・クリアランスを見直しゴミ絡みを低減し、後部ローラー素材・精度を改善して走行音を抑制する"
+    },
+    {
+      "id": "78b0d63e81adf789",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "バッテリー持続約30分・ダストカップ小容量・やや重さを感じるが、LEDや手軽さは好評",
+      "summary_zh": "电池续航约30分钟，集尘杯容量偏小，机身略重，但LED灯和便捷性获好评",
+      "topics": [
+        "バッテリー",
+        "ダストカップ",
+        "重量",
+        "LED"
+      ],
+      "action_hint": "バッテリー容量または電力効率を見直し、稼働時間の延長を検討する"
+    },
+    {
+      "id": "135c185710e10eec",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "本体が軽く操作しやすい、吸引力も十分と高評価",
+      "summary_zh": "机身轻便，操作省力，吸力充足，用户满意度高",
+      "topics": [
+        "重量",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "0dfad3db6614a7b3",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コンパクトなヘッドで隙間に入りやすく吸引力も十分、日本製への信頼が購入動機",
+      "summary_zh": "吸头紧凑，易进入缝隙，吸力充足，用户因日本品牌信赖度而购买",
+      "topics": [
+        "吸引力",
+        "ヘッド"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "70a01987c496a84a",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "白色の外観が清潔感があり、軽量で使いやすいと好評",
+      "summary_zh": "白色外观整洁美观，机身轻便，使用方便，用户评价良好",
+      "topics": [
+        "重量",
+        "デザイン"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "c32a473cb5f84910",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽さとLEDが子どもにも好評、コンパクトながら使用感も良好で耐久性に期待",
+      "summary_zh": "机身轻巧，LED灯受儿童喜爱，紧凑设计使用感良好，用户期待长期耐用",
+      "topics": [
+        "重量",
+        "LED",
+        "耐久性"
       ],
       "action_hint": null
     }
