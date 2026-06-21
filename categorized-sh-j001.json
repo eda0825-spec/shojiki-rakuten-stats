@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-21T21:22:26Z",
+  "updatedAt": "2026-06-21T22:18:23Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-06-21T21:22:22Z",
-  "count": 1064,
+  "sourceUpdatedAt": "2026-06-21T22:18:11Z",
+  "count": 1066,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -13470,6 +13470,30 @@
         "お手入れ"
       ],
       "action_hint": null
+    },
+    {
+      "id": "7876e9206998db00",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "ヘッドライト・小回り・ダストカップの視認性が高く評価され、全体的に満足。",
+      "summary_zh": "吸头灯光、灵活性及尘杯可视性获得好评，用户整体满意度高。",
+      "topics": [
+        "ヘッドライト",
+        "ダストカップ",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "f189dfae7826ed72",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "コードレス初使用者が本体重量を想定より重いと感じている。",
+      "summary_zh": "初次使用无线吸尘器的用户反映机身重量超出预期，偏重。",
+      "topics": [
+        "重量"
+      ],
+      "action_hint": "本体重量の軽量化、またはグリップ形状・重心バランスの見直しを検討する"
     }
   ]
 }
