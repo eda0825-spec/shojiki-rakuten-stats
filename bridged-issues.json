@@ -89,7 +89,25 @@
       "issue_number": 19,
       "url": "https://github.com/eda0825-spec/shojiki-defects-j002/issues/19",
       "bridged_at": "2026-06-15T05:34:58Z"
+    },
+    "f2854afbdacefef4": {
+      "product": "sh-j001",
+      "issue_number": 9,
+      "url": "https://github.com/eda0825-spec/shojiki-defects-j001/issues/9",
+      "bridged_at": "2026-06-23T04:38:01Z"
+    },
+    "fddc44aba9369cd8": {
+      "product": "sh-j002",
+      "issue_number": 20,
+      "url": "https://github.com/eda0825-spec/shojiki-defects-j002/issues/20",
+      "bridged_at": "2026-06-23T04:38:01Z"
+    },
+    "2ddf0384419e7526": {
+      "product": "sh-j002",
+      "issue_number": 21,
+      "url": "https://github.com/eda0825-spec/shojiki-defects-j002/issues/21",
+      "bridged_at": "2026-06-23T04:38:01Z"
     }
   },
-  "updatedAt": "2026-06-22T05:39:12Z"
+  "updatedAt": "2026-06-23T04:38:01Z"
 }
