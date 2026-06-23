@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-23T09:52:40Z",
+  "updatedAt": "2026-06-23T12:38:13Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-23T09:52:40Z",
-  "count": 379,
+  "sourceUpdatedAt": "2026-06-23T12:37:58Z",
+  "count": 381,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -4803,6 +4803,32 @@
         "デザイン"
       ],
       "action_hint": "吸引力の実測値を再検証し、スペック表記・宣伝文句との整合性を確認する。また透明ホースの隠蔽または不透明化を検討する"
+    },
+    {
+      "id": "f0093660f6b2205b",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量でシンプルな操作性を評価。吸引力・隅の清掃・充電スペースの省スペース性も満足。",
+      "summary_zh": "用户对产品轻便、操作简单给予好评，对吸力、边角清洁能力及充电器占用空间小也表示满意。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "充電"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "53d07d6f0caadd08",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・コンパクト・扱いやすさと吸引力を高く評価。",
+      "summary_zh": "用户高度评价产品轻量、紧凑、易操作及吸力表现。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "操作性"
+      ],
+      "action_hint": null
     }
   ]
 }
