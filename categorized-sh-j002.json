@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-24T04:02:53Z",
+  "updatedAt": "2026-06-24T08:25:42Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-24T04:02:53Z",
-  "count": 381,
+  "sourceUpdatedAt": "2026-06-24T08:25:37Z",
+  "count": 382,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -4829,6 +4829,19 @@
         "操作性"
       ],
       "action_hint": null
+    },
+    {
+      "id": "fdf19361a744dbe7",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "スタンド充電が初期状態では機能せず、再組み立てで解消。吸引・ライト・軽量は満足。",
+      "summary_zh": "充电底座初始状态下无法充电，重新组装后恢复正常。吸力、照明灯及轻量化方面用户满意。",
+      "topics": [
+        "スタンド",
+        "充電",
+        "組み立て"
+      ],
+      "action_hint": "スタンドの組み立て手順書を見直し、充電端子が確実に接触する組み立て方法をより明確に図示する"
     }
   ]
 }
