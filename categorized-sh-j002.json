@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-28T00:07:15Z",
+  "updatedAt": "2026-06-28T05:20:40Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-28T00:07:15Z",
-  "count": 394,
+  "sourceUpdatedAt": "2026-06-28T05:20:29Z",
+  "count": 395,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -5000,6 +5000,20 @@
         "分解洗浄",
         "メンテナンス性",
         "耐久性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "c76a0215ec8ec39b",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "重量・吸引力・操作性・付属品すべてに満足。コスパも高く評価。",
+      "summary_zh": "对重量、吸力、操控性及附件均表示满意，性价比高度认可。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "操作性",
+        "付属品"
       ],
       "action_hint": null
     }
