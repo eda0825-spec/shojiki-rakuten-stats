@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-28T17:18:55Z",
+  "updatedAt": "2026-06-28T19:37:44Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-28T17:18:55Z",
-  "count": 395,
+  "sourceUpdatedAt": "2026-06-28T19:37:41Z",
+  "count": 396,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -5014,6 +5014,19 @@
         "吸引力",
         "操作性",
         "付属品"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "604eb6610683b5d7",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "ヘッドライトの視認性・コスパ・スタンド収納・ゴミ捨てのしやすさを評価。一人暮らし向けサイズとして満足。",
+      "summary_zh": "用户对吸头照明灯的可视性、性价比、立式收纳及倒尘便利性给予好评，认为适合单人使用。",
+      "topics": [
+        "ヘッドライト",
+        "ダストカップ",
+        "スタンド収納"
       ],
       "action_hint": null
     }

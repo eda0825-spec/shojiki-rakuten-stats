@@ -1,19 +1,31 @@
 {
-  "updatedAt": "2026-06-28T17:18:55Z",
+  "updatedAt": "2026-06-28T19:37:41Z",
   "product": "sh-j002",
   "itemNumber": "10000004",
   "summary": {
     "rating": 4.61,
     "count": 378
   },
-  "reviewsCount": 392,
-  "activeCount": 377,
+  "reviewsCount": 393,
+  "activeCount": 378,
   "removedCount": 15,
-  "newReviewsThisRun": 0,
+  "newReviewsThisRun": 1,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
   "reviews": [
+    {
+      "id": "604eb6610683b5d7",
+      "rating": 4,
+      "postDate": "2026-06-29",
+      "title": "ライトがつくのが斬新！",
+      "body": "掃除機の充電が壊れてしまい、急遽購入になりました。割やととお手頃価格でシンプルデザイン、スタンドタイプ、ゴミはそのままゴミ捨て出来るのでコスパも良いと思います。なにより、そうのヘッドにライトが付く仕組みのものが初めてだっので、必要？？？と疑問視していましたが、必要でした(笑)　影でも凄くゴミを見やすくしてくれています。\n一人暮らしには十分な大きさでもあります。大切に使おうと思います。",
+      "nickname": "ゆっち10969",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-06-28",
+      "last_seen_at": "2026-06-28"
+    },
     {
       "id": "c76a0215ec8ec39b",
       "rating": 5,
