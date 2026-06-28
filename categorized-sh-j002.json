@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-06-28T21:08:17Z",
+  "updatedAt": "2026-06-28T21:14:00Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-06-28T21:08:17Z",
-  "count": 396,
+  "sourceUpdatedAt": "2026-06-28T21:12:40Z",
+  "count": 401,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -5027,6 +5027,69 @@
         "ヘッドライト",
         "ダストカップ",
         "スタンド収納"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "a707d3ff06aaf000",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で操作しやすく、ヘッドライトによりホコリの視認性が高い。",
+      "summary_zh": "机身轻便、操作方便，头部灯光有效提升灰尘可见度。",
+      "topics": [
+        "重量",
+        "操作性",
+        "ヘッドライト"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "d1c5dc32b69293fd",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "ヘッドライトでゴミの位置が把握しやすく、騒音も少なく使いやすい。",
+      "summary_zh": "头部灯光便于识别垃圾位置，噪音低，使用体验良好。",
+      "topics": [
+        "ヘッドライト",
+        "騒音",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "bec8414fbe83acc7",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・高速充電・ヘッドライト・ゴミ捨てのしやすさを総合的に高評価。",
+      "summary_zh": "机身轻量、充电速度快、头部灯光实用、集尘盒清理方便，综合评价高。",
+      "topics": [
+        "重量",
+        "充電",
+        "ヘッドライト",
+        "ダストカップ"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "bdf9f1689bff0c17",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "強モード時の騒音が大きく、夜間使用にはノーマルモードが必要と感じる。",
+      "summary_zh": "强力模式噪音较大，夜间使用需切换至普通模式，建议评估强力模式的噪音水平。",
+      "topics": [
+        "騒音",
+        "吸引力モード"
+      ],
+      "action_hint": "強モード時の騒音低減に向けてモーターまたはファン設計の見直しを検討する"
+    },
+    {
+      "id": "66f843215f778e5e",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "価格に対して機能性が高く、コストパフォーマンスを高く評価。",
+      "summary_zh": "功能性与价格比较均衡，性价比获得用户认可。",
+      "topics": [
+        "コストパフォーマンス"
       ],
       "action_hint": null
     }
