@@ -1,9 +1,37 @@
 {
-  "updatedAt": "2026-06-29T01:36:54Z",
+  "updatedAt": "2026-06-29T06:23:27Z",
   "product": "sh-j001",
   "repo": "eda0825-spec/shojiki-defects-j001",
-  "count": 9,
+  "count": 10,
   "issues": [
+    {
+      "id": 4765211491,
+      "number": 10,
+      "product": "sh-j001",
+      "title": "[J001] [顧客] [高] 充電中にACアダプターが高温になる現象を確認。安全性に懸念あり",
+      "url": "https://github.com/eda0825-spec/shojiki-defects-j001/issues/10",
+      "state": "open",
+      "user": "eda0825-spec",
+      "assignees": [],
+      "labels": [
+        "status:new",
+        "severity:high",
+        "area:charging",
+        "source:customer",
+        "type:defect"
+      ],
+      "severity": "high",
+      "status": "new",
+      "areas": [
+        "charging"
+      ],
+      "created_at": "2026-06-29T05:09:07Z",
+      "updated_at": "2026-06-29T05:09:07Z",
+      "closed_at": null,
+      "comments": 0,
+      "body_excerpt": "> ⚠️ **このIssueは楽天レビューから自動生成されました**\n> 自动从楽天评论生成 (2026-06-29)\n\n## レビュー内容 / 评论原文\n\n| 項目 / 项目 | 値 / 值 |\n|---|---|\n| 商品 / 产品 | SH-J001 |\n| 評価 / 评价 | ★★★★☆ (4) |\n| 投稿日 / 日期 | 2026-06-22 |\n| 投稿者 / 投稿者 | ●●● |\n| AI 分類 / AI 分类 | **defect** ・ 深刻度 **high** |\n| トピック / 话题 | 充電・ACアダプター・発熱 |\n\n##",
+      "body": "> ⚠️ **このIssueは楽天レビューから自動生成されました**\n> 自动从楽天评论生成 (2026-06-29)\n\n## レビュー内容 / 评论原文\n\n| 項目 / 项目 | 値 / 值 |\n|---|---|\n| 商品 / 产品 | SH-J001 |\n| 評価 / 评价 | ★★★★☆ (4) |\n| 投稿日 / 日期 | 2026-06-22 |\n| 投稿者 / 投稿者 | ●●● |\n| AI 分類 / AI 分类 | **defect** ・ 深刻度 **high** |\n| トピック / 话题 | 充電・ACアダプター・発熱 |\n\n### 要約 / 摘要\n\n- **日本語**: 充電中にACアダプターが高温になる現象を確認。安全性に懸念あり\n- **中文**: 充电过程中AC适配器出现过热现象，存在安全隐患，需重点排查\n\n### 対策案 (AI 提案) / 对策建议 (AI 提议)\n\nACアダプターの発熱温度を計測・規格と照合し、過熱防止回路および部品の耐熱設計を見直す\n\n### 原文 / 原文\n（個人情報を含むため管理画面で確認）"
+    },
     {
       "id": 4722656561,
       "number": 9,
