@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-01T12:42:08Z",
+  "updatedAt": "2026-07-01T15:47:00Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-07-01T12:42:08Z",
-  "count": 401,
+  "sourceUpdatedAt": "2026-07-01T15:46:43Z",
+  "count": 408,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -5092,6 +5092,95 @@
         "コストパフォーマンス"
       ],
       "action_hint": null
+    },
+    {
+      "id": "4362eec94e56d960",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で取り回しやすく、コード付きサイクロンから乗り換えて掃除頻度が向上した。",
+      "summary_zh": "机身轻便、操作灵活，用户从有线旋风吸尘器换用后清扫频率明显提升。",
+      "topics": [
+        "重量",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "c90f1adcbb4ed1b9",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・コンパクトで狭い部屋に適し、台座置きの充電方式が簡便と好評。",
+      "summary_zh": "机身轻巧紧凑，适合小空间使用，底座充电方式操作简便，用户评价良好。",
+      "topics": [
+        "重量",
+        "充電",
+        "収納性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "623a7f1ca025d4d9",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "小型ながら剛性感があり吸引力も良好。収納スペースを取らない点を評価。",
+      "summary_zh": "机身小巧但结构扎实，吸力表现良好，占用收纳空间小，用户给予好评。",
+      "topics": [
+        "吸引力",
+        "収納性",
+        "剛性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "fa1a935871fe04bd",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "吸引力は普通レベル。自立機能とゴミ捨てのしやすさは好評だが、耐久性に不安を感じている。",
+      "summary_zh": "吸力表现一般；自立功能和集尘桶清倒操作获好评，但用户对长期耐久性存有疑虑。",
+      "topics": [
+        "吸引力",
+        "耐久性",
+        "ダストカップ"
+      ],
+      "action_hint": "耐久性に関するフィールドテストデータを蓄積し、主要可動部品の寿命基準を見直す"
+    },
+    {
+      "id": "ce5a3473ef641c02",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コンパクトなボディとLEDライト搭載により使いやすいと高評価。",
+      "summary_zh": "机身紧凑，配备LED照明灯，用户反映使用便利，整体评价较高。",
+      "topics": [
+        "コンパクト",
+        "LEDライト",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "1ddc7758b91cbd0e",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "想定より細くて非常に軽量だが、吸引力は十分と好評。",
+      "summary_zh": "机身比预期更细、重量极轻，但吸力充足，用户对购买结果表示满意。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "コンパクト"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "1f62e43ef9e11f3e",
+      "category": "improvement",
+      "severity": "medium",
+      "summary_ja": "全体的には満足だが、ダストカップ容量が小さすぎると不満あり。",
+      "summary_zh": "整体使用满意，但集尘杯容积过小，用户反映需频繁清倒，存在明显不满。",
+      "topics": [
+        "ダストカップ",
+        "容量"
+      ],
+      "action_hint": "ダストカップ容量の拡大、または満杯通知機能の追加を検討する"
     }
   ]
 }
