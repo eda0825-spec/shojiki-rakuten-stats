@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-02T09:21:33Z",
+  "updatedAt": "2026-07-02T12:12:01Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-07-02T09:21:33Z",
-  "count": 408,
+  "sourceUpdatedAt": "2026-07-02T12:11:57Z",
+  "count": 409,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -5181,6 +5181,19 @@
         "容量"
       ],
       "action_hint": "ダストカップ容量の拡大、または満杯通知機能の追加を検討する"
+    },
+    {
+      "id": "253dfc94ce67db4d",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量でコンパクトなため掃除のハードルが下がり、コードレスへの切り替えに満足している。",
+      "summary_zh": "机器重量轻、体积小，用户从有线吸尘器切换后表示满意，清扫积极性提升。",
+      "topics": [
+        "重量",
+        "操作性",
+        "コンパクト設計"
+      ],
+      "action_hint": null
     }
   ]
 }
