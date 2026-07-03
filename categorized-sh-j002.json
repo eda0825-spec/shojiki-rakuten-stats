@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-03T10:42:47Z",
+  "updatedAt": "2026-07-03T13:00:07Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-07-03T10:42:47Z",
-  "count": 410,
+  "sourceUpdatedAt": "2026-07-03T12:59:55Z",
+  "count": 415,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -5207,6 +5207,69 @@
         "ヘッド"
       ],
       "action_hint": "高周波異音の発生源（モーター・ローラー・吸気経路）を特定し、組み付け精度および共振対策を見直す"
+    },
+    {
+      "id": "e95e66054d6722c5",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で操作しやすく吸引力も十分。ゴミ捨て・お手入れのしやすさも高評価。",
+      "summary_zh": "机身轻巧、操作方便、吸力充足，垃圾倾倒及日常维护便利性获得好评。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "ダストカップ",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "4072828ebba0af95",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で手首への負担が少なく、吸引力も期待以上との評価。",
+      "summary_zh": "机身轻便，手腕负担小，吸力超出预期，用户满意度高。",
+      "topics": [
+        "重量",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "b2f63e7ac819b626",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で使い勝手がよく、コストパフォーマンスを高く評価。",
+      "summary_zh": "机身轻便，使用便利，性价比高，用户评价满意。",
+      "topics": [
+        "重量",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "2db1838615f5d417",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "高齢者でも組み立て可能な手軽さ。軽量でゴミ捨てが簡単と好評。",
+      "summary_zh": "老年用户可独立完成组装，机身轻便，垃圾倾倒操作简单，获得好评。",
+      "topics": [
+        "重量",
+        "ダストカップ",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "201597f82fe4fcc5",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "吸引力は良好だが、動作音が吸引力に対して大きいと感じる。",
+      "summary_zh": "吸力表现良好，但运行噪音相对吸力水平偏大，用户认为噪音与性能不匹配。",
+      "topics": [
+        "騒音",
+        "吸引力"
+      ],
+      "action_hint": "モーターおよび気流経路の防音設計を見直し、同等吸引力でのノイズ低減を検討する"
     }
   ]
 }
