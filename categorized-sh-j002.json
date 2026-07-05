@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-05T07:34:05Z",
+  "updatedAt": "2026-07-05T10:21:42Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-07-05T07:34:05Z",
-  "count": 420,
+  "sourceUpdatedAt": "2026-07-05T10:21:39Z",
+  "count": 421,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -5331,6 +5331,18 @@
       "topics": [
         "価格",
         "説明書"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "c088b50e2f970797",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "外観デザインと吸引力に満足。長期耐久性への期待を述べている。",
+      "summary_zh": "用户对外观设计和吸力表示满意，期待产品长期耐用。",
+      "topics": [
+        "デザイン",
+        "吸引力"
       ],
       "action_hint": null
     }
