@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-05T10:21:39Z",
+  "updatedAt": "2026-07-05T12:20:43Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-07-05T10:21:33Z",
-  "count": 1155,
+  "sourceUpdatedAt": "2026-07-05T12:20:31Z",
+  "count": 1157,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -14637,6 +14637,31 @@
         "操作性"
       ],
       "action_hint": null
+    },
+    {
+      "id": "4514ae39a7552df6",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "ゴミ蓄積時にサイクロンカップへほこり付着しサイクロン回転が阻害される。LEDライト照射範囲も狭い。",
+      "summary_zh": "垃圾积累后旋风杯内壁附着灰尘，导致旋风分离旋转受阻；LED照射范围偏窄。",
+      "topics": [
+        "サイクロンカップ",
+        "ダストカップ",
+        "LEDライト"
+      ],
+      "action_hint": "サイクロンカップの形状・クリアランスを見直し、ゴミ蓄積時でも旋風気流が維持されるよう改善する"
+    },
+    {
+      "id": "cd43c534e5efa4ad",
+      "category": "improvement",
+      "severity": "medium",
+      "summary_ja": "充電ケーブルが細く断線リスクを感じるとの指摘。高齢者には本体重量がやや重い。",
+      "summary_zh": "充电线过细，用户担忧存在断线风险；机身重量对老年用户偏重。",
+      "topics": [
+        "充電ケーブル",
+        "重量"
+      ],
+      "action_hint": "充電ケーブルの線径・被覆強度を見直し、断線耐久性を向上させる"
     }
   ]
 }
