@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-05T20:18:12Z",
+  "updatedAt": "2026-07-05T21:13:33Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-07-05T20:18:12Z",
-  "count": 421,
+  "sourceUpdatedAt": "2026-07-05T21:12:05Z",
+  "count": 431,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -5345,6 +5345,132 @@
         "吸引力"
       ],
       "action_hint": null
+    },
+    {
+      "id": "929ccda27321d6a1",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽量・高吸引力・自走式は好評だが、ダストカップの容量が小さく感じるとの指摘あり。",
+      "summary_zh": "机身细长轻便、吸力强、自走功能受好评，但集尘杯容量偏小，用户感觉不足。",
+      "topics": [
+        "ダストカップ",
+        "吸引力",
+        "自走機能"
+      ],
+      "action_hint": "ダストカップ容量の拡大、または形状最適化による実効容積の向上を検討する"
+    },
+    {
+      "id": "344e0d9f83c7dded",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で使いやすく、コストパフォーマンスが高いと評価。耐久性は今後の確認待ち。",
+      "summary_zh": "机身轻巧易用，性价比高，耐久性有待后续观察。",
+      "topics": [
+        "重量",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "8423ad9cae91fb6d",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "充電スタンドに立てた際に前方へ倒れる事例あり。転倒防止機構の追加を要望。",
+      "summary_zh": "充电时将机器放置于充电支架上，出现向前倾倒的情况，用户要求增加防倒机构。",
+      "topics": [
+        "充電スタンド",
+        "自立機能",
+        "転倒防止"
+      ],
+      "action_hint": "充電スタンドのホールド機構を見直し、前方転倒を防ぐロック構造または滑り止めを追加する"
+    },
+    {
+      "id": "3fd637ea4e34ab98",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "配送が迅速で、サイズ・使用感ともに期待通り。デザインも高評価。",
+      "summary_zh": "发货迅速，尺寸与使用感符合预期，外观设计获好评。",
+      "topics": [
+        "デザイン",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "e861a9615fe36470",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "従来機より軽量で使いやすく、吸引力にも満足。",
+      "summary_zh": "比以前使用的产品更轻便易用，吸力令人满意。",
+      "topics": [
+        "重量",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "5e188a6f170b9a57",
+      "category": "improvement",
+      "severity": "medium",
+      "summary_ja": "充電スタンドへのセットがカチッと固定されず倒れやすい。プラスチック部品の強度も不足と感じる。",
+      "summary_zh": "机器放入充电支架时无法卡紧固定，易倾倒；塑料部件强度不足，碰撞后易破裂。",
+      "topics": [
+        "充電スタンド",
+        "プラスチック強度",
+        "転倒防止"
+      ],
+      "action_hint": "充電スタンドの嵌合部のクリック感と保持力を強化し、外装プラスチックの肉厚・材質を見直す"
+    },
+    {
+      "id": "df85f47ac426bb31",
+      "category": "improvement",
+      "severity": "medium",
+      "summary_ja": "ハンドモード時に通常パワーでは吸引力が不足。また電源オフ直後にゴミが逆流する現象あり。",
+      "summary_zh": "切换为手持模式时，普通功率下吸力不足；关机后瞬间出现垃圾逆流现象。",
+      "topics": [
+        "吸引力",
+        "ハンドモード",
+        "ゴミ逆流"
+      ],
+      "action_hint": "ハンドモード時の吸引力設定を見直すとともに、電源オフ時の逆流防止弁の設置を検討する"
+    },
+    {
+      "id": "79bc4d9f8b123c69",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "従来機より軽量で吸引力も十分。耐久性は今後の確認待ち。",
+      "summary_zh": "比以前使用的产品更轻，吸力满足使用需求，耐久性有待后续验证。",
+      "topics": [
+        "重量",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "056e0f22f42e7363",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コード付きから乗り換え。軽量で充電が簡単になり、掃除の手間が大幅に軽減された。",
+      "summary_zh": "从有线吸尘器换用本品，重量轻、充电方便，清扫负担明显减少。",
+      "topics": [
+        "重量",
+        "充電",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "f2b8b15075a99230",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "緑色LEDインジケーターの用途が不明。ダストカップ容量が小さく毎回ゴミ捨てが必要との指摘あり。",
+      "summary_zh": "绿色LED指示灯用途不明，用户反映集尘杯容量小，每次使用后均需清倒垃圾。",
+      "topics": [
+        "インジケーター",
+        "ダストカップ",
+        "操作性"
+      ],
+      "action_hint": "緑色LEDの意味をラベルまたは取扱説明書で明示し、ダストカップ容量拡大の可否を検討する"
     }
   ]
 }
