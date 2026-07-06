@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-05T22:05:58Z",
+  "updatedAt": "2026-07-06T00:12:19Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-07-05T22:05:54Z",
-  "count": 1185,
+  "sourceUpdatedAt": "2026-07-06T00:12:10Z",
+  "count": 1186,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -15002,6 +15002,20 @@
       "topics": [
         "吸引力",
         "メンテナンス性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "a75377701d30509e",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・コンパクトで吸引力が高く、自走性能・お手入れ性・自立収納を高評価。",
+      "summary_zh": "机身轻巧紧凑，吸力强劲，自走顺畅，易于清洁维护，可自立存放，使用便利性获好评。",
+      "topics": [
+        "吸引力",
+        "自走機能",
+        "お手入れ性",
+        "収納"
       ],
       "action_hint": null
     }
