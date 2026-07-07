@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-07T11:55:57Z",
+  "updatedAt": "2026-07-07T14:53:12Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-07-07T11:55:57Z",
-  "count": 431,
+  "sourceUpdatedAt": "2026-07-07T14:53:07Z",
+  "count": 432,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -5471,6 +5471,18 @@
         "操作性"
       ],
       "action_hint": "緑色LEDの意味をラベルまたは取扱説明書で明示し、ダストカップ容量拡大の可否を検討する"
+    },
+    {
+      "id": "be81b01af162ad9a",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "全体的に高評価だが、スタンドへの立て掛けがやや難しいと指摘。",
+      "summary_zh": "整体评价很高，但指出充电座立放操作略有不便。",
+      "topics": [
+        "スタンド",
+        "操作性"
+      ],
+      "action_hint": "スタンドのホルダー形状・保持機構を見直し、片手でスムーズに立て掛けられるよう改善する"
     }
   ]
 }
