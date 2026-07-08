@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-08T07:32:33Z",
+  "updatedAt": "2026-07-08T10:24:02Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-07-08T07:32:26Z",
-  "count": 1186,
+  "sourceUpdatedAt": "2026-07-08T10:23:51Z",
+  "count": 1187,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -15018,6 +15018,19 @@
         "収納"
       ],
       "action_hint": null
+    },
+    {
+      "id": "ee81939f28f81eb0",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "吸引力・自走ヘッドは高評価。階段使用時にヘッドの重さが気になるとの指摘あり。",
+      "summary_zh": "吸力强、自走式吸头评价高。用户反映在清洁楼梯时吸头偏重，操作不便。",
+      "topics": [
+        "ヘッド重量",
+        "自走式ヘッド",
+        "階段"
+      ],
+      "action_hint": "階段清掃時の操作性向上を目的に、ヘッド重量バランスまたはグリップ角度の見直しを検討する"
     }
   ]
 }
