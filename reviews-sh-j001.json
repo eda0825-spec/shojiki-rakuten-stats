@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-12T15:01:21Z",
+  "updatedAt": "2026-07-12T17:04:15Z",
   "product": "sh-j001",
   "itemNumber": "10000000",
   "summary": {
@@ -5502,7 +5502,7 @@
       "age": null,
       "gender": null,
       "first_seen_at": "2026-04-05",
-      "last_seen_at": "2026-07-05"
+      "last_seen_at": "2026-07-12"
     },
     {
       "id": "b809ff2b87146353",
