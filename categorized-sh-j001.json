@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-13T08:19:59Z",
+  "updatedAt": "2026-07-13T12:11:49Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-07-13T08:19:55Z",
-  "count": 1190,
+  "sourceUpdatedAt": "2026-07-13T12:11:34Z",
+  "count": 1191,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -15073,6 +15073,19 @@
         "収納"
       ],
       "action_hint": "長期耐久性データを蓄積し、主要駆動部品の寿命保証基準を見直す"
+    },
+    {
+      "id": "91fdf78cdbdbd305",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力・ワンタッチゴミ捨て・丸洗いメンテナンスを高評価。ペット掃除用途に満足。",
+      "summary_zh": "用户对吸力、一键倒尘及可水洗维护给予高度评价，适合宠物除毛场景，整体满意度高。",
+      "topics": [
+        "吸引力",
+        "ダストカップ",
+        "メンテナンス"
+      ],
+      "action_hint": null
     }
   ]
 }

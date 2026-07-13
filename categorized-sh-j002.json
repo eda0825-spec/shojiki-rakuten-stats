@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-13T08:19:59Z",
+  "updatedAt": "2026-07-13T12:11:53Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-07-13T08:19:59Z",
-  "count": 464,
+  "sourceUpdatedAt": "2026-07-13T12:11:44Z",
+  "count": 465,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -5873,6 +5873,20 @@
         "総合満足度",
         "吸引力",
         "デザイン"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "e7415300171a4f7d",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・スリム設計と吸引力・自立機能・ノズル収納を高く評価。総合的な使いやすさに満足。",
+      "summary_zh": "用户对机身轻巧纤细、吸力充足、可自立放置及喷嘴收纳功能给予高度评价，对整体易用性表示满意。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "収納",
+        "ノズル"
       ],
       "action_hint": null
     }
