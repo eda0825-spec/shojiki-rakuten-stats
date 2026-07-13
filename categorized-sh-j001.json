@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-13T00:05:16Z",
+  "updatedAt": "2026-07-13T04:33:45Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-07-13T00:05:12Z",
-  "count": 1188,
+  "sourceUpdatedAt": "2026-07-13T04:33:23Z",
+  "count": 1190,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -15045,6 +15045,34 @@
         "ペット毛"
       ],
       "action_hint": null
+    },
+    {
+      "id": "0f45a86f0de3494b",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "操作性・吸引力・自立収納・ライトを高評価。付属品のシンプルさも好評。",
+      "summary_zh": "用户对操控性、吸力、自立收纳及照明灯给予高度评价，附件简洁也受到好评。",
+      "topics": [
+        "操作性",
+        "吸引力",
+        "収納",
+        "ライト"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "242b1b6b35c73f0f",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・静音・吸引力・コンパクト収納を高評価。耐久性への期待も言及。",
+      "summary_zh": "用户对轻量、低噪音、吸力及紧凑收纳给予好评，同时提及对耐久性的期待。",
+      "topics": [
+        "重量",
+        "静音性",
+        "吸引力",
+        "収納"
+      ],
+      "action_hint": "長期耐久性データを蓄積し、主要駆動部品の寿命保証基準を見直す"
     }
   ]
 }
