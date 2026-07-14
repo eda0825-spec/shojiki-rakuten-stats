@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-14T07:12:00Z",
+  "updatedAt": "2026-07-14T10:03:31Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-07-14T07:12:00Z",
-  "count": 465,
+  "sourceUpdatedAt": "2026-07-14T10:03:10Z",
+  "count": 472,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -5887,6 +5887,97 @@
         "吸引力",
         "収納",
         "ノズル"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "9019399745e9de09",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "ダストカップ奥の金属フィルターに髪の毛が絡まり、付属ブラシでは届かず除去困難。",
+      "summary_zh": "尘杯内部金属滤网缠绕毛发，随附清洁刷无法触及，清洁困难。",
+      "topics": [
+        "ダストカップ",
+        "金属フィルター",
+        "髪の毛",
+        "付属ブラシ"
+      ],
+      "action_hint": "金属フィルター周辺の形状見直しまたは付属ブラシのリーチ延長を検討する"
+    },
+    {
+      "id": "a652dc64b9dde227",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・自走式・静音・吸引力を高く評価。身体的負担が大きいユーザーにも扱いやすい。",
+      "summary_zh": "用户高度评价其轻量、自驱、低噪音及吸力表现，对身体不便用户友好。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "騒音",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "10d81f8948344b9b",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コンパクト収納・静音性を評価。吸引力に当初不安があったが実使用で問題なし。",
+      "summary_zh": "用户认可紧凑收纳与低噪音设计，初期对吸力有疑虑，实际使用后确认无问题。",
+      "topics": [
+        "収納性",
+        "騒音",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "bf15e589dca63226",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コンパクトながら吸引力が高いと評価。発送の速さにも満足。",
+      "summary_zh": "用户评价机身紧凑但吸力出色，对发货速度也表示满意。",
+      "topics": [
+        "吸引力",
+        "コンパクト"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "cb70814f4d76c972",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "スタイリッシュなデザインと軽量さを評価し、掃除の意欲向上につながったと好評。",
+      "summary_zh": "用户称赞外观时尚、机身轻巧，表示提升了打扫积极性。",
+      "topics": [
+        "デザイン",
+        "重量"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "9ac1186fdf7f5f20",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で小学生でも扱えるほど操作が容易。手軽さから掃除習慣の改善につながった。",
+      "summary_zh": "机身轻巧，小学生也能轻松操作，便捷性有助于养成清扫习惯。",
+      "topics": [
+        "重量",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "24ffd8a9bc488b47",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力・静音性・操作の軽さをすべて良好と評価。コンパクトさにも満足。",
+      "summary_zh": "用户对吸力、低噪音及操作轻便性均给予好评，对机身紧凑性也表示满意。",
+      "topics": [
+        "吸引力",
+        "騒音",
+        "操作性",
+        "コンパクト"
       ],
       "action_hint": null
     }
