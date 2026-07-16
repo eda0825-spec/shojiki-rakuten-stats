@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-16T14:04:26Z",
+  "updatedAt": "2026-07-16T16:20:27Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-07-16T14:04:26Z",
-  "count": 472,
+  "sourceUpdatedAt": "2026-07-16T16:20:18Z",
+  "count": 473,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -5978,6 +5978,20 @@
         "騒音",
         "操作性",
         "コンパクト"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "30b77860fe26fe12",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "猫毛の絡まりにくいブラシ・緑色LEDライト・Type-C充電対応など複数機能を高評価",
+      "summary_zh": "用户对防缠绕滚刷、绿色LED照明、Type-C充电等多项功能给予高度评价，整体满意度高",
+      "topics": [
+        "ブラシ",
+        "LEDライト",
+        "充電",
+        "ダストカップ"
       ],
       "action_hint": null
     }
