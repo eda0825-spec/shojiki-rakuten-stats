@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-17T04:10:50Z",
+  "updatedAt": "2026-07-17T07:21:29Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-07-17T04:10:49Z",
-  "count": 473,
+  "sourceUpdatedAt": "2026-07-17T07:20:56Z",
+  "count": 486,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -5992,6 +5992,178 @@
         "LEDライト",
         "充電",
         "ダストカップ"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "411efac13c1eef4e",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コンパクトさに驚きつつ吸引力・使い勝手・取説品質・梱包の環境配慮を高評価",
+      "summary_zh": "对产品紧凑性、吸力、操作性、说明书质量及简化包装的环保设计给予高度评价",
+      "topics": [
+        "吸引力",
+        "操作性",
+        "取扱説明書",
+        "梱包"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "0ff2cd4e29c71b4f",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "高齢者向けに軽量・吸引力を評価。初期不具合があったがサポート対応は迅速・丁寧",
+      "summary_zh": "高龄用户对轻量化和吸力满意；初期出现疑似不良，客服响应迅速且态度良好",
+      "topics": [
+        "重量",
+        "吸引力",
+        "カスタマーサポート"
+      ],
+      "action_hint": "初期不具合の内容を顧客サポートから収集し、出荷前検査項目に反映する"
+    },
+    {
+      "id": "7a0393d179adf043",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "出荷時充電済み・軽量・自走式の使い勝手を評価。吸引力は髪・埃用途で問題なし",
+      "summary_zh": "出厂预充电、轻量化及自走功能获好评；针对毛发和灰尘的吸力表现无问题",
+      "topics": [
+        "重量",
+        "自走機能",
+        "吸引力",
+        "充電"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "fd30862d2d3834d1",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "置くだけ充電・軽量・髪・ゴミの吸引力・外観デザインをすべて高評価",
+      "summary_zh": "对免对准充电、轻量化、毛发及垃圾吸力以及外观设计均给予高度评价",
+      "topics": [
+        "充電",
+        "重量",
+        "吸引力",
+        "デザイン"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "accba53274b45db2",
+      "category": "improvement",
+      "severity": "medium",
+      "summary_ja": "ダストカップのゴミ排出がしにくく指でかき出す必要あり。カップの装着もしづらい",
+      "summary_zh": "尘杯排尘不畅，需手动掏取；尘杯安装困难，操作性有待改善；吸力本身满意",
+      "topics": [
+        "ダストカップ",
+        "ゴミ捨て",
+        "操作性"
+      ],
+      "action_hint": "ダストカップの排塵口形状とロック機構の操作力を見直し、ゴミが自然に落下しやすい構造に改善する"
+    },
+    {
+      "id": "39cbee3839e82a6c",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "従来機より軽量・コンパクトで吸引力も十分と高評価",
+      "summary_zh": "与旧款相比更轻巧紧凑，吸力充足，用户满意度高",
+      "topics": [
+        "重量",
+        "吸引力",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "b77edf2f03e9a354",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・パワー・小回りを評価。交換用フィルター同梱を好意的に評価",
+      "summary_zh": "对轻量化、吸力及灵活操控给予好评；随附替换滤网获得额外认可",
+      "topics": [
+        "重量",
+        "吸引力",
+        "フィルター",
+        "梱包"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "5c11df1ab5744dc3",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・小回り・ゴミ捨てのしやすさを評価。気軽に使える手軽さを好評価",
+      "summary_zh": "对轻量化、灵活操控及简便排尘操作给予好评，日常随手使用便利性高",
+      "topics": [
+        "重量",
+        "操作性",
+        "ゴミ捨て"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "9fb819cf9f3b1067",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コンパクトな梱包で届き、組み立て後は軽量かつ吸引力も十分と評価。",
+      "summary_zh": "包装紧凑，组装后机身轻巧，吸力表现令人满意。",
+      "topics": [
+        "軽量",
+        "吸引力",
+        "梱包"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "fda786832ce10a8a",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "プレゼント用途で購入。軽さとLEDライトが使いやすさに貢献し、受け取り側も満足。",
+      "summary_zh": "作为礼品购买，机身轻便且配备LED灯，使用便利性获得好评。",
+      "topics": [
+        "軽量",
+        "LEDライト",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "9240319de4c7c7da",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量性と吸引力の両立に全面的に満足との評価。",
+      "summary_zh": "对机身轻量化与吸力的兼顾表示全面满意。",
+      "topics": [
+        "軽量",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "437c7b67de9217df",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽さと吸引力を評価。自立機能が小物の多い環境で特に便利と実感。",
+      "summary_zh": "对轻量化和吸力给予好评，自立功能在小物件较多的环境中实用性突出。",
+      "topics": [
+        "軽量",
+        "吸引力",
+        "自立機能"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "94a1a2867660b2ff",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "有名メーカーと比較検討の上で購入。必要機能を十分備えコスパに優れると評価。使用1週間で問題なし。",
+      "summary_zh": "与知名品牌比较后购买，功能完备，性价比高，使用一周无异常。",
+      "topics": [
+        "吸引力",
+        "操作性",
+        "コスパ"
       ],
       "action_hint": null
     }
