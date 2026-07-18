@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-17T23:59:55Z",
+  "updatedAt": "2026-07-18T03:22:41Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-07-17T23:59:55Z",
-  "count": 486,
+  "sourceUpdatedAt": "2026-07-18T03:22:36Z",
+  "count": 487,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -6166,6 +6166,19 @@
         "コスパ"
       ],
       "action_hint": null
+    },
+    {
+      "id": "01085bf34a132fb0",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "フローリングの吸引力・静音性は満足だが、カーペット奥のゴミをブラシが掻き出しにくい",
+      "summary_zh": "硬地板吸尘效果及静音性令人满意，但刷头结构难以清除地毯深层垃圾",
+      "topics": [
+        "ブラシ",
+        "カーペット",
+        "吸引力"
+      ],
+      "action_hint": "カーペット対応ブラシの毛材・配列を見直し、毛足の長い素材への掻き出し性能を改善する"
     }
   ]
 }
