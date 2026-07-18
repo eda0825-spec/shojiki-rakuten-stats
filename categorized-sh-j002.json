@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-18T08:51:16Z",
+  "updatedAt": "2026-07-18T10:22:08Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-07-18T08:51:16Z",
-  "count": 487,
+  "sourceUpdatedAt": "2026-07-18T10:21:58Z",
+  "count": 492,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -6179,6 +6179,68 @@
         "吸引力"
       ],
       "action_hint": "カーペット対応ブラシの毛材・配列を見直し、毛足の長い素材への掻き出し性能を改善する"
+    },
+    {
+      "id": "828e23644c76e43b",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力・軽量性ともに前機種より満足。日本製を評価して購入。",
+      "summary_zh": "吸力和轻量性均优于旧机型，用户对日本制造表示认可。",
+      "topics": [
+        "吸引力",
+        "重量"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "fd8fc67f80cddb15",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コンパクトで扱いやすく、自走式で軽いと高評価。",
+      "summary_zh": "机身紧凑、操作方便，自走功能使用轻便，评价较高。",
+      "topics": [
+        "操作性",
+        "重量",
+        "自走機能"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "44b3d72a7b71c251",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽量・ライト付きで使いやすいが、ダストボックスが小さく毎回清掃が必要。",
+      "summary_zh": "机身轻便且带照明灯，但集尘盒容量偏小，每次使用后均需清洁。",
+      "topics": [
+        "ダストボックス",
+        "操作性"
+      ],
+      "action_hint": "ダストボックスの容量拡大またはゴミ圧縮機構の導入を検討する"
+    },
+    {
+      "id": "e7a3afdcf52dd21b",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コンパクト・軽量で使いやすく、吸引力にも問題なし。",
+      "summary_zh": "机身紧凑轻便，操作方便，吸力正常无异常。",
+      "topics": [
+        "吸引力",
+        "重量",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "42d0da481faa0efb",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "使い心地が良く、大手メーカー製品と比較しても遜色なしと評価。",
+      "summary_zh": "使用感良好，与主流大品牌产品相比性能不相上下。",
+      "topics": [
+        "操作性",
+        "吸引力"
+      ],
+      "action_hint": null
     }
   ]
 }
