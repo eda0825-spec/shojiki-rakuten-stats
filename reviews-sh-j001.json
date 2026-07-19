@@ -1,19 +1,31 @@
 {
-  "updatedAt": "2026-07-19T15:01:38Z",
+  "updatedAt": "2026-07-19T17:03:06Z",
   "product": "sh-j001",
   "itemNumber": "10000000",
   "summary": {
     "rating": 4.57,
     "count": 1255
   },
-  "reviewsCount": 1190,
-  "activeCount": 1183,
+  "reviewsCount": 1191,
+  "activeCount": 1184,
   "removedCount": 7,
-  "newReviewsThisRun": 0,
+  "newReviewsThisRun": 1,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
   "reviews": [
+    {
+      "id": "13e4a8f4521c8391",
+      "rating": 5,
+      "postDate": "2026-07-20",
+      "title": null,
+      "body": "使用していたパナソニックコードレスの吸引が悪くなり、日本製というところに安心を感じて購入しました。使用してみたところ、自走式のためとにかく軽いです。今まで使用していたものと違い、少し頭がぐにゃぐにゃと曲がる感覚がありましたが、すぐに慣れました。むしろヘッドの柔軟性でソファ下なども吸いやすいです。\n吸引力も十分で、髪の毛等しっかり吸ってくれますが、音が煩いこともないです。また、コンパクトに片付けられるのが嬉しいです。\n改善されたらより良いなと思うところは、\n・柄が今まで使用していたものより短く、冷蔵庫横の隙間は一番後ろまで届かなかった。\n・ハンドルが持ちにくく、掃除をしていると人差し指の背に負担がかかり痛くなってくる。の2点です。\nそれでもお値段もお手頃で見た目もシンプル、ゴミ捨ても楽と考えると、十分良いお買い物でした。",
+      "nickname": "購入者",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-07-19",
+      "last_seen_at": "2026-07-19"
+    },
     {
       "id": "994fe7b6503e5c87",
       "rating": 5,
