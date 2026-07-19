@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-19T20:56:39Z",
+  "updatedAt": "2026-07-19T21:04:36Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-07-19T20:56:33Z",
-  "count": 1194,
+  "sourceUpdatedAt": "2026-07-19T21:01:00Z",
+  "count": 1268,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -15125,6 +15125,951 @@
         "操作性"
       ],
       "action_hint": "パイプ延長またはハンドル形状の見直しにより、指への負担軽減と到達距離の改善を検討する"
+    },
+    {
+      "id": "ca8f8bc42e0cc99e",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "初回使用時の吸引力は高評価だが、バッテリーとヘッドの長期耐久性に不安を感じている",
+      "summary_zh": "首次使用吸力表现优异，但用户对电池和吸头的长期耐久性存在担忧",
+      "topics": [
+        "バッテリー",
+        "ヘッド",
+        "耐久性"
+      ],
+      "action_hint": "バッテリー寿命サイクルおよびヘッドブラシの摩耗試験データを開示・強化する"
+    },
+    {
+      "id": "120072a2b754de11",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "先代機の故障を機に買い替え、問題なく使用できている",
+      "summary_zh": "因旧款故障而更换，新机使用正常无异常",
+      "topics": [
+        "基本機能"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "d45da56a03eee3ac",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽さ・吸引力・静音性・ヘッドライト・ダストカップ洗浄を高評価。布団用ヘッドのラインナップ追加を要望",
+      "summary_zh": "对重量、吸力、噪音、头灯及尘杯清洗均给予好评，建议增加床褥专用吸头配件",
+      "topics": [
+        "ヘッド",
+        "アタッチメント",
+        "ダストカップ"
+      ],
+      "action_hint": "布団用アタッチメントの製品ラインナップへの追加を検討する"
+    },
+    {
+      "id": "4eb2111151478dee",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽量で操作性は良好だが、長期耐久性への不安が残る",
+      "summary_zh": "机身轻便、操控性好，但用户对长期耐久性存有疑虑",
+      "topics": [
+        "重量",
+        "耐久性",
+        "操作性"
+      ],
+      "action_hint": "耐久性に関する品質保証情報や試験結果をユーザーに積極的に提供する"
+    },
+    {
+      "id": "9fc2dce45ff08513",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コストパフォーマンスと日本製品質を高く評価し、他者にも推薦したい",
+      "summary_zh": "用户对性价比及日本制造品质高度认可，愿意向他人推荐",
+      "topics": [
+        "コストパフォーマンス"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "68e3742c01211d1f",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力・ヘッドライト・価格の手頃さを高く評価",
+      "summary_zh": "用户对吸力、头灯照明及价格实惠均给予高度评价",
+      "topics": [
+        "吸引力",
+        "ヘッドライト",
+        "価格"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "33844140a3ba34e3",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・吸引力・ヘッドライト・デザインを高評価。耐久性への期待とアフターサポートへの安心感も言及",
+      "summary_zh": "对轻量化、吸力、头灯及外观设计均给予好评，同时提及对耐久性的期待和售后服务的满意度",
+      "topics": [
+        "重量",
+        "吸引力",
+        "ヘッドライト",
+        "デザイン"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "405bca95a4e6dfa5",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・吸引力・カーペット走行性・ペット毛対応・ゴミ捨てのしやすさ・自立設計をすべて高評価",
+      "summary_zh": "用户对轻量化、吸力、地毯通过性、宠物毛吸附、垃圾倾倒便利性及自立设计均给予全面好评",
+      "topics": [
+        "吸引力",
+        "ヘッド",
+        "ダストカップ",
+        "自立設計"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "3fc1fd7297e9b709",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "ダストカップ容量が小さく、頻繁なゴミ捨てが必要で煩雑と感じる。",
+      "summary_zh": "集尘杯容量偏小，需要频繁清倒垃圾，操作繁琐。",
+      "topics": [
+        "ダストカップ",
+        "容量"
+      ],
+      "action_hint": "ダストカップの容量拡大、またはゴミ捨て頻度を減らす設計変更を検討する"
+    },
+    {
+      "id": "cd0baf33d0acc788",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で吸引力あり、LEDゴミ可視化・バッテリー持続・本体直接充電を高評価。",
+      "summary_zh": "机身轻巧且吸力强，LED可视化垃圾、续航满足单层清扫、机身直充均获好评。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "バッテリー",
+        "充電"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "18d0e8d521c9b33b",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "ハンドルとスイッチが同色黒のため視認性が低く、ON/OFFの誤操作が起きやすい。",
+      "summary_zh": "手柄与开关均为黑色，开关辨识度低，容易误操作开/关机。",
+      "topics": [
+        "スイッチ",
+        "操作性"
+      ],
+      "action_hint": "スイッチボタンをコントラストの高い配色（カラーボタン）に変更し、誤操作リスクを低減する"
+    },
+    {
+      "id": "5af437d98c0b7015",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コンパクトながら吸引力が高く、使用感に満足。",
+      "summary_zh": "机身紧凑，吸力强劲，使用体验满意。",
+      "topics": [
+        "吸引力",
+        "コンパクト"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "d2363a4df730abc1",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "短毛カーペット上でもスムーズに動作し、使いやすいと評価。",
+      "summary_zh": "在短毛地毯上运行顺畅，操作方便，用户评价良好。",
+      "topics": [
+        "カーペット",
+        "走行性能"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "1cda82e4d452634e",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "シンプルな設計で軽量、吸引力も十分で使いやすいと高評価。",
+      "summary_zh": "结构简洁，机身轻便，吸力充足，操作性好，综合评价高。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "455245d30cd80acf",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で自立機能があり、吸引力も十分と評価。",
+      "summary_zh": "机身轻巧，支持自立放置，吸力满足使用需求。",
+      "topics": [
+        "重量",
+        "自立機能",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "a841e08cd762578a",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量でローラー走行がスムーズ、自立機能とデザイン性も高く評価。",
+      "summary_zh": "机身轻便，滚轮走行顺畅，自立功能实用，外观设计简洁时尚，综合评价高。",
+      "topics": [
+        "重量",
+        "走行性能",
+        "自立機能",
+        "デザイン"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "cb51a98b6e9570e6",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力が高く髪の毛の除去性能に満足。軽量で操作性も良好との評価。",
+      "summary_zh": "吸力强，除毛发效果好，机身轻便，操作顺畅，用户满意。",
+      "topics": [
+        "吸引力",
+        "軽量性",
+        "ヘッド性能"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "4a4e9f33a0c7510c",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コンパクトさと吸引力を評価。長期耐久性への期待・不安も言及あり。",
+      "summary_zh": "用户对紧凑设计和吸力表示满意，同时对长期耐久性存有期待与担忧。",
+      "topics": [
+        "コンパクト性",
+        "吸引力",
+        "耐久性"
+      ],
+      "action_hint": "長期使用後の吸引力維持と耐久性データを継続的にモニタリングする"
+    },
+    {
+      "id": "5e525b70b2ad6146",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "ダイソンからの乗り換えで、使いやすさ・吸引力・収納性・自立機能すべてを高評価。",
+      "summary_zh": "从戴森换购，对易用性、吸力、收纳性及自立功能全面给予高度评价。",
+      "topics": [
+        "吸引力",
+        "自立機能",
+        "収納性",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "b51540f8e4cb7d72",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "前機種より吸引力が向上し、自走・自立機能で使い勝手が良いと評価。",
+      "summary_zh": "与前款相比吸力提升，自走及自立功能使用便利，用户评价良好。",
+      "topics": [
+        "吸引力",
+        "自走機能",
+        "自立機能"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "37169eb289f008d9",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コンパクトで非常に使いやすいとの短評。",
+      "summary_zh": "机身紧凑，使用非常方便。",
+      "topics": [
+        "コンパクト性",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "d6a1d94b55cad93f",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・狭所対応・ゴミ捨てのしやすさを評価。掃除の負担感が軽減されたとの声。",
+      "summary_zh": "机身轻巧，可进入狭窄空间，集尘盒易于清倒，用户表示清扫负担明显减轻。",
+      "topics": [
+        "軽量性",
+        "ダストカップ",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "9bab781f8247d9fb",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コンパクトで使いやすく吸引力に満足。長期的な吸引力維持への期待を言及。",
+      "summary_zh": "机身紧凑易用，吸力令人满意，用户期待长期使用后吸力能持续保持。",
+      "topics": [
+        "コンパクト性",
+        "吸引力",
+        "耐久性"
+      ],
+      "action_hint": "フィルター・モーター劣化による吸引力低下を抑制する長期耐久設計を検討する"
+    },
+    {
+      "id": "5ce10dfd72f11411",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "取扱説明書のわかりやすさを高齢者が特に評価。安全・省エネ使用に貢献と言及。",
+      "summary_zh": "老年用户高度评价说明书的易读性，认为其有助于安全、节能地正确使用产品。",
+      "topics": [
+        "取扱説明書",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "41b136233306d3cd",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "自走式で軽量・コンパクト、吸引力も良好で収納性も高いと好評。",
+      "summary_zh": "自驱式设计，机身轻巧，吸力强，收纳方便，用户评价良好。",
+      "topics": [
+        "自走式",
+        "吸引力",
+        "重量",
+        "収納性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "38ea16b215ba9a73",
+      "category": "improvement",
+      "severity": "medium",
+      "summary_ja": "ヘッドをベッド下に差し込む際にヘッド接続部がグラつき、操作安定性が低いと指摘。",
+      "summary_zh": "将吸头伸入床底时，吸头连接部晃动明显，操作稳定性不足，用户感到不便。",
+      "topics": [
+        "ヘッド接続部",
+        "操作性",
+        "安定性"
+      ],
+      "action_hint": "ヘッドと本体の接続ジョイント部のガタつきを低減する構造改善を検討する"
+    },
+    {
+      "id": "5f09de429c105a71",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "サイズ・重量・吸引力・メンテナンス性のバランスが良く、部品構成もシンプルと好評。",
+      "summary_zh": "机身尺寸、重量、吸力及维护便利性均衡，零部件结构简洁，用户满意度高。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "メンテナンス性",
+        "部品構成"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "8ce1d7bb41898065",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "静止時は重さを感じるが、使用中はさほど気にならない。吸引力は良好との評価。",
+      "summary_zh": "静止持握时感觉较重，但使用过程中重量感不明显；吸力评价良好。",
+      "topics": [
+        "重量",
+        "吸引力"
+      ],
+      "action_hint": "本体重量のさらなる軽量化、または重心バランスの最適化を検討する"
+    },
+    {
+      "id": "ad5e6083b8abe368",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "ヘッドライトにより暗所や隅の視認性が高く、デザインの配色も好評。",
+      "summary_zh": "吸头照明灯在暗处及角落可视性好，机身配色设计获得好评。",
+      "topics": [
+        "ヘッドライト",
+        "デザイン",
+        "視認性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "c326c2d8542f9504",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で吸引力があり、自立機能も便利と好評。",
+      "summary_zh": "机身轻便，吸力强，自立功能方便实用，用户评价积极。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "自立機能"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "2b826ee2245ede75",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "自立しない・倒れた際の破損懸念に加え、ダストカップ容量が小さくカーペット掃除時にすぐ満杯になると指摘。",
+      "summary_zh": "机器无法自立，倒地后有折断隐患；清洁地毯时尘杯容量不足，易迅速装满。",
+      "topics": [
+        "自立機能",
+        "ダストカップ",
+        "耐久性",
+        "カーペット対応"
+      ],
+      "action_hint": "ダストカップ容量の拡大、または自立スタンド機構の追加を検討する"
+    },
+    {
+      "id": "fd6d5140b0fcc3c1",
+      "category": "other",
+      "severity": "n/a",
+      "summary_ja": "翌日配送で無事到着。初コードレス購入で今後の使用に期待。",
+      "summary_zh": "次日送达，商品完好；用户首次购买无线吸尘器，期待后续使用体验。",
+      "topics": [
+        "配送"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "2d46ddc60373eb66",
+      "category": "improvement",
+      "severity": "medium",
+      "summary_ja": "本体の剛性不足によるガタつき感、高級感の欠如、毛足の長いマットでブラシが頻繁に停止する問題",
+      "summary_zh": "机身刚性不足导致晃动感，外观质感欠佳，遇到长绒地毯时滚刷频繁停转需反复重启",
+      "topics": [
+        "本体剛性",
+        "ブラシロール",
+        "巻き込み防止機構",
+        "外観品質"
+      ],
+      "action_hint": "毛足の長いカーペットでの巻き込み防止センサーの感度閾値を見直し、不要な停止を低減する"
+    },
+    {
+      "id": "6ccc7114b4c91f75",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "充電時間の短さ・長い運転時間・吸引力の高さと軽量性を高く評価",
+      "summary_zh": "用户对充电时间短、续航长、吸力强及机身轻量化给予高度评价",
+      "topics": [
+        "バッテリー",
+        "吸引力",
+        "重量"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "b471aad70663d16a",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "自走性能と吸引力は高評価だが、SH-J002と比較してLEDライトの明るさが劣ると指摘",
+      "summary_zh": "自走性能和吸力获好评，但与SH-J002相比LED照明亮度不足",
+      "topics": [
+        "自走機能",
+        "LEDライト",
+        "吸引力"
+      ],
+      "action_hint": "SH-J001のヘッドLED輝度をSH-J002と同等水準に引き上げることを検討する"
+    },
+    {
+      "id": "75e55b5bad5abc61",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力・使用感ともに満足。細かいゴミや消しゴムカスもしっかり吸引できると評価",
+      "summary_zh": "吸力强，能有效清除细小垃圾及橡皮屑，用户整体满意",
+      "topics": [
+        "吸引力",
+        "ダストカップ"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "8693ec03c23161e9",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で取り回しやすく、ソファ下など狭所の掃除もスムーズと高評価",
+      "summary_zh": "机身轻巧，操作灵活，可轻松清洁沙发底部等狭窄区域",
+      "topics": [
+        "重量",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "045360dbdc4ab6b3",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量かつ吸引力が高く、全体的に満足との評価",
+      "summary_zh": "机身轻便，吸力强劲，用户整体满意",
+      "topics": [
+        "重量",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "05a67ebd9108f366",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・静音・サイクロン部のメンテナンス性を評価。猫毛・猫砂への耐久性に期待",
+      "summary_zh": "机身轻、噪音低、旋风分离部件易于维护，用户期待其对猫毛及猫砂粉尘的长期耐用性",
+      "topics": [
+        "重量",
+        "騒音",
+        "サイクロン",
+        "メンテナンス性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "8b96f514795a53ac",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "コンパクトで吸引力は十分だが、排気が顔にかかる方向が気になるとの指摘",
+      "summary_zh": "机身紧凑，吸力充足，但排气口方向导致气流吹向用户面部，略有不适",
+      "topics": [
+        "排気口",
+        "コンパクト性",
+        "吸引力"
+      ],
+      "action_hint": "排気口の向きまたは風向きガイドを見直し、使用者の顔への排気を低減する設計を検討する"
+    },
+    {
+      "id": "4ace118619c28cf0",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力が高く細かいゴミも除去でき、ローラーへの髪の毛絡みつきもない点を高評価。",
+      "summary_zh": "吸力强，能有效清除细小垃圾，滚刷不缠绕头发，用户评价高。",
+      "topics": [
+        "吸引力",
+        "ローラー",
+        "髪の毛"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "63e84d0821bcbb57",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "ダイソンから乗り換えたユーザーが満足と評価。具体的な言及なし。",
+      "summary_zh": "用户从戴森换用本产品后表示满意，无具体功能描述。",
+      "topics": [
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "c6e3bb6458e5af54",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "本体が少し重く感じるが自走機能で軽減。LEDライトと長い運転時間は好評。ヘッド幅が狭く入れない場所がある。",
+      "summary_zh": "机身略重，但自驱功能可缓解；LED灯和续航受好评；吸头宽度偏大，难以进入狭窄区域。",
+      "topics": [
+        "重量",
+        "ヘッド",
+        "LEDライト",
+        "運転時間"
+      ],
+      "action_hint": "ヘッドの幅または形状を見直し、狭所への進入性を改善する"
+    },
+    {
+      "id": "49e891b851c22d10",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で吸引力が期待以上。カーペットでのハイパワー吸引とゴミ捨ての簡便さを高評価。",
+      "summary_zh": "机身轻巧，吸力超出预期，地毯强力模式效果显著，集尘桶清倒方便。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "ダストカップ"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "75c89ee55c153fb7",
+      "category": "improvement",
+      "severity": "medium",
+      "summary_ja": "吸引力・軽量・自立・収納・ゴミ捨てを高評価。ヘッド回転時にキュルキュル異音が発生する。",
+      "summary_zh": "吸力、重量、自立、收纳及集尘桶清倒均获好评；但吸头旋转时出现异响（吱吱声），动作无异常。",
+      "topics": [
+        "ヘッド",
+        "異音",
+        "ローラー"
+      ],
+      "action_hint": "ヘッドローラーの軸受けおよびギア部の摩擦・嵌合精度を検査し、異音発生原因を特定する"
+    },
+    {
+      "id": "ebdd8f44481dc279",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "デザイン・性能・価格のバランスを高評価。",
+      "summary_zh": "外观设计、性能与价格均衡，用户满意度高。",
+      "topics": [
+        "デザイン",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "2459b1ce7ff4baaf",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力が予想以上で、ゴミ捨てが簡単。自立機能でスペースを取らない点を評価。",
+      "summary_zh": "吸力超出预期，集尘桶清倒简便，自立设计节省存放空间。",
+      "topics": [
+        "吸引力",
+        "ダストカップ",
+        "自立"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "351e0c92378f8083",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力が十分で細部の使いやすさも工夫されており、ユーザー視点の設計を評価。",
+      "summary_zh": "吸力充足，细节设计人性化，用户认为产品以使用者为中心。",
+      "topics": [
+        "吸引力",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "89f19c3ac69fd693",
+      "category": "improvement",
+      "severity": "medium",
+      "summary_ja": "毛足の長いラグ使用時に安全装置が頻繁に作動し、電源の入れ直しが必要になるストレスあり",
+      "summary_zh": "在长绒地毯上使用时安全保护装置频繁触发，需反复重启电源，影响使用体验",
+      "topics": [
+        "安全装置",
+        "ヘッド",
+        "ラグ対応"
+      ],
+      "action_hint": "長繊維カーペット使用時の安全装置作動閾値（負荷検知感度）を見直し、誤作動を低減する"
+    },
+    {
+      "id": "dca979ab5396c999",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "吸引力・LEDライトは満足だが、見た目の印象より実重量が重いと感じる",
+      "summary_zh": "吸力和LED照明令人满意，但实际重量超出外观预期，用户感觉偏重",
+      "topics": [
+        "重量",
+        "LEDライト",
+        "吸引力"
+      ],
+      "action_hint": "本体・バッテリー部の軽量化素材採用または重心バランスの最適化を検討する"
+    },
+    {
+      "id": "2ad0c4a443801be2",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "吸引力・操作性は良好だが、LEDライトの明るさ不足と長時間使用時の手首への重量負担が気になる",
+      "summary_zh": "吸力和操作性良好，但LED亮度不足，长时间使用时手腕负担较大",
+      "topics": [
+        "LEDライト",
+        "重量",
+        "回転ブラシ",
+        "操作性"
+      ],
+      "action_hint": "LEDライトの照度アップ（高輝度LEDへの変更）と、グリップ部の重量バランス改善を検討する"
+    },
+    {
+      "id": "f7330b1aa0210130",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "LEDライトでゴミが見やすく、ハンディ使用でもすぐ吸えて便利と高評価",
+      "summary_zh": "LED照明使垃圾清晰可见，手持使用方便，用户评价较高",
+      "topics": [
+        "LEDライト",
+        "ハンディモード",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "0a58cabafbbafba4",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・吸引力・LEDライト・ワンタッチゴミ捨てをすべて高評価、初コードレスで満足",
+      "summary_zh": "重量轻、吸力强、LED照明、一键倒尘均获好评，初次使用无绳吸尘器的用户表示满意",
+      "topics": [
+        "重量",
+        "吸引力",
+        "ダストカップ",
+        "LEDライト"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "1dbf707bee9c5f2e",
+      "category": "other",
+      "severity": "n/a",
+      "summary_ja": "配送の速さを評価しているが、未使用のため製品評価なし",
+      "summary_zh": "用户称赞配送速度，尚未使用产品，无实际使用评价",
+      "topics": [],
+      "action_hint": null
+    },
+    {
+      "id": "3ee70ebac4bc1092",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽量・静音は好評だが、パーツの着脱操作に慣れが必要で手間取りを感じる",
+      "summary_zh": "重量轻、噪音小获好评，但零部件拆装操作不够直观，用户需要适应",
+      "topics": [
+        "操作性",
+        "着脱機構",
+        "重量",
+        "騒音"
+      ],
+      "action_hint": "パーツ着脱機構のガイド形状や操作ステップを見直し、直感的に操作できるよう改善する"
+    },
+    {
+      "id": "a57283138c6d3c60",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・吸引力・パーツ水洗い可・自立収納・コスパをすべて高評価",
+      "summary_zh": "重量轻、吸力强、零部件可水洗、可独立放置收纳、性价比高，各项均获好评",
+      "topics": [
+        "重量",
+        "吸引力",
+        "パーツ洗浄",
+        "収納"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "5044b5aae9564099",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "予想より軽く扱いやすいと好評。",
+      "summary_zh": "用户反馈机身比预期更轻，操作方便。",
+      "topics": [
+        "重量",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "387017bb480463ff",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "隅のホコリ除去性能と自立機能を高く評価。",
+      "summary_zh": "用户对边角除尘效果和自立功能给予高度评价。",
+      "topics": [
+        "吸引力",
+        "自立機能"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "05af731752e431c0",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽さ・ヘッド走行・隅への密着・吸引力を高く評価。素足での床面清潔感も称賛。",
+      "summary_zh": "用户对机身轻量、吸头自走、边角贴合度及吸力均给予高度评价，并称赞地面清洁效果。",
+      "topics": [
+        "重量",
+        "ヘッド",
+        "吸引力",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "521f958266c94354",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力と自立機能を高く評価。",
+      "summary_zh": "用户对吸力强劲和自立功能给予高度评价。",
+      "topics": [
+        "吸引力",
+        "自立機能"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "d9bb485d99911ba6",
+      "category": "defect",
+      "severity": "medium",
+      "summary_ja": "使用中にブラシが突然回転停止。問い合わせ後に新品ブラシを迅速送付で解決。",
+      "summary_zh": "使用过程中滚刷突然停止转动，联系客服后迅速补发新刷头，问题得以解决。",
+      "topics": [
+        "ブラシ",
+        "ローラー"
+      ],
+      "action_hint": "ブラシ回転停止の発生条件（異物噛み込み・モーター過熱・コネクタ接触不良等）を特定し、出荷前検査項目に追加する"
+    },
+    {
+      "id": "d41cdec38144c9b8",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "価格とレビューを参考に購入し、満足との評価。",
+      "summary_zh": "用户参考价格和评价后购买，表示满意。",
+      "topics": [],
+      "action_hint": null
+    },
+    {
+      "id": "da792cd425203de9",
+      "category": "improvement",
+      "severity": "medium",
+      "summary_ja": "ヘッドの小回りが効かず狭所掃除が困難。片手持ち上げ時に重さを感じるとの指摘。",
+      "summary_zh": "吸头转向灵活性不足，狭窄区域清洁困难；单手抬起时感觉机身较重。",
+      "topics": [
+        "ヘッド",
+        "操作性",
+        "重量"
+      ],
+      "action_hint": "ヘッドの旋回半径縮小およびジョイント部の可動域拡大を検討し、本体重量バランスの見直しも合わせて実施する"
+    },
+    {
+      "id": "2e76bf8a329f4c68",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽さ・吸引力・静音性・操作の簡便さを高く評価し、大手メーカーから完全乗り換え。",
+      "summary_zh": "用户对机身轻量、吸力、低噪音及易用性给予高度评价，已从大品牌完全换用本产品。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "静音性",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "b60b731c4cb5bec0",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で扱いやすく吸引力も十分。細かい埃が見やすい点を高評価。",
+      "summary_zh": "机身轻巧易操作，吸力充足，细小灰尘可视性好，用户评价较高。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "ダストカップ"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "20380aed1bd08827",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "大手メーカー複数機種と比較し、性能・軽さのトータルバランスで最高評価。",
+      "summary_zh": "与多款知名品牌产品对比后，用户认为本品在性能与重量综合表现上排名第一。",
+      "topics": [
+        "重量",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "81d10ba2275ee8df",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "ハンディモード使用時も吸引力が低下しないと高評価。",
+      "summary_zh": "切换至手持模式后吸力无明显下降，用户满意度高。",
+      "topics": [
+        "吸引力",
+        "ハンディモード"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "87cadd2bb61ed99f",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "吸引力・自走式の動きに満足。動作音が多少気になるとの指摘あり。",
+      "summary_zh": "用户对吸力和自走功能满意，但反映运行噪音偏大，存在一定改善空间。",
+      "topics": [
+        "騒音",
+        "吸引力",
+        "自走式"
+      ],
+      "action_hint": "モーターおよびヘッド部の騒音低減対策を検討する"
+    },
+    {
+      "id": "9abb9beadfc15152",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "吸引力・手軽さを評価。重さと音が「それなり」との軽微な不満あり。",
+      "summary_zh": "用户认可吸力与便利性，但对机身重量和运行噪音有轻微不满。",
+      "topics": [
+        "重量",
+        "騒音",
+        "吸引力"
+      ],
+      "action_hint": "本体重量の軽量化およびモーター騒音の低減を継続検討する"
+    },
+    {
+      "id": "25a744cc25e462f7",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力が強くカーペット上でもスムーズに動作。説明書の分かりやすさも評価。",
+      "summary_zh": "吸力强劲，在地毯上移动顺畅，用户对说明书的易读性也给予好评。",
+      "topics": [
+        "吸引力",
+        "カーペット対応",
+        "説明書"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "918b18e8978e42d2",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "自走式・軽量・ゴミ捨てのしやすさを評価。ヘッドローラーへの髪の毛の絡まりが課題。",
+      "summary_zh": "用户对自走功能、轻量化及集尘桶易清理性给予好评，但反映滚刷易缠绕头发，需频繁清理。",
+      "topics": [
+        "ローラー",
+        "髪の毛",
+        "ヘッド",
+        "操作性"
+      ],
+      "action_hint": "ヘッドローラーの形状または素材を見直し、髪の毛の絡まりを低減する機構を検討する"
+    },
+    {
+      "id": "b221bce87b82618f",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "吸引力・コストパフォーマンスに満足。本体がやや重いとの指摘あり。",
+      "summary_zh": "用户对吸力和性价比满意，但反映机身重量略偏重。",
+      "topics": [
+        "重量",
+        "吸引力"
+      ],
+      "action_hint": "本体の軽量化に向けた部材・構造の見直しを検討する"
+    },
+    {
+      "id": "99b013800554e2b4",
+      "category": "improvement",
+      "severity": "medium",
+      "summary_ja": "ローラーへの髪の毛の絡まりが前機種より著しく悪化。グリップ形状が指に当たる問題も報告あり。",
+      "summary_zh": "滚刷缠绕头发的情况比前代产品明显加重，每次使用后需清理。另有握把形状导致手指磨红的反馈。",
+      "topics": [
+        "ローラー",
+        "髪の毛",
+        "グリップ",
+        "操作性"
+      ],
+      "action_hint": "ローラーブラシの毛質・螺旋角度を見直し、髪の毛が絡まりにくい構造に改善する"
+    },
+    {
+      "id": "4fb0d5c66a04fef3",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "自走式で操作が楽、重量も許容範囲内と好評。翌日配送も評価された。",
+      "summary_zh": "自走功能操作省力，重量与旧机相当，用户满意度高。",
+      "topics": [
+        "自走機能",
+        "重量"
+      ],
+      "action_hint": null
     }
   ]
 }
