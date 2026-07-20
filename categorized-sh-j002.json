@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-20T10:16:23Z",
+  "updatedAt": "2026-07-20T13:10:32Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-07-20T10:16:23Z",
-  "count": 502,
+  "sourceUpdatedAt": "2026-07-20T13:10:19Z",
+  "count": 504,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -6368,6 +6368,31 @@
       "topics": [
         "サイズ",
         "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "d5fb62e84842815d",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "トリガーレス操作・LEDライトによるホコリ視認性・走行性の軽さを評価。コスパも満足。",
+      "summary_zh": "用户对免持续按压开关设计、LED灯照明提升灰尘可见度、推行轻便性及性价比均给予好评。",
+      "topics": [
+        "操作性",
+        "LEDライト",
+        "走行性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "4bb11b106a4db12e",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量さと吸引力の高さを評価し、満足度が高い。",
+      "summary_zh": "用户对产品轻量化设计和吸力表现均表示满意。",
+      "topics": [
+        "重量",
+        "吸引力"
       ],
       "action_hint": null
     }
