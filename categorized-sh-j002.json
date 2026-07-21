@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-21T00:00:46Z",
+  "updatedAt": "2026-07-21T04:17:48Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-07-21T00:00:40Z",
-  "count": 504,
+  "sourceUpdatedAt": "2026-07-21T04:17:44Z",
+  "count": 505,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -6395,6 +6395,18 @@
         "吸引力"
       ],
       "action_hint": null
+    },
+    {
+      "id": "e01ca10bf29cd7c5",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "ダストカップ取り付け時にコツが必要で、力を入れすぎると破損しそうな不安がある",
+      "summary_zh": "集尘杯安装时需要技巧，用力过大有损坏隐患",
+      "topics": [
+        "ダストカップ",
+        "操作性"
+      ],
+      "action_hint": "ダストカップの装着ガイド形状や嵌合力を見直し、片手でスムーズに取り付けられるよう改善する"
     }
   ]
 }
