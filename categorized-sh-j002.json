@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-21T23:01:16Z",
+  "updatedAt": "2026-07-22T03:15:56Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-07-21T23:01:16Z",
-  "count": 505,
+  "sourceUpdatedAt": "2026-07-22T03:15:41Z",
+  "count": 511,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -6407,6 +6407,81 @@
         "操作性"
       ],
       "action_hint": "ダストカップの装着ガイド形状や嵌合力を見直し、片手でスムーズに取り付けられるよう改善する"
+    },
+    {
+      "id": "109396e97eff3e9d",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽さ・ゴミ捨て・水洗い・Type-C充電・折れ曲がりスティック・保証など総合的に高評価",
+      "summary_zh": "重量轻、垃圾倾倒方便、零部件可水洗、Type-C充电、弯折杆设计、保修期长，综合评价极高",
+      "topics": [
+        "軽量",
+        "ダストカップ",
+        "充電",
+        "スティック"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "1f203c2cb69a8a17",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "想定より軽量で吸引力も良好、コンパクトで小回りが利くと好評",
+      "summary_zh": "重量比预期轻，吸力良好，机身紧凑，操控灵活，用户满意",
+      "topics": [
+        "軽量",
+        "吸引力",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "edfbd72da9c4c4f1",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "前機種より軽量で同等の吸引力があり満足との評価（初回使用時点）",
+      "summary_zh": "与前款吸尘器相比重量更轻，吸力相当，初次使用后用户表示满意",
+      "topics": [
+        "軽量",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "d76b3acf3aed8d11",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "充電スタンドへの本体セットがしにくく、自立安定性の改善を要望",
+      "summary_zh": "充电底座放置不便，机身难以稳定竖立，用户希望改善底座固定设计",
+      "topics": [
+        "充電スタンド",
+        "操作性"
+      ],
+      "action_hint": "充電スタンドの本体受け形状・保持機構を見直し、安定して自立できるよう改善する"
+    },
+    {
+      "id": "817e1c987aa5f6fb",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "操作ボタンに色がなく視認性が低い、デザインの装飾も好みが分かれるとの指摘",
+      "summary_zh": "操作按键无颜色区分，辨识度低；外观装饰极简，风格因人而异",
+      "topics": [
+        "操作ボタン",
+        "デザイン"
+      ],
+      "action_hint": "操作ボタンにカラーマーキングまたはアイコン印刷を追加し、視認性を向上させる"
+    },
+    {
+      "id": "7c26bdac8f85bc21",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コード付きから買い替えで、軽さと取り回しの良さに好印象",
+      "summary_zh": "从有线吸尘器换购，对机身轻量化及操控便利性印象良好",
+      "topics": [
+        "軽量",
+        "操作性"
+      ],
+      "action_hint": null
     }
   ]
 }
