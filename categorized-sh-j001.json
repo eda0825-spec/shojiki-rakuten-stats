@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-22T03:15:41Z",
+  "updatedAt": "2026-07-22T06:33:38Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-07-22T03:15:27Z",
-  "count": 1270,
+  "sourceUpdatedAt": "2026-07-22T06:33:28Z",
+  "count": 1271,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -16097,6 +16097,18 @@
         "安定性"
       ],
       "action_hint": "ヘッドジョイント部の固定機構を見直し、本体持ち上げ時のガタつきを低減する"
+    },
+    {
+      "id": "4cab60c4084b47ed",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "他社製品から乗り換え、吸引力・コスパともに高く評価。毎日使用でも満足と報告。",
+      "summary_zh": "用户从竞品换购本机，对吸力和性价比给予高度评价，表示每日使用体验满意。",
+      "topics": [
+        "吸引力",
+        "コスパ"
+      ],
+      "action_hint": null
     }
   ]
 }
