@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-22T22:08:35Z",
+  "updatedAt": "2026-07-23T00:04:20Z",
   "product": "sh-j001",
-  "sourceUpdatedAt": "2026-07-22T22:08:30Z",
-  "count": 1271,
+  "sourceUpdatedAt": "2026-07-23T00:04:12Z",
+  "count": 1272,
   "results": [
     {
       "id": "57502450b32ad3f7",
@@ -16107,6 +16107,20 @@
       "topics": [
         "吸引力",
         "コスパ"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "5796a4bc8e64fd11",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "自走式・軽量・自立設計・ゴミ捨てのしやすさを高評価。高齢者も問題なく使用できると報告。",
+      "summary_zh": "用户对自走式、轻量化、自立设计及垃圾处理便捷性给予高度评价，并反映老年人也能轻松使用。",
+      "topics": [
+        "自走機能",
+        "重量",
+        "ダストカップ",
+        "操作性"
       ],
       "action_hint": null
     }
