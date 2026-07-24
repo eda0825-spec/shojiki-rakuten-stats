@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-24T03:16:29Z",
+  "updatedAt": "2026-07-24T06:30:37Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-07-24T03:16:29Z",
-  "count": 512,
+  "sourceUpdatedAt": "2026-07-24T06:30:19Z",
+  "count": 519,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -6496,6 +6496,95 @@
         "静音性"
       ],
       "action_hint": "ローラー初期動作時の異音（カチャカチャ音）の発生原因を確認し、組付け精度または部品公差を見直す"
+    },
+    {
+      "id": "27e19de08c589c27",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "機能には満足だが、外観の質感が安っぽく感じられるとの指摘。価格相応との評価。",
+      "summary_zh": "功能满意，但外观质感显得廉价，认为与价格相符。",
+      "topics": [
+        "外観品質",
+        "質感"
+      ],
+      "action_hint": "外装部品の素材・表面仕上げの見直しを検討する"
+    },
+    {
+      "id": "5c7756ebcf743e22",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力・バッテリー持続・自走式の軽さを高く評価。平屋一軒家で充電切れなく使用可能。",
+      "summary_zh": "对吸力、续航及自走式轻便性给予高度评价，平房使用全程无需充电。",
+      "topics": [
+        "吸引力",
+        "バッテリー",
+        "自走機能",
+        "重量"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "2882c9145e0342a4",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "自立機能・LED・吸引力は好評だが、ヘッドが小さく倒れやすいとの指摘あり。",
+      "summary_zh": "自立功能、LED灯及吸力获好评，但吸头较小，容易倾倒。",
+      "topics": [
+        "ヘッド",
+        "安定性",
+        "LED"
+      ],
+      "action_hint": "ヘッドのフットプリントまたは重心設計を見直し、転倒しにくい形状を検討する"
+    },
+    {
+      "id": "f2da6b88c4c32a99",
+      "category": "other",
+      "severity": "n/a",
+      "summary_ja": "製品の使い勝手・軽さは満足。不満は配送の午前指定が午後到着になった点のみ。",
+      "summary_zh": "对产品操作性和轻便性满意，唯一不满是指定上午配送却下午才到达。",
+      "topics": [
+        "配送"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "0a50615f1e90dddc",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "コードレスで利便性は高いが、吸引力がもう少し欲しいとの要望。スタンド収納は好評。",
+      "summary_zh": "无线使用便利性高，但希望吸力再强一些；附带支架收纳获好评。",
+      "topics": [
+        "吸引力",
+        "ダストケース",
+        "スタンド"
+      ],
+      "action_hint": "吸引力モードの設定幅または最大出力の引き上げを検討する"
+    },
+    {
+      "id": "a085f37f1e3aaaf6",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽さと自走式を高く評価。使用後のタンクにゴミが多く、吸引力にも満足。",
+      "summary_zh": "对轻便性和自走功能高度评价，使用后尘桶内垃圾量多，对吸力也表示满意。",
+      "topics": [
+        "重量",
+        "自走機能",
+        "吸引力",
+        "ダストタンク"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "94836a51aaaa685b",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "発送の速さ・コンパクトさを評価。吸引力への不安は使用後に解消され満足。",
+      "summary_zh": "对发货速度和紧凑尺寸给予好评，使用后消除了对吸力的顾虑，表示满意。",
+      "topics": [
+        "吸引力",
+        "コンパクト性"
+      ],
+      "action_hint": null
     }
   ]
 }
