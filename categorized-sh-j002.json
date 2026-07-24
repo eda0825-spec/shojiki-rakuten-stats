@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-24T09:23:55Z",
+  "updatedAt": "2026-07-24T11:45:05Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-07-24T09:23:55Z",
-  "count": 519,
+  "sourceUpdatedAt": "2026-07-24T11:45:01Z",
+  "count": 520,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -6585,6 +6585,19 @@
         "コンパクト性"
       ],
       "action_hint": null
+    },
+    {
+      "id": "274cc54425e644f5",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "全体的に高評価。スタンドが軽すぎて本体脱着時にずれる点のみ改善要望。",
+      "summary_zh": "整体评价较高。唯一问题是充电底座较轻，拆装主机时容易移位。",
+      "topics": [
+        "スタンド",
+        "本体脱着",
+        "重量"
+      ],
+      "action_hint": "スタンドベースに滑り止めパッドを追加するか、重量バランスを見直してスタンドの安定性を向上させる"
     }
   ]
 }
