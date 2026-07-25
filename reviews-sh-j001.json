@@ -1,19 +1,31 @@
 {
-  "updatedAt": "2026-07-25T15:08:02Z",
+  "updatedAt": "2026-07-25T17:04:26Z",
   "product": "sh-j001",
   "itemNumber": "10000000",
   "summary": {
     "rating": 4.57,
     "count": 1298
   },
-  "reviewsCount": 1271,
-  "activeCount": 1261,
+  "reviewsCount": 1272,
+  "activeCount": 1262,
   "removedCount": 10,
-  "newReviewsThisRun": 0,
+  "newReviewsThisRun": 1,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
   "reviews": [
+    {
+      "id": "0f45dc3d8ae5f686",
+      "rating": 4,
+      "postDate": "2026-07-26",
+      "title": null,
+      "body": "日本大手メーカーの掃除機からの買い替えです\n\n大手日本メーカーと比較してこちらを購入\n\nまず吸引力に驚き\n最初にカーペットに少しかけたら今まで取れなかった細かい埃が引くくらい大量に取れました\n吸引力は大手に引けは取りません\n\n自立するのも便利です\nこれで19800円はコストパフォーマンスが高いです\n\n少し気になる点を上げます\n・ヘッドが割と大きい\n・ヘッドの首が柔らかくダラーんとなるので階段に使いにくい\n・すぐ網状のフィルター部分にに埃がくっつく（たまる）\n・ブラシが強いのでカーペットの埃はよく取れるが、フローリングではブラシの音がかなり大きくなる（モーター音は静かな方です）\n\n2日目ですが、総合的にみて大手メーカーよりこっちを選んで正解かなと思ってます",
+      "nickname": "richpaddy",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-07-25",
+      "last_seen_at": "2026-07-25"
+    },
     {
       "id": "c95441698be3c16a",
       "rating": 4,
