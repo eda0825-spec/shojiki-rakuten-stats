@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-25T03:14:58Z",
+  "updatedAt": "2026-07-25T06:22:22Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-07-25T03:14:53Z",
-  "count": 521,
+  "sourceUpdatedAt": "2026-07-25T06:22:09Z",
+  "count": 526,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -6612,6 +6612,69 @@
         "操作性"
       ],
       "action_hint": null
+    },
+    {
+      "id": "ec98bb91d81ae628",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "パワーモード時のバッテリー持続時間が短く、スタンドの固定感が乏しく倒れることがある",
+      "summary_zh": "强力模式下电池续航时间不足，充电底座固定感差，容易倾倒",
+      "topics": [
+        "バッテリー",
+        "スタンド",
+        "固定機構"
+      ],
+      "action_hint": "充電スタンドのロック機構または重量バランスを見直し、固定状態を明確にフィードバックできる構造に改善する"
+    },
+    {
+      "id": "e1d441a680b7b0d6",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コードレスながら吸引力が十分で、小回りの良さを高く評価",
+      "summary_zh": "无线吸尘器吸力充足，操控灵活，用户评价较高",
+      "topics": [
+        "吸引力",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "5b91232b5a34c076",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で手への負担が少なく、子供も扱いやすいと好評",
+      "summary_zh": "机身轻巧，手部负担小，儿童也可轻松使用，用户满意度高",
+      "topics": [
+        "重量",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "9a15c01d3dae8f07",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "充電スタンドが軽すぎて安定性に欠け、強度・重量の改善を要望",
+      "summary_zh": "充电底座过轻，稳定性不足，用户建议增加重量并提升结构强度",
+      "topics": [
+        "スタンド",
+        "安定性",
+        "重量"
+      ],
+      "action_hint": "充電スタンドの底面重量配分または滑り止め構造を見直し、転倒しにくい設計に改善する"
+    },
+    {
+      "id": "f465ba877b89d52a",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "吸引力がやや弱いと感じるが、軽量・コンパクトヘッドの使いやすさは評価",
+      "summary_zh": "吸力略显不足，但机身轻便、吸头紧凑，操作性获得认可",
+      "topics": [
+        "吸引力",
+        "ヘッド",
+        "操作性"
+      ],
+      "action_hint": "標準モードの吸引力設定値を見直し、日常清掃シーンでの吸引性能を改善する"
     }
   ]
 }
