@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-26T00:03:41Z",
+  "updatedAt": "2026-07-26T04:30:34Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-07-26T00:03:41Z",
-  "count": 526,
+  "sourceUpdatedAt": "2026-07-26T04:30:12Z",
+  "count": 531,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -6675,6 +6675,70 @@
         "操作性"
       ],
       "action_hint": "標準モードの吸引力設定値を見直し、日常清掃シーンでの吸引性能を改善する"
+    },
+    {
+      "id": "06c4aea73683dd39",
+      "category": "improvement",
+      "severity": "medium",
+      "summary_ja": "ダストカップ容量が小さくペットの毛で頻繁にゴミ捨てが必要。軽さ・吸引力・LEDライトは好評。",
+      "summary_zh": "尘杯容量偏小，吸入宠物毛发后频繁满杯，需多次清倒。机身轻量、吸力及LED灯获好评。",
+      "topics": [
+        "ダストカップ",
+        "容量",
+        "ペットの毛"
+      ],
+      "action_hint": "ダストカップ容量の拡大、またはペット毛対応フィルター構成の見直しを検討する"
+    },
+    {
+      "id": "e9268e7dc32aac08",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "ダストボックスの着脱を繰り返すことでプラスチック部にヒビや緩みが生じないか耐久性を懸念。",
+      "summary_zh": "担心尘盒反复拆装后塑料部件出现裂纹或松动，对长期耐久性存有疑虑。",
+      "topics": [
+        "ダストボックス",
+        "耐久性",
+        "プラスチック"
+      ],
+      "action_hint": "ダストボックス着脱部の材質強度・嵌合耐久試験サイクル数を見直す"
+    },
+    {
+      "id": "49793049e6d3fe9c",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・コンパクトながら吸引力が高く、目視では気づかない細かいゴミも回収できると高評価。",
+      "summary_zh": "机身轻巧但吸力强劲，能吸取肉眼不易察觉的细小垃圾，用户评价很高。",
+      "topics": [
+        "吸引力",
+        "軽量",
+        "ダストボックス"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "5ef77149a7fce96a",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で吸い込みが良く使いやすいと好評。配送の迅速さにも言及。",
+      "summary_zh": "机身轻便、吸力良好、操作方便，用户对发货速度也表示满意。",
+      "topics": [
+        "軽量",
+        "吸引力",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "87dedd73b000d58d",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "従来機より軽量で吸引力も十分。価格は高めだが品質に納得感があると評価。",
+      "summary_zh": "与旧款相比机身更轻，吸力充足。价格偏高但用户认为品质值得。",
+      "topics": [
+        "軽量",
+        "吸引力"
+      ],
+      "action_hint": null
     }
   ]
 }
