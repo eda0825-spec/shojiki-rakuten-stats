@@ -1,18 +1,18 @@
 {
-  "updatedAt": "2026-07-26T21:06:19Z",
+  "updatedAt": "2026-07-26T22:02:48Z",
   "product": "sh-j002",
   "itemNumber": "10000004",
   "summary": {
     "rating": 4.57,
     "count": 517
   },
-  "reviewsCount": 537,
-  "activeCount": 517,
+  "reviewsCount": 538,
+  "activeCount": 518,
   "removedCount": 20,
-  "newReviewsThisRun": 10,
-  "removedThisRun": 1,
+  "newReviewsThisRun": 1,
+  "removedThisRun": 0,
   "reappearedThisRun": 0,
-  "fullRescan": true,
+  "fullRescan": false,
   "reviews": [
     {
       "id": "342867181431a48b",
@@ -33,6 +33,18 @@
       "title": null,
       "body": "吸引力は問題なく満足してます。\n昨年、買った掃除機が全く吸わず、ストレス感じてたのですが、こちらの掃除機に変えてストレスなく掃除ができて良かったです。\n買って良かったです。",
       "nickname": "タケチャングム",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-07-26",
+      "last_seen_at": "2026-07-26"
+    },
+    {
+      "id": "6da8cb92b16de7d3",
+      "rating": 5,
+      "postDate": "2026-07-27",
+      "title": null,
+      "body": "充電式のため吸引力が心配でしたが、カーペットのごみもしっかり吸引でき、動きもスムーズでした。フローリングの掃除でヘッドを横にずらすときに抵抗を感じますが、真横にずらさないように操作すれば問題ありません。\n動作時間が短いのではと心配でしたが充電が切れることなくリビングや階段も掃除できました。\n階段では自走式のブラシが少しあだになりヘッドがぶつかってしまいます。\n長く使っていた掃除機の調子が悪く、他に2台購入しましたがなかなか気に入らず、やっと楽に使える掃除機が見つかりました。掃除する頻度が増えました。",
+      "nickname": "購入者",
       "age": null,
       "gender": null,
       "first_seen_at": "2026-07-26",
