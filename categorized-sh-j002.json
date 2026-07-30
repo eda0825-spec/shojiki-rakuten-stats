@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-29T23:01:43Z",
+  "updatedAt": "2026-07-30T02:45:58Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-07-29T23:01:43Z",
-  "count": 542,
+  "sourceUpdatedAt": "2026-07-30T02:45:29Z",
+  "count": 555,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -6880,6 +6880,165 @@
         "階段対応"
       ],
       "action_hint": "階段使用時のヘッド干渉を低減するため、自走ブラシの突出量またはヘッド形状を見直す"
+    },
+    {
+      "id": "d2fccb386008c4d7",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "停止時にゴミが戻る感覚あり、スタンド収納時にクリック感がない点が気になる",
+      "summary_zh": "停机时有垃圾回流感，放回支架时无卡扣到位感（咔哒声）",
+      "topics": [
+        "スタンド",
+        "ダストカップ",
+        "操作性"
+      ],
+      "action_hint": "スタンドのロック機構にクリック感を持たせる設計変更と、停止時の逆流防止弁の見直しを検討する"
+    },
+    {
+      "id": "cee8b0151f6e2299",
+      "category": "other",
+      "severity": "n/a",
+      "summary_ja": "配送・店舗対応への感謝のみで製品評価なし",
+      "summary_zh": "仅对发货速度表示感谢，无产品相关评价",
+      "topics": [],
+      "action_hint": null
+    },
+    {
+      "id": "7241e6d24f029d2d",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で操作しやすく、ゴミ捨てが簡単と評価",
+      "summary_zh": "重量轻、操作方便，倒尘操作简单易用",
+      "topics": [
+        "重量",
+        "ダストカップ"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "9653215468bbfbdd",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・操作性・吸引力ともに価格対比で高評価",
+      "summary_zh": "重量、操作性及吸力均获好评，性价比高",
+      "topics": [
+        "重量",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "a511485b6c6ab927",
+      "category": "improvement",
+      "severity": "medium",
+      "summary_ja": "充電時に端子がずれると充電されないことがあり、接続安定性に課題",
+      "summary_zh": "充电时接触位置稍有偏移即无法充电，充电接口稳定性不足",
+      "topics": [
+        "充電",
+        "スタンド"
+      ],
+      "action_hint": "充電端子またはスタンド側ガイドの形状を見直し、位置ずれ時でも確実に接触できる構造に改善する"
+    },
+    {
+      "id": "67e90993261ebc67",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "本体がやや重く腕が疲れる点と、ダストカップが真下開放でゴミが飛び散る点が惜しい",
+      "summary_zh": "机身偏重导致手臂疲劳，尘杯向正下方开口导致倒尘时垃圾飞散",
+      "topics": [
+        "重量",
+        "ダストカップ",
+        "操作性"
+      ],
+      "action_hint": "ダストカップの開口方向または排出ガイドを見直し、ゴミの飛散を抑える構造を検討する"
+    },
+    {
+      "id": "65720050182019c4",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で使いやすいと高評価",
+      "summary_zh": "重量轻，使用方便，评价良好",
+      "topics": [
+        "重量",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "21080f835f7182a2",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で手首への負担が少なく、吸引力も十分と評価",
+      "summary_zh": "机身轻巧，手腕负担小，吸力充足",
+      "topics": [
+        "重量",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "9d72ca5f1cf73209",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "バッテリー持続時間への不安を示唆。吸引力・組み立てやすさは満足。",
+      "summary_zh": "用户对电池续航时间表示担忧，对吸力和组装便利性表示满意。",
+      "topics": [
+        "バッテリー",
+        "吸引力"
+      ],
+      "action_hint": "バッテリー容量または省電力制御の改善を検討する"
+    },
+    {
+      "id": "0a9f8eddd61197d2",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・静音でありながら吸引力が期待以上との高評価。",
+      "summary_zh": "用户评价产品轻便、低噪音，吸力超出预期，整体满意度高。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "静音性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "9af4f2ec7559f9e9",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・コンパクトなヘッドが使いやすく、吸引力も問題なしと高評価。",
+      "summary_zh": "用户高度评价产品轻量化设计和紧凑型吸头，吸力表现良好，操作便利。",
+      "topics": [
+        "重量",
+        "ヘッド",
+        "吸引力",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "13089eb34ce59d3c",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "収納・取り出しが手軽でスペースを取らない点を評価。",
+      "summary_zh": "用户对产品收纳便捷、占用空间小表示满意。",
+      "topics": [
+        "収納性",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "48fbd5535c0ce07d",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コンパクトで細部まで掃除しやすく、ハイパワーモードでペットの毛も問題なく吸引。",
+      "summary_zh": "产品小巧灵活，可清洁细小区域；高功率模式下宠物毛发吸力表现良好。",
+      "topics": [
+        "吸引力",
+        "ヘッド",
+        "操作性"
+      ],
+      "action_hint": null
     }
   ]
 }
