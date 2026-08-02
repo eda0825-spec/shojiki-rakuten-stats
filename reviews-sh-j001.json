@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-02T21:03:43Z",
+  "updatedAt": "2026-08-02T21:59:16Z",
   "product": "sh-j001",
   "itemNumber": "10000000",
   "summary": {
@@ -9,10 +9,10 @@
   "reviewsCount": 1351,
   "activeCount": 1338,
   "removedCount": 13,
-  "newReviewsThisRun": 25,
-  "removedThisRun": 1,
+  "newReviewsThisRun": 0,
+  "removedThisRun": 0,
   "reappearedThisRun": 0,
-  "fullRescan": true,
+  "fullRescan": false,
   "reviews": [
     {
       "id": "6db494f2d832cf00",
