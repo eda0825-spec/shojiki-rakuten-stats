@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-08-02T20:12:30Z",
+  "updatedAt": "2026-08-02T21:05:59Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-08-02T20:12:30Z",
-  "count": 555,
+  "sourceUpdatedAt": "2026-08-02T21:04:21Z",
+  "count": 566,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -7039,6 +7039,143 @@
         "操作性"
       ],
       "action_hint": null
+    },
+    {
+      "id": "7aba5dd066922cd4",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "ダイソンから買い替え。猫の毛も十分吸引でき満足。",
+      "summary_zh": "从戴森换购，吸力充足，能有效吸附猫毛，用户满意。",
+      "topics": [
+        "吸引力",
+        "ペットの毛"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "1c2208b4ecddd1ff",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "吸引力・バッテリーは満足だが、持ち手の形状が手に馴染みにくいと感じる。",
+      "summary_zh": "吸力和续航令人满意，但手柄形状握持感不佳，需改善人体工学设计。",
+      "topics": [
+        "持ち手",
+        "操作性"
+      ],
+      "action_hint": "グリップ形状の人間工学的見直しを検討する"
+    },
+    {
+      "id": "ef6ee37c235adeb0",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で吸引力も十分。手軽に使えると好評。",
+      "summary_zh": "机身轻巧，吸力充足，操作便捷，用户评价良好。",
+      "topics": [
+        "軽量",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "4412be017551b6b3",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "本体が想定より小さく、広い掃除範囲では使いにくい可能性がある。",
+      "summary_zh": "机身尺寸比预期小，清扫面积较大时效率受限，建议评估清扫幅度。",
+      "topics": [
+        "本体サイズ",
+        "ヘッド幅"
+      ],
+      "action_hint": "ヘッド幅または本体サイズの見直しを検討する"
+    },
+    {
+      "id": "75265d7617619a8b",
+      "category": "other",
+      "severity": "n/a",
+      "summary_ja": "製品自体は良好だが、レビュー投稿依頼が重複して届き煩わしかった。",
+      "summary_zh": "产品本身无问题，但重复收到评价邀请通知，属于运营管理问题。",
+      "topics": [],
+      "action_hint": null
+    },
+    {
+      "id": "da370be4ffcca8c9",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "コンパクトでスタイリッシュ。吸引力十分で自走機能も使いやすいと好評。",
+      "summary_zh": "外观时尚紧凑，吸力充足，自走功能操作省力，用户评价积极。",
+      "topics": [
+        "吸引力",
+        "自走機能",
+        "デザイン"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "b36d8903ead1e3ba",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽量・静音・ライト付きは好評だが、ヘッドが左右に回転しないため狭所に入りにくい。",
+      "summary_zh": "机身轻、噪音低、带照明灯受好评，但吸头不能左右旋转，难以进入狭窄空间。",
+      "topics": [
+        "ヘッド",
+        "操作性",
+        "狭所対応"
+      ],
+      "action_hint": "ヘッドの左右首振り機構の追加を検討する"
+    },
+    {
+      "id": "e0bf91c5e906ddf7",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "手首で吸い込み口の向きを変えられる操作性・静音・自立充電スタンドを高評価。",
+      "summary_zh": "吸头方向可通过手腕灵活调节，噪音低，充电时可自立，用户高度评价操控性。",
+      "topics": [
+        "操作性",
+        "静音性",
+        "自立スタンド"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "fdd7f4680c687e1f",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量でヘッドの動きが良く、吸引力・バッテリー持続・お手入れ性すべてに満足。髪の毛の絡まりもなし。",
+      "summary_zh": "机身轻巧，吸头移动顺畅，吸力充足，续航良好，维护简便，无缠发问题，用户高度满意。",
+      "topics": [
+        "軽量",
+        "吸引力",
+        "バッテリー",
+        "ブラシ"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "07d0c9babb1a1287",
+      "category": "improvement",
+      "severity": "medium",
+      "summary_ja": "ダストカップ内フィルターメッシュへの髪の毛の絡まりが顕著で清掃が困難。充電台セット時の振動でゴミが落下する問題もあり。",
+      "summary_zh": "集尘杯内银色滤网严重缠发，清理困难；充电对接时机身振动导致垃圾散落；充电台尺寸未在商品页标注，建议改善。",
+      "topics": [
+        "ダストカップ",
+        "フィルター",
+        "髪の毛",
+        "充電台"
+      ],
+      "action_hint": "ダストカップ内メッシュフィルターの形状または表面処理を見直し、髪の毛が絡まりにくい構造に改善する"
+    },
+    {
+      "id": "3ee4558ac35a2a1a",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "コンパクト・自走式・軽量は高評価だが、吸引力が期待より不足と感じている。",
+      "summary_zh": "机身紧凑、自驱式设计、重量轻获好评，但用户反映吸力低于预期。",
+      "topics": [
+        "吸引力",
+        "軽量",
+        "操作性"
+      ],
+      "action_hint": "吸引力の実測値と競合比較を行い、モーター出力またはノズル形状の最適化を検討する"
     }
   ]
 }
