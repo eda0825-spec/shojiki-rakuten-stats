@@ -1,18 +1,18 @@
 {
   "rating": 4.57,
-  "count": 1339,
+  "count": 1346,
   "itemCode": "shojiki-official:10000000",
   "products": {
     "sh-j001": {
       "rating": 4.57,
-      "count": 1339,
+      "count": 1346,
       "itemCode": "shojiki-official:10000000"
     },
     "sh-j002": {
       "rating": 4.6,
-      "count": 537,
+      "count": 542,
       "itemCode": "shojiki-official:10000004"
     }
   },
-  "updatedAt": "2026-08-03T01:25:30Z"
+  "updatedAt": "2026-08-04T01:15:50Z"
 }
