@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-08-06T05:56:19Z",
+  "updatedAt": "2026-08-06T08:49:33Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-08-06T05:56:18Z",
-  "count": 566,
+  "sourceUpdatedAt": "2026-08-06T08:49:00Z",
+  "count": 577,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -7176,6 +7176,147 @@
         "操作性"
       ],
       "action_hint": "吸引力の実測値と競合比較を行い、モーター出力またはノズル形状の最適化を検討する"
+    },
+    {
+      "id": "40ae7de5f82c8740",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "充電アダプターのコードが短く、設置場所によっては届かない場合がある",
+      "summary_zh": "充电适配器线缆较短，根据放置位置可能无法连接到充电口",
+      "topics": [
+        "充電コード",
+        "充電スタンド"
+      ],
+      "action_hint": "充電アダプターのケーブル長を現行より延長することを検討する"
+    },
+    {
+      "id": "126629cfb57443c4",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "1〜2階+階段を通しで使用するとバッテリーが持たない。布団用アタッチメントの再入荷を希望",
+      "summary_zh": "连续清扫一楼、二楼及楼梯后电池续航不足；用户期待床铺专用配件补货",
+      "topics": [
+        "バッテリー",
+        "アタッチメント"
+      ],
+      "action_hint": "バッテリー容量または省電力モードの見直しを検討し、布団用アタッチメントの安定供給体制を整える"
+    },
+    {
+      "id": "d17a3bb8978f21d0",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "初コードレス掃除機として購入。軽量で快適に使用できると高評価",
+      "summary_zh": "首次购买无线吸尘器，用户对轻量化设计和使用舒适性给予高度评价",
+      "topics": [
+        "重量",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "5e6923f75b194bb9",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・自走式・静音・本体折り曲げ機能・ブラシ交換の容易さを高評価",
+      "summary_zh": "用户对轻量化、自驱动、低噪音、机身可弯折及刷头易更换等功能给予高度评价",
+      "topics": [
+        "重量",
+        "操作性",
+        "ブラシ",
+        "静音性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "a724837a0b340931",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で扱いやすく、標準モードで十分な吸引力があると評価",
+      "summary_zh": "机身轻便易操作，标准模式下吸力充足，用户满意度高",
+      "topics": [
+        "重量",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "98c3e260ecbed5f4",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "動作音が高めで大きく感じる。日中使用なら許容範囲とのこと",
+      "summary_zh": "运行噪音音调偏高且音量较大，用户表示白天使用尚可接受",
+      "topics": [
+        "静音性",
+        "騒音"
+      ],
+      "action_hint": "モーターまたはファン設計を見直し、動作音の音量・音質の低減を検討する"
+    },
+    {
+      "id": "f725c23186bc2ce3",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力・軽量・ダストカップの使い勝手を高評価。吸引力不足の懸念は払拭された",
+      "summary_zh": "用户对吸力、轻量化及尘杯使用便利性给予高度评价，此前对吸力不足的顾虑已消除",
+      "topics": [
+        "吸引力",
+        "ダストカップ",
+        "重量"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "826a13eee6de0002",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "10年ぶり買い替えで軽量かつ吸引力に満足。耐久性への期待を言及",
+      "summary_zh": "用户10年来首次更换吸尘器，对轻量化和吸力表示满意，同时关注长期耐久性",
+      "topics": [
+        "重量",
+        "吸引力",
+        "耐久性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "4544ee9aeeb3add4",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・静音ながら集塵力に満足。パイプ折れ曲がり機能と自立機能を高評価。",
+      "summary_zh": "重量轻、噪音低，集尘效果令用户满意。可弯折管身和自立功能获得好评。",
+      "topics": [
+        "重量",
+        "静音性",
+        "パイプ折れ曲がり",
+        "自立機能"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "d3ce211fd5385068",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "ダストカップの容量が小さく、高齢ユーザーからゴミ捨て頻度が多いと指摘あり。",
+      "summary_zh": "集尘杯容量偏小，老年用户反映需频繁倒垃圾，使用不便。",
+      "topics": [
+        "ダストカップ",
+        "容量",
+        "操作性"
+      ],
+      "action_hint": "ダストカップの容量拡大またはワンタッチゴミ捨て機構の導入を検討する"
+    },
+    {
+      "id": "e944e78e135118d8",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量でヘッドが小さく扱いやすい。パイプ折れ曲がり機能でソファ下の清掃が容易。",
+      "summary_zh": "机身轻巧，吸头小巧灵活，管身可弯折，便于清洁沙发底部等狭窄空间。",
+      "topics": [
+        "重量",
+        "ヘッド",
+        "パイプ折れ曲がり",
+        "操作性"
+      ],
+      "action_hint": null
     }
   ]
 }
