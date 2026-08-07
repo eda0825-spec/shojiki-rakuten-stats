@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-08-07T13:14:16Z",
+  "updatedAt": "2026-08-07T14:57:22Z",
   "product": "sh-j002",
   "itemNumber": "10000004",
   "summary": {
     "rating": 4.61,
     "count": 550
   },
-  "reviewsCount": 576,
-  "activeCount": 551,
+  "reviewsCount": 577,
+  "activeCount": 552,
   "removedCount": 25,
-  "newReviewsThisRun": 0,
+  "newReviewsThisRun": 1,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
@@ -21,6 +21,18 @@
       "title": "みんなに勧めたい",
       "body": "D社と迷っての購入です。決め手は軽さでした。\n商品の到着は早く、組み立ても簡単でした。ご挨拶が入ってたのも掃除愛あふれる姿勢を感じました。\n初めて持ち手がＩタイプ（ストレート）です。すぐ慣れました。軽いから不便なしです。\n吸引力は抜群で、ライトでホコリを照らす機能も気に入りました。暗闇掃除にハマりそう。\n沢山吸取るだけにカップの小ささは否めませんが、ゴミ捨ては今度でいっかとなりがちなところ、強制的に捨てるよう促されるようで無精者な私には衛生面を考えるとこれで良しなのかな?と思いました。\nもうひとつ、毛の絡みづらさも期待したとおりで、広告に偽りなしです。\nもっと早く買えばよかった。",
       "nickname": "購入者",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-08-07",
+      "last_seen_at": "2026-08-07"
+    },
+    {
+      "id": "43bd8149e1ace2a2",
+      "rating": 5,
+      "postDate": "2026-08-07",
+      "title": "オススメできる製品",
+      "body": "チャットGPTで推薦して頂いた商品で軽さ、吸引力、スタイル全て予想を上回ってくれました。\n梱包の箱も小さく到着時に助かりました。\n是非オススメです。\n値段と品質を考えるとコスパ最強です。",
+      "nickname": "Dりむ",
       "age": null,
       "gender": null,
       "first_seen_at": "2026-08-07",

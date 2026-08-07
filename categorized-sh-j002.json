@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-08-07T13:14:16Z",
+  "updatedAt": "2026-08-07T14:57:26Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-08-07T13:14:16Z",
-  "count": 580,
+  "sourceUpdatedAt": "2026-08-07T14:57:22Z",
+  "count": 581,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -7353,6 +7353,20 @@
       "topics": [
         "吸引力",
         "重量"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "43bd8149e1ace2a2",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽さ・吸引力・デザインが期待を上回り、梱包もコンパクトでコスパ良好と高評価。",
+      "summary_zh": "重量轻、吸力强、外观设计均超出预期，包装紧凑，性价比高，用户给予高度评价。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "デザイン",
+        "梱包"
       ],
       "action_hint": null
     }
