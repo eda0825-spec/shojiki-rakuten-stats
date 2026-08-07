@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-08-07T03:52:42Z",
+  "updatedAt": "2026-08-07T05:44:14Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-08-07T03:52:42Z",
-  "count": 577,
+  "sourceUpdatedAt": "2026-08-07T05:44:05Z",
+  "count": 580,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -7315,6 +7315,44 @@
         "ヘッド",
         "パイプ折れ曲がり",
         "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "4f083c29446a53a9",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "吸引力・軽量・毛絡み防止は高評価。ダストカップ容量が小さく頻繁なゴミ捨てが必要。",
+      "summary_zh": "吸力强、重量轻、防缠绕效果好，获得好评。但集尘杯容量偏小，需频繁倒垃圾。",
+      "topics": [
+        "ダストカップ",
+        "吸引力",
+        "ローラー",
+        "重量"
+      ],
+      "action_hint": "ダストカップ容量の拡大、または満杯通知機能の追加を検討する"
+    },
+    {
+      "id": "79a3d03ac118034a",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "吸引力が高く、LEDライトで狭い隙間のホコリを確認しやすいと好評。",
+      "summary_zh": "吸力强劲，LED照明便于发现狭窄缝隙中的灰尘，用户评价良好。",
+      "topics": [
+        "吸引力",
+        "LEDライト"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "6f9094607808330d",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "ゴミの吸引力と軽量性を評価。子どもも扱いやすいと好評。",
+      "summary_zh": "吸尘效果好，机身轻便，儿童也能轻松使用，用户评价积极。",
+      "topics": [
+        "吸引力",
+        "重量"
       ],
       "action_hint": null
     }
