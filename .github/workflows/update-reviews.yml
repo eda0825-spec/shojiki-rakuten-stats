@@ -54,6 +54,9 @@ jobs:
           REVIEW_SLEEP_SEC: '1.5'
           REVIEW_MAX_PAGES: '200'
 
+      - name: Build lightweight review JSON for LP (rakuten-reviews-sh-j00*.json)
+        run: python3 build-lightweight-reviews.py
+
       - name: Categorize reviews via Claude API
         run: python3 categorize-reviews.py
         env:
@@ -73,14 +76,14 @@ jobs:
       - name: Commit and push if changed
         run: |
           set -e
-          changed=$(git status --porcelain reviews-*.json categorized-*.json summary-*.json 2>/dev/null | wc -l)
+          changed=$(git status --porcelain reviews-*.json rakuten-reviews-*.json categorized-*.json summary-*.json 2>/dev/null | wc -l)
           if [ "$changed" -eq 0 ]; then
             echo "No changes to commit."
             exit 0
           fi
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
-          git add reviews-*.json categorized-*.json summary-*.json 2>/dev/null || true
+          git add reviews-*.json rakuten-reviews-*.json categorized-*.json summary-*.json 2>/dev/null || true
           git commit -m "chore: update rakuten reviews + categorization $(date -u +%Y-%m-%d)"
           # Retry on push race: if remote moved during the long categorize step,
           # rebase our single commit on top and retry up to 5 times.
