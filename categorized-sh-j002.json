@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-08-09T20:37:41Z",
+  "updatedAt": "2026-08-09T20:44:18Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-08-09T20:37:41Z",
-  "count": 592,
+  "sourceUpdatedAt": "2026-08-09T20:42:39Z",
+  "count": 593,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -7508,6 +7508,18 @@
         "スリム設計"
       ],
       "action_hint": null
+    },
+    {
+      "id": "b2834e1885c7a09d",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "中国製であることへの違和感を表明。吸引力は普通で特に優れた点は感じられなかった。",
+      "summary_zh": "用户对产品中国制造感到意外，认为吸力一般，无突出性能。",
+      "topics": [
+        "吸引力",
+        "製品表示"
+      ],
+      "action_hint": "パッケージや同封チラシの原産国表示を目立つ位置に明記し、ユーザーの期待値とのギャップを減らす"
     }
   ]
 }
