@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-08-09T14:39:22Z",
+  "updatedAt": "2026-08-09T15:37:01Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-08-09T14:39:22Z",
-  "count": 581,
+  "sourceUpdatedAt": "2026-08-09T15:36:34Z",
+  "count": 592,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -7367,6 +7367,145 @@
         "吸引力",
         "デザイン",
         "梱包"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "2c6c852c6edf18e0",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "充電スタンドへのはまりが悪く充電接点が接触しにくい。吸引力・ローラー分解清掃は好評。",
+      "summary_zh": "充电底座卡合不顺畅，充电触点接触不良。吸力及滚刷拆卸清洁获好评。",
+      "topics": [
+        "充電スタンド",
+        "充電端子",
+        "ローラー"
+      ],
+      "action_hint": "充電スタンドの嵌合精度と充電端子の接触圧を見直し、確実に接続できるよう設計を改善する"
+    },
+    {
+      "id": "112d2039b2dae186",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で付属品により隅まで吸引でき、ストレスなく使用できると好評。",
+      "summary_zh": "机身轻巧，附件可清洁角落，使用顺畅，用户满意度高。",
+      "topics": [
+        "重量",
+        "付属品",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "007339828ef79456",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "操作しやすく子供でも扱える。LEDライトでゴミが見やすいと好評。",
+      "summary_zh": "操作轻便，儿童也可使用。LED照明有助于发现垃圾，获好评。",
+      "topics": [
+        "操作性",
+        "LEDライト"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "bfb54e124df04f7a",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽量で使いやすいが、ダストカップの容量が小さく増量を希望。",
+      "summary_zh": "机身轻便易用，但集尘杯容量偏小，用户希望增大容量。",
+      "topics": [
+        "ダストカップ",
+        "容量"
+      ],
+      "action_hint": "ダストカップの容量拡大、または本体サイズを維持しつつ容積を最大化する設計変更を検討する"
+    },
+    {
+      "id": "0ec7c1a8a02e93f7",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で吸引力が高く、ダストカップは小さいが一人暮らし用途には十分と好評。",
+      "summary_zh": "机身轻巧，吸力强劲，集尘杯虽小但满足单人使用需求，用户评价积极。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "ダストカップ"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "bbaf9d88e52bdce0",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で取り回しやすく、気軽に掃除できる点が高く評価されている。",
+      "summary_zh": "机身轻便，随手可用，用户对其便携性给予高度评价。",
+      "topics": [
+        "重量",
+        "操作性"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "bb5fcaf203f0360c",
+      "category": "improvement",
+      "severity": "low",
+      "summary_ja": "軽量・可動パイプで使いやすいが、クリーニングブラシをダストカップに収納できると便利との要望。",
+      "summary_zh": "机身轻巧，软管可弯曲便于清洁床底，但用户希望清洁刷能附挂于集尘杯上以便随时取用。",
+      "topics": [
+        "クリーニングブラシ",
+        "ダストカップ",
+        "収納",
+        "パイプ"
+      ],
+      "action_hint": "クリーニングブラシをダストカップまたは本体に着脱式で収納できる機構の追加を検討する"
+    },
+    {
+      "id": "2303c4def2437a9e",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で吸引力も問題なく、発送の速さと価格にも満足との評価。",
+      "summary_zh": "机身轻巧，吸力正常，发货迅速，价格实惠，用户整体满意。",
+      "topics": [
+        "重量",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "4082a7e408041ec0",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・コードレスで掃除時間が短縮でき、使い勝手が良いと好評。",
+      "summary_zh": "轻量无线设计获好评，用户表示清扫时间缩短，使用便利。",
+      "topics": [
+        "重量",
+        "コードレス"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "b2ad351c74d4ca77",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・スタイリッシュなデザインと吸引力を高評価。重いダイソンから乗り換え。",
+      "summary_zh": "用户从重型吸尘器换购，对轻量设计、外观及吸引力均给予高度评价。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "デザイン"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "27ae90101535a2d2",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量・スリム・自立機構を高評価。前機種より掃除への意欲が向上したと報告。",
+      "summary_zh": "用户高度评价轻量纤薄机身及自立支撑机构，表示相比前款产品使用积极性提升。",
+      "topics": [
+        "重量",
+        "自立機構",
+        "スリム設計"
       ],
       "action_hint": null
     }
