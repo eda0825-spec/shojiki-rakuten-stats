@@ -149,7 +149,13 @@
       "issue_number": 24,
       "url": "https://github.com/eda0825-spec/shojiki-defects-j002/issues/24",
       "bridged_at": "2026-07-27T04:11:11Z"
+    },
+    "c41808d84636c6ca": {
+      "product": "sh-j001",
+      "issue_number": 14,
+      "url": "https://github.com/eda0825-spec/shojiki-defects-j001/issues/14",
+      "bridged_at": "2026-08-10T02:39:27Z"
     }
   },
-  "updatedAt": "2026-08-09T02:34:07Z"
+  "updatedAt": "2026-08-10T02:39:27Z"
 }
