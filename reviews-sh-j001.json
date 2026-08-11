@@ -1,19 +1,31 @@
 {
-  "updatedAt": "2026-08-11T22:49:26Z",
+  "updatedAt": "2026-08-11T23:47:21Z",
   "product": "sh-j001",
   "itemNumber": "10000000",
   "summary": {
     "rating": 4.56,
     "count": 1382
   },
-  "reviewsCount": 1386,
-  "activeCount": 1371,
+  "reviewsCount": 1387,
+  "activeCount": 1372,
   "removedCount": 15,
-  "newReviewsThisRun": 0,
+  "newReviewsThisRun": 1,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
   "reviews": [
+    {
+      "id": "3620f7dbdfa1315c",
+      "rating": 4,
+      "postDate": "2026-08-12",
+      "title": null,
+      "body": "今までダイ◯ンの掃除機を使ってましたが、バッテリーがついにダメになったのか、ハイパワーで動かなくなったのと、通常モードでも最後吐き出してしまうため、買い替えを検討し、色々なコードレス掃除機を探しました。\n値段が高いものは辛いなぁと思ったので、手頃な価格で、機能が良いものを調べてました。\n\nゴミ収容量が少ないと声が多かったですが、掃除のたびに捨てる派でしたので、そこは問題なしでしたが、髪の毛などを吸い込んだ時に、ゴム栓の奥？に入り込んでるものは、カップの蓋を開けるだけでは落ちてこず、指を突っ込んで捨てることだけが懸念点です。\n\n通常モードでも十分ゴミを吸い込んでくれるので、今のところ快適に使えています。\nあとはどれくらい使えるかです。\n長持ちしますように。",
+      "nickname": "購入者",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-08-11",
+      "last_seen_at": "2026-08-11"
+    },
     {
       "id": "7d439bd0538b8723",
       "rating": 5,
