@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-08-14T08:19:34Z",
+  "updatedAt": "2026-08-14T10:08:30Z",
   "product": "sh-j002",
-  "sourceUpdatedAt": "2026-08-14T08:19:34Z",
-  "count": 605,
+  "sourceUpdatedAt": "2026-08-14T10:08:17Z",
+  "count": 610,
   "results": [
     {
       "id": "bd2a107dece7694d",
@@ -7669,6 +7669,68 @@
         "耐久性"
       ],
       "action_hint": "長期使用における吸引力維持と主要部品の耐久性について、継続的な品質検証を実施する"
+    },
+    {
+      "id": "edba17966310c81d",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "ダイソンから買い替え。軽量・シンプルデザイン・フローリングでの吸引力に満足。",
+      "summary_zh": "从戴森换购。对轻量化、简洁设计及硬地板吸力表示满意。",
+      "topics": [
+        "重量",
+        "吸引力",
+        "デザイン"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "ef84695206cf23ac",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "軽量で使いやすく、吸引力にも満足との短評。",
+      "summary_zh": "轻便易用，对吸力满意。",
+      "topics": [
+        "重量",
+        "吸引力"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "26db38560f0f4dd5",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "ハンディモードで車内の砂利も吸引でき、吸引力・梱包・配送に満足。",
+      "summary_zh": "手持模式可吸除车内砂砾，对吸力、包装及配送均表示满意。",
+      "topics": [
+        "吸引力",
+        "ハンディモード"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "a39909a72fcd4229",
+      "category": "praise",
+      "severity": "n/a",
+      "summary_ja": "ダイソンから買い替え。軽量・静音性を評価し快適に使用中。",
+      "summary_zh": "从戴森换购，对轻量化和低噪音给予好评，使用顺畅。",
+      "topics": [
+        "重量",
+        "騒音"
+      ],
+      "action_hint": null
+    },
+    {
+      "id": "3f0f75ddb2c499ca",
+      "category": "defect",
+      "severity": "high",
+      "summary_ja": "運転ボタンと強さ切替ボタンの機能が逆に組み付けられており、操作不能に近い状態。販売店対応で交換済み。",
+      "summary_zh": "运转按钮与风量切换按钮功能装反，导致操作异常。疑为组装工序错误，已由销售方安排换货处理。",
+      "topics": [
+        "操作ボタン",
+        "組み付け",
+        "品質管理"
+      ],
+      "action_hint": "ボタン基板または配線の組み付け工程に誤組み防止の検査ステップを追加し、出荷前の動作確認を強化する"
     }
   ]
 }
