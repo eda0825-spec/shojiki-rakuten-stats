@@ -1,18 +1,18 @@
 {
-  "updatedAt": "2026-09-20T21:20:01Z",
+  "updatedAt": "2026-09-20T22:22:34Z",
   "product": "sh-j002",
   "summary": {
     "rating": 4.59,
     "count": 725
   },
   "breakdown": {
-    "5": 460,
-    "4": 241,
-    "3": 22,
-    "2": 3,
-    "1": 1
+    "5": 459,
+    "4": 239,
+    "3": 24,
+    "2": 1,
+    "1": 2
   },
-  "totalRated": 727,
+  "totalRated": 725,
   "reviews": [
     {
       "rating": 4,
