@@ -1,19 +1,31 @@
 {
-  "updatedAt": "2026-10-05T06:43:03Z",
+  "updatedAt": "2026-10-05T15:44:13Z",
   "product": "sh-j001",
   "itemNumber": "10000000",
   "summary": {
     "rating": 4.55,
-    "count": 1797
+    "count": 1802
   },
-  "reviewsCount": 1824,
-  "activeCount": 1796,
+  "reviewsCount": 1825,
+  "activeCount": 1797,
   "removedCount": 28,
   "newReviewsThisRun": 1,
   "removedThisRun": 0,
   "reappearedThisRun": 0,
   "fullRescan": false,
   "reviews": [
+    {
+      "id": "520f6fb40c6e712c",
+      "rating": 5,
+      "postDate": "2026-10-06",
+      "title": null,
+      "body": "綺麗な状態で無事に商品届きました！\nさっそく充電し翌日使いました。\n吸引力も強く吸ったゴミもボタンひとつでゴミ箱へ捨てられます！\nどこにでも自立するので使い勝手がとても良いです！\nバッテリーも簡単に取り外せるのでコンセントの近くに掃除機を持っていく必要もなく充電できるのは良いですね！簡単に分離できハンディとして使えるのも良いです！\nあんま使わないと思うけどソファの背もたれと座面の隙間を掃除するために先の細くなったノズルが付属していたらなぁ…\nあったらよかったなぁ思ったのはこれくらいかな？\nさっと掃除して、ワンタッチでゴミ捨て、どこでも自立して、バッテリー外せばどこでも充電できる \nうん！買ってよかったです！\nカスタマーサービスもしっかりしてそうなのでオススメだと思います！",
+      "nickname": "購入者",
+      "age": null,
+      "gender": null,
+      "first_seen_at": "2026-10-05",
+      "last_seen_at": "2026-10-05"
+    },
     {
       "id": "2d97fd36a512f2e7",
       "rating": 5,
